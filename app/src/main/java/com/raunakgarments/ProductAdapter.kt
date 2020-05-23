@@ -1,5 +1,6 @@
 package com.raunakgarments
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
+
 import java.io.File
 
 class ProductAdapter(private val products: ArrayList<Product>): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        holder.image.setImageResource(R.drawable.image_holder200x200)
+        Picasso.get().load(products[position].photoUrl).into(holder.image)
         holder.title.text = products[position].title
     }
 
