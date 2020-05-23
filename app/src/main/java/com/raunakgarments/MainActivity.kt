@@ -17,8 +17,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val products = arrayListOf<Product>()
+        val imageUrl = "https://i.imgur.com/DvpvklR.png"
         for(i in 0..100) {
-            products.add(Product(title = "red colored cotton t-shirt", photoUrl = "http://via.placeholder.com/200x200", price = 1.99))
+            products.add(Product(title = "red colored cotton t-shirt", photoUrl = imageUrl, price = 1.99))
         }
 
         recyler_view.apply {
