@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Raunak Garments</string>
     <string name="title_activity_main">Raunak Garments</string>
+    <string name="see_availability">See Availability</string>
 </resources>
