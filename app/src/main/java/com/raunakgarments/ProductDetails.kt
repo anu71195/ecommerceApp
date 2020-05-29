@@ -21,7 +21,7 @@ class ProductDetails : AppCompatActivity() {
 
         availability.setOnClickListener {
             AlertDialog.Builder(this)
-                .setMessage("It's in stock!")
+                .setMessage("Hey $title is in stock!")
                 .setPositiveButton("OK") { p0, p1 ->
                 }
                 .create()
