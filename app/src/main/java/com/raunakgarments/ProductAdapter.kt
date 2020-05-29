@@ -29,6 +29,7 @@ class ProductAdapter(private val products: ArrayList<Product>): RecyclerView.Ada
             val intent = Intent(parent.context, ProductDetails::class.java)
             intent.putExtra("title", products[holder.adapterPosition].title)
             intent.putExtra("price", products[holder.adapterPosition].price)
+            intent.putExtra("imageURL", products[holder.adapterPosition].photoUrl)
             parent.context.startActivity(intent)
         }
         return holder
