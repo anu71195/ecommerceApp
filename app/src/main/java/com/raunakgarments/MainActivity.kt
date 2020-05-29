@@ -3,6 +3,7 @@ package com.raunakgarments
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raunakgarments.model.Product
 
@@ -17,13 +18,13 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val products = arrayListOf<Product>()
-        val imageUrl = "https://i.imgur.com/DvpvklR.png"
+        val imageUrl = "https://5.imimg.com/data5/YJ/WF/MY-28712927/mens-t-shirt-500x500.jpg"
         for(i in 0..100) {
             products.add(Product(title = "red colored cotton t-shirt", photoUrl = imageUrl, price = 1.99))
         }
 
         recyler_view.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            layoutManager = GridLayoutManager(this@MainActivity, 2)
             adapter = ProductAdapter(products)
         }
 
