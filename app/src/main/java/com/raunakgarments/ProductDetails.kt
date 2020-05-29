@@ -1,5 +1,6 @@
 package com.raunakgarments
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AlertDialog
@@ -19,7 +20,12 @@ class ProductDetails : AppCompatActivity() {
         product_name.text = title +"\n price = \u20B9" + price
 
         availability.setOnClickListener {
-            AlertDialog.Builder(this).setMessage("It's in stock!").create().show()
+            AlertDialog.Builder(this)
+                .setMessage("It's in stock!")
+                .setPositiveButton("OK") { p0, p1 ->
+                }
+                .create()
+                .show()
         }
     }
 }
