@@ -1,5 +1,6 @@
 package com.raunakgarments
 
+import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,10 @@ class ProductAdapter(private val products: ArrayList<Product>): RecyclerView.Ada
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_row, parent, false)
+        view.setOnClickListener {
+            val intent = Intent(parent.context, ProductDetails::class.java)
+            parent.context.startActivity(intent)
+        }
         return ViewHolder(view)
     }
 
