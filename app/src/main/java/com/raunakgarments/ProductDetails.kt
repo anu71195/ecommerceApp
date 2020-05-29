@@ -11,6 +11,8 @@ class ProductDetails : AppCompatActivity() {
         setContentView(R.layout.product_details)
 
         val title = intent.getStringExtra("title")
-        product_name.text = title
+        val price = intent.getStringArrayExtra("price")
+        val text = title +" with price = "
+        product_name.setText(text)
     }
 }

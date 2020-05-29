@@ -28,6 +28,7 @@ class ProductAdapter(private val products: ArrayList<Product>): RecyclerView.Ada
         view.setOnClickListener {
             val intent = Intent(parent.context, ProductDetails::class.java)
             intent.putExtra("title", products[holder.adapterPosition].title)
+            intent.putExtra("price", products[holder.adapterPosition].price)
             parent.context.startActivity(intent)
         }
         return holder
