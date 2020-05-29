@@ -18,7 +18,7 @@ class ProductAdapter(private val products: ArrayList<Product>): RecyclerView.Ada
         val product = products[position]
         Picasso.get().load(product.photoUrl).into(holder.image)
         holder.title.text = product.title
-        holder.price.text = product.price.toString()
+        holder.price.text = "\u20B9" + product.price.toString()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
