@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val products = arrayListOf<Product>()
         val imageUrl = "https://5.imimg.com/data5/YJ/WF/MY-28712927/mens-t-shirt-500x500.jpg"
         for(i in 0..100) {
-            products.add(Product(title = "red colored cotton t-shirt", photoUrl = imageUrl, price = 1.99))
+            products.add(Product(title = "red colored cotton t-shirt #$i", photoUrl = imageUrl, price = 1.99))
         }
 
         recyler_view.apply {
