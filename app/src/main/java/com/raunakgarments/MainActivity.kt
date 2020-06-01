@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val products = arrayListOf<Product>()
-        val imageUrl = "https://5.imimg.com/data5/YJ/WF/MY-28712927/mens-t-shirt-500x500.jpg"
+        val imageUrl = "https://image.spreadshirtmedia.com/image-server/v1/products/T812A366PA3140PT17X50Y30D12906314FS9045CxFFFFFF/views/2,width=650,height=650,appearanceId=366,backgroundColor=f1f1f1/youve-got-the-keyboard-now-get-the-t-shirt-this-is-the-original-red-t-shirt-from-nord-keyboards-official-clothing-line.jpg"
         for(i in 0..100) {
             products.add(Product(title = "red colored cotton t-shirt #$i", photoUrl = imageUrl, price = 1.99))
         }
