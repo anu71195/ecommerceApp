@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         navigationView.setNavigationItemSelectedListener {
             it.isChecked = true
+            drawerLayout.closeDrawers()
             true
 
         }
