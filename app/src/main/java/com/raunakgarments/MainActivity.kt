@@ -1,10 +1,8 @@
 package com.raunakgarments
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.raunakgarments.model.Product
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,7 +20,11 @@ class MainActivity : AppCompatActivity() {
             it.isChecked = true
             drawerLayout.closeDrawers()
             true
+        }
 
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
         }
 
         val products = arrayListOf<Product>()
