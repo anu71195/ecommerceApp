@@ -1,7 +1,9 @@
 package com.raunakgarments
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.raunakgarments.model.Product
 
@@ -38,5 +40,11 @@ class MainActivity : AppCompatActivity() {
             adapter = ProductAdapter(products)
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        drawerLayout.openDrawer(GravityCompat.START)
+        return true
+//        return super.onOptionsItemSelected(item)
     }
 }
