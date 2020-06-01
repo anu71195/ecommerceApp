@@ -1,14 +1,15 @@
 package com.raunakgarments
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.raunakgarments.model.Product
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +17,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        navigationView.setNavigationItemSelectedListener {
+            it.isChecked = true
+            drawerLayout.closeDrawers()
+            true
+        }
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
+        }
 
         val products = arrayListOf<Product>()
         val imageUrl = "https://5.imimg.com/data5/YJ/WF/MY-28712927/mens-t-shirt-500x500.jpg"
@@ -28,5 +40,11 @@ class MainActivity : AppCompatActivity() {
             adapter = ProductAdapter(products)
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        drawerLayout.openDrawer(GravityCompat.START)
+        return true
+//        return super.onOptionsItemSelected(item)
     }
 }
