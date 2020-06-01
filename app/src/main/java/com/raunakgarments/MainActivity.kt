@@ -18,6 +18,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        navigationView.setNavigationItemSelectedListener {
+            it.isChecked = true
+            true
+
+        }
+
         val products = arrayListOf<Product>()
         val imageUrl = "https://5.imimg.com/data5/YJ/WF/MY-28712927/mens-t-shirt-500x500.jpg"
         for(i in 0..100) {
