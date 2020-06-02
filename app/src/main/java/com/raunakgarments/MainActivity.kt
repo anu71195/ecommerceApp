@@ -18,13 +18,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
-                R.id.actionHome -> d("daniel", "Going Home")
-                R.id.actionJeans -> d("daniel", "jeans was pressed")
-                R.id.actionJeans -> d("daniel", "Shorts was pressed")
-
+                R.id.actionHome -> d("abc", "Going Home")
+                R.id.actionJeans -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.frameLayout, JeansFragment()).commit()
+                    d("abc", "jeans was pressed")
+                }
+                R.id.actionJeans -> d("abc", "Shorts was pressed")
             }
             it.isChecked = true
             drawerLayout.closeDrawers()
