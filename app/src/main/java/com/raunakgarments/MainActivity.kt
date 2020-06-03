@@ -20,13 +20,13 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         supportFragmentManager.beginTransaction().replace(R.id.frameLayout, MainFragment()).commit()
-
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
-                R.id.actionHome -> d("abc", "Going Home")
+                R.id.actionHome -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.frameLayout, MainFragment()).commit()
+                }
                 R.id.actionJeans -> {
                     supportFragmentManager.beginTransaction().replace(R.id.frameLayout, JeansFragment()).commit()
-                    d("abc", "jeans was pressed")
                 }
                 R.id.actionJeans -> d("abc", "Shorts was pressed")
             }
