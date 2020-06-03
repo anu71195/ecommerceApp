@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.actionJeans -> {
                     supportFragmentManager.beginTransaction().replace(R.id.frameLayout, JeansFragment()).commit()
                 }
-                R.id.actionJeans -> d("abc", "Shorts was pressed")
+                R.id.actionShorts -> d("abc", "Shorts was pressed")
             }
             it.isChecked = true
             drawerLayout.closeDrawers()
@@ -39,18 +39,6 @@ class MainActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
         }
-
-        val products = arrayListOf<Product>()
-        val imageUrl = "https://image.spreadshirtmedia.com/image-server/v1/products/T812A366PA3140PT17X50Y30D12906314FS9045CxFFFFFF/views/2,width=650,height=650,appearanceId=366,backgroundColor=f1f1f1/youve-got-the-keyboard-now-get-the-t-shirt-this-is-the-original-red-t-shirt-from-nord-keyboards-official-clothing-line.jpg"
-        for(i in 0..100) {
-            products.add(Product(title = "red colored cotton t-shirt #$i", photoUrl = imageUrl, price = 1.99))
-        }
-
-        recyler_view.apply {
-            layoutManager = GridLayoutManager(this@MainActivity, 2)
-            adapter = ProductAdapter(products)
-        }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
