@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 
 import java.io.File
 
-class ProductAdapter(private val products: ArrayList<Product>): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(private val products: List<Product>): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = products[position]
