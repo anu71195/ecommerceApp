@@ -41,7 +41,7 @@ class MainFragment : Fragment() {
             }
         }
 
-        val categories = listOf("jeans", "Socks", "Suits", "Skirts", "Dresses", "daniel")
+        val categories = listOf("jeans", "Socks", "Suits", "Skirts", "Dresses", "denims", "pants", "Jackets", "shorts", "payjamas")
 
         root.categoriesRecylerView.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
@@ -49,7 +49,6 @@ class MainFragment : Fragment() {
         }
         return root
     }
-
 
 }
 
