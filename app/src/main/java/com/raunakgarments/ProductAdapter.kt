@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.product_row.view.*
 
 import java.io.File
 
@@ -20,6 +21,11 @@ class ProductAdapter(private val products: List<Product>): RecyclerView.Adapter<
         Picasso.get().load(product.photoUrl).into(holder.image)
         holder.title.text = product.title
         holder.price.text = "\u20B9" + product.price.toString()
+        if (product.isOnSale) {
+            holder.saleImageView.visibility = View.VISIBLE
+        } else {
+            holder.saleImageView.visibility = View.GONE
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,5 +47,6 @@ class ProductAdapter(private val products: List<Product>): RecyclerView.Adapter<
         val image: ImageView = itemView.findViewById(R.id.photo)
         val title: TextView = itemView.findViewById(R.id.title)
         val price: TextView = itemView.findViewById(R.id.price)
+        val saleImageView :ImageView = itemView.saleImageView
     }
 }
