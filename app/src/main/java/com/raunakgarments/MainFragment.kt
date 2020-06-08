@@ -29,10 +29,10 @@ class MainFragment : Fragment() {
                 d("anurag","json: $json")
                 val products = Gson().fromJson(json, Array<Product>::class.java).toList()
 
-
                 root.recyler_view.apply {
                     layoutManager = GridLayoutManager(activity, 2)
                     adapter = ProductAdapter(products)
+                    root.progressBar.visibility = View.GONE
                 }
             }
         }
