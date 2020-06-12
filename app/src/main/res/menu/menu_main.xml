@@ -39,10 +39,10 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/action_settings3"
+        android:id="@+id/actionAdmin"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_attach_money_black_24dp"
-        android:title="Settings"
+        android:icon="@drawable/ic_baseline_playlist_add_24"
+        android:title="Admin"
         app:showAsAction="never"/>
 
     </group>
