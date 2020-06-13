@@ -1,5 +1,6 @@
 package com.raunakgarments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
 import android.view.Menu
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
+import com.raunakgarments.cart.CartActivity
 import com.raunakgarments.database.AppDatabase
 import com.raunakgarments.database.DatabaseProduct
 import com.raunakgarments.model.Product
@@ -68,6 +70,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.actionCart) {
+            d("anurag", "going to cart")
+            startActivity(Intent(this, CartActivity::class.java))
             return true
         }
         drawerLayout.openDrawer(GravityCompat.START)
