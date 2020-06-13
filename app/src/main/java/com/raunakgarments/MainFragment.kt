@@ -29,34 +29,6 @@ class MainFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
 
-        doAsync {
-
-            val db = Room.databaseBuilder(
-                requireActivity().applicationContext,
-                AppDatabase::class.java, "productDatabase"
-            ).build()
-            val productsFromDatabase = db.productDao().getAll()
-
-            val products = productsFromDatabase.map {
-                Product(
-                    it.title,
-                    "https://5.imimg.com/data5/RL/WH/OR/SELLER-51723387/blank-tshirt-500x500.jpg",
-                    it.price,
-                    true
-                )
-            }
-            uiThread {
-
-                root.recyler_view.apply {
-                    layoutManager = GridLayoutManager(activity, 2)
-                    adapter = ProductAdapter(products)
-                    root.progressBar.visibility = View.GONE
-                }
-            }
-        }
-
-//        root.progressBar.visibility = View.GONE
-
         val categories = listOf("jeans", "Socks", "Suits", "Skirts", "Dresses", "denims", "pants", "Jackets", "shorts", "payjamas")
 
         root.categoriesRecylerView.apply {
@@ -66,5 +38,37 @@ class MainFragment : Fragment() {
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        searchButton.setOnClickListener {
+
+            doAsync {
+
+                val db = Room.databaseBuilder(
+                    requireActivity().applicationContext,
+                    AppDatabase::class.java, "productDatabase"
+                ).build()
+                val productsFromDatabase = db.productDao().searchFor("%${searchTerm.text}%")
+
+                val products = productsFromDatabase.map {
+                    Product(
+                        it.title,
+                        "https://5.imimg.com/data5/RL/WH/OR/SELLER-51723387/blank-tshirt-500x500.jpg",
+                        it.price,
+                        true
+                    )
+                }
+                uiThread {
+
+                    recyler_view.apply {
+                        layoutManager = GridLayoutManager(activity, 2)
+                        adapter = ProductAdapter(products)
+                    }
+                    progressBar.visibility = View.GONE
+                }
+            }
+        }
+    }
 }
 
