@@ -14,6 +14,9 @@ import com.google.gson.Gson
 import com.raunakgarments.database.AppDatabase
 import com.raunakgarments.database.DatabaseProduct
 import com.raunakgarments.model.Product
+import com.raunakgarments.repos.ProductsRepository
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.android.synthetic.main.fragment_main.view.categoriesRecylerView
@@ -29,7 +32,18 @@ class MainFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
 
-        val categories = listOf("jeans", "Socks", "Suits", "Skirts", "Dresses", "denims", "pants", "Jackets", "shorts", "payjamas")
+        val categories = listOf(
+            "jeans",
+            "Socks",
+            "Suits",
+            "Skirts",
+            "Dresses",
+            "denims",
+            "pants",
+            "Jackets",
+            "shorts",
+            "payjamas"
+        )
 
         root.categoriesRecylerView.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
@@ -40,35 +54,48 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        searchButton.setOnClickListener {
-
-            doAsync {
-
-                val db = Room.databaseBuilder(
-                    requireActivity().applicationContext,
-                    AppDatabase::class.java, "productDatabase"
-                ).build()
-                val productsFromDatabase = db.productDao().searchFor("%${searchTerm.text}%")
-
-                val products = productsFromDatabase.map {
-                    Product(
-                        it.title,
-                        "https://5.imimg.com/data5/RL/WH/OR/SELLER-51723387/blank-tshirt-500x500.jpg",
-                        it.price,
-                        true
-                    )
+        val productsRepository = ProductsRepository().getAllProducts()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                d("Anurag", "success")
+                recyler_view.apply {
+                    layoutManager = GridLayoutManager(activity, 2)
+                    adapter = ProductAdapter(it)
                 }
-                uiThread {
+                progressBar.visibility = View.GONE
+            }, {
+                d("anurag", " error :( ${it.message}")
+            })
 
-                    recyler_view.apply {
-                        layoutManager = GridLayoutManager(activity, 2)
-                        adapter = ProductAdapter(products)
-                    }
-                    progressBar.visibility = View.GONE
-                }
-            }
-        }
+//        searchButton.setOnClickListener {
+//
+//            doAsync {
+//
+//                val db = Room.databaseBuilder(
+//                    requireActivity().applicationContext,
+//                    AppDatabase::class.java, "productDatabase"
+//                ).build()
+//                val productsFromDatabase = db.productDao().searchFor("%${searchTerm.text}%")
+//
+//                val products = productsFromDatabase.map {
+//                    Product(
+//                        it.title,
+//                        "https://5.imimg.com/data5/RL/WH/OR/SELLER-51723387/blank-tshirt-500x500.jpg",
+//                        it.price,
+//                        true
+//                    )
+//                }
+//                uiThread {
+//
+//                    recyler_view.apply {
+//                        layoutManager = GridLayoutManager(activity, 2)
+//                        adapter = ProductAdapter(products)
+//                    }
+//                    progressBar.visibility = View.GONE
+//                }
+//            }
+//        }
     }
 }
 
