@@ -1,10 +1,13 @@
 package com.raunakgarments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +23,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.android.synthetic.main.fragment_main.view.categoriesRecylerView
+import kotlinx.android.synthetic.main.product_row.view.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.net.URL
@@ -61,41 +65,19 @@ class MainFragment : Fragment() {
                 d("Anurag", "success")
                 recyler_view.apply {
                     layoutManager = GridLayoutManager(activity, 2)
-                    adapter = ProductAdapter(it)
+                    adapter = ProductAdapter(it) { extraTitle, extraImageUrl, extraPrice, photoView ->
+                        val intent = Intent(activity, ProductDetails::class.java)
+                        intent.putExtra("title", extraTitle)
+                        intent.putExtra("price", extraPrice)
+                        intent.putExtra("imageURL", extraImageUrl)
+                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity as AppCompatActivity, photoView, "photoToAnimate")
+                        startActivity(intent, options.toBundle())
+                    }
                 }
                 progressBar.visibility = View.GONE
             }, {
                 d("anurag", " error :( ${it.message}")
             })
-
-//        searchButton.setOnClickListener {
-//
-//            doAsync {
-//
-//                val db = Room.databaseBuilder(
-//                    requireActivity().applicationContext,
-//                    AppDatabase::class.java, "productDatabase"
-//                ).build()
-//                val productsFromDatabase = db.productDao().searchFor("%${searchTerm.text}%")
-//
-//                val products = productsFromDatabase.map {
-//                    Product(
-//                        it.title,
-//                        "https://5.imimg.com/data5/RL/WH/OR/SELLER-51723387/blank-tshirt-500x500.jpg",
-//                        it.price,
-//                        true
-//                    )
-//                }
-//                uiThread {
-//
-//                    recyler_view.apply {
-//                        layoutManager = GridLayoutManager(activity, 2)
-//                        adapter = ProductAdapter(products)
-//                    }
-//                    progressBar.visibility = View.GONE
-//                }
-//            }
-//        }
     }
 }
 
