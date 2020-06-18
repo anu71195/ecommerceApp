@@ -70,7 +70,7 @@ class MainFragment : Fragment() {
                         val intent = Intent(activity, ProductDetails::class.java)
                         intent.putExtra("title", extraTitle)
                         intent.putExtra("price", extraPrice)
-                        intent.putExtra("imageURL", extraImageUrl)
+//                        intent.putExtra("imageURL", extraImageUrl)
                         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity as AppCompatActivity, photoView, "photoToAnimate")
                         startActivity(intent, options.toBundle())
                     }
