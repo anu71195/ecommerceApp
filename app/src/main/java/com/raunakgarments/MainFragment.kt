@@ -12,21 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-import com.google.gson.Gson
-import com.raunakgarments.database.AppDatabase
-import com.raunakgarments.database.DatabaseProduct
 import com.raunakgarments.model.Product
 import com.raunakgarments.repos.ProductsRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.android.synthetic.main.fragment_main.view.categoriesRecylerView
-import kotlinx.android.synthetic.main.product_row.view.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
-import java.net.URL
 
 class MainFragment : Fragment() {
     override fun onCreateView(
@@ -59,7 +51,16 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val productsRepository = ProductsRepository().getAllProducts()
-            .subscribeOn(Schedulers.io())
+        loadRecyclerView(productsRepository)
+
+        searchButton.setOnClickListener {
+            loadRecyclerView(ProductsRepository().searchForProducts(searchTerm.text.toString()))
+        }
+    }
+
+    fun loadRecyclerView(productsRepository: Single<List<Product>>) {
+        val single = productsRepository
+        .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 d("Anurag", "success")
