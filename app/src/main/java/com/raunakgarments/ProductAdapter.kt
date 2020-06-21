@@ -8,13 +8,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.raunakgarments.ProductAdapter.ViewHolder
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.product_row.view.*
 
 import java.io.File
 
-class ProductAdapter(private val products: List<Product>): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(
+    private val products: List<Product>,
+    private val onClickProduct: (title: String, photoUrl: String, price: String, photoView: View) -> Unit
+) :
+    RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = products[position]
@@ -26,19 +31,15 @@ class ProductAdapter(private val products: List<Product>): RecyclerView.Adapter<
         } else {
             holder.saleImageView.visibility = View.GONE
         }
+        holder.image.setOnClickListener {
+            onClickProduct.invoke(product.title, product.photoUrl, product.price.toString(), holder.image)
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_row, parent, false)
-        val holder = ViewHolder(view)
-        view.setOnClickListener {
-            val intent = Intent(parent.context, ProductDetails::class.java)
-            intent.putExtra("title", products[holder.adapterPosition].title)
-            intent.putExtra("price", products[holder.adapterPosition].price)
-            intent.putExtra("imageURL", products[holder.adapterPosition].photoUrl)
-            parent.context.startActivity(intent)
-        }
-        return holder
+        return ViewHolder(view)
     }
 
     override fun getItemCount() = products.size
@@ -47,6 +48,6 @@ class ProductAdapter(private val products: List<Product>): RecyclerView.Adapter<
         val image: ImageView = itemView.findViewById(R.id.photo)
         val title: TextView = itemView.findViewById(R.id.title)
         val price: TextView = itemView.findViewById(R.id.price)
-        val saleImageView :ImageView = itemView.saleImageView
+        val saleImageView: ImageView = itemView.saleImageView
     }
 }
