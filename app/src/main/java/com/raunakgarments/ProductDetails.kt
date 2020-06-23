@@ -20,6 +20,11 @@ class ProductDetails : AppCompatActivity() {
 
         val title = intent.getStringExtra("title")
         val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
+
+        addToCartButton.setOnClickListener {
+
+        }
+
 //        Picasso.get().load(intent.getStringExtra("imageURL")).into(photo)
         product_name.text = title +"\n price = \u20B9" + price
 
