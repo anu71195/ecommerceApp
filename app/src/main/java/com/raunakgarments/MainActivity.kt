@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
 import com.raunakgarments.cart.CartActivity
 import com.raunakgarments.database.AppDatabase
+import com.raunakgarments.database.CartModel
 import com.raunakgarments.database.DatabaseProduct
 import com.raunakgarments.model.Product
 
@@ -37,8 +38,16 @@ class MainActivity : AppCompatActivity() {
             db.productDao().InsertAll(DatabaseProduct(null,"Socks - one dozen", 1.99))
             val products = db.productDao().getAll()
 
+            val cart = db.cartDao()
+            cart.InsertAll(CartModel(null, "Test product", 12.99, 3))
+
+            val allCartItems = cart.getAll()
+
             uiThread {
                 d("Anurag", "products size? ${products.size} ${products[0].title}")
+                allCartItems.forEach {
+                    d("Anurag", "item in cart: ${it.title} ${it.price}")
+                }
             }
         }
 
