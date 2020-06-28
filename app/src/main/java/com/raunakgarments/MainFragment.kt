@@ -2,7 +2,8 @@ package com.raunakgarments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log.d
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.raunakgarments.model.Product
-import com.raunakgarments.repos.ProductsRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.categoriesRecylerView
 
@@ -64,8 +60,28 @@ class MainFragment : Fragment() {
         })
 
         viewModel.setup()
+
+        searchButton.setOnClickListener {
+            viewModel.search(searchTerm.text.toString())
+//            loadRecyclerView(ProductsRepository().searchForProducts(searchTerm.text.toString()))
+        }
+
+        searchTerm.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.search(searchTerm.text.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+        })
 //        val productsRepository = ProductsRepository().getAllProducts()
-//        loadRecyclerView(productsRepository)
+
 //
 //        searchButton.setOnClickListener {
 //            loadRecyclerView(ProductsRepository().searchForProducts(searchTerm.text.toString()))

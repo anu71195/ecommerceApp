@@ -16,4 +16,11 @@ class MainFragmentViewModel : ViewModel() {
             products.postValue(ProductsRepository().fetchAllProductsRetrofit())
         }
     }
+
+    fun search(term: String) {
+        viewModelScope.launch(Dispatchers.Default) {
+            products.postValue(ProductsRepository().searchForProducts(term))
+        }
+    }
+
 }
