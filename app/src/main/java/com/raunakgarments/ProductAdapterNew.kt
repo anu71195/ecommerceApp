@@ -50,7 +50,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var image: ImageView = itemView.findViewById(R.id.photo)
         val title: TextView = itemView.findViewById(R.id.title)
         var price: TextView = itemView.findViewById(R.id.price)
-        val saleImageView: ImageView = itemView.saleImageView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DealViewHolder {
@@ -67,6 +66,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
-        Picasso.get().load("https://5.imimg.com/data5/YJ/WF/MY-28712927/mens-t-shirt-500x500.jpg").into(holder.image)
+        Picasso.get().load(product.photoUrl).into(holder.image)
     }
 }
