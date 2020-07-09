@@ -60,11 +60,12 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var price: TextView = itemView.findViewById(R.id.price)
     }
 
-    private fun rvItemSegue(title: String, price: Double, imageUrl: String, photoView: View) {
+    private fun rvItemSegue(product: Product) {
         var intent = Intent(context ,ProductDetails::class.java)
-        intent.putExtra("title", title)
-        intent.putExtra("price", price)
-        intent.putExtra("imageUrl", imageUrl)
+        intent.putExtra("title", product.title)
+        intent.putExtra("price", product.price)
+        intent.putExtra("imageUrl", product.photoUrl)
+        intent.putExtra("description", product.description)
         context.startActivity(intent)
     }
 
@@ -84,6 +85,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
         Picasso.get().load(product.photoUrl).into(holder.image)
-        holder.itemView.setOnClickListener { rvItemSegue(product.title, product.price, product.photoUrl, holder.image) }
+        holder.itemView.setOnClickListener { rvItemSegue(product) }
     }
 }
