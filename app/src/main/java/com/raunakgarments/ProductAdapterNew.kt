@@ -60,17 +60,11 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var price: TextView = itemView.findViewById(R.id.price)
     }
 
-    private fun rvItemSegue(title: String, price: Double, imageUrl: String) {//, photoView: View) {
+    private fun rvItemSegue(title: String, price: Double, imageUrl: String, photoView: View) {
         var intent = Intent(context ,ProductDetails::class.java)
         intent.putExtra("title", title)
         intent.putExtra("price", price)
         intent.putExtra("imageUrl", imageUrl)
-//        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-//            ProductActivityNew() as AppCompatActivity,
-//                    photoView,
-//                    "photoToAnimate"
-//        )
-//        context.startActivity(intent, options.toBundle())
         context.startActivity(intent)
     }
 
@@ -90,6 +84,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
         Picasso.get().load(product.photoUrl).into(holder.image)
-        holder.itemView.setOnClickListener { rvItemSegue(product.title, product.price, product.photoUrl)}//, holder.image) }
+        holder.itemView.setOnClickListener { rvItemSegue(product.title, product.price, product.photoUrl, holder.image) }
     }
 }
