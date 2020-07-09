@@ -2,15 +2,10 @@ package com.raunakgarments.model
 
 import com.google.gson.annotations.SerializedName
 
-class Product(
-    @SerializedName("name")
-    val title: String,
-
-    @SerializedName("photo_url")
-    val photoUrl: String,
-
-    val price: Double,
-
-    val isOnSale: Boolean
-) {
+class Product() {
+    lateinit var id: String
+    lateinit var title: String
+//    lateinit var photoUrl: String
+//    var price: Double = 0.0
+//    var isOnSale: Boolean = false
 }
