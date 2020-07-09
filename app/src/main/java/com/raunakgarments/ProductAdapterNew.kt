@@ -56,19 +56,19 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     public class DealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvTitle: TextView = itemView.findViewById(R.id.title)
         var image: ImageView = itemView.findViewById(R.id.photo)
-        val title: TextView = itemView.findViewById(R.id.title)
         var price: TextView = itemView.findViewById(R.id.price)
     }
 
     private fun rvItemSegue(product: Product) {
+        var description = ""
+        try { description = product.description } finally {}
         var intent = Intent(context ,ProductDetails::class.java)
         intent.putExtra("title", product.title)
         intent.putExtra("price", product.price)
         intent.putExtra("imageUrl", product.photoUrl)
-        intent.putExtra("description", product.description)
+        intent.putExtra("description", description)
         context.startActivity(intent)
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DealViewHolder {
         var context = parent.context

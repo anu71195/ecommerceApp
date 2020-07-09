@@ -8,5 +8,5 @@ class Product() {
     lateinit var title: String
     var price = 0.0
     lateinit var photoUrl: String
-    lateinit var description: String
+    var description: String = ""
 }
