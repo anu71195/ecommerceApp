@@ -3,6 +3,7 @@ package com.raunakgarments
 import android.content.DialogInterface
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log.d
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -17,42 +18,20 @@ import org.jetbrains.anko.Android
 import kotlin.Double.Companion.POSITIVE_INFINITY
 
 class ProductDetails : AppCompatActivity() {
-
-    lateinit var viewModel: ProductDetailsViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.product_details)
 
-        viewModel = ViewModelProvider(this).get(ProductDetailsViewModel::class.java)
-
         val title = intent.getStringExtra("title") ?: ""
         val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
 
-        viewModel.productDetails.observe(this, Observer {
-            product_name.text = it.title
-            Picasso.get().load(it.photoUrl).into(photo)
-            productPrice.text = "₹${it.price}"
-        })
-
-        viewModel.fetchProductDetails(title)
-
         addToCartButton.setOnClickListener {
-
+            d("cart button", "is working")
         }
 
-//        Picasso.get().load(intent.getStringExtra("imageURL")).into(photo)
-        product_name.text = title +"\n price = \u20B9" + price
-
-//        val product = ProductsRepository().getProductByName(title)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({
-//                product_name.text = it.title
-//                Picasso.get().load(it.photoUrl).into(photo)
-//                productPrice.text = "₹${it.price}"
-//            },{})
-
+        Picasso.get().load(intent.getStringExtra("imageUrl")).into(photo)
+        product_name.text = title
+        productPrice.text = "\u20B9" + price
 
         availability.setOnClickListener {
             AlertDialog.Builder(this)
