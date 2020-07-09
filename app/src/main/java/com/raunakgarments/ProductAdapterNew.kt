@@ -1,6 +1,7 @@
 package com.raunakgarments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.util.Log.d
@@ -26,8 +27,9 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     private lateinit var mDatabaseReference: DatabaseReference
     private lateinit var childEventListener: ChildEventListener
     private lateinit var listener: (Product) -> Unit
+    private lateinit var context: Context
 
-    fun populate(ref: String) {
+    fun populate(ref: String, context: Context) {
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         firebaseUtil.openFbReference(ref)
         mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
@@ -48,6 +50,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
             }
         }
         mDatabaseReference.addChildEventListener(childEventListener)
+        this.context = context
     }
 
     public class DealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -56,20 +59,20 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         val title: TextView = itemView.findViewById(R.id.title)
         var price: TextView = itemView.findViewById(R.id.price)
     }
-//
-//    private fun rvItemSegue(title: String, price: Double, imageUrl: String, photoView: View) {
-//        val context = ProductActivityNew().applicationContext
-//        var intent = Intent(context ,ProductDetails::class.java)
-//        intent.putExtra("title", title)
-//        intent.putExtra("price", price)
-//        intent.putExtra("imageUrl", imageUrl)
+
+    private fun rvItemSegue(title: String, price: Double, imageUrl: String) {//, photoView: View) {
+        var intent = Intent(context ,ProductDetails::class.java)
+        intent.putExtra("title", title)
+        intent.putExtra("price", price)
+        intent.putExtra("imageUrl", imageUrl)
 //        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
 //            ProductActivityNew() as AppCompatActivity,
 //                    photoView,
 //                    "photoToAnimate"
 //        )
 //        context.startActivity(intent, options.toBundle())
-//    }
+        context.startActivity(intent)
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DealViewHolder {
@@ -87,6 +90,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
         Picasso.get().load(product.photoUrl).into(holder.image)
-//        holder.itemView.setOnClickListener { rvItemSegue(product.title, product.price, product.photoUrl, holder.image) }
+        holder.itemView.setOnClickListener { rvItemSegue(product.title, product.price, product.photoUrl)}//, holder.image) }
     }
 }

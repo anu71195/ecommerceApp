@@ -22,7 +22,7 @@ class ProductActivityNew : AppCompatActivity() {
 
         var rvProducts = findViewById<RecyclerView>(R.id.rvProducts)
         val adapter = ProductAdapterNew()
-        adapter.populate("products")
+        adapter.populate("products", this)
         rvProducts.adapter = adapter
         var dealsLayoutManager = GridLayoutManager(this, 2)
         rvProducts.layoutManager = dealsLayoutManager
