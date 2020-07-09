@@ -1,5 +1,6 @@
 package com.raunakgarments
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.util.Log.d
 import android.view.LayoutInflater
@@ -34,8 +35,8 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 var td = snapshot.getValue(Product::class.java)
                 if (td != null) {
-                    Log.d("My Products", td.title)
                     td.id = snapshot.key.toString()
+                    d(td.price.toString(),"lksd")
                     products.add(td)
                     notifyItemInserted(products.size-1)
                 }
@@ -48,7 +49,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var tvTitle: TextView = itemView.findViewById(R.id.title)
         var image: ImageView = itemView.findViewById(R.id.photo)
         val title: TextView = itemView.findViewById(R.id.title)
-        val price: TextView = itemView.findViewById(R.id.price)
+        var price: TextView = itemView.findViewById(R.id.price)
         val saleImageView: ImageView = itemView.saleImageView
     }
 
@@ -65,6 +66,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
         var product = products[position]
         holder.tvTitle.setText(product.title)
+        holder.price.text = "\u20b9" + product.price
         Picasso.get().load("https://5.imimg.com/data5/YJ/WF/MY-28712927/mens-t-shirt-500x500.jpg").into(holder.image)
     }
 }
