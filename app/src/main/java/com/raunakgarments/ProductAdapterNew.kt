@@ -68,6 +68,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
         Picasso.get().load(product.photoUrl).into(holder.image)
-        holder.itemView.setOnClickListener { d("anurag","hey") }
+        holder.itemView.setOnClickListener { d("anurag","${product.title}") }
     }
 }
