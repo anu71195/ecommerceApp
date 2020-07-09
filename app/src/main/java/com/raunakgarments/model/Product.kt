@@ -7,6 +7,5 @@ class Product() {
     lateinit var id: String
     lateinit var title: String
     var price = 0.0
-//    lateinit var photoUrl: String
-//    var isOnSale: Boolean = false
+    lateinit var photoUrl: String
 }
