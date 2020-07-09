@@ -21,6 +21,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     private lateinit var mFirebaseDatebase: FirebaseDatabase
     private lateinit var mDatabaseReference: DatabaseReference
     private lateinit var childEventListener: ChildEventListener
+    private lateinit var listener: (Product) -> Unit
 
     fun populate(ref: String) {
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
@@ -67,5 +68,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
         Picasso.get().load(product.photoUrl).into(holder.image)
+        holder.itemView.setOnClickListener { d("anurag","hey") }
     }
 }
