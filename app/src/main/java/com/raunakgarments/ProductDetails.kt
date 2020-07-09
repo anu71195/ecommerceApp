@@ -42,7 +42,8 @@ class ProductDetails : AppCompatActivity() {
 //        }
 
         Picasso.get().load(intent.getStringExtra("imageUrl")).into(photo)
-        product_name.text = title +"\n price = \u20B9" + price
+        product_name.text = title
+        productPrice.text = "\u20B9" + price
 
 //        val product = ProductsRepository().getProductByName(title)
 //            .subscribeOn(Schedulers.io())
