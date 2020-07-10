@@ -52,26 +52,24 @@ class ProductActivityNew : AppCompatActivity() {
             true
         }
 
-//        supportActionBar?.apply {
-//            setDisplayHomeAsUpEnabled(true)
-//            setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
-//        }
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
+        }
 
     }
-//        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-////        if(item.itemId == R.id.actionCart) {
-////            d("anurag", "going to cart")
-////            startActivity(Intent(this, CartActivity::class.java))
-////            return true
-////        }
-//        drawerLayout.openDrawer(GravityCompat.START)
-//        return true
-//        return super.onOptionsItemSelected(item)
-//    }
-////
+        override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.actionCart) {
+            d("anurag", "going to cart")
+            startActivity(Intent(this, CartActivity::class.java))
+            return true
+        }
+        drawerLayoutNew.openDrawer(GravityCompat.START)
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
         return true
     }
-//
 }
