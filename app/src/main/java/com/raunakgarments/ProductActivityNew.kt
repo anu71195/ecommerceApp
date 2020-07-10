@@ -32,7 +32,8 @@ class ProductActivityNew : AppCompatActivity() {
         var manager = supportFragmentManager
         var transaction = manager.beginTransaction()
         transaction.replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
-
+//        drawerLayoutNew.closeDrawers()
+//        drawerLayoutNew.closeDrawer(Gravity.LEFT)
 //        navigationViewNew.setNavigationItemSelectedListener {
 //            when(it.itemId) {
 //                R.id.actionHome -> {

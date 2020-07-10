@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
     
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/product_main_fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#FFFFFF"
