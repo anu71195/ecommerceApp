@@ -46,6 +46,9 @@ class ProductActivityNew : AppCompatActivity() {
 //                    supportFragmentManager.beginTransaction().replace(R.id.frameLayout, AdminFragment()).commit()
                     d("Admin", "Admin was pressed")
                 }
+                R.id.actionCloseNavigationDrawer -> {
+                    drawerLayoutNew.closeDrawers()
+                }
             }
             it.isChecked = true
             drawerLayoutNew.closeDrawers()
