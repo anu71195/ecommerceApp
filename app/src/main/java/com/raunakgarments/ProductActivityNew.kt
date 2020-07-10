@@ -23,22 +23,6 @@ class ProductActivityNew : AppCompatActivity() {
         var manager = supportFragmentManager
         var transaction = manager.beginTransaction()
         transaction.replace(R.id.product_main_fragment, FirstFragment()).commit()
-//        var rvProducts = findViewById<RecyclerView>(R.id.rvProducts)
-//        val adapter = ProductAdapterNew()
-//        adapter.populate("products", this)
-//        rvProducts.adapter = adapter
-//        var dealsLayoutManager = GridLayoutManager(this, 2)
-//        rvProducts.layoutManager = dealsLayoutManager
 
-
-
-
-
-
-//        setSupportActionBar(findViewById(R.id.toolbar))
-//        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
     }
 }
