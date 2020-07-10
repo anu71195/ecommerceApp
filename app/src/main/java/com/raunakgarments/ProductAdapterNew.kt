@@ -30,6 +30,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     private lateinit var context: Context
 
     fun populate(ref: String, context: Context) {
+        d("anurag","I'm populating ${ref}")
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         firebaseUtil.openFbReference(ref)
         mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
@@ -40,17 +41,22 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onChildRemoved(snapshot: DataSnapshot) {}
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                d("anurag","I over here")
                 var td = snapshot.getValue(Product::class.java)
                 if (td != null) {
                     td.id = snapshot.key.toString()
                     d(td.price.toString(),"lksd")
                     products.add(td)
+                    d("anurag", "${td.price.toString()}")
                     notifyItemInserted(products.size-1)
                 }
             }
         }
         mDatabaseReference.addChildEventListener(childEventListener)
+        d("anurag","${products.size}")
         this.context = context
+        d("anurag","I'm populating ended")
+
     }
 
     public class DealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -60,6 +66,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     }
 
     private fun rvItemSegue(product: Product) {
+        d("anurag","I'm segueing")
         var description = ""
         try { description = product.description } finally {}
         var intent = Intent(context ,ProductDetails::class.java)
@@ -77,6 +84,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     }
 
     override fun getItemCount(): Int {
+        d("anurag","${products.size}")
         return products.size
     }
 

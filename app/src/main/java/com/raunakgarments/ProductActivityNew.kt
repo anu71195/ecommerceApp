@@ -20,12 +20,15 @@ class ProductActivityNew : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_new)
 
-        var rvProducts = findViewById<RecyclerView>(R.id.rvProducts)
-        val adapter = ProductAdapterNew()
-        adapter.populate("products", this)
-        rvProducts.adapter = adapter
-        var dealsLayoutManager = GridLayoutManager(this, 2)
-        rvProducts.layoutManager = dealsLayoutManager
+        var manager = supportFragmentManager
+        var transaction = manager.beginTransaction()
+        transaction.replace(R.id.product_main_fragment, FirstFragment()).commit()
+//        var rvProducts = findViewById<RecyclerView>(R.id.rvProducts)
+//        val adapter = ProductAdapterNew()
+//        adapter.populate("products", this)
+//        rvProducts.adapter = adapter
+//        var dealsLayoutManager = GridLayoutManager(this, 2)
+//        rvProducts.layoutManager = dealsLayoutManager
 
 
 

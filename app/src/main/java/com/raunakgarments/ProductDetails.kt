@@ -22,6 +22,8 @@ class ProductDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.product_details)
 
+        d("anurag","I'm at product details")
+
         val title = intent.getStringExtra("title") ?: ""
         val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
         val description = intent.getStringExtra("description") ?: ""
