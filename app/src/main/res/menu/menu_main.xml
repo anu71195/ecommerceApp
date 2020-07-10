@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools = "http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
 
     <item
@@ -10,29 +12,9 @@
         android:title="Home"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/actionJeans"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_attach_money_black_24dp"
-        android:title="Jeans"
-        app:showAsAction="never"/>
 
     <item
-        android:id="@+id/actionShorts"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_attach_money_black_24dp"
-        android:title="Shorts"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/action_settings1"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_attach_money_black_24dp"
-        android:title="Settings"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/action_settings2"
+        android:id="@+id/actionSettings"
         android:orderInCategory="100"
         android:icon="@drawable/ic_attach_money_black_24dp"
         android:title="Settings"
