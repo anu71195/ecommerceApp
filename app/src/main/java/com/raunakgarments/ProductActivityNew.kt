@@ -32,29 +32,25 @@ class ProductActivityNew : AppCompatActivity() {
         var manager = supportFragmentManager
         var transaction = manager.beginTransaction()
         transaction.replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
-//        drawerLayoutNew.closeDrawers()
-//        drawerLayoutNew.closeDrawer(Gravity.LEFT)
-//        navigationViewNew.setNavigationItemSelectedListener {
-//            when(it.itemId) {
-//                R.id.actionHome -> {
-//                    supportFragmentManager.beginTransaction().replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
-//                    d("abc", "Home was pressed")
-//                }
-//                R.id.actionJeans -> {
-////                    supportFragmentManager.beginTransaction().replace(R.id.frameLayout, JeansFragment()).commit()
-//                    d("abc", "Shorts was pressed")
-//                }
-//                R.id.actionShorts -> d("abc", "Shorts was pressed")
-//
-//                R.id.actionAdmin -> {
-////                    supportFragmentManager.beginTransaction().replace(R.id.frameLayout, AdminFragment()).commit()
-//                    d("abc", "Shorts was pressed")
-//                }
-//            }
-//            it.isChecked = true
-//            drawerLayoutNew.closeDrawers()
-//            true
-//        }
+
+        navigationViewNew.setNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.actionHome -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
+                    d("Home", "Home was pressed")
+                }
+                R.id.actionSettings -> {
+                    d("Settings","Settings was pressed")
+                }
+                R.id.actionAdmin -> {
+//                    supportFragmentManager.beginTransaction().replace(R.id.frameLayout, AdminFragment()).commit()
+                    d("Admin", "Admin was pressed")
+                }
+            }
+            it.isChecked = true
+            drawerLayoutNew.closeDrawers()
+            true
+        }
 
 //        supportActionBar?.apply {
 //            setDisplayHomeAsUpEnabled(true)
