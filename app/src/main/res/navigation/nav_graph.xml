@@ -5,7 +5,7 @@
     android:id="@+id/nav_graph">
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.raunakgarments.FirstFragment"
+        android:name="com.raunakgarments.ProductFragmentNew"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 

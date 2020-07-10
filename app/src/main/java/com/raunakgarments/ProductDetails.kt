@@ -22,8 +22,11 @@ class ProductDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.product_details)
 
+        d("anurag","I'm at product details")
+
         val title = intent.getStringExtra("title") ?: ""
         val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
+        val description = intent.getStringExtra("description") ?: ""
 
         addToCartButton.setOnClickListener {
             d("cart button", "is working")
@@ -32,6 +35,7 @@ class ProductDetails : AppCompatActivity() {
         Picasso.get().load(intent.getStringExtra("imageUrl")).into(photo)
         product_name.text = title
         productPrice.text = "\u20B9" + price
+        productDescription.text = description
 
         availability.setOnClickListener {
             AlertDialog.Builder(this)
