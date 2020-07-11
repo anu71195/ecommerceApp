@@ -44,7 +44,6 @@ class ProductActivityNew : AppCompatActivity() {
                 }
                 R.id.actionAdmin -> {
                     supportFragmentManager.beginTransaction().replace(R.id.product_main_fragment, AdminFragment()).commit()
-//                    d("Admin", "Admin was pressed")
                 }
                 R.id.actionCloseNavigationDrawer -> {
                     drawerLayoutNew.closeDrawers()
