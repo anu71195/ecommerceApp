@@ -42,7 +42,7 @@ class AdminFragment : Fragment() {
         submitButtonAdmin.setOnClickListener{
             this.title = productTitleAdmin.text.toString()
             this.price = productPriceAdmin.text.toString().toDouble()
-            this.link = "https://www.amazon.in/images/I/51LQJZu0fYL._AC_UL320_.jpg"
+            this.link = productImageLinkAdmin.text.toString()
             this.description = productDescriptionAdmin.text.toString()
             this.ref = "products"
             this.firebaseUtil = FirebaseUtil()
@@ -50,26 +50,12 @@ class AdminFragment : Fragment() {
             this.mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
             this.mDatabaseReference = firebaseUtil.mDatabaseReference
             saveDeal()
-
-//            doAsync {
-//
-//                val db = Room.databaseBuilder(
-//                    requireActivity().applicationContext,
-//                    AppDatabase::class.java, "productDatabase"
-//                ).build()
-//
-//                db.productDao().InsertAll(DatabaseProduct(null,title.toString(), 12.99))
-//
-//                uiThread {
-//                    d("Anurag", "added $title")
-//                }
-//            }
         }
     }
 
     private fun saveDeal() {
         var product = Product()
-        product.populate(title, 23.0, link, description)
+        product.populate(title, price, link, description)
         mDatabaseReference.push().setValue(product)
         clean()
     }
