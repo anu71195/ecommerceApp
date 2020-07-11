@@ -32,24 +32,29 @@ class AdminFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_admin, container, false
+        return inflater.inflate(
+            R.layout.fragment_admin, container, false
         )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        submitButtonAdmin.setOnClickListener{
-            this.title = productTitleAdmin.text.toString()
-            this.price = productPriceAdmin.text.toString().toDouble()
-            this.link = productImageLinkAdmin.text.toString()
-            this.description = productDescriptionAdmin.text.toString()
-            this.ref = "products"
-            this.firebaseUtil = FirebaseUtil()
-            firebaseUtil.openFbReference(ref)
-            this.mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
-            this.mDatabaseReference = firebaseUtil.mDatabaseReference
-            saveDeal()
+        submitButtonAdmin.setOnClickListener {
+            if (productTitleAdmin.text.toString() == "" || productPriceAdmin.text.toString() == "" || productImageLinkAdmin.text.toString() == "") {
+                clean()
+            } else {
+                this.title = productTitleAdmin.text.toString()
+                this.price = productPriceAdmin.text.toString().toDouble()
+                this.link = productImageLinkAdmin.text.toString()
+                this.description = productDescriptionAdmin.text.toString()
+                this.ref = "products"
+                this.firebaseUtil = FirebaseUtil()
+                firebaseUtil.openFbReference(ref)
+                this.mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
+                this.mDatabaseReference = firebaseUtil.mDatabaseReference
+                saveDeal()
+            }
         }
     }
 
@@ -59,6 +64,7 @@ class AdminFragment : Fragment() {
         mDatabaseReference.push().setValue(product)
         clean()
     }
+
     private fun clean() {
         productTitleAdmin.setText("")
         productPriceAdmin.setText("")
