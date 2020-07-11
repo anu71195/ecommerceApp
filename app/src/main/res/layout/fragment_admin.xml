@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+   <TextView
+       android:id="@+id/textViewAdmin"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Admin Panel"
+       app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       tools:layout_editor_absoluteY="16dp" />
+
+   <EditText
+       android:id="@+id/productTitleAdmin"
+       android:layout_width="362dp"
+       android:layout_height="41dp"
+       android:ems="10"
+       android:hint="Product Title*"
+       android:inputType= "text"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/textViewAdmin" />
+   <EditText
+       android:id="@+id/productPriceAdmin"
+       android:layout_width="362dp"
+       android:layout_height="41dp"
+       android:ems="10"
+       android:hint="Product Price*"
+       android:inputType="numberDecimal"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/productTitleAdmin" />
+   <EditText
+       android:id="@+id/productImageLinkAdmin"
+       android:layout_width="362dp"
+       android:layout_height="41dp"
+       android:ems="10"
+       android:hint="Product Image Link*"
+       android:inputType="text"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/productPriceAdmin" />
+   <EditText
+       android:id="@+id/productDescriptionAdmin"
+       android:layout_width="362dp"
+       android:layout_height="41dp"
+       android:ems="10"
+       android:hint="Product Description"
+       android:inputType="text"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/productImageLinkAdmin" />
+
+   <Button
+       android:id="@+id/submitButtonAdmin"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Add Product"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/productDescriptionAdmin" />
+</androidx.constraintlayout.widget.ConstraintLayout>
