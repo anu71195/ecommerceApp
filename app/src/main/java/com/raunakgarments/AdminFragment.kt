@@ -51,11 +51,6 @@ class AdminFragment : Fragment() {
             this.mDatabaseReference = firebaseUtil.mDatabaseReference
             saveDeal()
 
-            d("Anurag", "Button pressed: with text $title")
-            d("Anurag", "Button pressed: with text $price")
-            d("Anurag", "Button pressed: with text $link")
-            d("Anurag", "Button pressed: with text $description")
-
 //            doAsync {
 //
 //                val db = Room.databaseBuilder(
