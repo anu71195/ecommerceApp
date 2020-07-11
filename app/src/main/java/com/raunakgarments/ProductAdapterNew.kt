@@ -30,7 +30,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     private lateinit var context: Context
 
     fun populate(ref: String, context: Context) {
-        d("anurag","I'm populating ${ref}")
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         firebaseUtil.openFbReference(ref)
         mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
