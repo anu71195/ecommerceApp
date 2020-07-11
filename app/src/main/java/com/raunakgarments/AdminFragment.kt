@@ -21,7 +21,7 @@ class AdminFragment : Fragment() {
 
     lateinit var title: String
     var price: Double = 0.0
-    lateinit var link: String
+    var link = "https://visualsound.com/wp-content/uploads/2019/05/unavailable-image.jpg"
     lateinit var description: String
     lateinit var ref: String
     lateinit var firebaseUtil: FirebaseUtil
@@ -41,12 +41,14 @@ class AdminFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         submitButtonAdmin.setOnClickListener {
-            if (productTitleAdmin.text.toString() == "" || productPriceAdmin.text.toString() == "" || productImageLinkAdmin.text.toString() == "") {
+            if (productTitleAdmin.text.toString() == "" || productPriceAdmin.text.toString() == "") {
                 clean()
             } else {
                 this.title = productTitleAdmin.text.toString()
                 this.price = productPriceAdmin.text.toString().toDouble()
-                this.link = productImageLinkAdmin.text.toString()
+                if (productDescriptionAdmin.text.toString() != "") {
+                    this.link = productImageLinkAdmin.text.toString()
+                }
                 this.description = productDescriptionAdmin.text.toString()
                 this.ref = "products"
                 this.firebaseUtil = FirebaseUtil()
