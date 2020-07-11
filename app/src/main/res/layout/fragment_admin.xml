@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
    <TextView
-       android:id="@+id/textView"
+       android:id="@+id/textViewAdmin"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:text="Admin Panel"
@@ -16,21 +16,48 @@
        tools:layout_editor_absoluteY="16dp" />
 
    <EditText
-       android:id="@+id/productTitle"
+       android:id="@+id/productTitleAdmin"
        android:layout_width="362dp"
        android:layout_height="41dp"
        android:ems="10"
-       android:hint="productTItle"
-       android:inputType="textPersonName"
+       android:hint="Product Title*"
+       android:inputType= "text"
        app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintTop_toBottomOf="@+id/textView" />
+       app:layout_constraintTop_toBottomOf="@+id/textViewAdmin" />
+   <EditText
+       android:id="@+id/productPriceAdmin"
+       android:layout_width="362dp"
+       android:layout_height="41dp"
+       android:ems="10"
+       android:hint="Product Price*"
+       android:inputType="numberDecimal"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/productTitleAdmin" />
+   <EditText
+       android:id="@+id/productImageLinkAdmin"
+       android:layout_width="362dp"
+       android:layout_height="41dp"
+       android:ems="10"
+       android:hint="Product Image Link*"
+       android:inputType="text"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/productPriceAdmin" />
+   <EditText
+       android:id="@+id/productDescriptionAdmin"
+       android:layout_width="362dp"
+       android:layout_height="41dp"
+       android:ems="10"
+       android:hint="Product Description"
+       android:inputType="text"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/productImageLinkAdmin" />
 
    <Button
-       android:id="@+id/submitButton"
+       android:id="@+id/submitButtonAdmin"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:text="Submit"
+       android:text="Add Product"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toBottomOf="@+id/productTitle" />
+       app:layout_constraintTop_toBottomOf="@+id/productDescriptionAdmin" />
 </androidx.constraintlayout.widget.ConstraintLayout>

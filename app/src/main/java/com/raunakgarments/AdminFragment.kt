@@ -26,23 +26,30 @@ class AdminFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        submitButton.setOnClickListener{
-            val title = productTitle.text
+        submitButtonAdmin.setOnClickListener{
+            val title = productTitleAdmin.text.toString()
+            val price = productPriceAdmin.text.toString().toDouble()
+            val link = productImageLinkAdmin.text.toString()
+            val description = productDescriptionAdmin.text.toString()
             d("Anurag", "Button pressed: with text $title")
-
-            doAsync {
-
-                val db = Room.databaseBuilder(
-                    requireActivity().applicationContext,
-                    AppDatabase::class.java, "productDatabase"
-                ).build()
-
-                db.productDao().InsertAll(DatabaseProduct(null,title.toString(), 12.99))
-
-                uiThread {
-                    d("Anurag", "added $title")
-                }
-            }
+            d("Anurag", "Button pressed: with text $price")
+            d("Anurag", "Button pressed: with text $link")
+            d("Anurag", "Button pressed: with text $description")
+            print(title)
+            print(price)
+//            doAsync {
+//
+//                val db = Room.databaseBuilder(
+//                    requireActivity().applicationContext,
+//                    AppDatabase::class.java, "productDatabase"
+//                ).build()
+//
+//                db.productDao().InsertAll(DatabaseProduct(null,title.toString(), 12.99))
+//
+//                uiThread {
+//                    d("Anurag", "added $title")
+//                }
+//            }
         }
     }
 }
