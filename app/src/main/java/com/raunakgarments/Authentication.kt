@@ -46,7 +46,7 @@ class Authentication {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 isAdmin = true
                 d("Admin", "You are an administrator")
-//                showMenu()
+                ProductActivityNew().reloadMenu()
 //                setInsertMenuVisibility()
             }
         }

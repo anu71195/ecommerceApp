@@ -32,19 +32,21 @@ class ProductActivityNew : AppCompatActivity() {
         transaction.replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
 
         navigationViewNew.setNavigationItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.actionHome -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
                     d("Home", "Home was pressed")
                 }
                 R.id.actionProfile -> {
-                    d("Profile","Profile was pressed")
+                    d("Profile", "Profile was pressed")
                 }
                 R.id.actionSettings -> {
-                    d("Settings","Settings was pressed")
+                    d("Settings", "Settings was pressed")
                 }
                 R.id.actionAdmin -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.product_main_fragment, AdminFragment()).commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.product_main_fragment, AdminFragment()).commit()
                 }
                 R.id.actionCloseNavigationDrawer -> {
                     drawerLayoutNew.closeDrawers()
@@ -61,12 +63,13 @@ class ProductActivityNew : AppCompatActivity() {
         }
 
     }
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.actionCart) {
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.actionCart) {
             d("anurag", "going to cart")
             startActivity(Intent(this, CartActivity::class.java))
             return true
-        } else if(item.itemId == R.id.actionLogOut) {
+        } else if (item.itemId == R.id.actionLogOut) {
             d("Logout", "User logged out")
             this.logIn.signOut()
             return true
@@ -82,11 +85,15 @@ class ProductActivityNew : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-       this.logIn.detachListener()
+        this.logIn.detachListener()
     }
 
     override fun onResume() {
         super.onResume()
         this.logIn.attachListener()
+    }
+
+    fun reloadMenu() {
+        invalidateOptionsMenu()
     }
 }
