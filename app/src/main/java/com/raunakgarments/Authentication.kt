@@ -43,9 +43,9 @@ class Authentication {
             .signOut(caller)
             .addOnCompleteListener {
                 d("Log out", "User logged out")
-                detachListener()
+                attachListener()
             }
-        attachListener()
+        detachListener()
     }
     fun attachListener() {
         mFirebaseAuth.addAuthStateListener(mAuthListener)
