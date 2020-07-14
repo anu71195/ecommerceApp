@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "260589739763-f1sadv2tmhlkvkc6m0sv8r5hqg64ah62.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.raunakgarments",
+            "certificate_hash": "dc33ddf0008f81874c408e644a5a7af7b1e11fcf"
+          }
+        },
+        {
           "client_id": "260589739763-jd7mjt13c01k31kel2qkdj82ko7p08bj.apps.googleusercontent.com",
           "client_type": 3
         }
