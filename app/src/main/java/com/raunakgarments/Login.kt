@@ -10,7 +10,7 @@ class Login {
     var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     var mAuthListener: FirebaseAuth.AuthStateListener = FirebaseAuth.AuthStateListener {}
     private var RC_SIGN_IN = 123
-    lateinit var caller: Activity
+    private lateinit var caller: Activity
 
     constructor(caller: Activity) {
         this.caller = caller
@@ -38,6 +38,15 @@ class Login {
         )
     }
 
+    fun signOut() {
+        AuthUI.getInstance()
+            .signOut(caller)
+            .addOnCompleteListener {
+                d("Log out", "User logged out")
+                detachListener()
+            }
+        attachListener()
+    }
     fun attachListener() {
         mFirebaseAuth.addAuthStateListener(mAuthListener)
     }

@@ -71,6 +71,10 @@ class ProductActivityNew : AppCompatActivity() {
             d("anurag", "going to cart")
             startActivity(Intent(this, CartActivity::class.java))
             return true
+        } else if(item.itemId == R.id.actionLogOut) {
+            d("Logout", "User logged out")
+            this.logIn.signOut()
+            return true
         }
         drawerLayoutNew.openDrawer(GravityCompat.START)
         return super.onOptionsItemSelected(item)
