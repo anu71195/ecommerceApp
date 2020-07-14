@@ -4,6 +4,7 @@ import android.app.Activity
 import android.util.Log.d
 import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -19,9 +20,12 @@ class Authentication {
     private lateinit var caller: Activity
     var isAdmin = false
     var userId = ""
+    lateinit var navView: NavigationView
 
-    constructor(caller: Activity) {
+    constructor(caller: Activity, navView: NavigationView) {
         this.caller = caller
+        this.navView = navView
+        setAdminOptionDrawerVisibility(false)
         mFirebaseAuth = FirebaseAuth.getInstance()
         mAuthListener = FirebaseAuth.AuthStateListener {
             if (mFirebaseAuth.currentUser == null) {
@@ -46,8 +50,8 @@ class Authentication {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 isAdmin = true
                 d("Admin", "You are an administrator")
-                ProductActivityNew().reloadMenu()
-//                setInsertMenuVisibility()
+//                ProductActivityNew().reloadMenu()
+                setAdminOptionDrawerVisibility(true)
             }
         }
         adminRef.addChildEventListener(childEventListener)
@@ -76,6 +80,7 @@ class Authentication {
                 attachListener()
             }
         detachListener()
+        setAdminOptionDrawerVisibility(false)
     }
 
     fun attachListener() {
@@ -84,6 +89,10 @@ class Authentication {
 
     fun detachListener() {
         mFirebaseAuth.removeAuthStateListener(mAuthListener)
+    }
+
+    fun setAdminOptionDrawerVisibility(isVisible: Boolean) {
+        this.navView.menu.findItem(R.id.actionAdmin).isVisible = isVisible
     }
 
 }

@@ -7,6 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import com.google.android.material.internal.NavigationMenuItemView
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -21,16 +23,19 @@ class ProductActivityNew : AppCompatActivity() {
     private lateinit var mDatabaseReference: DatabaseReference
     private lateinit var mChildListener: ChildEventListener
     private lateinit var logIn: Authentication
+    private lateinit var navView: NavigationView
+    private lateinit var navMenu: Menu
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_new)
         setSupportActionBar(toolbarNew)
-        this.logIn = Authentication(this)
+        this.navView = findViewById(R.id.navigationViewNew)
+        this.navMenu = this.navView.menu
+        this.logIn = Authentication(this, findViewById<NavigationView>(R.id.navigationViewNew))
 
         var manager = supportFragmentManager
         var transaction = manager.beginTransaction()
         transaction.replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
-
         navigationViewNew.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.actionHome -> {
@@ -94,6 +99,8 @@ class ProductActivityNew : AppCompatActivity() {
     }
 
     fun reloadMenu() {
-        invalidateOptionsMenu()
+        this.invalidateOptionsMenu()
     }
+
+
 }
