@@ -1,5 +1,6 @@
 package com.raunakgarments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
@@ -24,10 +25,12 @@ class ProductActivityNew : AppCompatActivity() {
     private lateinit var mFirebaseDatabase: FirebaseDatabase
     private lateinit var mDatabaseReference: DatabaseReference
     private lateinit var mChildListener: ChildEventListener
+    private lateinit var logIn: Login
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_new)
         setSupportActionBar(toolbarNew)
+        this.logIn = Login(this)
 
         var manager = supportFragmentManager
         var transaction = manager.beginTransaction()
@@ -73,5 +76,15 @@ class ProductActivityNew : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         return true
+    }
+
+    override fun onPause() {
+        super.onPause()
+       this.logIn.detachListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        this.logIn.attachListener()
     }
 }
