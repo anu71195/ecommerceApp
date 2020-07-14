@@ -50,7 +50,7 @@ class Authentication {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 isAdmin = true
                 d("Admin", "You are an administrator")
-//                ProductActivityNew().reloadMenu()
+                reloadMenu()
                 setAdminOptionDrawerVisibility(true)
             }
         }
@@ -94,5 +94,10 @@ class Authentication {
     fun setAdminOptionDrawerVisibility(isVisible: Boolean) {
         this.navView.menu.findItem(R.id.actionAdmin).isVisible = isVisible
     }
+
+    fun reloadMenu() {
+        this.caller.invalidateOptionsMenu()
+    }
+
 
 }

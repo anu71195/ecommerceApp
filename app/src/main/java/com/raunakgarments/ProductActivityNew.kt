@@ -66,7 +66,6 @@ class ProductActivityNew : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -97,10 +96,4 @@ class ProductActivityNew : AppCompatActivity() {
         super.onResume()
         this.logIn.attachListener()
     }
-
-    fun reloadMenu() {
-        this.invalidateOptionsMenu()
-    }
-
-
 }
