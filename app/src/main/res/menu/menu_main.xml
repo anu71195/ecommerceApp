@@ -12,6 +12,13 @@
             android:title="Home"
             app:showAsAction="never" />
 
+        <item
+            android:id="@+id/actionProfile"
+            android:icon="@drawable/ic_baseline_account_circle_24_black"
+            android:orderInCategory="100"
+            android:title="Profile"
+            app:showAsAction="never" />
+
 
         <item
             android:id="@+id/actionSettings"

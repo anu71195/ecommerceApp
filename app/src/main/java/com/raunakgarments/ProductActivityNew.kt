@@ -42,6 +42,9 @@ class ProductActivityNew : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
                     d("Home", "Home was pressed")
                 }
+                R.id.actionProfile -> {
+                    d("Profile","Profile was pressed")
+                }
                 R.id.actionSettings -> {
                     d("Settings","Settings was pressed")
                 }
