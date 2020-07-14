@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 
-class Login {
+class Authentication {
     var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     var mAuthListener: FirebaseAuth.AuthStateListener = FirebaseAuth.AuthStateListener {}
     private var RC_SIGN_IN = 123
