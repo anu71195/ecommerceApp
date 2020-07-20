@@ -92,6 +92,6 @@ class ProductAdapterNewAdmin : RecyclerView.Adapter<ProductAdapterNewAdmin.DealV
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
         Picasso.get().load(product.photoUrl).into(holder.image)
-//        holder.itemView.setOnClickListener { rvItemSegue(product) }
+        holder.itemView.setOnClickListener { rvItemSegue(product) }
     }
 }
