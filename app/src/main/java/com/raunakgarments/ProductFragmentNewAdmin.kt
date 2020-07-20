@@ -30,7 +30,7 @@ class ProductFragmentNewAdmin(productActivityNew: ProductActivityNew) : Fragment
             adapter.populate("products", myContext)
         }
         rvProductsAdmin.adapter = adapter
-        val dealsLayoutManager = GridLayoutManager(context, 2)
-        rvProductsAdmin.layoutManager = dealsLayoutManager
+        val productsLayoutManager = GridLayoutManager(context, 2)
+        rvProductsAdmin.layoutManager = productsLayoutManager
     }
 }

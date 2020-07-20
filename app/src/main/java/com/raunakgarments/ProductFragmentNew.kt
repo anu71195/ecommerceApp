@@ -30,7 +30,7 @@ class ProductFragmentNew(productActivityNew: ProductActivityNew) : Fragment() {
             adapter.populate("products", myContext)
         }
         rvProducts.adapter = adapter
-        val dealsLayoutManager = GridLayoutManager(context, 2)
-        rvProducts.layoutManager = dealsLayoutManager
+        val productsLayoutManager = GridLayoutManager(context, 2)
+        rvProducts.layoutManager = productsLayoutManager
     }
 }
