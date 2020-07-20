@@ -1,11 +1,15 @@
 package com.raunakgarments
 
 import android.accounts.AuthenticatorDescription
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.google.firebase.database.DatabaseReference
@@ -19,6 +23,7 @@ import org.jetbrains.anko.uiThread
 
 class AdminFragment : Fragment() {
 
+
     lateinit var title: String
     var price: Double = 0.0
     var link = "https://visualsound.com/wp-content/uploads/2019/05/unavailable-image.jpg"
@@ -27,14 +32,25 @@ class AdminFragment : Fragment() {
     lateinit var firebaseUtil: FirebaseUtil
     lateinit var mFirebaseDatebase: FirebaseDatabase
     lateinit var mDatabaseReference: DatabaseReference
+    private val PICTURE_RESULT = 42
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(
+        var view = inflater.inflate(
             R.layout.fragment_admin, container, false
         )
+        var uploadImageButton: Button =
+            view.findViewById<Button>(R.id.uploadImageButtomAdmin)
+        uploadImageButton.setOnClickListener {
+            var intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/jpeg"
+            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
+            startActivityForResult(Intent.createChooser(intent, "Insert Picture"), PICTURE_RESULT)
+        }
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,6 +75,24 @@ class AdminFragment : Fragment() {
                 this.mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
                 this.mDatabaseReference = firebaseUtil.mDatabaseReference
                 saveDeal()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICTURE_RESULT && resultCode == Activity.RESULT_OK) {
+            var imageUri: Uri? = data?.data
+            val ref =
+                FirebaseUtil().mStorageRef.child("productImages/${imageUri?.lastPathSegment}")
+            if (imageUri != null) {
+                ref.putFile(imageUri).addOnSuccessListener {
+                    ref.downloadUrl.addOnSuccessListener {
+                        var url = it.toString()
+                        d("image url", url)
+                        productImageLinkAdmin.setText(url)
+                    }
+                }
             }
         }
     }
