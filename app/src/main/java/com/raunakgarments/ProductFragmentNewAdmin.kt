@@ -17,20 +17,20 @@ class ProductFragmentNewAdmin(productActivityNew: ProductActivityNew) : Fragment
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_products_new, container, false)
+        return inflater.inflate(R.layout.fragment_products_new_admin, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val rvProducts = view.findViewById<RecyclerView>(R.id.rvProducts)
-        val adapter = ProductAdapterNew()
+        val rvProductsAdmin = view.findViewById<RecyclerView>(R.id.rvProductsAdmin)
+        val adapter = ProductAdapterNewAdmin()
         val myContext = context
 
         if (myContext != null) {
             adapter.populate("products", myContext)
         }
-        rvProducts.adapter = adapter
+        rvProductsAdmin.adapter = adapter
         val dealsLayoutManager = GridLayoutManager(context, 2)
-        rvProducts.layoutManager = dealsLayoutManager
+        rvProductsAdmin.layoutManager = dealsLayoutManager
     }
 }
