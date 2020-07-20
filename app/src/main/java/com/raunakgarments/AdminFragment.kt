@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.google.firebase.database.DatabaseReference
@@ -17,8 +18,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.raunakgarments.database.AppDatabase
 import com.raunakgarments.database.DatabaseProduct
 import com.raunakgarments.model.Product
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_admin.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.doAsyncResult
 import org.jetbrains.anko.uiThread
 
 class AdminFragment : Fragment() {
@@ -33,6 +36,7 @@ class AdminFragment : Fragment() {
     lateinit var mFirebaseDatebase: FirebaseDatabase
     lateinit var mDatabaseReference: DatabaseReference
     private val PICTURE_RESULT = 42
+    lateinit var contextView: View
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,12 +54,12 @@ class AdminFragment : Fragment() {
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
             startActivityForResult(Intent.createChooser(intent, "Insert Picture"), PICTURE_RESULT)
         }
+        this.contextView = view
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         submitButtonAdmin.setOnClickListener {
             if (productTitleAdmin.text.toString() == "" || productPriceAdmin.text.toString() == "") {
                 clean()
@@ -91,6 +95,7 @@ class AdminFragment : Fragment() {
                         var url = it.toString()
                         d("image url", url)
                         productImageLinkAdmin.setText(url)
+                        Picasso.get().load(url).into(uploadedImagePreviewAdmin)
                     }
                 }
             }
