@@ -115,5 +115,6 @@ class AdminFragment : Fragment() {
         productDescriptionAdmin.setText("")
         productImageLinkAdmin.setText("")
         productTitleAdmin.requestFocus()
+        Picasso.get().load("empty view").into(uploadedImagePreviewAdmin)
     }
 }
