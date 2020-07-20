@@ -86,12 +86,6 @@ class ProductActivityNew : AppCompatActivity() {
         return true
     }
 
-    fun getAllProductsForAdmin() {
-        this.supportFragmentManager.beginTransaction()
-            .replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
-    }
-
-
     override fun onPause() {
         super.onPause()
         this.logIn.detachListener()
