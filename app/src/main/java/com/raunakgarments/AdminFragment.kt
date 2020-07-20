@@ -1,6 +1,5 @@
 package com.raunakgarments
 
-import android.accounts.AuthenticatorDescription
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -10,21 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.room.Room
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.raunakgarments.database.AppDatabase
-import com.raunakgarments.database.DatabaseProduct
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_admin.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.doAsyncResult
-import org.jetbrains.anko.uiThread
 
-class AdminFragment : Fragment() {
+class AdminFragment(productActivityNew: ProductActivityNew) : Fragment() {
 
 
     lateinit var title: String
@@ -37,6 +29,7 @@ class AdminFragment : Fragment() {
     lateinit var mDatabaseReference: DatabaseReference
     private val PICTURE_RESULT = 42
     lateinit var contextView: View
+    var context = productActivityNew
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +53,9 @@ class AdminFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        seeAllProductsButtonAdmin.setOnClickListener {
+            context.getAllProductsForAdmin()
+        }
         submitButtonAdmin.setOnClickListener {
             if (productTitleAdmin.text.toString() == "" || productPriceAdmin.text.toString() == "") {
                 clean()

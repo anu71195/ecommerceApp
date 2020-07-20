@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import com.google.android.material.internal.NavigationMenuItemView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
@@ -35,12 +34,12 @@ class ProductActivityNew : AppCompatActivity() {
 
         var manager = supportFragmentManager
         var transaction = manager.beginTransaction()
-        transaction.replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
+        transaction.replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
         navigationViewNew.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.actionHome -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
+                        .replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
                     d("Home", "Home was pressed")
                 }
                 R.id.actionProfile -> {
@@ -51,7 +50,7 @@ class ProductActivityNew : AppCompatActivity() {
                 }
                 R.id.actionAdmin -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.product_main_fragment, AdminFragment()).commit()
+                        .replace(R.id.product_main_fragment, AdminFragment(this)).commit()
                 }
                 R.id.actionCloseNavigationDrawer -> {
                     drawerLayoutNew.closeDrawers()
@@ -86,6 +85,12 @@ class ProductActivityNew : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         return true
     }
+
+    fun getAllProductsForAdmin() {
+        this.supportFragmentManager.beginTransaction()
+            .replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
+    }
+
 
     override fun onPause() {
         super.onPause()
