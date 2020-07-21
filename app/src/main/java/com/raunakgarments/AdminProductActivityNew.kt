@@ -14,10 +14,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.raunakgarments.cart.CartActivity
 import com.raunakgarments.model.Product
 import kotlinx.android.synthetic.main.activity_product_new.*
+import kotlinx.android.synthetic.main.activity_product_new_admin.*
 import kotlinx.android.synthetic.main.main.*
 
 class AdminProductActivityNew : AppCompatActivity() {
-    private lateinit var logIn: Authentication
+    private lateinit var logIn: AuthenticationAdmin
     private lateinit var navView: NavigationView
     private lateinit var navMenu: Menu
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,7 @@ class AdminProductActivityNew : AppCompatActivity() {
         setContentView(R.layout.activity_product_new_admin)
 //        this.navView = findViewById(R.id.navigationViewNew)
 //        this.navMenu = this.navView.menu
-//        this.logIn = Authentication(this, findViewById<NavigationView>(R.id.navigationViewNew))
+        this.logIn = AuthenticationAdmin(this, findViewById<NavigationView>(R.id.navigationViewNewAdmin))
 
 //        var manager = supportFragmentManager
 //        var transaction = manager.beginTransaction()
@@ -62,34 +63,30 @@ class AdminProductActivityNew : AppCompatActivity() {
         }
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (item.itemId == R.id.actionCart) {
-//            d("anurag", "going to cart")
-//            startActivity(Intent(this, CartActivity::class.java))
-//            return true
-//        } else if (item.itemId == R.id.actionLogOut) {
-//            d("Logout", "User logged out")
-//            this.logIn.signOut()
-//            return true
-//        }
-//        drawerLayoutNew.openDrawer(GravityCompat.START)
-//        return super.onOptionsItemSelected(item)
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_toolbar_admin_actionLogOut) {
+            d("Logout", "User logged out")
+            this.logIn.signOut()
+            return true
+        }
+        activity_product_new_admin_drawerLayoutNew.openDrawer(GravityCompat.START)
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar_admin, menu)
         return true
     }
 
-//    override fun onPause() {
-//        super.onPause()
-//        this.logIn.detachListener()
-//        var intent = Intent(this ,ProductActivityNew::class.java)
-//        this.startActivity(intent)
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        this.logIn.attachListener()
-//    }
+    override fun onPause() {
+        super.onPause()
+        this.logIn.detachListener()
+        var intent = Intent(this ,ProductActivityNew::class.java)
+        this.startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        this.logIn.attachListener()
+    }
 }
