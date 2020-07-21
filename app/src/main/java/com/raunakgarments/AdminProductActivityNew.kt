@@ -42,6 +42,16 @@ class AdminProductActivityNew : AppCompatActivity() {
 //                    supportFragmentManager.beginTransaction()
 //                        .replace(R.id.product_main_fragment, AdminFragment(this)).commit()
 //                }
+                R.id.menu_main_admin_actionHome -> {
+                    var intent = Intent(this, ProductActivityNew::class.java)
+                    this.startActivity(intent)
+                }
+                R.id.menu_main_admin_actionAdmin -> {
+                    var intent = Intent(this, AdminProductActivityNew::class.java)
+                    this.startActivity(intent)
+//                    transaction.replace(R.id.product_main_fragment_admin, AdminFragment(this))
+//                        .commit()
+                }
                 R.id.menu_main_admin_actionCloseNavigationDrawer -> {
                     activity_product_new_admin_drawerLayoutNew.closeDrawers()
                 }
@@ -56,6 +66,7 @@ class AdminProductActivityNew : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
         }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         activity_product_new_admin_drawerLayoutNew.openDrawer(GravityCompat.START)
         return super.onOptionsItemSelected(item)
