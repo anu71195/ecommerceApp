@@ -23,7 +23,6 @@ class AdminProductActivityNew : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_new_admin)
-//        setSupportActionBar(toolbarNew)
 //        this.navView = findViewById(R.id.navigationViewNew)
 //        this.navMenu = this.navView.menu
 //        this.logIn = Authentication(this, findViewById<NavigationView>(R.id.navigationViewNew))
