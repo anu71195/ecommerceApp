@@ -42,6 +42,10 @@ class AdminProductActivityNew : AppCompatActivity() {
 //                    supportFragmentManager.beginTransaction()
 //                        .replace(R.id.product_main_fragment, AdminFragment(this)).commit()
 //                }
+                R.id.menu_main_admin_actionAllProducts -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.product_main_fragment_admin, AdminProductFragmentNew(this)).commit()
+                }
                 R.id.menu_main_admin_actionHome -> {
                     var intent = Intent(this, ProductActivityNew::class.java)
                     this.startActivity(intent)
@@ -49,8 +53,6 @@ class AdminProductActivityNew : AppCompatActivity() {
                 R.id.menu_main_admin_actionAdmin -> {
                     var intent = Intent(this, AdminProductActivityNew::class.java)
                     this.startActivity(intent)
-//                    transaction.replace(R.id.product_main_fragment_admin, AdminFragment(this))
-//                        .commit()
                 }
                 R.id.menu_main_admin_actionCloseNavigationDrawer -> {
                     activity_product_new_admin_drawerLayoutNew.closeDrawers()

@@ -12,19 +12,19 @@
             android:title="Home"
             app:showAsAction="never" />
 
-        <item
-            android:id="@+id/menu_main_admin_actionProfile"
-            android:icon="@drawable/ic_baseline_account_circle_24_black"
-            android:orderInCategory="100"
-            android:title="Profile"
-            app:showAsAction="never" />
+<!--        <item-->
+<!--            android:id="@+id/menu_main_admin_actionProfile"-->
+<!--            android:icon="@drawable/ic_baseline_account_circle_24_black"-->
+<!--            android:orderInCategory="100"-->
+<!--            android:title="Profile"-->
+<!--            app:showAsAction="never" />-->
 
 
         <item
-            android:id="@+id/menu_main_admin_actionSettings"
-            android:icon="@drawable/ic_baseline_settings_24_black"
+            android:id="@+id/menu_main_admin_actionAllProducts"
+            android:icon="@drawable/ic_baseline_all_inclusive_24"
             android:orderInCategory="100"
-            android:title="Settings"
+            android:title="All Products"
             app:showAsAction="never" />
 
         <item
