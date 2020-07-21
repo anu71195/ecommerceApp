@@ -30,7 +30,7 @@
             android:parentActivityName="ProductActivityNew" />
 
         <activity
-            android:name=".ProductDetailsAdmin"
+            android:name=".AdminProductDetails"
             android:parentActivityName="ProductActivityNew" />
 
         <activity android:name=".cart.CartActivity" />

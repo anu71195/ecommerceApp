@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.product_details.*
 import org.jetbrains.anko.Android
 import kotlin.Double.Companion.POSITIVE_INFINITY
 
-class ProductDetailsAdmin : AppCompatActivity() {
+class AdminProductDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.product_details)

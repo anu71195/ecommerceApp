@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class ProductFragmentNewAdmin(productActivityNew: ProductActivityNew) : Fragment() {
+class AdminProductFragmentNew(productActivityNew: ProductActivityNew) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,7 +23,7 @@ class ProductFragmentNewAdmin(productActivityNew: ProductActivityNew) : Fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val rvProductsAdmin = view.findViewById<RecyclerView>(R.id.rvProductsAdmin)
-        val adapter = ProductAdapterNewAdmin()
+        val adapter = AdminProductAdapterNew()
         val myContext = context
 
         if (myContext != null) {

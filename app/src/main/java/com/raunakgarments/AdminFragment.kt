@@ -55,7 +55,7 @@ class AdminFragment(productActivityNew: ProductActivityNew) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         seeAllProductsButtonAdmin.setOnClickListener {
             context.supportFragmentManager.beginTransaction()
-                .replace(R.id.product_main_fragment, ProductFragmentNewAdmin(context)).commit()
+                .replace(R.id.product_main_fragment, AdminProductFragmentNew(context)).commit()
         }
         submitButtonAdmin.setOnClickListener {
             if (productTitleAdmin.text.toString() == "" || productPriceAdmin.text.toString() == "") {
