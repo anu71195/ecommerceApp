@@ -18,19 +18,13 @@ import kotlinx.android.synthetic.main.activity_product_new_admin.*
 import kotlinx.android.synthetic.main.main.*
 
 class AdminProductActivityNew : AppCompatActivity() {
-    private lateinit var logIn: AuthenticationAdmin
-    private lateinit var navView: NavigationView
-    private lateinit var navMenu: Menu
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_new_admin)
-//        this.navView = findViewById(R.id.navigationViewNew)
-//        this.navMenu = this.navView.menu
-        this.logIn = AuthenticationAdmin(this, findViewById<NavigationView>(R.id.navigationViewNewAdmin))
 
-//        var manager = supportFragmentManager
-//        var transaction = manager.beginTransaction()
-//        transaction.replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
+        var manager = supportFragmentManager
+        var transaction = manager.beginTransaction()
+        transaction.replace(R.id.product_main_fragment_admin, AdminFragment(this)).commit()
 //        navigationViewNew.setNavigationItemSelectedListener {
 //            when (it.itemId) {
 //                R.id.actionHome -> {
@@ -63,30 +57,8 @@ class AdminProductActivityNew : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_toolbar_admin_actionLogOut) {
-            d("Logout", "User logged out")
-            this.logIn.signOut()
-            return true
-        }
-        activity_product_new_admin_drawerLayoutNew.openDrawer(GravityCompat.START)
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar_admin, menu)
         return true
-    }
-
-    override fun onPause() {
-        super.onPause()
-        this.logIn.detachListener()
-        var intent = Intent(this ,ProductActivityNew::class.java)
-        this.startActivity(intent)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        this.logIn.attachListener()
     }
 }

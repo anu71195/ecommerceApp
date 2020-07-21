@@ -16,7 +16,7 @@ import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_admin.*
 
-class AdminFragment(productActivityNew: ProductActivityNew) : Fragment() {
+class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
 
 
     lateinit var title: String
@@ -55,7 +55,7 @@ class AdminFragment(productActivityNew: ProductActivityNew) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         seeAllProductsButtonAdmin.setOnClickListener {
             context.supportFragmentManager.beginTransaction()
-                .replace(R.id.product_main_fragment, AdminProductFragmentNew(context)).commit()
+                .replace(R.id.product_main_fragment_admin, AdminProductFragmentNew(context)).commit()
         }
         submitButtonAdmin.setOnClickListener {
             if (productTitleAdmin.text.toString() == "" || productPriceAdmin.text.toString() == "") {
