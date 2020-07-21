@@ -28,9 +28,7 @@
         <activity
             android:name=".ProductDetails"
             android:parentActivityName="ProductActivityNew" />
-        <activity
-            android:name=".AdminProductActivityNew"
-            android:parentActivityName="ProductActivityNew" />
+        <activity android:name=".AdminProductActivityNew" />
 
         <activity
             android:name=".AdminProductDetails"

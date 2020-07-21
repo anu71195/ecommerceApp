@@ -25,8 +25,8 @@ class AdminProductActivityNew : AppCompatActivity() {
         var manager = supportFragmentManager
         var transaction = manager.beginTransaction()
         transaction.replace(R.id.product_main_fragment_admin, AdminFragment(this)).commit()
-//        navigationViewNew.setNavigationItemSelectedListener {
-//            when (it.itemId) {
+        navigationViewNewAdmin.setNavigationItemSelectedListener {
+            when (it.itemId) {
 //                R.id.actionHome -> {
 //                    supportFragmentManager.beginTransaction()
 //                        .replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
@@ -42,14 +42,19 @@ class AdminProductActivityNew : AppCompatActivity() {
 //                    supportFragmentManager.beginTransaction()
 //                        .replace(R.id.product_main_fragment, AdminFragment(this)).commit()
 //                }
-//                R.id.actionCloseNavigationDrawer -> {
-//                    drawerLayoutNew.closeDrawers()
-//                }
-//            }
-//            it.isChecked = true
-//            drawerLayoutNew.closeDrawers()
-//            true
-//        }
+                R.id.menu_main_admin_actionCloseNavigationDrawer -> {
+                    drawerLayoutNew.closeDrawers()
+                }
+            }
+            it.isChecked = true
+            activity_product_new_admin_drawerLayoutNew.closeDrawers()
+            true
+        }
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
+        }
     }
 
 }
