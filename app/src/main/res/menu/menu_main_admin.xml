@@ -6,14 +6,14 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/actionHomeAdmin"
+            android:id="@+id/menu_main_admin_actionHome"
             android:icon="@drawable/ic_baseline_home_24_black"
             android:orderInCategory="100"
             android:title="Home"
             app:showAsAction="never" />
 
         <item
-            android:id="@+id/actionProfileAdmin"
+            android:id="@+id/menu_main_admin_actionProfile"
             android:icon="@drawable/ic_baseline_account_circle_24_black"
             android:orderInCategory="100"
             android:title="Profile"
@@ -21,21 +21,21 @@
 
 
         <item
-            android:id="@+id/actionSettingsAdmin"
+            android:id="@+id/menu_main_admin_actionSettings"
             android:icon="@drawable/ic_baseline_settings_24_black"
             android:orderInCategory="100"
             android:title="Settings"
             app:showAsAction="never" />
 
         <item
-            android:id="@+id/actionAdminAdmin"
+            android:id="@+id/menu_main_admin_actionAdmin"
             android:icon="@drawable/ic_baseline_playlist_add_24"
             android:orderInCategory="100"
             android:title="Admin"
             app:showAsAction="never" />
 
         <item
-            android:id="@+id/actionCloseNavigationDrawerAdmin"
+            android:id="@+id/menu_main_admin_actionCloseNavigationDrawer"
             android:icon="@drawable/ic_baseline_arrow_back_24_black"
             android:orderInCategory="100"
             android:title="Return"
