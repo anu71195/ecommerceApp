@@ -43,7 +43,7 @@ class AdminProductActivityNew : AppCompatActivity() {
 //                        .replace(R.id.product_main_fragment, AdminFragment(this)).commit()
 //                }
                 R.id.menu_main_admin_actionCloseNavigationDrawer -> {
-                    drawerLayoutNew.closeDrawers()
+                    activity_product_new_admin_drawerLayoutNew.closeDrawers()
                 }
             }
             it.isChecked = true
@@ -56,5 +56,8 @@ class AdminProductActivityNew : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
         }
     }
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        activity_product_new_admin_drawerLayoutNew.openDrawer(GravityCompat.START)
+        return super.onOptionsItemSelected(item)
+    }
 }
