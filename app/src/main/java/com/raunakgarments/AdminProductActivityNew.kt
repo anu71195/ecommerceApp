@@ -78,7 +78,7 @@ class AdminProductActivityNew : AppCompatActivity() {
 //    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        menuInflater.inflate(R.menu.menu_toolbar_admin, menu)
         return true
     }
 
