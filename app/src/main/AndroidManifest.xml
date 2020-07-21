@@ -28,10 +28,13 @@
         <activity
             android:name=".ProductDetails"
             android:parentActivityName="ProductActivityNew" />
+        <activity
+            android:name=".AdminProductActivityNew"
+            android:parentActivityName="ProductActivityNew" />
 
         <activity
             android:name=".AdminProductDetails"
-            android:parentActivityName="ProductActivityNew" />
+            android:parentActivityName="AdminProductActivityNew" />
 
         <activity android:name=".cart.CartActivity" />
 
