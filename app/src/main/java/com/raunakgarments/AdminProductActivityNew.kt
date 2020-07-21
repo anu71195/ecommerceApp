@@ -50,15 +50,6 @@ class AdminProductActivityNew : AppCompatActivity() {
 //            drawerLayoutNew.closeDrawers()
 //            true
 //        }
-
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
-        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_toolbar_admin, menu)
-        return true
-    }
 }
