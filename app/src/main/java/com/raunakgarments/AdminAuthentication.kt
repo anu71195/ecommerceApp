@@ -11,7 +11,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 
-class AuthenticationAdmin {
+class AdminAuthentication {
     var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     var mAuthListener: FirebaseAuth.AuthStateListener = FirebaseAuth.AuthStateListener {}
     var mFirebaseDatabase = FirebaseDatabase.getInstance()
