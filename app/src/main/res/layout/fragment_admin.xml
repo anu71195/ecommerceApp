@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textViewAdmin"
+        android:id="@+id/fragment_admin_textViewAdmin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Admin Panel"
@@ -29,7 +29,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/productTitleAdmin"
-        app:layout_constraintTop_toBottomOf="@id/textViewAdmin" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_admin_textViewAdmin" />
 
     <EditText
         android:id="@+id/productTitleAdmin"
