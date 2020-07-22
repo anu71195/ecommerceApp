@@ -14,13 +14,14 @@ import com.squareup.picasso.Picasso
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.product_details.*
+import kotlinx.android.synthetic.main.product_details_admin.*
 import org.jetbrains.anko.Android
 import kotlin.Double.Companion.POSITIVE_INFINITY
 
 class AdminProductDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.product_details)
+        setContentView(R.layout.product_details_admin)
 
         d("anurag","I'm at product details")
 
@@ -28,16 +29,16 @@ class AdminProductDetails : AppCompatActivity() {
         val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
         val description = intent.getStringExtra("description") ?: ""
 
-        addToCartButton.setOnClickListener {
+        product_details_admin_addToCartButton.setOnClickListener {
             d("cart button", "is working")
         }
 
-        Picasso.get().load(intent.getStringExtra("imageUrl")).into(photo)
-        product_name.text = title
-        productPrice.text = "\u20B9" + price
-        productDescription.text = description
+        Picasso.get().load(intent.getStringExtra("imageUrl")).into(product_details_admin_photo)
+        product_details_admin_product_name.text = title
+        product_details_admin_productPrice.text = "\u20B9" + price
+        product_details_admin_productDescription.text = description
 
-        availability.setOnClickListener {
+        product_details_admin_availability.setOnClickListener {
             AlertDialog.Builder(this)
                 .setMessage("Hey $title is in stock!")
                 .setPositiveButton("OK") { p0, p1 ->
