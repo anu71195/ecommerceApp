@@ -6,14 +6,30 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
+    <TextView
+        android:id="@+id/product_details_admin_textViewAdmin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#FF0000"
+        android:gravity="center_horizontal"
+        android:text="Admin Panel"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/product_details_admin_scrollView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="16dp" />
+
     <ScrollView
+        android:id="@+id/product_details_admin_scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/product_details_admin_addToCartButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/product_details_admin_textViewAdmin">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
