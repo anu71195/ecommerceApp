@@ -29,9 +29,9 @@ class AdminProductDetails : AppCompatActivity() {
         val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
         val description = intent.getStringExtra("description") ?: ""
 
-        product_details_admin_addToCartButton.setOnClickListener {
-            d("cart button", "is working")
-        }
+//        product_details_admin_addToCartButton.setOnClickListener {
+//            d("cart button", "is working")
+//        }
 
         Picasso.get().load(intent.getStringExtra("imageUrl")).into(product_details_admin_photo)
         product_details_admin_product_name.text = title
