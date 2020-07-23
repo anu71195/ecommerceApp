@@ -7,42 +7,42 @@
     android:fitsSystemWindows="true"
     tools:context=".AdminProductsEdit">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/activity_admin_products_edit_app_bar"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_admin_products_edit_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="?attr/actionBarSize"
+        app:title="@string/app_name"
+        app:titleTextColor="#FFFFFF"
+        android:background="?attr/colorPrimary"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/activity_admin_products_edit_toolbar_layout"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?android:attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/activity_admin_products_edit_textViewAdmin"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:title="@string/app_name"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/activity_admin_products_edit_toolbar">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/activity_admin_products_edit_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+            android:layout_height="wrap_content"
+            android:background="#FF0000"
+            android:gravity="center_horizontal"
+            android:text="Admin Panel"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            tools:layout_editor_absoluteY="16dp" />
+    </FrameLayout>
 
     <include layout="@layout/activity_admin_products_edit_content_scrolling" />
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="@dimen/fab_margin"-->
-<!--        app:layout_anchor="@id/app_bar"-->
-<!--        app:layout_anchorGravity="bottom|end"-->
-<!--        app:srcCompat="@android:drawable/ic_dialog_email" />-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/fab"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="@dimen/fab_margin"-->
+    <!--        app:layout_anchor="@id/app_bar"-->
+    <!--        app:layout_anchorGravity="bottom|end"-->
+    <!--        app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

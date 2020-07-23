@@ -5,6 +5,9 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_admin_products_edit.*
+import kotlinx.android.synthetic.main.activity_admin_products_edit_content_scrolling.*
+import org.jetbrains.anko.topPadding
 
 class AdminProductsEdit : AppCompatActivity() {
 
