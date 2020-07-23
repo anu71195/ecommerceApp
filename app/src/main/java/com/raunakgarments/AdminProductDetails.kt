@@ -1,6 +1,7 @@
 package com.raunakgarments
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log.d
@@ -29,9 +30,10 @@ class AdminProductDetails : AppCompatActivity() {
         val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
         val description = intent.getStringExtra("description") ?: ""
 
-//        product_details_admin_addToCartButton.setOnClickListener {
-//            d("cart button", "is working")
-//        }
+        product_details_admin_EditProduct.setOnClickListener {
+            var intent = Intent(this ,AdminProductsEdit::class.java)
+            this.startActivity(intent)
+        }
 
         Picasso.get().load(intent.getStringExtra("imageUrl")).into(product_details_admin_photo)
         product_details_admin_product_name.text = title

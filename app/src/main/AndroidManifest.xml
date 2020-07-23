@@ -12,28 +12,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AdminProductsEdit"
+            android:label="@string/title_activity_admin_products_edit"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".ProductActivityNew"
             android:label="@string/title_activity_product"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--        <activity-->
-        <!--            android:name=".MainActivity"-->
-        <!--            android:label="@string/title_activity_main"-->
-        <!--            android:theme="@style/AppTheme.NoActionBar">-->
-        <!--        </activity>-->
+        </activity> <!-- <activity -->
+        <!-- android:name=".MainActivity" -->
+        <!-- android:label="@string/title_activity_main" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar"> -->
+        <!-- </activity> -->
         <activity
             android:name=".ProductDetails"
-            android:parentActivityName="ProductActivityNew" />
+            android:parentActivityName=".ProductActivityNew" />
         <activity android:name=".AdminProductActivityNew" />
-
         <activity
             android:name=".AdminProductDetails"
-            android:parentActivityName="AdminProductActivityNew" />
-
+            android:parentActivityName=".AdminProductActivityNew" />
         <activity android:name=".cart.CartActivity" />
 
         <meta-data
