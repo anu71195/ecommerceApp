@@ -8,8 +8,10 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_admin_products_edit.*
 import kotlinx.android.synthetic.main.activity_admin_products_edit_content_scrolling.*
+import org.jetbrains.anko.image
 import org.jetbrains.anko.topPadding
 
 class AdminProductsEdit : AppCompatActivity() {
@@ -19,8 +21,12 @@ class AdminProductsEdit : AppCompatActivity() {
         setContentView(R.layout.activity_admin_products_edit)
         setSupportActionBar(findViewById(R.id.activity_admin_products_edit_toolbar))
         val product = Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
-        d("myProducts", "${product.title.toString()}")
-        d("Anurag", "my products")
+        activity_admin_products_edit_content_scrolling_productTitleAdmin.setText(product.title)
+        activity_admin_products_edit_content_scrolling_productPriceAdmin.setText(product.price.toString())
+        activity_admin_products_edit_content_scrolling_productImageLinkAdmin.setText(product.photoUrl)
+        activity_admin_products_edit_content_scrolling_productDescriptionAdmin.setText(product.description)
+        Picasso.get().load(product.photoUrl).into(activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin)
+
 //        findViewById<CollapsingToolbarLayout>(R.id.activity_admin_products_edit_toolbar_layout).title = title
 //        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

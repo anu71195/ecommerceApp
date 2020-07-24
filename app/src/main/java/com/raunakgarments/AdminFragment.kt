@@ -21,7 +21,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
 
     lateinit var title: String
     var price: Double = 0.0
-    var link = "https://visualsound.com/wp-content/uploads/2019/05/unavailable-image.jpg"
+    var link = "https://firebasestorage.googleapis.com/v0/b/raunak-garments.appspot.com/o/productImages%2F1285051925?alt=media&token=85c30b32-3f21-42e4-8d08-d927f1e76d7f"
     var description: String = ""
     lateinit var ref: String
     lateinit var firebaseUtil: FirebaseUtil
