@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import com.google.gson.Gson
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
 
@@ -66,6 +67,7 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
         intent.putExtra("price", product.price)
         intent.putExtra("imageUrl", product.photoUrl)
         intent.putExtra("description", description)
+        intent.putExtra("product", Gson().toJson(product))
         context.startActivity(intent)
     }
 

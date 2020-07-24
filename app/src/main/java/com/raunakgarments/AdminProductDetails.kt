@@ -9,6 +9,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
+import com.raunakgarments.model.Product
 import com.raunakgarments.productdetails.ProductDetailsViewModel
 import com.raunakgarments.repos.ProductsRepository
 import com.squareup.picasso.Picasso
@@ -24,14 +26,16 @@ class AdminProductDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.product_details_admin)
 
-        d("anurag","I'm at product details")
+        d("anurag", "I'm at product details")
 
         val title = intent.getStringExtra("title") ?: ""
         val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
         val description = intent.getStringExtra("description") ?: ""
+        val product = Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
 
         product_details_admin_EditProduct.setOnClickListener {
-            var intent = Intent(this ,AdminProductsEdit::class.java)
+            var intent = Intent(this, AdminProductsEdit::class.java)
+            intent.putExtra("product", Gson().toJson(product))
             this.startActivity(intent)
         }
 
