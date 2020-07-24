@@ -69,7 +69,7 @@
             app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_productImageLinkAdmin" />
 
         <Button
-            android:id="@+id/activity_admin_products_edit_content_scrolling_submitButtonAdmin"
+            android:id="@+id/activity_admin_products_edit_content_scrolling_AddProductAdmin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -91,7 +91,7 @@
             android:textColor="#FFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_submitButtonAdmin" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_AddProductAdmin" />
 
 
         <ImageView
