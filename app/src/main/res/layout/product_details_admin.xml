@@ -40,7 +40,8 @@
                 android:id="@+id/product_details_admin_photo"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
-                android:scaleType="centerCrop"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
                 android:transitionName="productToAnimate"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -91,15 +92,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-        <Button
-            android:id="@+id/product_details_admin_EditProduct"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/rounded_corners_red"
-            android:text="Edit Product"
-            android:textColor="#FFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/product_details_admin_EditProduct"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/rounded_corners_red"
+        android:text="Edit Product"
+        android:textColor="#FFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
