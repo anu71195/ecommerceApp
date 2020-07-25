@@ -43,7 +43,7 @@ class AdminProductsEdit : AppCompatActivity() {
         dealId = product.id
         d("anurag", "$dealId")
 
-        activity_admin_products_edit_content_scrolling_AddProductAdmin.setOnClickListener {
+        activity_admin_products_edit_content_scrolling_UpdateProductAdmin.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Are you sure?")
             builder.setMessage("")
