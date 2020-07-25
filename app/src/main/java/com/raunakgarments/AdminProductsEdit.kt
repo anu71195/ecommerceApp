@@ -60,6 +60,8 @@ class AdminProductsEdit : AppCompatActivity() {
                 }
                 if (activity_admin_products_edit_content_scrolling_productImageLinkAdmin.text.toString() != "") {
                     product.photoUrl = activity_admin_products_edit_content_scrolling_productImageLinkAdmin.text.toString()
+                } else {
+                    product.photoUrl = "https://firebasestorage.googleapis.com/v0/b/raunak-garments.appspot.com/o/productImages%2F1285051925?alt=media&token=85c30b32-3f21-42e4-8d08-d927f1e76d7f"
                 }
                 mDatabaseReference.child(productId).setValue(product)
                 var intent = Intent(this ,AdminProductActivityNew::class.java)
