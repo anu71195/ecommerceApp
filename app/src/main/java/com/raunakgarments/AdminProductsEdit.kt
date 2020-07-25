@@ -16,12 +16,13 @@ import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_admin_products_edit.*
 import kotlinx.android.synthetic.main.activity_admin_products_edit_content_scrolling.*
+import kotlinx.android.synthetic.main.fragment_admin.*
 import org.jetbrains.anko.image
 import org.jetbrains.anko.topPadding
 
 class AdminProductsEdit : AppCompatActivity() {
 
-    lateinit var dealId: String
+    lateinit var productId: String
     lateinit var mDatabaseReference: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +41,8 @@ class AdminProductsEdit : AppCompatActivity() {
         activity_admin_products_edit_content_scrolling_productDescriptionAdmin.setText(product.description)
         Picasso.get().load(product.photoUrl)
             .into(activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin)
-        dealId = product.id
-        d("anurag", "$dealId")
+        productId = product.id
+        d("anurag", "$productId")
 
         activity_admin_products_edit_content_scrolling_UpdateProductAdmin.setOnClickListener {
             val builder = AlertDialog.Builder(this)
@@ -50,6 +51,20 @@ class AdminProductsEdit : AppCompatActivity() {
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { dialogInterface, which ->
                 Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
+                product.title = activity_admin_products_edit_content_scrolling_productTitleAdmin.text.toString()
+                product.price = activity_admin_products_edit_content_scrolling_productPriceAdmin.text.toString().toDouble()
+                if (activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString() != "") {
+                    product.description = activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString()
+                } else {
+                    product.description = ""
+                }
+                if (activity_admin_products_edit_content_scrolling_productImageLinkAdmin.text.toString() != "") {
+                    product.photoUrl = activity_admin_products_edit_content_scrolling_productImageLinkAdmin.text.toString()
+                }
+                mDatabaseReference.child(productId).setValue(product)
+                var intent = Intent(this ,AdminProductActivityNew::class.java)
+                intent.putExtra("flow", "updateFlow")
+                this.startActivity(intent)
             }
             builder.setNeutralButton("Cancel") { dialogInterface, which ->
                 Toast.makeText(
@@ -73,7 +88,7 @@ class AdminProductsEdit : AppCompatActivity() {
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { dialogInterface, which ->
                 Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
-                mDatabaseReference.child(dealId).removeValue()
+                mDatabaseReference.child(productId).removeValue()
                 var intent = Intent(this ,AdminProductActivityNew::class.java)
                 intent.putExtra("flow", "deleteFlow")
                 this.startActivity(intent)
