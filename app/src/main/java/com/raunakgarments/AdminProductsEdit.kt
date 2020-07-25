@@ -2,8 +2,10 @@ package com.raunakgarments
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log.d
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -24,6 +26,8 @@ class AdminProductsEdit : AppCompatActivity() {
 
     lateinit var productId: String
     lateinit var mDatabaseReference: DatabaseReference
+    private val PICTURE_RESULT = 42
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_products_edit)
@@ -43,6 +47,15 @@ class AdminProductsEdit : AppCompatActivity() {
             .into(activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin)
         productId = product.id
         d("anurag", "$productId")
+
+        var uploadImageButton: Button =
+            findViewById<Button>(R.id.activity_admin_products_edit_content_scrolling_uploadImageButtomAdmin)
+        uploadImageButton.setOnClickListener {
+            var intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/jpeg"
+            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
+            startActivityForResult(Intent.createChooser(intent, "Insert Picture"), PICTURE_RESULT)
+        }
 
         activity_admin_products_edit_content_scrolling_UpdateProductAdmin.setOnClickListener {
             val builder = AlertDialog.Builder(this)
@@ -116,5 +129,24 @@ class AdminProductsEdit : AppCompatActivity() {
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show()
 //        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICTURE_RESULT && resultCode == Activity.RESULT_OK) {
+            var imageUri: Uri? = data?.data
+            val ref =
+                FirebaseUtil().mStorageRef.child("productImages/${imageUri?.lastPathSegment}")
+            if (imageUri != null) {
+                ref.putFile(imageUri).addOnSuccessListener {
+                    ref.downloadUrl.addOnSuccessListener {
+                        var url = it.toString()
+                        d("image url", url)
+                        activity_admin_products_edit_content_scrolling_productImageLinkAdmin.setText(url)
+                        Picasso.get().load(url).into(activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin)
+                    }
+                }
+            }
+        }
     }
 }
