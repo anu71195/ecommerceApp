@@ -5,9 +5,9 @@ import kotlin.properties.Delegates
 
 class Product() {
     public var id = ""
-    lateinit var title: String
+    var title: String = ""
     var price = 0.0
-    lateinit var photoUrl: String
+    var photoUrl: String = ""
     var description: String = ""
 
     fun populate(title: String, price: Double, photoUrl: String, description: String) {
