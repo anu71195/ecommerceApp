@@ -1,5 +1,7 @@
 package com.raunakgarments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
 import android.widget.Toast
@@ -72,7 +74,9 @@ class AdminProductsEdit : AppCompatActivity() {
             builder.setPositiveButton("Yes") { dialogInterface, which ->
                 Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
                 mDatabaseReference.child(dealId).removeValue()
-
+                var intent = Intent(this ,AdminProductActivityNew::class.java)
+                intent.putExtra("flow", "deleteFlow")
+                this.startActivity(intent)
             }
             builder.setNeutralButton("Cancel") { dialogInterface, which ->
                 Toast.makeText(

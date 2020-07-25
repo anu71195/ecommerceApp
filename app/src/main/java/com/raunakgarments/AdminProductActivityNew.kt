@@ -24,9 +24,14 @@ class AdminProductActivityNew : AppCompatActivity() {
 
         var manager = supportFragmentManager
         var transaction = manager.beginTransaction()
-        transaction.replace(R.id.product_main_fragment_admin, AdminFragment(this)).commit()
-        navigationViewNewAdmin.setNavigationItemSelectedListener {
-            when (it.itemId) {
+        var flow = intent.getStringExtra("flow")
+        if (flow == "startFlow") {
+            transaction.replace(R.id.product_main_fragment_admin, AdminFragment(this)).commit()
+        } else if (flow == "deleteFlow") {
+            transaction.replace(R.id.product_main_fragment_admin, AdminProductFragmentNew(this)).commit()
+        }
+            navigationViewNewAdmin.setNavigationItemSelectedListener {
+                when (it.itemId) {
 //                R.id.actionHome -> {
 //                    supportFragmentManager.beginTransaction()
 //                        .replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
@@ -42,26 +47,30 @@ class AdminProductActivityNew : AppCompatActivity() {
 //                    supportFragmentManager.beginTransaction()
 //                        .replace(R.id.product_main_fragment, AdminFragment(this)).commit()
 //                }
-                R.id.menu_main_admin_actionAllProducts -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.product_main_fragment_admin, AdminProductFragmentNew(this)).commit()
+                    R.id.menu_main_admin_actionAllProducts -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(
+                                R.id.product_main_fragment_admin,
+                                AdminProductFragmentNew(this)
+                            )
+                            .commit()
+                    }
+                    R.id.menu_main_admin_actionHome -> {
+                        var intent = Intent(this, ProductActivityNew::class.java)
+                        this.startActivity(intent)
+                    }
+                    R.id.menu_main_admin_actionAdmin -> {
+                        var intent = Intent(this, AdminProductActivityNew::class.java)
+                        this.startActivity(intent)
+                    }
+                    R.id.menu_main_admin_actionCloseNavigationDrawer -> {
+                        activity_product_new_admin_drawerLayoutNew.closeDrawers()
+                    }
                 }
-                R.id.menu_main_admin_actionHome -> {
-                    var intent = Intent(this, ProductActivityNew::class.java)
-                    this.startActivity(intent)
-                }
-                R.id.menu_main_admin_actionAdmin -> {
-                    var intent = Intent(this, AdminProductActivityNew::class.java)
-                    this.startActivity(intent)
-                }
-                R.id.menu_main_admin_actionCloseNavigationDrawer -> {
-                    activity_product_new_admin_drawerLayoutNew.closeDrawers()
-                }
+                it.isChecked = true
+                activity_product_new_admin_drawerLayoutNew.closeDrawers()
+                true
             }
-            it.isChecked = true
-            activity_product_new_admin_drawerLayoutNew.closeDrawers()
-            true
-        }
 
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)

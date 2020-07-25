@@ -50,6 +50,7 @@ class ProductActivityNew : AppCompatActivity() {
                 }
                 R.id.actionAdmin -> {
                     var intent = Intent(this ,AdminProductActivityNew::class.java)
+                    intent.putExtra("flow", "startFlow")
                     this.startActivity(intent)
                 }
                 R.id.actionCloseNavigationDrawer -> {
