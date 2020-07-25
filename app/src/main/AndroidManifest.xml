@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".UserCartActivity"
+            android:label="@string/title_activity_user_cart"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".AdminProductsEdit"
             android:label="@string/title_activity_admin_products_edit"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProductActivityNew"
             android:label="@string/title_activity_product"
