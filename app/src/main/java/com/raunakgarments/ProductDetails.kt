@@ -1,13 +1,16 @@
 package com.raunakgarments
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log.d
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -22,6 +25,7 @@ import com.raunakgarments.repos.ProductsRepository
 import com.squareup.picasso.Picasso
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_product_new.*
 import kotlinx.android.synthetic.main.product_details.*
 import org.jetbrains.anko.Android
 import kotlin.Double.Companion.POSITIVE_INFINITY
@@ -71,6 +75,15 @@ class ProductDetails : AppCompatActivity() {
                 .create()
                 .show()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_toolbar_user_cart_actionCart) {
+            d("anurag", "going to cart")
+            startActivity(Intent(this, UserCartActivity::class.java))
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
