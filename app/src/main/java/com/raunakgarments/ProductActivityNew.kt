@@ -71,7 +71,7 @@ class ProductActivityNew : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.actionCart) {
             d("anurag", "going to cart")
-            startActivity(Intent(this, CartActivity::class.java))
+            startActivity(Intent(this, UserCartActivity::class.java))
             return true
         } else if (item.itemId == R.id.actionLogOut) {
             d("Logout", "User logged out")
