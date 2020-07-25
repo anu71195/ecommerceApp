@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log.d
+import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -70,5 +71,10 @@ class ProductDetails : AppCompatActivity() {
                 .create()
                 .show()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar_user_cart, menu)
+        return true
     }
 }
