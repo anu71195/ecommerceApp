@@ -34,18 +34,19 @@ class ProductDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.product_details)
 
-        firebaseUtil = FirebaseUtil()
-        firebaseUtil.openFbReference("users")
-        mDatabaseReference = firebaseUtil.mDatabaseReference
         mFirebaseAuth = FirebaseAuth.getInstance()
         this.userId = mFirebaseAuth.uid.toString()
 
+        firebaseUtil = FirebaseUtil()
+        firebaseUtil.openFbReference("userCart/" + this.userId)
+        mDatabaseReference = firebaseUtil.mDatabaseReference
 
 
 
-        d("anurag","I'm at product details")
+        d("anurag", "I'm at product details")
 
-        val product = Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
+        val product =
+            Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
         val title = intent.getStringExtra("title") ?: ""
         val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
         val description = intent.getStringExtra("description") ?: ""
@@ -53,6 +54,7 @@ class ProductDetails : AppCompatActivity() {
         addToCartButton.setOnClickListener {
             d("cart button", "clicked")
             d("userId", userId)
+            mDatabaseReference.push().setValue(product)
         }
 
         Picasso.get().load(intent.getStringExtra("imageUrl")).into(photo)
