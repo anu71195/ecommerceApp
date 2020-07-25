@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.product_row.view.*
@@ -73,6 +74,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         intent.putExtra("price", product.price)
         intent.putExtra("imageUrl", product.photoUrl)
         intent.putExtra("description", description)
+        intent.putExtra("product", Gson().toJson(product))
         context.startActivity(intent)
     }
 

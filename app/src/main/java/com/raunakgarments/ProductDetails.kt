@@ -4,10 +4,18 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log.d
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.gson.Gson
+import com.raunakgarments.model.Product
 import com.raunakgarments.productdetails.ProductDetailsViewModel
 import com.raunakgarments.repos.ProductsRepository
 import com.squareup.picasso.Picasso
@@ -18,18 +26,33 @@ import org.jetbrains.anko.Android
 import kotlin.Double.Companion.POSITIVE_INFINITY
 
 class ProductDetails : AppCompatActivity() {
+    var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    lateinit var userId: String
+    lateinit var firebaseUtil: FirebaseUtil
+    lateinit var mDatabaseReference: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.product_details)
 
+        firebaseUtil = FirebaseUtil()
+        firebaseUtil.openFbReference("users")
+        mDatabaseReference = firebaseUtil.mDatabaseReference
+        mFirebaseAuth = FirebaseAuth.getInstance()
+        this.userId = mFirebaseAuth.uid.toString()
+
+
+
+
         d("anurag","I'm at product details")
 
+        val product = Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
         val title = intent.getStringExtra("title") ?: ""
         val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
         val description = intent.getStringExtra("description") ?: ""
 
         addToCartButton.setOnClickListener {
-            d("cart button", "is working")
+            d("cart button", "clicked")
+            d("userId", userId)
         }
 
         Picasso.get().load(intent.getStringExtra("imageUrl")).into(photo)
