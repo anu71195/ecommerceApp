@@ -26,9 +26,7 @@ class AdminProductActivityNew : AppCompatActivity() {
         var transaction = manager.beginTransaction()
         var flow = intent.getStringExtra("flow")
         transaction.replace(R.id.product_main_fragment_admin, AdminFragment(this)).commit()
-        if (flow == "startFlow") {
-            transaction.replace(R.id.product_main_fragment_admin, AdminFragment(this)).commit()
-        } else if (flow == "deleteFlow") {
+       if (flow == "deleteFlow") {
             transaction.replace(R.id.product_main_fragment_admin, AdminProductFragmentNew(this))
                 .commit()
         } else if (flow == "updateFlow") {
