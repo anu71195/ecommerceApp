@@ -16,18 +16,25 @@ import com.squareup.picasso.Picasso
 
 class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
 
-    var cartProduct: MutableList<CartProduct> = ArrayList()
+    var cartProduct: MutableList<Product> = ArrayList()
     private lateinit var mFirebaseDatebase: FirebaseDatabase
     private lateinit var mDatabaseReference: DatabaseReference
+    private lateinit var mFirebaseDatebaseProduct: FirebaseDatabase
+    private lateinit var mDatabaseReferenceProduct: DatabaseReference
     private lateinit var childEventListener: ChildEventListener
+    private lateinit var childEventListenerProduct: ChildEventListener
     private lateinit var listener: (Product) -> Unit
     private lateinit var context: Context
+    var product = Product()
+
 
     fun populate(ref: String, context: Context) {
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
+        var firebaseUtilProduct = FirebaseUtil()
         d("user address", "$ref")
 
         firebaseUtil.openFbReference(ref)
+
         mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
         mDatabaseReference = firebaseUtil.mDatabaseReference
         childEventListener = object : ChildEventListener {
@@ -38,13 +45,45 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 var td = snapshot.value
                 d("tdValu", td.toString())
-                var tdProduct = CartProduct()
-                tdProduct.populate(snapshot.key.toString(), td.toString())
+                var tdCartProduct = CartProduct()
+                tdCartProduct.populate(snapshot.key.toString(), td.toString())
+                firebaseUtilProduct.openFbReference("products/" + tdCartProduct.productId)
+                mFirebaseDatebaseProduct = firebaseUtilProduct.mFirebaseDatabase
+                mDatabaseReferenceProduct = firebaseUtilProduct.mDatabaseReference
+                childEventListenerProduct = object : ChildEventListener {
+                    override fun onCancelled(error: DatabaseError) {}
+                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+                    override fun onChildChanged(
+                        snapshot: DataSnapshot,
+                        previousChildName: String?
+                    ) {
+                    }
 
+                    override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                        var tdProduct = snapshot.value
+                        d("tdProduct", snapshot.value.toString())
+                        d("tdProduct", snapshot.key.toString())
+                        if (snapshot.key.toString() == "title") {
+                            product = Product()
+                            product.title = snapshot.value.toString()
+                        } else if (snapshot.key.toString() == "price") {
+                            product.price = snapshot.value.toString().toDouble()
+                        } else if (snapshot.key.toString() == "description") {
+                            product.description = snapshot.value.toString()
+                        } else if (snapshot.key.toString() == "photoUrl") {
+                            product.photoUrl = snapshot.value.toString()
+                        }
+                    }
+
+                    override fun onChildRemoved(snapshot: DataSnapshot) {}
+                }
+                mDatabaseReferenceProduct.addChildEventListener(childEventListenerProduct)
+                cartProduct.add(product)
+                notifyItemInserted(cartProduct.size - 1)
 //                if (td != null) {
 //                    td.id = snapshot.key.toString()
 //                    cartProduct.add(td)
-//                    notifyItemInserted(cartProduct.size - 1)
+//
 //                }
             }
         }
@@ -77,9 +116,9 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
 
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
         var product = cartProduct[position]
-        holder.tvTitle.text = "slkdf"
+        holder.tvTitle.text = "lsdf"
         holder.price.text = "23"
-        Picasso.get().load("lksdjf").into(holder.image)
+        Picasso.get().load("sdf").into(holder.image)
 //        holder.tvTitle.setText(product.title)
 //        holder.price.text = "\u20b9" + product.price
 //        Picasso.get().load(product.photoUrl).into(holder.image)
