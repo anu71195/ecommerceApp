@@ -35,6 +35,20 @@
             app:showAsAction="never" />
 
         <item
+            android:id="@+id/menu_main_admin_actionOrders"
+            android:icon="@drawable/ic_baseline_ballot_24"
+            android:orderInCategory="100"
+            android:title="Orders"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/menu_main_admin_actionStats"
+            android:icon="@drawable/ic_baseline_bar_chart_24"
+            android:orderInCategory="100"
+            android:title="Stats"
+            app:showAsAction="never" />
+
+        <item
             android:id="@+id/menu_main_admin_actionCloseNavigationDrawer"
             android:icon="@drawable/ic_baseline_arrow_back_24_black"
             android:orderInCategory="100"
