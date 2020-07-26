@@ -22,11 +22,9 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
     private lateinit var mFirebaseDatebaseProduct: FirebaseDatabase
     private lateinit var mDatabaseReferenceProduct: DatabaseReference
     private lateinit var childEventListener: ChildEventListener
-    private lateinit var childEventListenerProduct: ChildEventListener
+//    private lateinit var childEventListenerProduct: ChildEventListener
     private lateinit var listener: (Product) -> Unit
     private lateinit var context: Context
-    var product = Product()
-
 
     fun populate(ref: String, context: Context) {
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
@@ -45,46 +43,24 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 var td = snapshot.value
                 d("tdValu", td.toString())
-                var tdCartProduct = CartProduct()
-                tdCartProduct.populate(snapshot.key.toString(), td.toString())
-                firebaseUtilProduct.openFbReference("products/" + tdCartProduct.productId)
+                d("tdProduct", "Parent")
+                firebaseUtilProduct.openFbReference("products/" + snapshot.value.toString())
                 mFirebaseDatebaseProduct = firebaseUtilProduct.mFirebaseDatabase
                 mDatabaseReferenceProduct = firebaseUtilProduct.mDatabaseReference
-                childEventListenerProduct = object : ChildEventListener {
+                mDatabaseReferenceProduct.addListenerForSingleValueEvent(object: ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {}
-                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-                    override fun onChildChanged(
-                        snapshot: DataSnapshot,
-                        previousChildName: String?
-                    ) {
-                    }
 
-                    override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                        var tdProduct = snapshot.value
-                        d("tdProduct", snapshot.value.toString())
-                        d("tdProduct", snapshot.key.toString())
-                        if (snapshot.key.toString() == "title") {
-                            product = Product()
-                            product.title = snapshot.value.toString()
-                        } else if (snapshot.key.toString() == "price") {
-                            product.price = snapshot.value.toString().toDouble()
-                        } else if (snapshot.key.toString() == "description") {
-                            product.description = snapshot.value.toString()
-                        } else if (snapshot.key.toString() == "photoUrl") {
-                            product.photoUrl = snapshot.value.toString()
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        d("tdproduct", "main")
+                        d("tdproduct", "${snapshot.value}")
+                        var product = snapshot.getValue(Product::class.java)
+                        if (product != null) {
+                            cartProduct.add(product)
+                            notifyItemInserted(cartProduct.size - 1)
                         }
                     }
 
-                    override fun onChildRemoved(snapshot: DataSnapshot) {}
-                }
-                mDatabaseReferenceProduct.addChildEventListener(childEventListenerProduct)
-                cartProduct.add(product)
-                notifyItemInserted(cartProduct.size - 1)
-//                if (td != null) {
-//                    td.id = snapshot.key.toString()
-//                    cartProduct.add(td)
-//
-//                }
+                })
             }
         }
         mDatabaseReference.addChildEventListener(childEventListener)
@@ -115,12 +91,11 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
+        d("tdProduct", "process${cartProduct.size} ${position}")
+
         var product = cartProduct[position]
-        holder.tvTitle.text = "lsdf"
-        holder.price.text = "23"
-        Picasso.get().load("sdf").into(holder.image)
-//        holder.tvTitle.setText(product.title)
-//        holder.price.text = "\u20b9" + product.price
-//        Picasso.get().load(product.photoUrl).into(holder.image)
+        holder.tvTitle.text = product.title
+        holder.price.text = product.price.toString()
+        Picasso.get().load(product.photoUrl).into(holder.image)
     }
 }
