@@ -63,7 +63,7 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                             cartProduct.add(product)
                             totalCost += product.price
                             totalCost= (ceil(totalCost*100))/100
-                            totalCostView.text = totalCost.toString()
+                            totalCostView.text = "Total Cost = " + totalCost.toString()
                             notifyItemInserted(cartProduct.size - 1)
                         }
                     }
