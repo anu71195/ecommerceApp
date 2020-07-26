@@ -37,23 +37,26 @@ class ProductActivityNew : AppCompatActivity() {
         transaction.replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
         navigationViewNew.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.actionHome -> {
+                R.id.menu_main_actionHome -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
                     d("Home", "Home was pressed")
                 }
-                R.id.actionProfile -> {
+                R.id.menu_main_actionProfile -> {
                     d("Profile", "Profile was pressed")
                 }
-                R.id.actionSettings -> {
+                R.id.menu_main_actionSettings -> {
                     d("Settings", "Settings was pressed")
                 }
-                R.id.actionAdmin -> {
+                R.id.menu_main_actionAdmin -> {
                     var intent = Intent(this ,AdminProductActivityNew::class.java)
                     intent.putExtra("flow", "startFlow")
                     this.startActivity(intent)
                 }
-                R.id.actionCloseNavigationDrawer -> {
+                R.id.menu_main_actioncontactUs -> {
+
+                }
+                R.id.menu_main_actionCloseNavigationDrawer -> {
                     drawerLayoutNew.closeDrawers()
                 }
             }

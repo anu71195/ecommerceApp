@@ -92,7 +92,7 @@ class Authentication {
     }
 
     fun setAdminOptionDrawerVisibility(isVisible: Boolean) {
-        this.navView.menu.findItem(R.id.actionAdmin).isVisible = isVisible
+        this.navView.menu.findItem(R.id.menu_main_actionAdmin).isVisible = isVisible
     }
 
     fun reloadMenu() {
