@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +21,7 @@ class UserCartActivityrvFragment : Fragment() {
         mFirebaseAuth = FirebaseAuth.getInstance()
         this.userId = mFirebaseAuth.uid.toString()
     }
-    
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,8 +32,9 @@ class UserCartActivityrvFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val rvProductsAdmin = view.findViewById<RecyclerView>(R.id.fragment_user_cart_activity_rv)
+        val totalCostView = view.findViewById<TextView>(R.id.fragment_user_cart_activity_totalPrice)
         val adapter = UserCartAdapter()
-        context?.let { adapter.populate("userCart/" + this.userId, it) }
+        context?.let { adapter.populate("userCart/" + this.userId, it,totalCostView) }
         fragment_user_cart_activity_rv.adapter = adapter
         val productsLayoutManager = GridLayoutManager(context, 1)
         fragment_user_cart_activity_rv.layoutManager = productsLayoutManager

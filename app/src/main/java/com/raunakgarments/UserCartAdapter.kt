@@ -10,9 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
-import com.raunakgarments.model.CartProduct
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
+import java.lang.Math.ceil
 
 class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
 
@@ -25,8 +25,13 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
 //    private lateinit var childEventListenerProduct: ChildEventListener
     private lateinit var listener: (Product) -> Unit
     private lateinit var context: Context
+    var totalCost = 0.0
 
-    fun populate(ref: String, context: Context) {
+    fun populate(
+        ref: String,
+        context: Context,
+        totalCostView: TextView
+    ) {
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         var firebaseUtilProduct = FirebaseUtil()
         d("user address", "$ref")
@@ -42,8 +47,8 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
             override fun onChildRemoved(snapshot: DataSnapshot) {}
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 var td = snapshot.value
-                d("tdValu", td.toString())
-                d("tdProduct", "Parent")
+                d("anurag", td.toString())
+                d("anurag", "Parent")
                 firebaseUtilProduct.openFbReference("products/" + snapshot.value.toString())
                 mFirebaseDatebaseProduct = firebaseUtilProduct.mFirebaseDatabase
                 mDatabaseReferenceProduct = firebaseUtilProduct.mDatabaseReference
@@ -51,11 +56,14 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                     override fun onCancelled(error: DatabaseError) {}
 
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        d("tdproduct", "main")
-                        d("tdproduct", "${snapshot.value}")
+                        d("anurag", "main")
+                        d("anurag", "${snapshot.value}")
                         var product = snapshot.getValue(Product::class.java)
                         if (product != null) {
                             cartProduct.add(product)
+                            totalCost += product.price
+                            totalCost= (ceil(totalCost*100))/100
+                            totalCostView.text = totalCost.toString()
                             notifyItemInserted(cartProduct.size - 1)
                         }
                     }
@@ -91,7 +99,7 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
-        d("tdProduct", "process${cartProduct.size} ${position}")
+        d("anurag", "process${cartProduct.size} ${position}")
 
         var product = cartProduct[position]
         holder.tvTitle.text = product.title
