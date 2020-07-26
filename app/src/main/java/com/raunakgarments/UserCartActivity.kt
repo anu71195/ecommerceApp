@@ -17,7 +17,10 @@ class UserCartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_cart)
         setSupportActionBar(activity_user_cart_toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
+        }
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.activity_user_cart_frameLayout, UserCartActivityrvFragment()).commit()
