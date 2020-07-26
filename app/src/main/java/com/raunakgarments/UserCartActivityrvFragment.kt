@@ -1,5 +1,6 @@
 package com.raunakgarments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,5 +39,10 @@ class UserCartActivityrvFragment : Fragment() {
         fragment_user_cart_activity_rv.adapter = adapter
         val productsLayoutManager = GridLayoutManager(context, 1)
         fragment_user_cart_activity_rv.layoutManager = productsLayoutManager
+
+        fragment_user_cart_activity_checkoutButton.setOnClickListener {
+            var intent = Intent(activity, CheckoutActivity::class.java)
+            activity?.startActivity(intent)
+        }
     }
 }
