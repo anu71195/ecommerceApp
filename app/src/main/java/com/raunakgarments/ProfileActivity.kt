@@ -46,13 +46,6 @@ class ProfileActivity : AppCompatActivity() {
             activity_profile_content_scrolling_verification_warning.setTextColor(Color.parseColor("#00FF00"))
         }
 
-//        ic_baseline_check_24_green
-
-//        findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
-//        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
