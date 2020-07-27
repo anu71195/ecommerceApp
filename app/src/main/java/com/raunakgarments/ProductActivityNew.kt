@@ -44,6 +44,8 @@ class ProductActivityNew : AppCompatActivity() {
                 }
                 R.id.menu_main_actionProfile -> {
                     d("Profile", "Profile was pressed")
+                    var intent = Intent(this, ProfileActivity::class.java)
+                    this.startActivity(intent)
                 }
                 R.id.menu_main_actionSettings -> {
                     d("Settings", "Settings was pressed")
