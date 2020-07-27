@@ -12,6 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/activity_profile_content_scrolling_verification_warning"
+            android:layout_width="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="#FF0000"
+            android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/activity_profile_content_scrolling_name"
             android:layout_width="match_parent"
@@ -20,7 +29,7 @@
             android:padding="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_profile_content_scrolling_verification_warning" />
 
         <EditText
             android:id="@+id/activity_profile_content_scrolling_phoneNumber"
@@ -36,23 +45,15 @@
         <EditText
             android:id="@+id/activity_profile_content_scrolling_emailAddress"
             android:layout_width="match_parent"
-            android:enabled="false"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
             android:padding="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/activity_profile_content_scrolling_emailVerification"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_profile_content_scrolling_phoneNumber" />
 
-        <ImageView
-            android:id="@+id/activity_profile_content_scrolling_emailVerification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/activity_profile_content_scrolling_emailAddress"
-            app:layout_constraintLeft_toRightOf="@id/activity_profile_content_scrolling_emailAddress"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/activity_profile_content_scrolling_emailAddress" />
 
         <EditText
             android:id="@+id/activity_profile_content_scrolling_address"

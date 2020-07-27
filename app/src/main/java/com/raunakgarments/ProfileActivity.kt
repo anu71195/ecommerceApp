@@ -1,16 +1,22 @@
 package com.raunakgarments
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.util.Log.d
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile_content_scrolling.*
 import org.jetbrains.anko.email
 import org.jetbrains.anko.image
+import org.jetbrains.anko.textColor
 import java.io.File
 
 class ProfileActivity : AppCompatActivity() {
@@ -31,7 +37,14 @@ class ProfileActivity : AppCompatActivity() {
         emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
 
         activity_profile_content_scrolling_emailAddress.setText(userEmailAddress)
-        Picasso.get().load(R.drawable.ic_baseline_check_24_green).into(activity_profile_content_scrolling_emailVerification)
+        d("Email Verification", "$emailVerified")
+        if(!emailVerified) {
+            activity_profile_content_scrolling_verification_warning.setTextColor(Color.parseColor("#FF0000"))
+            activity_profile_content_scrolling_verification_warning.setText("Please Verify your email")
+        } else {
+            activity_profile_content_scrolling_verification_warning.setText("Email iis verified")
+            activity_profile_content_scrolling_verification_warning.setTextColor(Color.parseColor("#00FF00"))
+        }
 
 //        ic_baseline_check_24_green
 
