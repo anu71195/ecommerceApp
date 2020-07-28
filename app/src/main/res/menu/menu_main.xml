@@ -28,17 +28,17 @@
             app:showAsAction="never" />
 
         <item
-            android:id="@+id/menu_main_actionAdmin"
-            android:icon="@drawable/ic_baseline_playlist_add_24"
-            android:orderInCategory="100"
-            android:title="Admin"
-            app:showAsAction="never" />
-
-        <item
             android:id="@+id/menu_main_actioncontactUs"
             android:icon="@drawable/ic_baseline_contact_support_24"
             android:orderInCategory="100"
             android:title="Contact Us"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/menu_main_actionAdmin"
+            android:icon="@drawable/ic_baseline_playlist_add_24"
+            android:orderInCategory="100"
+            android:title="Admin"
             app:showAsAction="never" />
 
         <item
