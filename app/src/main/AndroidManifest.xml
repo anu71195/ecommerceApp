@@ -12,10 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AdminFunctionsActivity"
+            android:label="@string/title_activity_admin_functions"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".ContactUsActivity"
             android:label="@string/title_activity_contact_us"
             android:parentActivityName=".ProductActivityNew"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"

@@ -107,4 +107,5 @@
     <string name="title_activity_profile">ScrollingActivity</string>
     <string name="title_activity_settings">ScrollingActivity</string>
     <string name="title_activity_contact_us">ScrollingActivity</string>
+    <string name="title_activity_admin_functions">ScrollingActivity</string>
 </resources>
