@@ -7,9 +7,16 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.raunakgarments.model.ContactUs
+import kotlinx.android.synthetic.main.activity_admin_contact_us_edit_content_scrolling.*
 import kotlinx.android.synthetic.main.activity_admin_functions_content_scrolling.*
 
 class AdminContactUsEditActivity : AppCompatActivity() {
+
+    lateinit var mFirebaseDatebase: FirebaseDatabase
+    lateinit var mDatabaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +25,18 @@ class AdminContactUsEditActivity : AppCompatActivity() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
+        }
+
+        var firebaseUtil: FirebaseUtil = FirebaseUtil()
+        firebaseUtil.openFbReference("contactUs")
+        this.mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
+        this.mDatabaseReference = firebaseUtil.mDatabaseReference
+
+        activity_admin_contact_us_edit_content_scrolling_UpdateContactDetailsButton.setOnClickListener {
+            var phoneNumber = activity_admin_contact_us_edit_content_scrolling_phoneEditText.text.toString()
+            var emailAddress = activity_admin_contact_us_edit_content_scrolling_emailEditTex.text.toString()
+            var contactUs = ContactUs(phoneNumber, emailAddress)
+            mDatabaseReference.setValue(contactUs)
         }
     }
 
