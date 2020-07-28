@@ -11,9 +11,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.raunakgarments.cart.CartActivity
 import com.raunakgarments.model.Product
-import com.raunakgarments.repos.SettingsActivity
 import kotlinx.android.synthetic.main.activity_product_new.*
 import kotlinx.android.synthetic.main.main.*
 
