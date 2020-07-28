@@ -12,10 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AdminContactUsEditActivity"
+            android:label="@string/title_activity_admin_contact_us_edit"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".AdminFunctionsActivity"
             android:label="@string/title_activity_admin_functions"
             android:parentActivityName=".AdminProductActivityNew"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ContactUsActivity"
             android:label="@string/title_activity_contact_us"

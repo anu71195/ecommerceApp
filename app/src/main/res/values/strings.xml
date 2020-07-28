@@ -108,4 +108,5 @@
     <string name="title_activity_settings">ScrollingActivity</string>
     <string name="title_activity_contact_us">ScrollingActivity</string>
     <string name="title_activity_admin_functions">ScrollingActivity</string>
+    <string name="title_activity_admin_contact_us_edit">ScrollingActivity</string>
 </resources>
