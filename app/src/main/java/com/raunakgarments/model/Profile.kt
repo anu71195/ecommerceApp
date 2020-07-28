@@ -1,12 +1,13 @@
 package com.raunakgarments.model
 
 class Profile {
-    lateinit var userName: String
-    lateinit var number: String
-    lateinit var email: String
-    lateinit var address: String
-    lateinit var pinCode: String
+    var userName: String = ""
+    var number: String = ""
+    var email: String = ""
+    var address: String = ""
+    var pinCode: String = ""
 
+    constructor() {}
     constructor(userName: String, number: String, email: String, address: String, pinCode: String) {
         this.userName = userName
         this.number = number

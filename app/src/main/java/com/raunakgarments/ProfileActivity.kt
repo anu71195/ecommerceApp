@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.raunakgarments.model.Product
 import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile_content_scrolling.*
@@ -54,6 +55,8 @@ class ProfileActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {}
 
             override fun onDataChange(snapshot: DataSnapshot) {
+                var profile = snapshot.getValue(Profile::class.java)
+
                 d("userProfile", snapshot.key)
                 d("userProfile", snapshot.value.toString())
             }
