@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.raunakgarments.cart.CartActivity
 import com.raunakgarments.model.Product
+import com.raunakgarments.repos.SettingsActivity
 import kotlinx.android.synthetic.main.activity_product_new.*
 import kotlinx.android.synthetic.main.main.*
 
@@ -49,6 +50,8 @@ class ProductActivityNew : AppCompatActivity() {
                 }
                 R.id.menu_main_actionSettings -> {
                     d("Settings", "Settings was pressed")
+                    var intent = Intent(this, SettingsActivity::class.java)
+                    this.startActivity(intent)
                 }
                 R.id.menu_main_actionAdmin -> {
                     var intent = Intent(this ,AdminProductActivityNew::class.java)
