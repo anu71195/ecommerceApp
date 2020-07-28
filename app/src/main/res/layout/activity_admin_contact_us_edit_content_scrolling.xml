@@ -8,10 +8,37 @@
     tools:context=".AdminContactUsEditActivity"
     tools:showIn="@layout/activity_admin_contact_us_edit">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_admin_contact_us_edit_content_scrolling_phoneEditText"
+            android:padding="16dp"
+            android:inputType="textMultiLine|phone"
+            android:hint="Phone number(s)"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:padding="16dp"
+            android:id="@+id/activity_admin_contact_us_edit_content_scrolling_emailEditTex"
+            android:inputType="textMultiLine|textEmailAddress"
+            android:hint="Email id(s)"
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_contact_us_edit_content_scrolling_phoneEditText"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/activity_admin_contact_us_edit_content_scrolling_UpdateContactDetailsButton"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Update Contact Details"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_contact_us_edit_content_scrolling_emailEditTex"
+            android:gravity="center_horizontal" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
