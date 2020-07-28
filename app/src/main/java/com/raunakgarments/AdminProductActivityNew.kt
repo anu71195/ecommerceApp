@@ -62,7 +62,8 @@ class AdminProductActivityNew : AppCompatActivity() {
 
                 }
                 R.id.menu_main_admin_actionFunctions -> {
-
+                    var intent = Intent(this, AdminFunctionsActivity::class.java)
+                    this.startActivity(intent)
                 }
                 R.id.menu_main_admin_actionCloseNavigationDrawer -> {
                     activity_product_new_admin_drawerLayoutNew.closeDrawers()
