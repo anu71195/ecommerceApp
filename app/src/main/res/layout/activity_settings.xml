@@ -29,7 +29,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_settings_toolbar">
-
         <include layout="@layout/activity_settings_content_scrolling" />
     </FrameLayout>
 
