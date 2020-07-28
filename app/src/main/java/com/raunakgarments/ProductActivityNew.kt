@@ -57,7 +57,9 @@ class ProductActivityNew : AppCompatActivity() {
                     this.startActivity(intent)
                 }
                 R.id.menu_main_actioncontactUs -> {
-
+                    d("ContactUs", "ContactUs was pressed")
+                    var intent = Intent(this, ContactUsActivity::class.java)
+                    this.startActivity(intent)
                 }
                 R.id.menu_main_actionCloseNavigationDrawer -> {
                     drawerLayoutNew.closeDrawers()
