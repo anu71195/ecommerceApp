@@ -14,6 +14,7 @@
         <activity
             android:name=".AdminContactUsEditActivity"
             android:label="@string/title_activity_admin_contact_us_edit"
+            android:parentActivityName=".AdminFunctionsActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".AdminFunctionsActivity"
