@@ -3,6 +3,7 @@ package com.raunakgarments
 import android.os.Bundle
 import android.renderscript.Sampler
 import android.view.MenuItem
+import android.widget.TextView
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -39,6 +40,8 @@ class ContactUsActivity : AppCompatActivity() {
                 if(contactUs != null) {
                     activity_contact_us_content_scrolling_phone_Value_textView.text = contactUs.phoneNumber
                     activity_contact_us_content_scrolling_Email_value_textView.text = contactUs.emailAddress
+                    checkEmptyStringAndReplace(activity_contact_us_content_scrolling_phone_Value_textView,"Not Available")
+                    checkEmptyStringAndReplace(activity_contact_us_content_scrolling_Email_value_textView,"Not Available")
                 }
             }
         })
@@ -46,6 +49,11 @@ class ContactUsActivity : AppCompatActivity() {
 
     }
 
+    fun checkEmptyStringAndReplace(textView: TextView, replaceString: String) {
+        if(textView.text == "") {
+            textView.text = replaceString
+        }
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
