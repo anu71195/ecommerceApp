@@ -12,7 +12,10 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile_content_scrolling.*
@@ -47,9 +50,18 @@ class ProfileActivity : AppCompatActivity() {
         firebaseUtil.openFbReference("userProfile/")
         mDatabaseReference = firebaseUtil.mDatabaseReference
 
+        mDatabaseReference.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {}
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                d("userProfile", snapshot.key)
+                d("userProfile", snapshot.value.toString())
+            }
+        })
+
         activity_profile_content_scrolling_emailAddress.setText(userEmailAddress)
         d("Email Verification", "$emailVerified")
-        if(!emailVerified) {
+        if (!emailVerified) {
             activity_profile_content_scrolling_verification_warning.setTextColor(Color.parseColor("#FF0000"))
             activity_profile_content_scrolling_verification_warning.setText("Please Verify your email")
         } else {
@@ -67,7 +79,6 @@ class ProfileActivity : AppCompatActivity() {
             var profile = Profile(name, number, email, address, pinCode)
             mDatabaseReference.child(userId).setValue(profile)
         }
-
 
 
     }
