@@ -61,6 +61,9 @@ class AdminProductActivityNew : AppCompatActivity() {
                 R.id.menu_main_admin_actionStats -> {
 
                 }
+                R.id.menu_main_admin_actionFunctions -> {
+
+                }
                 R.id.menu_main_admin_actionCloseNavigationDrawer -> {
                     activity_product_new_admin_drawerLayoutNew.closeDrawers()
                 }
