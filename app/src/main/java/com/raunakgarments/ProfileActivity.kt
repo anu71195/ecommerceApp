@@ -57,6 +57,13 @@ class ProfileActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var profile = snapshot.getValue(Profile::class.java)
 
+                if (profile != null) {
+                    activity_profile_content_scrolling_name.setText(profile.userName)
+                    activity_profile_content_scrolling_phoneNumber.setText(profile.number)
+                    activity_profile_content_scrolling_emailAddress.setText(profile.email)
+                    activity_profile_content_scrolling_address.setText(profile.address)
+                    activity_profile_content_scrolling_pincode.setText(profile.pinCode)
+                }
                 d("userProfile", snapshot.key)
                 d("userProfile", snapshot.value.toString())
             }
