@@ -39,21 +39,6 @@ class AdminProductActivityNew : AppCompatActivity() {
         }
         navigationViewNewAdmin.setNavigationItemSelectedListener {
             when (it.itemId) {
-//                R.id.actionHome -> {
-//                    supportFragmentManager.beginTransaction()
-//                        .replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
-//                    d("Home", "Home was pressed")
-//                }
-//                R.id.actionProfile -> {
-//                    d("Profile", "Profile was pressed")
-//                }
-//                R.id.actionSettings -> {
-//                    d("Settings", "Settings was pressed")
-//                }
-//                R.id.actionAdmin -> {
-//                    supportFragmentManager.beginTransaction()
-//                        .replace(R.id.product_main_fragment, AdminFragment(this)).commit()
-//                }
                 R.id.menu_main_admin_actionAllProducts -> {
                     supportFragmentManager.beginTransaction()
                         .replace(
