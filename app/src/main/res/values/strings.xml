@@ -105,4 +105,5 @@
     <string name="title_activity_user_cart">ScrollingActivity</string>
     <string name="title_activity_checkout">ScrollingActivity</string>
     <string name="title_activity_profile">ScrollingActivity</string>
+    <string name="title_activity_settings">ScrollingActivity</string>
 </resources>
