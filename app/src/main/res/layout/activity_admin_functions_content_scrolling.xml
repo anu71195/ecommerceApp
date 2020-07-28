@@ -13,6 +13,7 @@
         android:layout_height="match_parent">
        <Button
            android:layout_width="match_parent"
+           android:id="@+id/Activity_admin_functions_content_scrolling_edit_contactUsButton"
            android:layout_height="wrap_content"
            android:text="Contact Details"
            android:padding="16dp"
