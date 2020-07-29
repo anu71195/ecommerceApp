@@ -38,14 +38,14 @@
             android:id="@+id/menu_main_admin_actionOrders"
             android:icon="@drawable/ic_baseline_ballot_24"
             android:orderInCategory="100"
-            android:title="Orders"
+            android:title="Orders (under progress)"
             app:showAsAction="never" />
 
         <item
             android:id="@+id/menu_main_admin_actionStats"
             android:icon="@drawable/ic_baseline_bar_chart_24"
             android:orderInCategory="100"
-            android:title="Stats"
+            android:title="Stats (under progress)"
             app:showAsAction="never" />
         <item
             android:id="@+id/menu_main_admin_actionFunctions"

@@ -24,7 +24,7 @@
             android:id="@+id/menu_main_actionSettings"
             android:icon="@drawable/ic_baseline_settings_24_black"
             android:orderInCategory="100"
-            android:title="Settings"
+            android:title="Settings (under progress)"
             app:showAsAction="never" />
 
         <item
