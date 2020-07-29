@@ -49,7 +49,7 @@ class AdminProductsEdit : AppCompatActivity() {
         d("anurag", "$productId")
 
         var uploadImageButton: Button =
-            findViewById<Button>(R.id.activity_admin_products_edit_content_scrolling_uploadImageButtomAdmin)
+            findViewById<Button>(R.id.activity_admin_products_edit_content_scrolling_uploadImageButtonAdmin)
         uploadImageButton.setOnClickListener {
             var intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/jpeg"
