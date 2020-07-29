@@ -39,14 +39,25 @@
             app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_productTitleAdmin" />
 
         <EditText
+            android:id="@+id/activity_admin_products_edit_content_scrolling_productStockAdmin"
+            android:layout_width="362dp"
+            android:layout_height="41dp"
+            android:ems="10"
+            android:hint="Product Stock*"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_productPriceAdmin" />
+
+
+        <EditText
             android:id="@+id/activity_admin_products_edit_content_scrolling_productImageLinkAdmin"
             android:layout_width="0dp"
             android:layout_height="41dp"
             android:ems="10"
             android:hint="Product Image Link"
             android:inputType="text"
-            app:layout_constraintLeft_toLeftOf="@id/activity_admin_products_edit_content_scrolling_productPriceAdmin"
-            app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_productPriceAdmin" />
+            app:layout_constraintLeft_toLeftOf="@id/activity_admin_products_edit_content_scrolling_productStockAdmin"
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_productStockAdmin" />
 
         <Button
             android:id="@+id/activity_admin_products_edit_content_scrolling_uploadImageButtonAdmin"
