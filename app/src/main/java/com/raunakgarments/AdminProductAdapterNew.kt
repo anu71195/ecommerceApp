@@ -42,6 +42,13 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
                     products.add(td)
                     d("anurag", "${td.price.toString()}")
                     notifyItemInserted(products.size-1)
+
+                    var newRef = ref+"/"+td.id+"/tags"
+                    var newFirebaseUtil = FirebaseUtil()
+                    newFirebaseUtil.openFbReference(newRef)
+                    var newmDatabaseReference = newFirebaseUtil.mDatabaseReference
+                    newmDatabaseReference.child("DummyValue1").setValue(2)
+                    newmDatabaseReference.child("DummyValue2").setValue(2)
                 }
             }
         }
