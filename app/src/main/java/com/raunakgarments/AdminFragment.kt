@@ -21,6 +21,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
 
     lateinit var title: String
     var price: Double = 0.0
+    var stock = 0
     var link = "https://firebasestorage.googleapis.com/v0/b/raunak-garments.appspot.com/o/productImages%2F1285051925?alt=media&token=85c30b32-3f21-42e4-8d08-d927f1e76d7f"
     var description: String = ""
     lateinit var ref: String
@@ -63,6 +64,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
             } else {
                 this.title = productTitleAdmin.text.toString()
                 this.price = productPriceAdmin.text.toString().toDouble()
+                this.stock = productStockAdmin.text.toString().toInt()
                 if (productDescriptionAdmin.text.toString() != "") {
                     this.description = productDescriptionAdmin.text.toString()
                 }
@@ -102,6 +104,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
     private fun saveDeal() {
         var product = Product()
         product.populate(title, price, link, description)
+        product.stock = this.stock
         val pushReferenceKey = mDatabaseReference.push().key
         if (pushReferenceKey != null) {
             product.id = pushReferenceKey
