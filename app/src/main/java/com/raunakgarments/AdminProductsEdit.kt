@@ -41,6 +41,7 @@ class AdminProductsEdit : AppCompatActivity() {
             Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
         activity_admin_products_edit_content_scrolling_productTitleAdmin.setText(product.title)
         activity_admin_products_edit_content_scrolling_productPriceAdmin.setText(product.price.toString())
+        activity_admin_products_edit_content_scrolling_productStockAdmin.setText(product.stock.toString())
         activity_admin_products_edit_content_scrolling_productImageLinkAdmin.setText(product.photoUrl)
         activity_admin_products_edit_content_scrolling_productDescriptionAdmin.setText(product.description)
         Picasso.get().load(product.photoUrl)
