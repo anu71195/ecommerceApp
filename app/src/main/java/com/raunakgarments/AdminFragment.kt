@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -78,6 +79,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 this.mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
                 this.mDatabaseReference = firebaseUtil.mDatabaseReference
                 saveDeal()
+                Toast.makeText(activity, "Product Added", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -118,6 +120,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
         productPriceAdmin.setText("")
         productDescriptionAdmin.setText("")
         productImageLinkAdmin.setText("")
+        productStockAdmin.setText("")
         productTitleAdmin.requestFocus()
         Picasso.get().load("empty view").into(uploadedImagePreviewAdmin)
     }
