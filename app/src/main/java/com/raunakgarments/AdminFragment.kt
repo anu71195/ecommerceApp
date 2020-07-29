@@ -102,7 +102,11 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
     private fun saveDeal() {
         var product = Product()
         product.populate(title, price, link, description)
-        mDatabaseReference.push().setValue(product)
+        val pushReferenceKey = mDatabaseReference.push().key
+        if (pushReferenceKey != null) {
+            product.id = pushReferenceKey
+            mDatabaseReference.child(pushReferenceKey).setValue(product)
+        }
         clean()
     }
 
