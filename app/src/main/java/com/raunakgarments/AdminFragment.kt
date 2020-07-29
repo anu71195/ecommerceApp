@@ -40,7 +40,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
             R.layout.fragment_admin, container, false
         )
         var uploadImageButton: Button =
-            view.findViewById<Button>(R.id.uploadImageButtomAdmin)
+            view.findViewById<Button>(R.id.uploadImageButtonAdmin)
         uploadImageButton.setOnClickListener {
             var intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/jpeg"

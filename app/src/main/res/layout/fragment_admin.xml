@@ -10,25 +10,25 @@
         android:id="@+id/fragment_admin_textViewAdmin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="#FF0000"
+        android:gravity="center_horizontal"
         android:text="Admin Panel"
         android:textAlignment="center"
-        android:background="#FF0000"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/seeAllProductsButtonAdmin"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/seeAllProductsButtonAdmin"
-        tools:layout_editor_absoluteY="16dp"
-        android:gravity="center_horizontal" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <Button
         android:id="@+id/seeAllProductsButtonAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="All Products"
+        app:layout_constraintBottom_toTopOf="@id/productTitleAdmin"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/productTitleAdmin"
         app:layout_constraintTop_toBottomOf="@id/fragment_admin_textViewAdmin" />
 
     <EditText
@@ -52,17 +52,28 @@
         app:layout_constraintTop_toBottomOf="@+id/productTitleAdmin" />
 
     <EditText
+        android:id="@+id/productStockAdmin"
+        android:layout_width="362dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:hint="Product Stock*"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productPriceAdmin" />
+
+
+    <EditText
         android:id="@+id/productImageLinkAdmin"
         android:layout_width="0dp"
         android:layout_height="41dp"
         android:ems="10"
         android:hint="Product Image Link"
         android:inputType="text"
-        app:layout_constraintLeft_toLeftOf="@id/productPriceAdmin"
-        app:layout_constraintTop_toBottomOf="@+id/productPriceAdmin" />
+        app:layout_constraintLeft_toLeftOf="@id/productStockAdmin"
+        app:layout_constraintTop_toBottomOf="@+id/productStockAdmin" />
 
     <Button
-        android:id="@+id/uploadImageButtomAdmin"
+        android:id="@+id/uploadImageButtonAdmin"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:text="Upload Image"
