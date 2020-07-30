@@ -116,8 +116,12 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
         if (pushReferenceKey != null) {
             product.id = pushReferenceKey
             var tagList = product.title.split(" ", ",")
+            val re = Regex("[^A-Za-z0-9]")
             for (tag in tagList) {
-                product.tagArray[tag.toLowerCase()] = 1
+                var processedTag = re.replace(tag.toLowerCase(), "")
+                if(processedTag != "") {
+                    product.tagArray[processedTag] = 1
+                }
             }
             mDatabaseReference.child(pushReferenceKey).setValue(product)
         }
