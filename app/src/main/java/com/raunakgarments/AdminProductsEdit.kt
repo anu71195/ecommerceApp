@@ -67,7 +67,11 @@ class AdminProductsEdit : AppCompatActivity() {
                 Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
                 product.title = activity_admin_products_edit_content_scrolling_productTitleAdmin.text.toString()
                 product.price = activity_admin_products_edit_content_scrolling_productPriceAdmin.text.toString().toDouble()
-                product.stock = activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString().toInt()
+                if(activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString() != "") {
+                    product.stock = activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString().toInt()
+                } else {
+                    product.stock = 0
+                }
                 if (activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString() != "") {
                     product.description = activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString()
                 } else {
