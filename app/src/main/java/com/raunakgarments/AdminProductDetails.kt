@@ -39,7 +39,7 @@ class AdminProductDetails : AppCompatActivity() {
             this.startActivity(intent)
         }
 
-        Picasso.get().load(intent.getStringExtra("imageUrl")).into(product_details_admin_photo)
+        Picasso.get().load(product.photoUrl).into(product_details_admin_photo)
         product_details_admin_product_name.text = title
         product_details_admin_productPrice.text = "\u20B9" + price
         product_details_admin_productDescription.text = description
