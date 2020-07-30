@@ -122,9 +122,11 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
             tagFirebaseUtil.openFbReference(tagRef)
             var tagDatabaseReference = tagFirebaseUtil.mDatabaseReference
             var tagList = product.title.split(" ", ",")
+            var tagHashMap: HashMap<String, Int> = HashMap<String, Int> ()
             for (tag in tagList) {
-                tagDatabaseReference.child(tag.toLowerCase()).setValue(1)
+                tagHashMap.put(tag.toLowerCase(),1)
             }
+            tagDatabaseReference.setValue(tagHashMap)
         }
         clean()
     }
