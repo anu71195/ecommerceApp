@@ -109,6 +109,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
     }
 
     private fun saveDeal() {
+        var tagFirebaseUtil = FirebaseUtil()
         var product = Product()
         product.populate(title, price, link, description)
         product.stock = this.stock
@@ -121,6 +122,8 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 var processedTag = re.replace(tag.toLowerCase(), "")
                 if(processedTag != "") {
                     product.tagArray[processedTag] = 1
+                    tagFirebaseUtil.openFbReference("tags/$tag")
+                    tagFirebaseUtil.mDatabaseReference.child(pushReferenceKey).setValue(1)
                 }
             }
             mDatabaseReference.child(pushReferenceKey).setValue(product)
