@@ -43,12 +43,19 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
                     d("anurag", "${td.price.toString()}")
                     notifyItemInserted(products.size-1)
 
+
+                        /////////////////////////////////need to be removed later
                     var newRef = ref+"/"+td.id+"/tags"
                     var newFirebaseUtil = FirebaseUtil()
                     newFirebaseUtil.openFbReference(newRef)
                     var newmDatabaseReference = newFirebaseUtil.mDatabaseReference
-                    newmDatabaseReference.child("DummyValue1").setValue(2)
-                    newmDatabaseReference.child("DummyValue2").setValue(2)
+
+                    var tagList = td.title.split(" ", ",")
+                    d("Anurag Tag List", "$tagList")
+                    newmDatabaseReference.removeValue()
+                    for(tag in tagList) {
+                        newmDatabaseReference.child(tag.toLowerCase()).setValue(1)
+                    }
                 }
             }
         }
