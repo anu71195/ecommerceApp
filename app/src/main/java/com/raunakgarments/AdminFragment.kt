@@ -115,18 +115,11 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
         val pushReferenceKey = mDatabaseReference.push().key
         if (pushReferenceKey != null) {
             product.id = pushReferenceKey
-            mDatabaseReference.child(pushReferenceKey).setValue(product)
-
-            var tagRef = ref + "/" + product.id + "/tags"
-            var tagFirebaseUtil = FirebaseUtil()
-            tagFirebaseUtil.openFbReference(tagRef)
-            var tagDatabaseReference = tagFirebaseUtil.mDatabaseReference
             var tagList = product.title.split(" ", ",")
-            var tagHashMap: HashMap<String, Int> = HashMap<String, Int> ()
             for (tag in tagList) {
-                tagHashMap[tag.toLowerCase()] = 1
+                product.tagArray[tag.toLowerCase()] = 1
             }
-            tagDatabaseReference.setValue(tagHashMap)
+            mDatabaseReference.child(pushReferenceKey).setValue(product)
         }
         clean()
     }

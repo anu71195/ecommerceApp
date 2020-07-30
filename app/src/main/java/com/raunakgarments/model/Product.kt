@@ -10,6 +10,7 @@ class Product() {
     var photoUrl: String = ""
     var description: String = ""
     var stock = 0
+    var tagArray: HashMap<String, Int> = HashMap<String, Int>()
 
     fun populate(title: String, price: Double, photoUrl: String, description: String) {
         this.title = title
