@@ -28,10 +28,10 @@ class AdminProductDetails : AppCompatActivity() {
 
         d("anurag", "I'm at product details")
 
-        val title = intent.getStringExtra("title") ?: ""
-        val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
-        val description = intent.getStringExtra("description") ?: ""
         val product = Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
+        val title = product.title
+        val price = product.price
+        val description = product.description
 
         product_details_admin_EditProduct.setOnClickListener {
             var intent = Intent(this, AdminProductsEdit::class.java)

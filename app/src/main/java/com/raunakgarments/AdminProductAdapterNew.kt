@@ -62,6 +62,7 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
         d("anurag","I'm segueing")
         var description = ""
         try { description = product.description } finally {}
+        product.description = description
         var intent = Intent(context ,AdminProductDetails::class.java)
         intent.putExtra("title", product.title)
         intent.putExtra("price", product.price)
