@@ -23,7 +23,8 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
     lateinit var title: String
     var price: Double = 0.0
     var stock = 0
-    var link = "https://firebasestorage.googleapis.com/v0/b/raunak-garments.appspot.com/o/productImages%2F1285051925?alt=media&token=85c30b32-3f21-42e4-8d08-d927f1e76d7f"
+    var link =
+        "https://firebasestorage.googleapis.com/v0/b/raunak-garments.appspot.com/o/productImages%2F1285051925?alt=media&token=85c30b32-3f21-42e4-8d08-d927f1e76d7f"
     var description: String = ""
     lateinit var ref: String
     lateinit var firebaseUtil: FirebaseUtil
@@ -57,7 +58,8 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         seeAllProductsButtonAdmin.setOnClickListener {
             context.supportFragmentManager.beginTransaction()
-                .replace(R.id.product_main_fragment_admin, AdminProductFragmentNew(context)).commit()
+                .replace(R.id.product_main_fragment_admin, AdminProductFragmentNew(context))
+                .commit()
         }
         submitButtonAdmin.setOnClickListener {
             if (productTitleAdmin.text.toString() == "" || productPriceAdmin.text.toString() == "") {
@@ -65,7 +67,10 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
             } else {
                 this.title = productTitleAdmin.text.toString()
                 this.price = productPriceAdmin.text.toString().toDouble()
-                this.stock = productStockAdmin.text.toString().toInt()
+
+                if (productStockAdmin.text.toString() != "") {
+                    this.stock = productStockAdmin.text.toString().toInt()
+                }
                 if (productDescriptionAdmin.text.toString() != "") {
                     this.description = productDescriptionAdmin.text.toString()
                 }
@@ -112,12 +117,12 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
             product.id = pushReferenceKey
             mDatabaseReference.child(pushReferenceKey).setValue(product)
 
-            var tagRef = ref+"/"+product.id+"/tags"
+            var tagRef = ref + "/" + product.id + "/tags"
             var tagFirebaseUtil = FirebaseUtil()
             tagFirebaseUtil.openFbReference(tagRef)
             var tagDatabaseReference = tagFirebaseUtil.mDatabaseReference
             var tagList = product.title.split(" ", ",")
-            for(tag in tagList) {
+            for (tag in tagList) {
                 tagDatabaseReference.child(tag.toLowerCase()).setValue(1)
             }
         }
