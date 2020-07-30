@@ -124,7 +124,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
             var tagList = product.title.split(" ", ",")
             var tagHashMap: HashMap<String, Int> = HashMap<String, Int> ()
             for (tag in tagList) {
-                tagHashMap.put(tag.toLowerCase(),1)
+                tagHashMap[tag.toLowerCase()] = 1
             }
             tagDatabaseReference.setValue(tagHashMap)
         }
