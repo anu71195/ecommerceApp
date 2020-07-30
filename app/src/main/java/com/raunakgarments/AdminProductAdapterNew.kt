@@ -63,6 +63,7 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
         var description = ""
         try { description = product.description } finally {}
         product.description = description
+
         var intent = Intent(context ,AdminProductDetails::class.java)
         intent.putExtra("product", Gson().toJson(product))
         context.startActivity(intent)
