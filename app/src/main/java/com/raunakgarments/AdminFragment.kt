@@ -111,6 +111,15 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
         if (pushReferenceKey != null) {
             product.id = pushReferenceKey
             mDatabaseReference.child(pushReferenceKey).setValue(product)
+
+            var tagRef = ref+"/"+product.id+"/tags"
+            var tagFirebaseUtil = FirebaseUtil()
+            tagFirebaseUtil.openFbReference(tagRef)
+            var tagDatabaseReference = tagFirebaseUtil.mDatabaseReference
+            var tagList = product.title.split(" ", ",")
+            for(tag in tagList) {
+                tagDatabaseReference.child(tag.toLowerCase()).setValue(1)
+            }
         }
         clean()
     }
