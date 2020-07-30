@@ -33,12 +33,12 @@ class ProductActivityNew : AppCompatActivity() {
 
         var manager = supportFragmentManager
         var transaction = manager.beginTransaction()
-        transaction.replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
+        transaction.replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
         navigationViewNew.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_main_actionHome -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.product_main_fragment, ProductFragmentNew(this)).commit()
+                        .replace(R.id.product_main_fragment, ProductFragmentNew()).commit()
                     d("Home", "Home was pressed")
                 }
                 R.id.menu_main_actionProfile -> {

@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class ProductFragmentNew(productActivityNew: ProductActivityNew) : Fragment() {
+class ProductFragmentNew() : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
