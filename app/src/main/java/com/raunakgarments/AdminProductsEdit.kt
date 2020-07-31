@@ -25,6 +25,7 @@ import org.jetbrains.anko.topPadding
 class AdminProductsEdit : AppCompatActivity() {
 
     lateinit var productId: String
+    var tagArray: HashMap<String, Int> = HashMap<String, Int>()
     lateinit var mDatabaseReference: DatabaseReference
     private val PICTURE_RESULT = 42
 
@@ -47,6 +48,7 @@ class AdminProductsEdit : AppCompatActivity() {
         Picasso.get().load(product.photoUrl)
             .into(activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin)
         productId = product.id
+        tagArray = product.tagArray
         d("anurag", "$productId")
 
         var uploadImageButton: Button =
@@ -109,6 +111,11 @@ class AdminProductsEdit : AppCompatActivity() {
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { dialogInterface, which ->
                 Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
+                var tagFirebaseUtil = FirebaseUtil()
+                for( tag in tagArray) {
+                    tagFirebaseUtil.openFbReference("tags/${tag.key}")
+                    tagFirebaseUtil.mDatabaseReference.child(productId).removeValue()
+                }
                 mDatabaseReference.child(productId).removeValue()
                 var intent = Intent(this ,AdminProductActivityNew::class.java)
                 intent.putExtra("flow", "deleteFlow")
