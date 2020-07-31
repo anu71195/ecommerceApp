@@ -103,6 +103,7 @@ class AdminProductsEdit : AppCompatActivity() {
                 //adding new tags
                 var tagList = product.title.split(" ", ",")
                 val re = Regex("[^A-Za-z0-9]")
+                product.tagArray = HashMap<String, Int>()
                 for (tag in tagList) {
                     var processedTag = re.replace(tag.toLowerCase(), "")
                     if (processedTag != "") {
