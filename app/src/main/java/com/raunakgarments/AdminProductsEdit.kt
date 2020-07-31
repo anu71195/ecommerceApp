@@ -67,25 +67,54 @@ class AdminProductsEdit : AppCompatActivity() {
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { dialogInterface, which ->
                 Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
-                product.title = activity_admin_products_edit_content_scrolling_productTitleAdmin.text.toString()
-                product.price = activity_admin_products_edit_content_scrolling_productPriceAdmin.text.toString().toDouble()
-                if(activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString() != "") {
-                    product.stock = activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString().toInt()
+                product.title =
+                    activity_admin_products_edit_content_scrolling_productTitleAdmin.text.toString()
+                product.price =
+                    activity_admin_products_edit_content_scrolling_productPriceAdmin.text.toString()
+                        .toDouble()
+                if (activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString() != "") {
+                    product.stock =
+                        activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString()
+                            .toInt()
                 } else {
                     product.stock = 0
                 }
                 if (activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString() != "") {
-                    product.description = activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString()
+                    product.description =
+                        activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString()
                 } else {
                     product.description = ""
                 }
                 if (activity_admin_products_edit_content_scrolling_productImageLinkAdmin.text.toString() != "") {
-                    product.photoUrl = activity_admin_products_edit_content_scrolling_productImageLinkAdmin.text.toString()
+                    product.photoUrl =
+                        activity_admin_products_edit_content_scrolling_productImageLinkAdmin.text.toString()
                 } else {
-                    product.photoUrl = "https://firebasestorage.googleapis.com/v0/b/raunak-garments.appspot.com/o/productImages%2F1285051925?alt=media&token=85c30b32-3f21-42e4-8d08-d927f1e76d7f"
+                    product.photoUrl =
+                        "https://firebasestorage.googleapis.com/v0/b/raunak-garments.appspot.com/o/productImages%2F1285051925?alt=media&token=85c30b32-3f21-42e4-8d08-d927f1e76d7f"
                 }
+                var tagFirebaseUtil = FirebaseUtil()
+
+                //removing old tags
+                for( tag in tagArray) {
+                    tagFirebaseUtil.openFbReference("tags/${tag.key}")
+                    tagFirebaseUtil.mDatabaseReference.child(productId).removeValue()
+                }
+
+                //adding new tags
+                var tagList = product.title.split(" ", ",")
+                val re = Regex("[^A-Za-z0-9]")
+                for (tag in tagList) {
+                    var processedTag = re.replace(tag.toLowerCase(), "")
+                    if (processedTag != "") {
+                        product.tagArray[processedTag] = 1
+                        tagFirebaseUtil.openFbReference("tags/$tag")
+                        tagFirebaseUtil.mDatabaseReference.child(productId).setValue(1)
+                    }
+                }
+
                 mDatabaseReference.child(productId).setValue(product)
-                var intent = Intent(this ,AdminProductActivityNew::class.java)
+
+                var intent = Intent(this, AdminProductActivityNew::class.java)
                 intent.putExtra("flow", "updateFlow")
                 this.startActivity(intent)
             }
@@ -112,12 +141,12 @@ class AdminProductsEdit : AppCompatActivity() {
             builder.setPositiveButton("Yes") { dialogInterface, which ->
                 Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
                 var tagFirebaseUtil = FirebaseUtil()
-                for( tag in tagArray) {
+                for (tag in tagArray) {
                     tagFirebaseUtil.openFbReference("tags/${tag.key}")
                     tagFirebaseUtil.mDatabaseReference.child(productId).removeValue()
                 }
                 mDatabaseReference.child(productId).removeValue()
-                var intent = Intent(this ,AdminProductActivityNew::class.java)
+                var intent = Intent(this, AdminProductActivityNew::class.java)
                 intent.putExtra("flow", "deleteFlow")
                 this.startActivity(intent)
             }
@@ -148,8 +177,12 @@ class AdminProductsEdit : AppCompatActivity() {
                     ref.downloadUrl.addOnSuccessListener {
                         var url = it.toString()
                         d("image url", url)
-                        activity_admin_products_edit_content_scrolling_productImageLinkAdmin.setText(url)
-                        Picasso.get().load(url).into(activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin)
+                        activity_admin_products_edit_content_scrolling_productImageLinkAdmin.setText(
+                            url
+                        )
+                        Picasso.get().load(url).into(
+                            activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin
+                        )
                     }
                 }
             }
