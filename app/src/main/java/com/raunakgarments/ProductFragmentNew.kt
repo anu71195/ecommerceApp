@@ -38,45 +38,52 @@ class ProductFragmentNew() : Fragment() {
 
         searchButtonNew.setOnClickListener {
             d("Anuragadding", "addding")
-            var searchText = searchTermNew.text.toString()
+            var searchTextReworked = searchTermNew.text.toString()
             val re = Regex("[^A-Za-z0-9]")
-            searchText = re.replace(searchText.toLowerCase(), "")
-            d("searchText", "$searchText")
+            searchTextReworked = re.replace(searchTextReworked.toLowerCase(), "")
+            d("searchText", "$searchTextReworked")
             var products: MutableList<String> = ArrayList()
+            var searchList: MutableList<String> = ArrayList()
 
-            if (searchText != "") {
-                var tagFirebaseUtil = FirebaseUtil()
-                tagFirebaseUtil.openFbReference("tags")
+            searchList.add("black")
+            searchList.add(searchTextReworked)
 
-                tagFirebaseUtil.mDatabaseReference.child(searchText)
-                    .addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {}
 
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            d("productTags", snapshot.key)
-                            d("productTags", snapshot.value.toString())
-                            if (snapshot.exists()) {
-                                d("productTags","snapshotExists")
-                                var productIds = snapshot.value
-                                    for (productId in productIds as HashMap<String,Int>) {
+            for (searchText in searchList) {
+                if (searchText != "") {
+                    var tagFirebaseUtil = FirebaseUtil()
+                    tagFirebaseUtil.openFbReference("tags")
+
+                    tagFirebaseUtil.mDatabaseReference.child(searchText)
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onCancelled(error: DatabaseError) {}
+
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                d("productTags", snapshot.key)
+                                d("productTags", snapshot.value.toString())
+                                if (snapshot.exists()) {
+                                    d("productTags", "snapshotExists")
+                                    var productIds = snapshot.value
+                                    for (productId in productIds as HashMap<String, Int>) {
                                         d("productTags", "${productId.key} and ${productId.value}")
                                         products.add(productId.key)
                                         d("producttagsList", products.toString())
                                     }
+                                }
+
+                                d("producttagsList", products.toString())
+                                d("producttagsList", products.toString())
+                                val searchAdapter = ProductSearchAdapterNew()
+                                if (myContext != null) {
+                                    searchAdapter.populate("products", products, myContext)
+                                }
+                                rvProducts.adapter = searchAdapter
+                                rvProducts.layoutManager = productsLayoutManager
+
                             }
+                        })
 
-                            d("producttagsList",products.toString())
-                            d("producttagsList",products.toString())
-                            val searchAdapter = ProductSearchAdapterNew()
-                            if (myContext != null) {
-                                searchAdapter.populate("products", products, myContext)
-                            }
-                            rvProducts.adapter = searchAdapter
-                            rvProducts.layoutManager = productsLayoutManager
-
-                        }
-                    })
-
+                }
             }
             val adapter = ProductAdapterNew()
             if (myContext != null) {
