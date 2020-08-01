@@ -71,7 +71,7 @@
         <activity
             android:name=".AdminProductDetails"
             android:parentActivityName=".AdminProductActivityNew" />
-        <activity android:name=".cart.CartActivity" />
+<!--        <activity android:name=".cart.CartActivity" />-->
 
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"

@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
-import com.raunakgarments.productdetails.ProductDetailsViewModel
 import com.raunakgarments.repos.ProductsRepository
 import com.squareup.picasso.Picasso
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
