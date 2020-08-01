@@ -106,9 +106,10 @@ class AdminProductsEdit : AppCompatActivity() {
                 product.tagArray = HashMap<String, Int>()
                 for (tag in tagList) {
                     var processedTag = re.replace(tag.toLowerCase(), "")
+                    d("EditTags",processedTag)
                     if (processedTag != "") {
                         product.tagArray[processedTag] = 1
-                        tagFirebaseUtil.openFbReference("tags/$tag")
+                        tagFirebaseUtil.openFbReference("tags/$processedTag")
                         tagFirebaseUtil.mDatabaseReference.child(productId).setValue(1)
                     }
                 }
