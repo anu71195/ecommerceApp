@@ -58,14 +58,13 @@ class ProductFragmentNew() : Fragment() {
                             if (snapshot.exists()) {
                                 d("productTags","snapshotExists")
                                 var productIds = snapshot.value
-                                try {
                                     for (productId in productIds as HashMap<String,Int>) {
                                         d("productTags", "${productId.key} and ${productId.value}")
                                         products.add(productId.key)
                                         d("producttagsList", products.toString())
                                     }
-                                } finally {}
                             }
+
                             d("producttagsList",products.toString())
                             d("producttagsList",products.toString())
                             val searchAdapter = ProductSearchAdapterNew()
