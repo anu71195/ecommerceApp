@@ -74,7 +74,7 @@ class AdminProductFragmentNew(productActivityNew: AdminProductActivityNew) : Fra
 
                                 Log.d("producttagsList", products.toString())
                                 Log.d("producttagsList", products.toString())
-                                val searchAdapter = ProductSearchAdapterNew()
+                                val searchAdapter = AdminProductSearchAdapterNew()
                                 if (myContext != null) {
                                     searchAdapter.populate("products", products, myContext)
                                 }
