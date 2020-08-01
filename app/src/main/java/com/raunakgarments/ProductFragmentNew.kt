@@ -39,15 +39,16 @@ class ProductFragmentNew() : Fragment() {
         searchButtonNew.setOnClickListener {
             d("Anuragadding", "addding")
             var searchTextReworked = searchTermNew.text.toString()
+            var tagList = searchTextReworked.split(" ", ",")
             val re = Regex("[^A-Za-z0-9]")
-            searchTextReworked = re.replace(searchTextReworked.toLowerCase(), "")
+
             d("searchText", "$searchTextReworked")
             var products: MutableList<String> = ArrayList()
             var searchList: MutableList<String> = ArrayList()
 
-            searchList.add("black")
-            searchList.add(searchTextReworked)
-
+            for(tag in tagList) {
+                searchList.add(re.replace(tag.toLowerCase(), ""))
+            }
 
             for (searchText in searchList) {
                 if (searchText != "") {
