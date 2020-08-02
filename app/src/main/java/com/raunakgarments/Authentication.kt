@@ -33,9 +33,10 @@ class Authentication {
                 Toast.makeText(this.caller.baseContext, "Welcome Back", Toast.LENGTH_LONG).show()
             }
             if (mFirebaseAuth.currentUser != null) {
-                d("userRegistration",mFirebaseAuth.currentUser.toString())
-
-                mFirebaseAuth.currentUser?.sendEmailVerification()
+                if(!mFirebaseAuth.currentUser?.isEmailVerified!!) {
+                    d("userRegistration", mFirebaseAuth.currentUser.toString())
+                    mFirebaseAuth.currentUser?.sendEmailVerification()
+                }
                 this.userId = mFirebaseAuth.uid.toString()
                 checkAdmin(this.userId)
             }
