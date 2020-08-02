@@ -43,6 +43,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         mFirebaseAuth = FirebaseAuth.getInstance()
+        mFirebaseAuth.currentUser?.reload()
         this.userEmailAddress = mFirebaseAuth.currentUser?.email.toString()
         this.emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
         this.userId = mFirebaseAuth.uid.toString()
