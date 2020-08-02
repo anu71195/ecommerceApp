@@ -74,9 +74,9 @@ class ProfileActivity : AppCompatActivity() {
         d("Email Verification", "$emailVerified")
         if (!emailVerified) {
             activity_profile_content_scrolling_verification_warning.setTextColor(Color.parseColor("#FF0000"))
-            activity_profile_content_scrolling_verification_warning.setText("Please Verify your email")
+            activity_profile_content_scrolling_verification_warning.setText("Please Verify your email. To do that, please go to your email and verify the link.")
         } else {
-            activity_profile_content_scrolling_verification_warning.setText("Email iis verified")
+            activity_profile_content_scrolling_verification_warning.setText("Email is verified.")
             activity_profile_content_scrolling_verification_warning.setTextColor(Color.parseColor("#00FF00"))
         }
 
