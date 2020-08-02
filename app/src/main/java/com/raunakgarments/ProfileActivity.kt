@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log.d
 import android.view.MenuItem
+import android.view.View
 import androidx.annotation.RequiresApi
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -89,6 +90,10 @@ class ProfileActivity : AppCompatActivity() {
             var pinCode: String = activity_profile_content_scrolling_pincode.text.toString()
             var profile = Profile(name, number, email, address, pinCode)
             mDatabaseReference.child(userId).setValue(profile)
+        }
+
+        if(emailVerified){
+            activity_profile_content_scrolling_sendEmailVerificationButton.visibility = View.GONE
         }
 
         activity_profile_content_scrolling_sendEmailVerificationButton.setOnClickListener {
