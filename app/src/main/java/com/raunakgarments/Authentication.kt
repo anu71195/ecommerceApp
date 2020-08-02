@@ -35,7 +35,7 @@ class Authentication {
             if (mFirebaseAuth.currentUser != null) {
                 if(!mFirebaseAuth.currentUser?.isEmailVerified!!) {
                     d("userRegistration", mFirebaseAuth.currentUser.toString())
-                    mFirebaseAuth.currentUser?.sendEmailVerification()
+//                    mFirebaseAuth.currentUser?.sendEmailVerification()
                 }
                 this.userId = mFirebaseAuth.uid.toString()
                 checkAdmin(this.userId)
