@@ -46,6 +46,7 @@ class Authentication {
 
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (!snapshot.exists()) {
+                                    mFirebaseAuth.currentUser?.sendEmailVerification()
                                     d("userRegistration", mFirebaseAuth.uid.toString())
                                     var profile = Profile()
                                     profile.email = mFirebaseAuth.currentUser?.email.toString()
