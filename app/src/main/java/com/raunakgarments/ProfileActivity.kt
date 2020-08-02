@@ -91,6 +91,10 @@ class ProfileActivity : AppCompatActivity() {
             mDatabaseReference.child(userId).setValue(profile)
         }
 
+        activity_profile_content_scrolling_sendEmailVerificationButton.setOnClickListener {
+            mFirebaseAuth.currentUser?.sendEmailVerification()
+        }
+
 
     }
 
