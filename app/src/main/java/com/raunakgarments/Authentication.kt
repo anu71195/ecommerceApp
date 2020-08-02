@@ -6,10 +6,9 @@ import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.raunakgarments.model.Profile
+import kotlinx.android.synthetic.main.activity_profile_content_scrolling.*
 
 class Authentication {
     var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -33,11 +32,30 @@ class Authentication {
                 Toast.makeText(this.caller.baseContext, "Welcome Back", Toast.LENGTH_LONG).show()
             }
             if (mFirebaseAuth.currentUser != null) {
-                if(!mFirebaseAuth.currentUser?.isEmailVerified!!) {
-                    d("userRegistration", mFirebaseAuth.currentUser.toString())
-//                    mFirebaseAuth.currentUser?.sendEmailVerification()
-                }
                 this.userId = mFirebaseAuth.uid.toString()
+                if (!mFirebaseAuth.currentUser?.isEmailVerified!!) {
+                    d("userRegistration", mFirebaseAuth.uid.toString())
+
+                    var firebaseUtil = FirebaseUtil()
+                    firebaseUtil.openFbReference("userProfile/")
+
+                    firebaseUtil.mDatabaseReference.child(userId)
+                        .addListenerForSingleValueEvent(object :
+                            ValueEventListener {
+                            override fun onCancelled(error: DatabaseError) {}
+
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if (!snapshot.exists()) {
+                                    d("userRegistration", mFirebaseAuth.uid.toString())
+                                    var profile = Profile()
+                                    profile.email = mFirebaseAuth.currentUser?.email.toString()
+                                    profile.userName =
+                                        mFirebaseAuth.currentUser?.displayName.toString()
+                                    firebaseUtil.mDatabaseReference.child(userId).setValue(profile)
+                                }
+                            }
+                        })
+                }
                 checkAdmin(this.userId)
             }
         }
