@@ -27,8 +27,8 @@ class AdminPinCodeEditActivity : AppCompatActivity() {
         }
 
         val pinCodeAdapter = AdminPinCodeAdapter()
-        val productsLayoutManager = GridLayoutManager(this, 2)
-        pinCodeAdapter.populate(getString(R.string.database_pincode))
+        val productsLayoutManager = GridLayoutManager(this, 1)
+        pinCodeAdapter.populate(getString(R.string.database_pincode), this)
         activity_admin_pin_code_edit_content_scrolling_pincodeRecyclerView.adapter = pinCodeAdapter
         activity_admin_pin_code_edit_content_scrolling_pincodeRecyclerView.layoutManager = productsLayoutManager
     }
