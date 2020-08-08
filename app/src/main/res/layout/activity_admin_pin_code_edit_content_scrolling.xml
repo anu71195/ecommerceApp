@@ -8,10 +8,29 @@
     tools:context=".AdminPinCodeEditActivity"
     tools:showIn="@layout/activity_admin_pin_code_edit">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/activity_admin_pin_code_edit_content_scrolling_pincodeEditView"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/pin_code"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/activity_admin_pin_code_edit_content_scrolling_pinCodeAddButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="@string/add_pin_code"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_admin_pin_code_edit_content_scrolling_pincodeEditView"
+            android:gravity="center_horizontal" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.core.widget.NestedScrollView>

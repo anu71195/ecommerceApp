@@ -110,4 +110,6 @@
     <string name="title_activity_admin_functions">ScrollingActivity</string>
     <string name="title_activity_admin_contact_us_edit">ScrollingActivity</string>
     <string name="title_activity_admin_pin_code_edit">ScrollingActivity</string>
+    <string name="add_pin_code">Add Pin Code</string>
+    <string name="pin_code">Pin Code</string>
 </resources>
