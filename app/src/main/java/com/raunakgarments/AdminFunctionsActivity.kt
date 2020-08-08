@@ -24,6 +24,11 @@ class AdminFunctionsActivity : AppCompatActivity() {
             var intent = Intent(this, AdminContactUsEditActivity::class.java)
             this.startActivity(intent)
         }
+
+        Activity_admin_functions_content_scrolling_edit_insertPinCodeButton.setOnClickListener {
+            var intent = Intent(this, AdminPinCodeEditActivity::class.java)
+            this.startActivity(intent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
