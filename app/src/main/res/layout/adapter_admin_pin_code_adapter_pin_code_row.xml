@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/adapter_admin_pin_code_adapter_pin_code_row_deleteImage"
+        android:id="@+id/adapter_admin_pin_code_adapter_pin_code_row_deletePinCodeButton"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:background="@drawable/ic_baseline_remove_circle_24"

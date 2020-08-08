@@ -47,7 +47,7 @@ class AdminPinCodeAdapter : RecyclerView.Adapter<AdminPinCodeAdapter.PinCodeView
 
     class PinCodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var title: TextView = itemView.findViewById(R.id.adapter_admin_pin_code_adapter_pin_code_row_textView)
-        var deleteImage: Button = itemView.findViewById(R.id.adapter_admin_pin_code_adapter_pin_code_row_deleteImage)
+        var deletePinCodeButton: Button = itemView.findViewById(R.id.adapter_admin_pin_code_adapter_pin_code_row_deletePinCodeButton)
     }
 
     override fun onCreateViewHolder(
@@ -65,7 +65,7 @@ class AdminPinCodeAdapter : RecyclerView.Adapter<AdminPinCodeAdapter.PinCodeView
 
     override fun onBindViewHolder(holder: PinCodeViewHolder, position: Int) {
         holder.title.text = pinCodeArray[position]
-        holder.deleteImage.setOnClickListener {
+        holder.deletePinCodeButton.setOnClickListener {
             d("delete tag", "Deletetag")
             val builder = AlertDialog.Builder(context)
             builder.setTitle("Are you sure?")
