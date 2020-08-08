@@ -21,7 +21,7 @@ class AdminPinCodeEditActivity : AppCompatActivity() {
         activity_admin_pin_code_edit_content_scrolling_pinCodeAddButton.setOnClickListener {
             var pinCodeText = activity_admin_pin_code_edit_content_scrolling_pincodeEditView.text.toString()
             if(pinCodeText != "") {
-                d("anurag", "Pin Code Text")
+                firebaseUtil.mDatabaseReference.child(pinCodeText).setValue(1)
             }
         }
     }
