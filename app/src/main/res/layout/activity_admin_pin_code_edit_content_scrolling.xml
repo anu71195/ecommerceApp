@@ -15,21 +15,28 @@
         <EditText
             android:id="@+id/activity_admin_pin_code_edit_content_scrolling_pincodeEditView"
             android:layout_width="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_height="wrap_content"
             android:hint="@string/pin_code"
-            android:inputType="number" />
+            android:inputType="number"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/activity_admin_pin_code_edit_content_scrolling_pinCodeAddButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/add_pin_code"
             android:textAlignment="center"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:text="@string/add_pin_code"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_admin_pin_code_edit_content_scrolling_pincodeEditView"
-            android:gravity="center_horizontal" />
+            app:layout_constraintTop_toBottomOf="@id/activity_admin_pin_code_edit_content_scrolling_pincodeEditView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/activity_admin_pin_code_edit_content_scrolling_pincodeRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_admin_pin_code_edit_content_scrolling_pinCodeAddButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

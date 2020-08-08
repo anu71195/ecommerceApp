@@ -12,6 +12,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_admin_products_edit">ScrollingActivity</string>
+    <string name="database_pincode">pincode</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
