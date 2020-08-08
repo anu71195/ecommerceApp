@@ -26,7 +26,6 @@ class AdminPinCodeEditActivity : AppCompatActivity() {
             }
         }
 
-//        val searchAdapter = AdminProductSearchAdapterNew()
         val pinCodeAdapter = AdminPinCodeAdapter()
         val productsLayoutManager = GridLayoutManager(this, 2)
         pinCodeAdapter.populate(getString(R.string.database_pincode))
