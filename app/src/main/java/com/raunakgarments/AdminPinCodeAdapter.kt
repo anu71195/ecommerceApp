@@ -1,6 +1,7 @@
 package com.raunakgarments
 
 import android.content.Context
+import android.content.Intent
 import android.media.Image
 import android.util.Log
 import android.util.Log.d
@@ -23,9 +24,9 @@ class AdminPinCodeAdapter : RecyclerView.Adapter<AdminPinCodeAdapter.PinCodeView
     var pinCodeArray: MutableList<String> = ArrayList()
     private lateinit var childEventListener: ChildEventListener
     lateinit var context: Context
+    var firebaseUtil: FirebaseUtil = FirebaseUtil()
 
     fun populate(ref: String, context: Context) {
-        var firebaseUtil: FirebaseUtil = FirebaseUtil()
         firebaseUtil.openFbReference(ref)
         this.context = context
         d("pinCode", ref)
@@ -73,6 +74,9 @@ class AdminPinCodeAdapter : RecyclerView.Adapter<AdminPinCodeAdapter.PinCodeView
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { dialogInterface, which ->
                 Toast.makeText(context, "clicked yes", Toast.LENGTH_LONG).show()
+                firebaseUtil.mDatabaseReference.child(pinCodeArray[position]).removeValue()
+                pinCodeArray.removeAt(position)
+                notifyDataSetChanged()
             }
             builder.setNeutralButton("Cancel") { dialogInterface, which ->
                 Toast.makeText(
