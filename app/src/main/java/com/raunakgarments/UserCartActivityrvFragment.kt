@@ -65,15 +65,10 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                             if (context != null) {
                                 val builder = AlertDialog.Builder(context!!)
                                 d("deliverable log", "${snapshot.key} ${snapshot.value} ${emailVerified}")
-                                builder.setTitle("Are you sure?")
-                                builder.setMessage("")
+                                builder.setTitle("Can't Checkout?")
+                                builder.setMessage("Please check if your email is verified and pincode is deliverable from Profile section.")
                                 builder.setIcon(android.R.drawable.ic_dialog_alert)
                                 builder.setPositiveButton("OK") { dialogInterface, which ->
-                                    Toast.makeText(
-                                        context,
-                                        "clicked yes\n operation conducted",
-                                        Toast.LENGTH_LONG
-                                    ).show()
                                 }
                                 val alertDialog: AlertDialog = builder.create()
                                 alertDialog.setCancelable(false)
