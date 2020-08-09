@@ -23,7 +23,7 @@ class UserCartActivity : AppCompatActivity() {
         }
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.activity_user_cart_frameLayout, UserCartActivityrvFragment()).commit()
+            .replace(R.id.activity_user_cart_frameLayout, UserCartActivityrvFragment(this)).commit()
 //        findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
 //        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
