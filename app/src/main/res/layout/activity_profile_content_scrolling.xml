@@ -21,21 +21,30 @@
             android:textColor="#FF0000"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/activity_profile_content_scrolling_deliverable_warning"
+            android:layout_width="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_profile_content_scrolling_verification_warning"
+            android:textColor="#FF0000"
+            android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/activity_profile_content_scrolling_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
+            android:hint="@string/full_name"
             android:padding="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_profile_content_scrolling_verification_warning" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_profile_content_scrolling_deliverable_warning" />
 
         <EditText
             android:id="@+id/activity_profile_content_scrolling_phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
+            android:hint="@string/phone_number"
             android:inputType="phone"
             android:padding="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -47,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:hint="Email Address"
+            android:hint="@string/email_address"
             android:inputType="textEmailAddress"
             android:padding="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -59,7 +68,7 @@
             android:id="@+id/activity_profile_content_scrolling_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Address"
+            android:hint="@string/address"
             android:inputType="textPostalAddress|textMultiLine"
             android:padding="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -70,7 +79,7 @@
             android:id="@+id/activity_profile_content_scrolling_pincode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Pin Code"
+            android:hint="@string/pin_code"
             android:inputType="number"
             android:padding="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -81,7 +90,7 @@
             android:id="@+id/activity_profile_content_scrolling_updateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update"
+            android:text="@string/update"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_profile_content_scrolling_pincode" />
@@ -90,7 +99,7 @@
             android:id="@+id/activity_profile_content_scrolling_sendEmailVerificationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send Verification Email"
+            android:text="@string/send_verification_email"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_profile_content_scrolling_updateButton" />

@@ -65,6 +65,7 @@ class ProfileActivity : AppCompatActivity() {
                     activity_profile_content_scrolling_emailAddress.setText(profile.email)
                     activity_profile_content_scrolling_address.setText(profile.address)
                     activity_profile_content_scrolling_pincode.setText(profile.pinCode)
+                    setTextForDeliverableWarning(profile.deliverable)
                 }
                 d("userProfile", snapshot.key)
                 d("userProfile", snapshot.value.toString())
@@ -111,11 +112,20 @@ class ProfileActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 profile.deliverable = snapshot.exists()
                 mDatabaseReference.child(userId).setValue(profile)
+                setTextForDeliverableWarning(profile.deliverable)
             }
         })
     }
 
-
+    fun setTextForDeliverableWarning(isDeliverable: Boolean) {
+        if(isDeliverable) {
+            activity_profile_content_scrolling_deliverable_warning.setText("Pin Code is Deliverable")
+            activity_profile_content_scrolling_deliverable_warning.setTextColor(Color.parseColor("#00FF00"))
+        } else {
+            activity_profile_content_scrolling_deliverable_warning.setTextColor(Color.parseColor("#FF0000"))
+            activity_profile_content_scrolling_deliverable_warning.setText("We do not serve on below pincode.")
+        }
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
