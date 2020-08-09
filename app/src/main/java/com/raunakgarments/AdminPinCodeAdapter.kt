@@ -68,7 +68,7 @@ class AdminPinCodeAdapter : RecyclerView.Adapter<AdminPinCodeAdapter.PinCodeView
         holder.deletePinCodeButton.setOnClickListener {
             d("delete tag", "Deletetag")
             val builder = AlertDialog.Builder(context)
-            builder.setTitle("Are you sure?")
+            builder.setTitle("Are you sure you want to remove pincode = ${pinCodeArray[position]} ?")
             builder.setMessage("")
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { dialogInterface, which ->
