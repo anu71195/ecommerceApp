@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".AdminPinCodeEditActivity"
+            android:parentActivityName=".AdminFunctionsActivity"
             android:label="@string/title_activity_admin_pin_code_edit"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
