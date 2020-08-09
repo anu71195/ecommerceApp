@@ -56,33 +56,22 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                     override fun onCancelled(error: DatabaseError) {}
                     override fun onDataChange(snapshot: DataSnapshot) {
                         d("deliverable log", "${snapshot.key} ${snapshot.value}")
-                        if (snapshot.exists() && snapshot.value == true) {
+                        mFirebaseAuth.currentUser?.reload()
+                        var emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
+                        if (snapshot.exists() && snapshot.value == true && emailVerified) {
                             var intent = Intent(activity, CheckoutActivity::class.java)
                             activity?.startActivity(intent)
                         } else {
                             if (context != null) {
                                 val builder = AlertDialog.Builder(context!!)
+                                d("deliverable log", "${snapshot.key} ${snapshot.value} ${emailVerified}")
                                 builder.setTitle("Are you sure?")
                                 builder.setMessage("")
                                 builder.setIcon(android.R.drawable.ic_dialog_alert)
-                                builder.setPositiveButton("Yes") { dialogInterface, which ->
+                                builder.setPositiveButton("OK") { dialogInterface, which ->
                                     Toast.makeText(
                                         context,
                                         "clicked yes\n operation conducted",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
-                                builder.setNeutralButton("Cancel") { dialogInterface, which ->
-                                    Toast.makeText(
-                                        context,
-                                        "clicked cancel\n operation cancel",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
-                                builder.setNegativeButton("No") { dialogInterface, which ->
-                                    Toast.makeText(
-                                        context,
-                                        "clicked No",
                                         Toast.LENGTH_LONG
                                     ).show()
                                 }
