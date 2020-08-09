@@ -6,6 +6,7 @@ class Profile {
     var email: String = ""
     var address: String = ""
     var pinCode: String = ""
+    var deliverable = false
 
     constructor() {}
     constructor(userName: String, number: String, email: String, address: String, pinCode: String) {

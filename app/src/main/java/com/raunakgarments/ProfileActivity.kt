@@ -89,7 +89,7 @@ class ProfileActivity : AppCompatActivity() {
             var address: String = activity_profile_content_scrolling_address.text.toString()
             var pinCode: String = activity_profile_content_scrolling_pincode.text.toString()
             var profile = Profile(name, number, email, address, pinCode)
-            mDatabaseReference.child(userId).setValue(profile)
+            isAddressDeliverable(profile)
         }
 
         if(emailVerified){
@@ -102,6 +102,19 @@ class ProfileActivity : AppCompatActivity() {
 
 
     }
+
+    private fun isAddressDeliverable(profile: Profile) {
+        var pinCodeFirebaseUtil = FirebaseUtil()
+        pinCodeFirebaseUtil.openFbReference(getString(R.string.database_pincode))
+        pinCodeFirebaseUtil.mDatabaseReference.child(profile.pinCode).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {}
+            override fun onDataChange(snapshot: DataSnapshot) {
+                profile.deliverable = snapshot.exists()
+                mDatabaseReference.child(userId).setValue(profile)
+            }
+        })
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
