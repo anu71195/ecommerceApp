@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.raunakgarments"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         multiDexEnabled true
@@ -39,6 +39,7 @@ android {
     }
 
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -75,4 +76,5 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.firebase:firebase-auth:19.3.2'
+    implementation 'com.razorpay:checkout:1.5.16'
 }
