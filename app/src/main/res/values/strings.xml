@@ -119,4 +119,5 @@
     <string name="address">Address</string>
     <string name="update">Update</string>
     <string name="send_verification_email">Send Verification Email</string>
+    <string name="pay_with_razorpay">Pay with Razorpay</string>
 </resources>

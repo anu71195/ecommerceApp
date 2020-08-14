@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
 import kotlinx.android.synthetic.main.activity_checkout.*
+import kotlinx.android.synthetic.main.activity_checkout_content_scrolling.*
 import kotlinx.android.synthetic.main.activity_user_cart.*
 import org.json.JSONObject
 
@@ -29,8 +30,9 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
         Checkout.preload(applicationContext)
-        startPayment()
-
+        activity_checkout_content_scrolling_payButton.setOnClickListener {
+            startPayment()
+        }
     }
 
     private fun startPayment() {
