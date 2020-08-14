@@ -63,7 +63,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                         mFirebaseAuth.currentUser?.reload()
                         var emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
 
-                        if (profile != null && profile.deliverable && emailVerified) {
+                        if (profile != null && profile.deliverable && emailVerified && profile.address != "") {
                             callCheckoutActivity(profile)
                         } else {
                             paymentErrorPopup()
@@ -84,7 +84,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         if (context != null) {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Can't Checkout?")
-            builder.setMessage("Please check if your email is verified and pincode is deliverable from Profile section.")
+            builder.setMessage("Please check if your email is verified, pincode is deliverable and address is present from Profile section.")
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("OK") { dialogInterface, which ->
             }
