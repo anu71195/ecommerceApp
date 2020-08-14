@@ -17,6 +17,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
+import com.raunakgarments.model.Product
+import com.raunakgarments.model.Profile
 import kotlinx.android.synthetic.main.fragment_user_cart_activity_rv.*
 
 class UserCartActivityrvFragment(context: Context) : Fragment() {
@@ -50,34 +53,45 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         fragment_user_cart_activity_checkoutButton.setOnClickListener {
             var firebaseUtil = FirebaseUtil()
             firebaseUtil.openFbReference("userProfile/")
-            firebaseUtil.mDatabaseReference.child(userId).child("deliverable")
+            firebaseUtil.mDatabaseReference.child(userId)
                 .addListenerForSingleValueEvent(object :
                     ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {}
                     override fun onDataChange(snapshot: DataSnapshot) {
                         d("deliverable log", "${snapshot.key} ${snapshot.value}")
+                        var profile = snapshot.getValue(Profile::class.java)
                         mFirebaseAuth.currentUser?.reload()
                         var emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
-                        if (snapshot.exists() && snapshot.value == true && emailVerified) {
-                            var intent = Intent(activity, CheckoutActivity::class.java)
-                            activity?.startActivity(intent)
+                        if (profile != null && profile.deliverable && emailVerified) {
+                            callCheckoutActivity(profile)
                         } else {
-                            if (context != null) {
-                                val builder = AlertDialog.Builder(context!!)
-                                d("deliverable log", "${snapshot.key} ${snapshot.value} ${emailVerified}")
-                                builder.setTitle("Can't Checkout?")
-                                builder.setMessage("Please check if your email is verified and pincode is deliverable from Profile section.")
-                                builder.setIcon(android.R.drawable.ic_dialog_alert)
-                                builder.setPositiveButton("OK") { dialogInterface, which ->
-                                }
-                                val alertDialog: AlertDialog = builder.create()
-                                alertDialog.setCancelable(false)
-                                alertDialog.show()
-                            }
+                            paymentErrorPopup()
                         }
                     }
                 })
-
         }
     }
+
+    fun callCheckoutActivity(profile: Profile) {
+        var intent =
+            Intent(activity, CheckoutActivity::class.java)
+        intent.putExtra("profile", Gson().toJson(profile))
+        activity?.startActivity(intent)
+    }
+
+    fun paymentErrorPopup() {
+        if (context != null) {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Can't Checkout?")
+            builder.setMessage("Please check if your email is verified and pincode is deliverable from Profile section.")
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+            builder.setPositiveButton("OK") { dialogInterface, which ->
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+        }
+    }
+
 }
+

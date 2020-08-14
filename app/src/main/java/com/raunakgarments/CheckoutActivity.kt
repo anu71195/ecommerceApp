@@ -52,8 +52,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                     co.setKeyID(snapshot.value.toString())
                     try {
                         val options = JSONObject()
-                        options.put("name", "Razorpay Corp")
-                        options.put("description", "Demoing Charges")
+                        options.put("name", "Raunak Garments")
+                        options.put("description", "Net order Charges")
                         //You can omit the image option to fetch the image from dashboard
                         options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png")
                         options.put("theme.color", "#3399cc");
