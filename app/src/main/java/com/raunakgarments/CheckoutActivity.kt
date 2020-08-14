@@ -5,18 +5,16 @@ import android.os.Bundle
 import android.util.Log.d
 import android.view.MenuItem
 import android.widget.Toast
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
+import com.raunakgarments.model.Profile
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
 import kotlinx.android.synthetic.main.activity_checkout.*
 import kotlinx.android.synthetic.main.activity_checkout_content_scrolling.*
-import kotlinx.android.synthetic.main.activity_user_cart.*
 import org.json.JSONObject
 
 class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
@@ -31,11 +29,13 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         }
         Checkout.preload(applicationContext)
         activity_checkout_content_scrolling_payButton.setOnClickListener {
-            startPayment()
+            val profile =
+                Gson().fromJson<Profile>(intent.getStringExtra("profile"), Profile::class.java)
+            startPayment(profile)
         }
     }
 
-    private fun startPayment() {
+    private fun startPayment(profile: Profile) {
         /*
         *  You need to pass current activity in order to let Razorpay create CheckoutActivity
         * */
@@ -62,8 +62,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                         options.put("amount", "50000")//pass amount in currency subunits
 
                         val prefill = JSONObject()
-                        prefill.put("email", "gaurav.kumar@example.com")
-                        prefill.put("contact", "9876543210")
+                        prefill.put("email", profile.email)
+                        prefill.put("contact", profile.number)
 
                         options.put("prefill", prefill)
                         co.open(activity, options)
@@ -77,8 +77,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                     }
                 }
             })
-
-
     }
 
 
