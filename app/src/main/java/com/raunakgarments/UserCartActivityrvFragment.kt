@@ -62,6 +62,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                         var profile = snapshot.getValue(Profile::class.java)
                         mFirebaseAuth.currentUser?.reload()
                         var emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
+
                         if (profile != null && profile.deliverable && emailVerified) {
                             callCheckoutActivity(profile)
                         } else {
