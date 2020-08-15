@@ -64,7 +64,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                         var emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
 
                         if (profile != null && profile.deliverable && emailVerified && profile.address != "") {
-                            callCheckoutActivity(profile)
+                            callCheckoutActivity(profile, userId)
                         } else {
                             paymentErrorPopup()
                         }
@@ -73,10 +73,11 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         }
     }
 
-    fun callCheckoutActivity(profile: Profile) {
+    fun callCheckoutActivity(profile: Profile, userID: String) {
         var intent =
             Intent(activity, CheckoutActivity::class.java)
         intent.putExtra("profile", Gson().toJson(profile))
+        intent.putExtra("userID", userID)
         activity?.startActivity(intent)
     }
 
