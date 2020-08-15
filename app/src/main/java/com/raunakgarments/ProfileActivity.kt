@@ -33,6 +33,7 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var userId: String
     private var userEmailAddress: String = ""
     private var emailVerified = false
+    private var orderNumber: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +61,7 @@ class ProfileActivity : AppCompatActivity() {
                 var profile = snapshot.getValue(Profile::class.java)
 
                 if (profile != null) {
+                    orderNumber = profile.orderNumber
                     activity_profile_content_scrolling_name.setText(profile.userName)
                     activity_profile_content_scrolling_phoneNumber.setText(profile.number)
                     activity_profile_content_scrolling_emailAddress.setText(profile.email)
@@ -90,6 +92,7 @@ class ProfileActivity : AppCompatActivity() {
             var address: String = activity_profile_content_scrolling_address.text.toString()
             var pinCode: String = activity_profile_content_scrolling_pincode.text.toString()
             var profile = Profile(name, number, email, address, pinCode)
+            profile.orderNumber = orderNumber
             isAddressDeliverable(profile)
         }
 

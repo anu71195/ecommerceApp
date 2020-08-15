@@ -6,6 +6,7 @@ class Profile {
     var email: String = ""
     var address: String = ""
     var pinCode: String = ""
+    var orderNumber = 1
     var deliverable = false
 
     constructor() {}
