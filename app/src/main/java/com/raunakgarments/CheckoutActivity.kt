@@ -29,12 +29,29 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         }
         Checkout.preload(applicationContext)
         activity_checkout_content_scrolling_payButton.setOnClickListener {
-            val profile =
-                Gson().fromJson<Profile>(intent.getStringExtra("profile"), Profile::class.java)
             val userID = intent.getStringExtra("userID")
-            startPayment(profile, userID)
+            getProfileAndStartPayment(userID)
         }
     }
+
+    private fun getProfileAndStartPayment(userID: String) {
+        var firebaseUtil = FirebaseUtil()
+        firebaseUtil.openFbReference("userProfile/")
+        firebaseUtil.mDatabaseReference.child(userID)
+            .addListenerForSingleValueEvent(object :
+                ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {}
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var profile = snapshot.getValue(Profile::class.java)
+                    if (profile != null) {
+                        profile.orderNumber = profile.orderNumber + 1
+                        firebaseUtil.mDatabaseReference.child(userID).setValue(profile)
+                        startPayment(profile, userID)
+                    }
+                }
+            })
+    }
+
 
     private fun startPayment(profile: Profile, userID: String) {
         /*
@@ -59,7 +76,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         val activity: Activity = this
         try {
             val options = JSONObject()
-            val orderID = userID + System.currentTimeMillis().toString()
+            val orderID = "ERUS" + userID + "EMTI" + System.currentTimeMillis()
+                .toString() + "RDEOR" + profile.orderNumber.toString()
             d("orderID", orderID)
             options.put("name", "Raunak Garments")
             options.put("description", "Net order Charges")

@@ -76,7 +76,6 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
     fun callCheckoutActivity(profile: Profile, userID: String) {
         var intent =
             Intent(activity, CheckoutActivity::class.java)
-        intent.putExtra("profile", Gson().toJson(profile))
         intent.putExtra("userID", userID)
         activity?.startActivity(intent)
     }
