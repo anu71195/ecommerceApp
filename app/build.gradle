@@ -77,4 +77,5 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.firebase:firebase-auth:19.3.2'
     implementation 'com.razorpay:checkout:1.5.16'
+    implementation 'com.google.firebase:firebase-auth:19.3.2'
 }
