@@ -127,8 +127,7 @@ class ProfileActivity : AppCompatActivity() {
         mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(p0: PhoneAuthCredential) {
                 Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
-                signInWithPhoneAuthCredential(credential)
-
+                signInWithPhoneAuthCredential(p0)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
