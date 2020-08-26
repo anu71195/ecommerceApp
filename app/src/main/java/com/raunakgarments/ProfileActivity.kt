@@ -3,16 +3,23 @@ package com.raunakgarments
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.util.Log.d
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -25,6 +32,7 @@ import org.jetbrains.anko.email
 import org.jetbrains.anko.image
 import org.jetbrains.anko.textColor
 import java.io.File
+import java.util.concurrent.TimeUnit
 
 class ProfileActivity : AppCompatActivity() {
     private var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -34,6 +42,8 @@ class ProfileActivity : AppCompatActivity() {
     private var userEmailAddress: String = ""
     private var emailVerified = false
     private var orderNumber: Int = 1
+    lateinit var mCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    lateinit var credential: PhoneAuthCredential
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +52,16 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
+
+            verificationCallbacks()
+            d("9085811917", "9085811917")
+            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+919085811917",
+                5,
+                TimeUnit.SECONDS,
+                this@ProfileActivity,
+                mCallbacks
+            )
         }
 
         mFirebaseAuth = FirebaseAuth.getInstance()
@@ -106,6 +126,64 @@ class ProfileActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun verificationCallbacks() {
+        mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            override fun onVerificationCompleted(p0: PhoneAuthCredential) {
+                d("9085811917", "Code sent success")
+                Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
+                signInWithPhoneAuthCredential(credential)
+
+            }
+
+            override fun onVerificationFailed(e: FirebaseException) {
+                d("+919085811917", "Code sent failure")
+                Log.w(e.toString(), "onVerificationFailed", e)
+
+                if (e is FirebaseAuthInvalidCredentialsException) {
+                    // Invalid request
+                    // ...
+                } else if (e is FirebaseTooManyRequestsException) {
+                    // The SMS quota for the project has been exceeded
+                    // ...
+                }
+
+            }
+
+            override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
+                super.onCodeSent(p0, p1)
+                d("9085811917", "Code sent")
+                d("9085811917", "${p0} ${p1}")
+                Log.d("9085811917", "onCodeSent:$p0")
+                credential = PhoneAuthProvider.getCredential(p0!!, p1.toString())
+                Log.d("9085811917", "onCodeSent:$credential")
+            }
+
+            override fun onCodeAutoRetrievalTimeOut(p0: String) {
+                super.onCodeAutoRetrievalTimeOut(p0)
+                d("9085811917", "${p0}")
+            }
+        }
+    }
+
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        FirebaseAuth.getInstance().signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("9085811917", "signInWithCredential:success")
+
+                    val user = task.result?.user
+                    // ...
+                } else {
+                    // Sign in failed, display a message and update the UI
+                    Log.w("9085811917", "signInWithCredential:failure", task.exception)
+                    if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                        // The verification code entered was invalid
+                    }
+                }
+            }
     }
 
     private fun isAddressDeliverable(profile: Profile) {
