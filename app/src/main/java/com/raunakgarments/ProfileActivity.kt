@@ -23,6 +23,8 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.raunakgarments.model.Profile
 import kotlinx.android.synthetic.main.activity_profile_content_scrolling.*
+import java.nio.channels.spi.AsynchronousChannelProvider.provider
+import java.nio.channels.spi.SelectorProvider.provider
 import java.util.concurrent.TimeUnit
 
 class ProfileActivity : AppCompatActivity() {
@@ -50,8 +52,6 @@ class ProfileActivity : AppCompatActivity() {
         this.userEmailAddress = mFirebaseAuth.currentUser?.email.toString()
         this.emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
         this.userId = mFirebaseAuth.uid.toString()
-        d("profileactivity",userId.toString())
-        d("profileactivity",userEmailAddress.toString())
 
         firebaseUtil = FirebaseUtil()
         firebaseUtil.openFbReference("userProfile/")
@@ -110,6 +110,25 @@ class ProfileActivity : AppCompatActivity() {
 
         attachSendOTPButtonWithSendOTPCode()
 
+    }
+
+    private fun unlinkPhoneNumberWithEmailAddress() {
+        var providerID = PhoneAuthProvider.PROVIDER_ID
+        d("linked", "${FirebaseAuth.getInstance().currentUser?.phoneNumber}")
+        d("linked", "${providerID}")
+        if (providerID != null) {
+            FirebaseAuth.getInstance().currentUser?.unlink(providerID)
+                ?.addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        d("Unlinked", "Unlinked")
+                        // Auth provider unlinked from account
+                        // ...
+                    } else {
+                        d("Unlinked", "Not Unlinked")
+
+                    }
+                }
+        }
     }
 
     private fun attachSendOTPButtonWithSendOTPCode() {
