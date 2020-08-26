@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import com.raunakgarments.model.Profile
 import kotlinx.android.synthetic.main.activity_profile_content_scrolling.*
 import java.util.concurrent.TimeUnit
@@ -33,7 +34,7 @@ class ProfileActivity : AppCompatActivity() {
     private var emailVerified = false
     private var orderNumber: Int = 1
     lateinit var mCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    lateinit var credential: PhoneAuthCredential
+    var verificationID: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,13 +45,13 @@ class ProfileActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
 
-        attachSendOTPButtonWithSendOTPCode()
-
         mFirebaseAuth = FirebaseAuth.getInstance()
         mFirebaseAuth.currentUser?.reload()
         this.userEmailAddress = mFirebaseAuth.currentUser?.email.toString()
         this.emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
         this.userId = mFirebaseAuth.uid.toString()
+        d("profileactivity",userId.toString())
+        d("profileactivity",userEmailAddress.toString())
 
         firebaseUtil = FirebaseUtil()
         firebaseUtil.openFbReference("userProfile/")
@@ -107,6 +108,7 @@ class ProfileActivity : AppCompatActivity() {
             mFirebaseAuth.currentUser?.sendEmailVerification()
         }
 
+        attachSendOTPButtonWithSendOTPCode()
 
     }
 
@@ -145,7 +147,7 @@ class ProfileActivity : AppCompatActivity() {
 
             override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
                 super.onCodeSent(p0, p1)
-                credential = PhoneAuthProvider.getCredential(p0!!, p1.toString())
+                verificationID = p0
                 showPinCodePopup()
             }
 
@@ -166,6 +168,7 @@ class ProfileActivity : AppCompatActivity() {
         builder.setPositiveButton("Yes") { dialogInterface, which ->
 
             Toast.makeText(this, pinCodeInputEditText.text.toString(), Toast.LENGTH_LONG).show()
+            var credential = PhoneAuthProvider.getCredential(verificationID!!, "123456")
             signInWithPhoneAuthCredential(credential)
 
         }
@@ -185,8 +188,8 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        FirebaseAuth.getInstance().signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
+        FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)
+            ?.addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("90", "signInWithCredential:success")
