@@ -46,7 +46,7 @@ class ProfileActivity : AppCompatActivity() {
             activity_profile_content_scrolling_sendOTPNumber.setOnClickListener {
                 verificationCallbacks()
                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                    "+919085811917",
+                    activity_profile_content_scrolling_phoneNumber.text.toString(),
                     5,
                     TimeUnit.SECONDS,
                     this@ProfileActivity,
@@ -122,15 +122,12 @@ class ProfileActivity : AppCompatActivity() {
     private fun verificationCallbacks() {
         mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-                d("9085811917", "Code sent success")
-                d("9085811917", p0.toString())
                 Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
                 signInWithPhoneAuthCredential(credential)
 
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                d("+919085811917", "Code sent failure")
                 Log.w(e.toString(), "onVerificationFailed", e)
 
                 if (e is FirebaseAuthInvalidCredentialsException) {
@@ -145,17 +142,12 @@ class ProfileActivity : AppCompatActivity() {
 
             override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
                 super.onCodeSent(p0, p1)
-                d("9085811917", "Code sent")
-                d("9085811917", "${p0} ${p1}")
-                Log.d("9085811917", "onCodeSent:$p0")
                 credential = PhoneAuthProvider.getCredential(p0!!, p1.toString())
-                Log.d("9085811917", "onCodeSent:$credential")
                 showPinCodePopup()
             }
 
             override fun onCodeAutoRetrievalTimeOut(p0: String) {
                 super.onCodeAutoRetrievalTimeOut(p0)
-                d("9085811917", "${p0}")
             }
         }
     }
@@ -171,7 +163,7 @@ class ProfileActivity : AppCompatActivity() {
         builder.setPositiveButton("Yes") { dialogInterface, which ->
 
             Toast.makeText(this, pinCodeInputEditText.text.toString(), Toast.LENGTH_LONG).show()
-//            signInWithPhoneAuthCredential(credential)
+            signInWithPhoneAuthCredential(credential)
 
         }
         builder.setNeutralButton("Cancel") { dialogInterface, which ->
