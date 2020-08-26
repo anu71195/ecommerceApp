@@ -1,19 +1,15 @@
 package com.raunakgarments
 
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.util.Log.d
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
@@ -24,14 +20,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
-import com.raunakgarments.model.Product
 import com.raunakgarments.model.Profile
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile_content_scrolling.*
-import org.jetbrains.anko.email
-import org.jetbrains.anko.image
-import org.jetbrains.anko.textColor
-import java.io.File
 import java.util.concurrent.TimeUnit
 
 class ProfileActivity : AppCompatActivity() {
@@ -63,7 +53,7 @@ class ProfileActivity : AppCompatActivity() {
                 mCallbacks
             )
         }
-
+        showPinCodePopup()
         mFirebaseAuth = FirebaseAuth.getInstance()
         mFirebaseAuth.currentUser?.reload()
         this.userEmailAddress = mFirebaseAuth.currentUser?.email.toString()
@@ -158,13 +148,43 @@ class ProfileActivity : AppCompatActivity() {
                 Log.d("9085811917", "onCodeSent:$p0")
                 credential = PhoneAuthProvider.getCredential(p0!!, p1.toString())
                 Log.d("9085811917", "onCodeSent:$credential")
+
             }
 
             override fun onCodeAutoRetrievalTimeOut(p0: String) {
                 super.onCodeAutoRetrievalTimeOut(p0)
                 d("9085811917", "${p0}")
+                showPinCodePopup()
             }
         }
+    }
+
+    fun showPinCodePopup() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Can't Checkout?")
+        builder.setMessage("Please check if your email is verified, pincode is deliverable and address is present from Profile section.")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        val pinCodeInputEditText: EditText = EditText(this)
+        builder.setView(pinCodeInputEditText)
+
+        builder.setPositiveButton("Yes") { dialogInterface, which ->
+
+            Toast.makeText(this, pinCodeInputEditText.text.toString(), Toast.LENGTH_LONG).show()
+
+        }
+        builder.setNeutralButton("Cancel") { dialogInterface, which ->
+            Toast.makeText(
+                this,
+                "clicked cancel\n operation cancel",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        builder.setNegativeButton("No") { dialogInterface, which ->
+            Toast.makeText(this, "clicked No", Toast.LENGTH_LONG).show()
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
@@ -172,13 +192,13 @@ class ProfileActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("9085811917", "signInWithCredential:success")
+                    Log.d("90", "signInWithCredential:success")
 
                     val user = task.result?.user
                     // ...
                 } else {
                     // Sign in failed, display a message and update the UI
-                    Log.w("9085811917", "signInWithCredential:failure", task.exception)
+                    Log.w("90", "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
                     }
@@ -217,4 +237,5 @@ class ProfileActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
+
 }
