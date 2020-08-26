@@ -42,18 +42,9 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
-
-            activity_profile_content_scrolling_sendOTPNumber.setOnClickListener {
-                verificationCallbacks()
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                    activity_profile_content_scrolling_phoneNumber.text.toString(),
-                    5,
-                    TimeUnit.SECONDS,
-                    this@ProfileActivity,
-                    mCallbacks
-                )
-            }
         }
+
+        attachSendOTPButtonWithSendOTPCode()
 
         mFirebaseAuth = FirebaseAuth.getInstance()
         mFirebaseAuth.currentUser?.reload()
@@ -117,6 +108,19 @@ class ProfileActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun attachSendOTPButtonWithSendOTPCode() {
+        activity_profile_content_scrolling_sendOTPNumber.setOnClickListener {
+            verificationCallbacks()
+            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                activity_profile_content_scrolling_phoneNumber.text.toString(),
+                5,
+                TimeUnit.SECONDS,
+                this@ProfileActivity,
+                mCallbacks
+            )
+        }
     }
 
     private fun verificationCallbacks() {
