@@ -43,17 +43,18 @@ class ProfileActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
 
-            verificationCallbacks()
-            d("9085811917", "9085811917")
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+919085811917",
-                5,
-                TimeUnit.SECONDS,
-                this@ProfileActivity,
-                mCallbacks
-            )
+            activity_profile_content_scrolling_sendOTPNumber.setOnClickListener {
+                verificationCallbacks()
+                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                    "+919085811917",
+                    5,
+                    TimeUnit.SECONDS,
+                    this@ProfileActivity,
+                    mCallbacks
+                )
+            }
         }
-        showPinCodePopup()
+
         mFirebaseAuth = FirebaseAuth.getInstance()
         mFirebaseAuth.currentUser?.reload()
         this.userEmailAddress = mFirebaseAuth.currentUser?.email.toString()
@@ -122,6 +123,7 @@ class ProfileActivity : AppCompatActivity() {
         mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(p0: PhoneAuthCredential) {
                 d("9085811917", "Code sent success")
+                d("9085811917", p0.toString())
                 Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
                 signInWithPhoneAuthCredential(credential)
 
@@ -148,13 +150,12 @@ class ProfileActivity : AppCompatActivity() {
                 Log.d("9085811917", "onCodeSent:$p0")
                 credential = PhoneAuthProvider.getCredential(p0!!, p1.toString())
                 Log.d("9085811917", "onCodeSent:$credential")
-
+                showPinCodePopup()
             }
 
             override fun onCodeAutoRetrievalTimeOut(p0: String) {
                 super.onCodeAutoRetrievalTimeOut(p0)
                 d("9085811917", "${p0}")
-                showPinCodePopup()
             }
         }
     }
@@ -170,6 +171,7 @@ class ProfileActivity : AppCompatActivity() {
         builder.setPositiveButton("Yes") { dialogInterface, which ->
 
             Toast.makeText(this, pinCodeInputEditText.text.toString(), Toast.LENGTH_LONG).show()
+//            signInWithPhoneAuthCredential(credential)
 
         }
         builder.setNeutralButton("Cancel") { dialogInterface, which ->
