@@ -50,37 +50,10 @@ class ProfileActivity : AppCompatActivity() {
         unlinkPhoneNumberWithEmailAddress()
         settingUpFirebaseVariables()
         populateTextFieldsProfileActivity()
-
-        activity_profile_content_scrolling_emailAddress.setText(userEmailAddress)
-        d("Email Verification", "$emailVerified")
-        if (!emailVerified) {
-            activity_profile_content_scrolling_verification_warning.setTextColor(Color.parseColor("#FF0000"))
-            activity_profile_content_scrolling_verification_warning.setText("Please Verify your email. To do that, please go to your email and verify the link.")
-        } else {
-            activity_profile_content_scrolling_verification_warning.setText("Email is verified.")
-            activity_profile_content_scrolling_verification_warning.setTextColor(Color.parseColor("#00FF00"))
-        }
-
-        activity_profile_content_scrolling_updateButton.setOnClickListener {
-            d("Update Button", "clicked")
-            var name = activity_profile_content_scrolling_name.text.toString()
-            var number: String = activity_profile_content_scrolling_phoneNumber.text.toString()
-            var email: String = activity_profile_content_scrolling_emailAddress.text.toString()
-            var address: String = activity_profile_content_scrolling_address.text.toString()
-            var pinCode: String = activity_profile_content_scrolling_pincode.text.toString()
-            var profile = Profile(name, number, email, address, pinCode)
-            profile.orderNumber = orderNumber
-            isAddressDeliverable(profile)
-        }
-
-        if (emailVerified) {
-            activity_profile_content_scrolling_sendEmailVerificationButton.visibility = View.GONE
-        }
-
-        activity_profile_content_scrolling_sendEmailVerificationButton.setOnClickListener {
-            mFirebaseAuth.currentUser?.sendEmailVerification()
-        }
-
+        setTextForEmailAddressWarning()
+        updateProfileClickListener()
+        setEmailVerificationButtonVisibility()
+        sendEmailVerificationClickListener()
         attachSendOTPButtonWithSendOTPCode()
 
     }
@@ -226,6 +199,16 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun setTextForEmailAddressWarning() {
+        if (!emailVerified) {
+            activity_profile_content_scrolling_verification_warning.setTextColor(Color.parseColor("#FF0000"))
+            activity_profile_content_scrolling_verification_warning.setText("Please Verify your email. To do that, please go to your email and verify the link.")
+        } else {
+            activity_profile_content_scrolling_verification_warning.setText("Email is verified.")
+            activity_profile_content_scrolling_verification_warning.setTextColor(Color.parseColor("#00FF00"))
+        }
+    }
+
     private fun settingUpFirebaseVariables() {
         mFirebaseAuth = FirebaseAuth.getInstance()
         mFirebaseAuth.currentUser?.reload()
@@ -258,6 +241,33 @@ class ProfileActivity : AppCompatActivity() {
                     d("userProfile", snapshot.value.toString())
                 }
             })
+        activity_profile_content_scrolling_emailAddress.setText(userEmailAddress)
+    }
+
+    private fun sendEmailVerificationClickListener() {
+        activity_profile_content_scrolling_sendEmailVerificationButton.setOnClickListener {
+            mFirebaseAuth.currentUser?.sendEmailVerification()
+        }
+    }
+
+    private fun setEmailVerificationButtonVisibility() {
+        if (emailVerified) {
+            activity_profile_content_scrolling_sendEmailVerificationButton.visibility = View.GONE
+        }
+    }
+
+    private fun updateProfileClickListener() {
+        activity_profile_content_scrolling_updateButton.setOnClickListener {
+            d("Update Button", "clicked")
+            var name = activity_profile_content_scrolling_name.text.toString()
+            var number: String = activity_profile_content_scrolling_phoneNumber.text.toString()
+            var email: String = activity_profile_content_scrolling_emailAddress.text.toString()
+            var address: String = activity_profile_content_scrolling_address.text.toString()
+            var pinCode: String = activity_profile_content_scrolling_pincode.text.toString()
+            var profile = Profile(name, number, email, address, pinCode)
+            profile.orderNumber = orderNumber
+            isAddressDeliverable(profile)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
