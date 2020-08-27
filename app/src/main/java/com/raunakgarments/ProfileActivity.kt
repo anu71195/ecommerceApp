@@ -83,7 +83,7 @@ class ProfileActivity : AppCompatActivity() {
         activity_profile_content_scrolling_sendOTPNumber.setOnClickListener {
             verificationCallbacks()
             PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                activity_profile_content_scrolling_phoneNumber.text.toString(),
+                activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() + activity_profile_content_scrolling_phoneNumberCode.text.toString() + activity_profile_content_scrolling_phoneNumber.text.toString(),
                 5,
                 TimeUnit.SECONDS,
                 this@ProfileActivity,

@@ -48,6 +48,15 @@
             android:text="(+)"
             app:layout_constraintBottom_toBottomOf="@id/activity_profile_content_scrolling_phoneNumber"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/activity_profile_content_scrolling_phoneNumberCode" />
+
+        <EditText
+            android:id="@+id/activity_profile_content_scrolling_phoneNumberCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="91"
+            app:layout_constraintBottom_toBottomOf="@id/activity_profile_content_scrolling_phoneNumber"
+            app:layout_constraintLeft_toRightOf="@id/activity_profile_content_scrolling_phoneNumberPlusSign"
             app:layout_constraintRight_toLeftOf="@id/activity_profile_content_scrolling_phoneNumber" />
 
         <EditText
@@ -57,7 +66,7 @@
             android:hint="@string/phone_number"
             android:inputType="phone"
             android:padding="16dp"
-            app:layout_constraintLeft_toRightOf="@id/activity_profile_content_scrolling_phoneNumberPlusSign"
+            app:layout_constraintLeft_toRightOf="@id/activity_profile_content_scrolling_phoneNumberCode"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_profile_content_scrolling_name" />
 
