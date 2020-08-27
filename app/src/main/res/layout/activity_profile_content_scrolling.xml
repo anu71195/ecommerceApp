@@ -60,6 +60,15 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintRight_toRightOf="parent" />
 
+        <Button
+            android:id="@+id/activity_profile_content_scrolling_unlinkPhoneWithEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unlink Phone Number"
+            app:layout_constraintBottom_toBottomOf="@id/activity_profile_content_scrolling_phoneNumber"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintRight_toRightOf="parent" />
+
         <EditText
             android:id="@+id/activity_profile_content_scrolling_emailAddress"
             android:layout_width="match_parent"
