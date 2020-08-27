@@ -41,13 +41,23 @@
             app:layout_constraintTop_toBottomOf="@+id/activity_profile_content_scrolling_deliverable_warning" />
 
         <EditText
+            android:id="@+id/activity_profile_content_scrolling_phoneNumberPlusSign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="(+)"
+            app:layout_constraintBottom_toBottomOf="@id/activity_profile_content_scrolling_phoneNumber"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/activity_profile_content_scrolling_phoneNumber" />
+
+        <EditText
             android:id="@+id/activity_profile_content_scrolling_phoneNumber"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/phone_number"
             android:inputType="phone"
             android:padding="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/activity_profile_content_scrolling_phoneNumberPlusSign"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_profile_content_scrolling_name" />
 
@@ -55,18 +65,18 @@
             android:id="@+id/activity_profile_content_scrolling_sendOTPNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Send OTP"
             app:layout_constraintBottom_toBottomOf="@id/activity_profile_content_scrolling_phoneNumber"
-            android:layout_marginBottom="8dp"
             app:layout_constraintRight_toRightOf="parent" />
 
         <Button
             android:id="@+id/activity_profile_content_scrolling_unlinkPhoneWithEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Unlink Phone Number"
             app:layout_constraintBottom_toBottomOf="@id/activity_profile_content_scrolling_phoneNumber"
-            android:layout_marginBottom="8dp"
             app:layout_constraintRight_toRightOf="parent" />
 
         <EditText
