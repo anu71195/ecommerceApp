@@ -47,36 +47,9 @@ class ProfileActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
 
-        mFirebaseAuth = FirebaseAuth.getInstance()
-        mFirebaseAuth.currentUser?.reload()
-        this.userEmailAddress = mFirebaseAuth.currentUser?.email.toString()
-        this.emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
-        this.userId = mFirebaseAuth.uid.toString()
-
-        firebaseUtil = FirebaseUtil()
-        firebaseUtil.openFbReference("userProfile/")
-        mDatabaseReference = firebaseUtil.mDatabaseReference
-
-        mDatabaseReference.child(userId)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onCancelled(error: DatabaseError) {}
-
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    var profile = snapshot.getValue(Profile::class.java)
-
-                    if (profile != null) {
-                        orderNumber = profile.orderNumber
-                        activity_profile_content_scrolling_name.setText(profile.userName)
-                        activity_profile_content_scrolling_phoneNumber.setText(profile.number)
-                        activity_profile_content_scrolling_emailAddress.setText(profile.email)
-                        activity_profile_content_scrolling_address.setText(profile.address)
-                        activity_profile_content_scrolling_pincode.setText(profile.pinCode)
-                        setTextForDeliverableWarning(profile.deliverable)
-                    }
-                    d("userProfile", snapshot.key)
-                    d("userProfile", snapshot.value.toString())
-                }
-            })
+        unlinkPhoneNumberWithEmailAddress()
+        settingUpFirebaseVariables()
+        populateTextFieldsProfileActivity()
 
         activity_profile_content_scrolling_emailAddress.setText(userEmailAddress)
         d("Email Verification", "$emailVerified")
@@ -251,6 +224,40 @@ class ProfileActivity : AppCompatActivity() {
             activity_profile_content_scrolling_deliverable_warning.setTextColor(Color.parseColor("#FF0000"))
             activity_profile_content_scrolling_deliverable_warning.setText("We do not serve on below pincode.")
         }
+    }
+
+    private fun settingUpFirebaseVariables() {
+        mFirebaseAuth = FirebaseAuth.getInstance()
+        mFirebaseAuth.currentUser?.reload()
+        this.userEmailAddress = mFirebaseAuth.currentUser?.email.toString()
+        this.emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
+        this.userId = mFirebaseAuth.uid.toString()
+        firebaseUtil = FirebaseUtil()
+        firebaseUtil.openFbReference("userProfile/")
+        mDatabaseReference = firebaseUtil.mDatabaseReference
+    }
+
+    private fun populateTextFieldsProfileActivity() {
+        mDatabaseReference.child(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {}
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var profile = snapshot.getValue(Profile::class.java)
+
+                    if (profile != null) {
+                        orderNumber = profile.orderNumber
+                        activity_profile_content_scrolling_name.setText(profile.userName)
+                        activity_profile_content_scrolling_phoneNumber.setText(profile.number)
+                        activity_profile_content_scrolling_emailAddress.setText(profile.email)
+                        activity_profile_content_scrolling_address.setText(profile.address)
+                        activity_profile_content_scrolling_pincode.setText(profile.pinCode)
+                        setTextForDeliverableWarning(profile.deliverable)
+                    }
+                    d("userProfile", snapshot.key)
+                    d("userProfile", snapshot.value.toString())
+                }
+            })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
