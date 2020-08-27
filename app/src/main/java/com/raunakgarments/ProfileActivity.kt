@@ -47,7 +47,8 @@ class ProfileActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
 
-        unlinkPhoneNumberWithEmailAddress()
+        unlinkAndSendOTPPhoneNumberDecision()
+        unlinkPhoneWithEmailClickListener()
         settingUpFirebaseVariables()
         populateTextFieldsProfileActivity()
         setTextForEmailAddressWarning()
@@ -67,11 +68,12 @@ class ProfileActivity : AppCompatActivity() {
                 ?.addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         d("Unlinked", "Unlinked")
+                        unlinkAndSendOTPPhoneNumberDecision()
                         // Auth provider unlinked from account
                         // ...
                     } else {
                         d("Unlinked", "Not Unlinked")
-
+                        unlinkAndSendOTPPhoneNumberDecision()
                     }
                 }
         }
@@ -158,8 +160,8 @@ class ProfileActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("90", "signInWithCredential:success")
-
                     val user = task.result?.user
+                    unlinkAndSendOTPPhoneNumberDecision()
                     // ...
                 } else {
                     // Sign in failed, display a message and update the UI
@@ -168,6 +170,7 @@ class ProfileActivity : AppCompatActivity() {
                         // The verification code entered was invalid
                     }
                 }
+                unlinkAndSendOTPPhoneNumberDecision()
             }
     }
 
@@ -256,6 +259,29 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun unlinkAndSendOTPPhoneNumberDecision() {
+        FirebaseAuth.getInstance().currentUser?.reload()?.addOnCompleteListener(this) {
+            if (FirebaseAuth.getInstance().currentUser?.phoneNumber == null || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == "" || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == null) {
+                activity_profile_content_scrolling_sendOTPNumber.visibility = View.VISIBLE
+                activity_profile_content_scrolling_unlinkPhoneWithEmail.visibility = View.GONE
+                d(
+                    "linkedphoneNumber1",
+                    "${FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()}"
+                )
+
+            } else {
+                activity_profile_content_scrolling_unlinkPhoneWithEmail.visibility = View.VISIBLE
+                activity_profile_content_scrolling_sendOTPNumber.visibility = View.GONE
+                d(
+                    "linkedphoneNumber2",
+                    "${FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()}"
+                )
+
+            }
+        }
+
+    }
+
     private fun updateProfileClickListener() {
         activity_profile_content_scrolling_updateButton.setOnClickListener {
             d("Update Button", "clicked")
@@ -267,6 +293,12 @@ class ProfileActivity : AppCompatActivity() {
             var profile = Profile(name, number, email, address, pinCode)
             profile.orderNumber = orderNumber
             isAddressDeliverable(profile)
+        }
+    }
+
+    private fun unlinkPhoneWithEmailClickListener() {
+        activity_profile_content_scrolling_unlinkPhoneWithEmail.setOnClickListener {
+            unlinkPhoneNumberWithEmailAddress()
         }
     }
 
