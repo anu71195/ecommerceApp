@@ -7,6 +7,7 @@ class Profile {
     var address: String = ""
     var pinCode: String = ""
     var orderNumber = 1
+    var areaPhoneCode = "91"
     var deliverable = false
 
     constructor() {}
