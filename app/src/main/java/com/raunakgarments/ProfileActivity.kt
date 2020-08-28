@@ -46,10 +46,9 @@ class ProfileActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
-
+        settingUpFirebaseVariables()
         unlinkAndSendOTPPhoneNumberDecision()
         unlinkPhoneWithEmailClickListener()
-        settingUpFirebaseVariables()
         populateTextFieldsProfileActivity()
         setTextForEmailAddressWarning()
         updateProfileClickListener()
@@ -162,6 +161,7 @@ class ProfileActivity : AppCompatActivity() {
                     Log.d("90", "signInWithCredential:success")
                     val user = task.result?.user
                     unlinkAndSendOTPPhoneNumberDecision()
+
                     // ...
                 } else {
                     // Sign in failed, display a message and update the UI
@@ -276,7 +276,22 @@ class ProfileActivity : AppCompatActivity() {
                     "linkedphoneNumber2",
                     "${FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()}"
                 )
+                var OTPPhoneNumberProfileFirebaseUtil: FirebaseUtil = FirebaseUtil()
+                OTPPhoneNumberProfileFirebaseUtil.openFbReference("userProfile/")
+                OTPPhoneNumberProfileFirebaseUtil.mDatabaseReference.child(userId)
+                    .addListenerForSingleValueEvent(object :
+                        ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            var profile = snapshot.getValue(Profile::class.java)
+                            if (profile != null) {
+                                profile.number =
+                                    FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
+                                isAddressDeliverable(profile)
+                            }
+                        }
 
+                        override fun onCancelled(error: DatabaseError) {}
+                    })
             }
         }
 
@@ -286,10 +301,16 @@ class ProfileActivity : AppCompatActivity() {
         activity_profile_content_scrolling_updateButton.setOnClickListener {
             d("Update Button", "clicked")
             var name = activity_profile_content_scrolling_name.text.toString()
-            var number: String = activity_profile_content_scrolling_phoneNumber.text.toString()
+            var number: String = ""
             var email: String = activity_profile_content_scrolling_emailAddress.text.toString()
             var address: String = activity_profile_content_scrolling_address.text.toString()
             var pinCode: String = activity_profile_content_scrolling_pincode.text.toString()
+
+            if (FirebaseAuth.getInstance().currentUser?.phoneNumber == null || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == "" || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == null) {
+                number = activity_profile_content_scrolling_phoneNumber.text.toString()
+            } else {
+                number = FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
+            }
             var profile = Profile(name, number, email, address, pinCode)
             profile.orderNumber = orderNumber
             isAddressDeliverable(profile)
