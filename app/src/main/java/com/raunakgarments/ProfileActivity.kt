@@ -235,6 +235,7 @@ class ProfileActivity : AppCompatActivity() {
                         orderNumber = profile.orderNumber
                         activity_profile_content_scrolling_name.setText(profile.userName)
                         activity_profile_content_scrolling_phoneNumber.setText(profile.number)
+                        activity_profile_content_scrolling_phoneNumberCode.setText(profile.areaPhoneCode)
                         activity_profile_content_scrolling_emailAddress.setText(profile.email)
                         activity_profile_content_scrolling_address.setText(profile.address)
                         activity_profile_content_scrolling_pincode.setText(profile.pinCode)
@@ -268,6 +269,8 @@ class ProfileActivity : AppCompatActivity() {
                     "linkedphoneNumber1",
                     "${FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()}"
                 )
+                activity_profile_content_scrolling_phoneNumber.isEnabled = true
+                activity_profile_content_scrolling_phoneNumberCode.isEnabled = true
 
             } else {
                 activity_profile_content_scrolling_unlinkPhoneWithEmail.visibility = View.VISIBLE
@@ -276,6 +279,8 @@ class ProfileActivity : AppCompatActivity() {
                     "linkedphoneNumber2",
                     "${FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()}"
                 )
+                activity_profile_content_scrolling_phoneNumber.isEnabled = false
+                activity_profile_content_scrolling_phoneNumberCode.isEnabled = false
                 var OTPPhoneNumberProfileFirebaseUtil: FirebaseUtil = FirebaseUtil()
                 OTPPhoneNumberProfileFirebaseUtil.openFbReference("userProfile/")
                 OTPPhoneNumberProfileFirebaseUtil.mDatabaseReference.child(userId)
@@ -283,9 +288,15 @@ class ProfileActivity : AppCompatActivity() {
                         ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             var profile = snapshot.getValue(Profile::class.java)
-                            if (profile != null) {
+                            if (profile != null &&
+                                (activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
+                                        activity_profile_content_scrolling_phoneNumberCode.text.toString() +
+                                        activity_profile_content_scrolling_phoneNumber.text.toString()) == FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
+                            ) {
+                                profile.areaPhoneCode =
+                                    activity_profile_content_scrolling_phoneNumberCode.text.toString()
                                 profile.number =
-                                    FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
+                                    activity_profile_content_scrolling_phoneNumber.text.toString()
                                 isAddressDeliverable(profile)
                             }
                         }
@@ -305,13 +316,25 @@ class ProfileActivity : AppCompatActivity() {
             var email: String = activity_profile_content_scrolling_emailAddress.text.toString()
             var address: String = activity_profile_content_scrolling_address.text.toString()
             var pinCode: String = activity_profile_content_scrolling_pincode.text.toString()
-
-            if (FirebaseAuth.getInstance().currentUser?.phoneNumber == null || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == "" || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == null) {
-                number = activity_profile_content_scrolling_phoneNumber.text.toString()
-            } else {
-                number = FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
-            }
             var profile = Profile(name, number, email, address, pinCode)
+            d((activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
+                    activity_profile_content_scrolling_phoneNumberCode.text.toString() +
+                    activity_profile_content_scrolling_phoneNumber.text.toString()),FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() + "sometextprofile")
+            if (FirebaseAuth.getInstance().currentUser?.phoneNumber == null || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == "" || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == null) {
+                profile.number = activity_profile_content_scrolling_phoneNumber.text.toString()
+                profile.areaPhoneCode =
+                    activity_profile_content_scrolling_phoneNumberCode.text.toString()
+            } else {
+                if ((activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
+                            activity_profile_content_scrolling_phoneNumberCode.text.toString() +
+                            activity_profile_content_scrolling_phoneNumber.text.toString()) == FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
+                ) {
+                    profile.areaPhoneCode =
+                        activity_profile_content_scrolling_phoneNumberCode.text.toString()
+                    profile.number =
+                        activity_profile_content_scrolling_phoneNumber.text.toString()
+                }
+            }
             profile.orderNumber = orderNumber
             isAddressDeliverable(profile)
         }
