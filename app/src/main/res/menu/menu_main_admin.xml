@@ -55,6 +55,13 @@
             app:showAsAction="never" />
 
         <item
+            android:id="@+id/menu_main_admin_actionDeveloper"
+            android:icon="@drawable/ic_baseline_developer_mode_24"
+            android:orderInCategory="100"
+            android:title="Developer"
+            app:showAsAction="never" />
+
+        <item
             android:id="@+id/menu_main_admin_actionCloseNavigationDrawer"
             android:icon="@drawable/ic_baseline_arrow_back_24_black"
             android:orderInCategory="100"
