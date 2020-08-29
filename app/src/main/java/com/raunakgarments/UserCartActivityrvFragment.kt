@@ -62,11 +62,23 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                         var profile = snapshot.getValue(Profile::class.java)
                         mFirebaseAuth.currentUser?.reload()
                         var emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
-
-                        if (profile != null && profile.deliverable && emailVerified && profile.address != "") {
-                            callCheckoutActivity(profile, userId)
-                        } else {
-                            paymentErrorPopup()
+                        d(
+                            "checkoutActivity",
+                            "${FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()}"
+                        )
+                        FirebaseAuth.getInstance().currentUser?.reload()?.addOnCompleteListener {
+                            if (profile != null &&
+                                profile.deliverable &&
+                                emailVerified &&
+                                profile.address != "" &&
+                                FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() != "" &&
+                                FirebaseAuth.getInstance().currentUser?.phoneNumber != null &&
+                                FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() != null
+                            ) {
+                                callCheckoutActivity(profile, userId)
+                            } else {
+                                paymentErrorPopup()
+                            }
                         }
                     }
                 })
