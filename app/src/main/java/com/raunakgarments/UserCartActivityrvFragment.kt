@@ -96,7 +96,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         if (context != null) {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Can't Checkout?")
-            builder.setMessage("Please check if your email is verified, pincode is deliverable and address is present from Profile section.")
+            builder.setMessage("Please check if your email and phone Number is verified, pincode is deliverable and address is present from Profile section.")
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("OK") { dialogInterface, which ->
             }
