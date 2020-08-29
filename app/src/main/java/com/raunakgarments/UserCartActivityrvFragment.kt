@@ -60,32 +60,36 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         d("deliverable log", "${snapshot.key} ${snapshot.value}")
                         var profile = snapshot.getValue(Profile::class.java)
-                        mFirebaseAuth.currentUser?.reload()
-                        var emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
-                        d(
-                            "checkoutActivity",
-                            "${FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()}"
-                        )
-                        FirebaseAuth.getInstance().currentUser?.reload()?.addOnCompleteListener {
-                            if (profile != null &&
-                                profile.deliverable &&
-                                emailVerified &&
-                                profile.address != "" &&
-                                FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() != "" &&
-                                FirebaseAuth.getInstance().currentUser?.phoneNumber != null &&
-                                FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() != null
-                            ) {
-                                callCheckoutActivity(profile, userId)
-                            } else {
-                                paymentErrorPopup()
-                            }
-                        }
+                        checkConditionsForCheckout(profile)
                     }
                 })
         }
     }
 
-    fun callCheckoutActivity(profile: Profile, userID: String) {
+    fun checkConditionsForCheckout(profile: Profile?) {
+        mFirebaseAuth.currentUser?.reload()
+        var emailVerified = mFirebaseAuth.currentUser?.isEmailVerified!!
+        d(
+            "checkoutActivity",
+            FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
+        )
+        FirebaseAuth.getInstance().currentUser?.reload()?.addOnCompleteListener {
+            if (profile != null &&
+                profile.deliverable &&
+                emailVerified &&
+                profile.address != "" &&
+                FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() != "" &&
+                FirebaseAuth.getInstance().currentUser?.phoneNumber != null &&
+                FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() != null
+            ) {
+                callCheckoutActivity(profile, userId)
+            } else {
+                paymentErrorPopup()
+            }
+        }
+    }
+
+    private fun callCheckoutActivity(profile: Profile, userID: String) {
         var intent =
             Intent(activity, CheckoutActivity::class.java)
         intent.putExtra("userID", userID)
