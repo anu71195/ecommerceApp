@@ -12,10 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AdminPinCodeEditActivity"
-            android:parentActivityName=".AdminFunctionsActivity"
-            android:label="@string/title_activity_admin_pin_code_edit"
+            android:name=".DeveloperAdminActivity"
+            android:label="@string/title_activity_developer_admin"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".AdminPinCodeEditActivity"
+            android:label="@string/title_activity_admin_pin_code_edit"
+            android:parentActivityName=".AdminFunctionsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AdminContactUsEditActivity"
             android:label="@string/title_activity_admin_contact_us_edit"

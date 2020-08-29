@@ -120,4 +120,5 @@
     <string name="update">Update</string>
     <string name="send_verification_email">Send Verification Email</string>
     <string name="pay_with_razorpay">Pay with Razorpay</string>
+    <string name="title_activity_developer_admin">ScrollingActivity</string>
 </resources>
