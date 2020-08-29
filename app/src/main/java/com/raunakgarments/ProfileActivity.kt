@@ -134,7 +134,7 @@ class ProfileActivity : AppCompatActivity() {
         builder.setPositiveButton("Yes") { dialogInterface, which ->
 
             Toast.makeText(this, pinCodeInputEditText.text.toString(), Toast.LENGTH_LONG).show()
-            var credential = PhoneAuthProvider.getCredential(verificationID!!, "123456")
+            var credential = PhoneAuthProvider.getCredential(verificationID!!, pinCodeInputEditText.text.toString())
             signInWithPhoneAuthCredential(credential)
 
         }
