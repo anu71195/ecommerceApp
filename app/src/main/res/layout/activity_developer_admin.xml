@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".DeveloperAdminActivity">
+    tools:context=".developerActivities.DeveloperAdminActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_developer_admin_toolbar"

@@ -2,19 +2,11 @@ package com.raunakgarments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log.d
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import com.google.android.material.navigation.NavigationView
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.raunakgarments.model.Product
-import kotlinx.android.synthetic.main.activity_product_new.*
+import com.raunakgarments.developerActivities.DeveloperAdminActivity
 import kotlinx.android.synthetic.main.activity_product_new_admin.*
-import kotlinx.android.synthetic.main.main.*
 
 class AdminProductActivityNew : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

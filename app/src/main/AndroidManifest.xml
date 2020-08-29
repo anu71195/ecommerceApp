@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".DeveloperAdminActivity"
+            android:name=".developerActivities.DeveloperAdminActivity"
             android:label="@string/title_activity_developer_admin"
             android:parentActivityName="AdminProductActivityNew"
             android:theme="@style/AppTheme.NoActionBar"></activity>
