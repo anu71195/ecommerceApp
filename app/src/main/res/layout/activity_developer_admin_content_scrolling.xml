@@ -11,13 +11,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <Button
-        android:layout_width="match_parent"
-        android:id="@+id/activity_developer_admin_content_scrolling_edit_syncProductStockSync"
-        android:layout_height="wrap_content"
-        android:text="Sync Product Stock with Products"
-        android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent"/>
+
+        <Button
+            android:id="@+id/activity_developer_admin_content_scrolling_edit_syncProductStockSync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Sync Product Stock with Products"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
