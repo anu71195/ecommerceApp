@@ -20,6 +20,18 @@
         app:title="@string/app_name"
         app:titleTextColor="#FFFFFF" />
 
+    <TextView
+        android:id="@+id/activity_developer_admin_textViewAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF0000"
+        android:gravity="center_horizontal"
+        android:text="Admin Panel"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@+id/activity_developer_admin_toolbar"
+        tools:layout_editor_absoluteY="16dp" />
+
     <FrameLayout
         android:id="@+id/activity_developer_admin_frameLayout"
         android:layout_width="0dp"
@@ -27,7 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_developer_admin_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/activity_developer_admin_textViewAdmin">
         <include layout="@layout/activity_developer_admin_content_scrolling" />
     </FrameLayout>
 
