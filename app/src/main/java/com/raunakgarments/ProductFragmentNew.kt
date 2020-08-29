@@ -1,6 +1,6 @@
 package com.raunakgarments
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log.d
 import androidx.fragment.app.Fragment
@@ -12,14 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.raunakgarments.model.Product
 import kotlinx.android.synthetic.main.fragment_products_new.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class ProductFragmentNew() : Fragment() {
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +33,19 @@ class ProductFragmentNew() : Fragment() {
         val myContext = context
         val productsLayoutManager = GridLayoutManager(context, 2)
 
+        searchButtonClickListener(myContext, productsLayoutManager)
+        val adapter = ProductAdapterNew()
+        if (myContext != null) {
+            adapter.populate("products", myContext)
+        }
+        rvProducts.adapter = adapter
+        rvProducts.layoutManager = productsLayoutManager
+    }
 
+    private fun searchButtonClickListener(
+        myContext: Context?,
+        productsLayoutManager: GridLayoutManager
+    ) {
         searchButtonNew.setOnClickListener {
             d("Anuragadding", "addding")
             var searchTextReworked = searchTermNew.text.toString()
@@ -46,7 +56,7 @@ class ProductFragmentNew() : Fragment() {
             var products: MutableList<String> = ArrayList()
             var searchList: MutableList<String> = ArrayList()
 
-            for(tag in tagList) {
+            for (tag in tagList) {
                 searchList.add(re.replace(tag.toLowerCase(), ""))
             }
 
@@ -93,14 +103,6 @@ class ProductFragmentNew() : Fragment() {
             rvProducts.adapter = adapter
             rvProducts.layoutManager = productsLayoutManager
         }
-
-
-        val adapter = ProductAdapterNew()
-        if (myContext != null) {
-            adapter.populate("products", myContext)
-        }
-        rvProducts.adapter = adapter
-        rvProducts.layoutManager = productsLayoutManager
     }
 
 }
