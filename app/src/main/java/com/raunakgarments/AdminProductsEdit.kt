@@ -40,7 +40,6 @@ class AdminProductsEdit : AppCompatActivity() {
             Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
         populateTextFields(product)
         uploadImageButtonClickListener()
-//todo edit of stock from stock sync
         editButtonClickListener(product)
         deleteButtonClickListener()
 
