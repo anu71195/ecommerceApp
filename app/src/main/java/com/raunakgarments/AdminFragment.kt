@@ -13,7 +13,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.Product
+import com.raunakgarments.model.ProductStockSync
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_admin.*
 
@@ -111,8 +113,9 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
     private fun saveDeal() {
         var tagFirebaseUtil = FirebaseUtil()
         var product = Product()
+        var productStockSync = ProductStockSync()
         product.populate(title, price, link, description)
-        product.stock = this.stock
+        productStockSync.stock = this.stock
         val pushReferenceKey = mDatabaseReference.push().key
         if (pushReferenceKey != null) {
             product.id = pushReferenceKey
@@ -120,13 +123,17 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
             val re = Regex("[^A-Za-z0-9]")
             for (tag in tagList) {
                 var processedTag = re.replace(tag.toLowerCase(), "")
-                if(processedTag != "") {
+                if (processedTag != "") {
                     product.tagArray[processedTag] = 1
                     tagFirebaseUtil.openFbReference("tags/$tag")
                     tagFirebaseUtil.mDatabaseReference.child(pushReferenceKey).setValue(1)
                 }
             }
             mDatabaseReference.child(pushReferenceKey).setValue(product)
+            ProductStockSyncHelper().setValueInChild(
+                pushReferenceKey,
+                productStockSync
+            )
         }
         clean()
     }
