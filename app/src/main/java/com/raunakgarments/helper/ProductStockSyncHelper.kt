@@ -9,4 +9,11 @@ class ProductStockSyncHelper {
         productStockFirebaseUtil.mDatabaseReference.child(childId)
             .setValue(productStockSync)
     }
+
+    fun removeValueFromChild(childId: String) {
+        var productStockFirebaseUtil = FirebaseUtil()
+        productStockFirebaseUtil.openFbReference("productStockSync")
+        productStockFirebaseUtil.mDatabaseReference.child(childId).removeValue()
+    }
+
 }
