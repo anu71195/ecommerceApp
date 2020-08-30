@@ -125,7 +125,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 var processedTag = re.replace(tag.toLowerCase(), "")
                 if (processedTag != "") {
                     product.tagArray[processedTag] = 1
-                    tagFirebaseUtil.openFbReference("tags/$tag")
+                    tagFirebaseUtil.openFbReference("tags/$processedTag")
                     tagFirebaseUtil.mDatabaseReference.child(pushReferenceKey).setValue(1)
                 }
             }
