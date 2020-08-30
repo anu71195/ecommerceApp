@@ -2,13 +2,23 @@ package com.raunakgarments.developerActivities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log.d
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 import com.raunakgarments.AdminProductActivityNew
+import com.raunakgarments.FirebaseUtil
 import com.raunakgarments.R
+import com.raunakgarments.helper.ProductStockSyncHelper
+import com.raunakgarments.model.Product
+import com.raunakgarments.model.ProductStockSync
 import kotlinx.android.synthetic.main.activity_developer_admin_content_scrolling.*
 
 class DeveloperAdminActivity : AppCompatActivity() {
@@ -27,6 +37,29 @@ class DeveloperAdminActivity : AppCompatActivity() {
 
     private fun syncProductStockSyncButtonClickListener() {
         activity_developer_admin_content_scrolling_edit_syncProductStockSync.setOnClickListener {
+            var productFirebaseUtil = FirebaseUtil()
+            productFirebaseUtil.openFbReference("products")
+            productFirebaseUtil.mDatabaseReference.addChildEventListener(
+                object : ChildEventListener {
+                    override fun onCancelled(error: DatabaseError) {}
+                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+                    override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+                    override fun onChildRemoved(snapshot: DataSnapshot) {}
+                    override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                        var product = snapshot.getValue(Product::class.java)
+                        var productStockSync = ProductStockSync()
+                        if (product != null) {
+                            productStockSync.stock = product.stock
+                            ProductStockSyncHelper().setValueInChild(
+                                snapshot.key.toString(),
+                                productStockSync
+                            )
+
+                        }
+                    }
+
+                }
+            )
 
         }
     }
