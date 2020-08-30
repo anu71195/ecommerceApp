@@ -37,29 +37,32 @@ class DeveloperAdminActivity : AppCompatActivity() {
 
     private fun syncProductStockSyncButtonClickListener() {
         activity_developer_admin_content_scrolling_edit_syncProductStockSync.setOnClickListener {
-            var productFirebaseUtil = FirebaseUtil()
-            productFirebaseUtil.openFbReference("products")
-            productFirebaseUtil.mDatabaseReference.addChildEventListener(
-                object : ChildEventListener {
-                    override fun onCancelled(error: DatabaseError) {}
-                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-                    override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-                    override fun onChildRemoved(snapshot: DataSnapshot) {}
-                    override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                        var product = snapshot.getValue(Product::class.java)
-                        var productStockSync = ProductStockSync()
-                        if (product != null) {
-                            productStockSync.stock = product.stock
-                            ProductStockSyncHelper().setValueInChild(
-                                snapshot.key.toString(),
-                                productStockSync
-                            )
+            /*
+//            var productFirebaseUtil = FirebaseUtil()
+//            productFirebaseUtil.openFbReference("products")
+//            productFirebaseUtil.mDatabaseReference.addChildEventListener(
+//                object : ChildEventListener {
+//                    override fun onCancelled(error: DatabaseError) {}
+//                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+//                    override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+//                    override fun onChildRemoved(snapshot: DataSnapshot) {}
+//                    override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+//                        var product = snapshot.getValue(Product::class.java)
+//                        var productStockSync = ProductStockSync()
+//                        if (product != null) {
+//                            productStockSync.stock = product.stock
+//                            ProductStockSyncHelper().setValueInChild(
+//                                snapshot.key.toString(),
+//                                productStockSync
+//                            )
+//
+//                        }
+//                    }
+//
+//                }
+//            )
 
-                        }
-                    }
-
-                }
-            )
+             */
 
         }
     }
