@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.gson.Gson
+import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_admin_products_edit.*
@@ -147,6 +148,7 @@ class AdminProductsEdit : AppCompatActivity() {
                     tagFirebaseUtil.openFbReference("tags/${tag.key}")
                     tagFirebaseUtil.mDatabaseReference.child(productId).removeValue()
                 }
+                ProductStockSyncHelper().removeValueFromChild(productId)
                 mDatabaseReference.child(productId).removeValue()
                 var intent = Intent(this, AdminProductActivityNew::class.java)
                 intent.putExtra("flow", "deleteFlow")
