@@ -8,20 +8,13 @@ import android.util.Log.d
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.gson.Gson
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_admin_products_edit.*
 import kotlinx.android.synthetic.main.activity_admin_products_edit_content_scrolling.*
-import kotlinx.android.synthetic.main.fragment_admin.*
-import org.jetbrains.anko.image
-import org.jetbrains.anko.topPadding
 
 class AdminProductsEdit : AppCompatActivity() {
 
@@ -60,82 +53,13 @@ class AdminProductsEdit : AppCompatActivity() {
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
             startActivityForResult(Intent.createChooser(intent, "Insert Picture"), PICTURE_RESULT)
         }
+//todo edit of stock from stock sync
+        editButtonClickListener(product)
+        deleteButtonClickListener()
 
-        activity_admin_products_edit_content_scrolling_UpdateProductAdmin.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Are you sure?")
-            builder.setMessage("")
-            builder.setIcon(android.R.drawable.ic_dialog_alert)
-            builder.setPositiveButton("Yes") { dialogInterface, which ->
-                Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
-                product.title =
-                    activity_admin_products_edit_content_scrolling_productTitleAdmin.text.toString()
-                product.price =
-                    activity_admin_products_edit_content_scrolling_productPriceAdmin.text.toString()
-                        .toDouble()
-                if (activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString() != "") {
-                    product.stock =
-                        activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString()
-                            .toInt()
-                } else {
-                    product.stock = 0
-                }
-                if (activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString() != "") {
-                    product.description =
-                        activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString()
-                } else {
-                    product.description = ""
-                }
-                if (activity_admin_products_edit_content_scrolling_productImageLinkAdmin.text.toString() != "") {
-                    product.photoUrl =
-                        activity_admin_products_edit_content_scrolling_productImageLinkAdmin.text.toString()
-                } else {
-                    product.photoUrl =
-                        "https://firebasestorage.googleapis.com/v0/b/raunak-garments.appspot.com/o/productImages%2F1285051925?alt=media&token=85c30b32-3f21-42e4-8d08-d927f1e76d7f"
-                }
-                var tagFirebaseUtil = FirebaseUtil()
+    }
 
-                //removing old tags
-                for( tag in tagArray) {
-                    tagFirebaseUtil.openFbReference("tags/${tag.key}")
-                    tagFirebaseUtil.mDatabaseReference.child(productId).removeValue()
-                }
-
-                //adding new tags
-                var tagList = product.title.split(" ", ",")
-                val re = Regex("[^A-Za-z0-9]")
-                product.tagArray = HashMap<String, Int>()
-                for (tag in tagList) {
-                    var processedTag = re.replace(tag.toLowerCase(), "")
-                    d("EditTags",processedTag)
-                    if (processedTag != "") {
-                        product.tagArray[processedTag] = 1
-                        tagFirebaseUtil.openFbReference("tags/$processedTag")
-                        tagFirebaseUtil.mDatabaseReference.child(productId).setValue(1)
-                    }
-                }
-
-                mDatabaseReference.child(productId).setValue(product)
-
-                var intent = Intent(this, AdminProductActivityNew::class.java)
-                intent.putExtra("flow", "updateFlow")
-                this.startActivity(intent)
-            }
-            builder.setNeutralButton("Cancel") { dialogInterface, which ->
-                Toast.makeText(
-                    applicationContext,
-                    "clicked cancel\n operation cancel",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-            builder.setNegativeButton("No") { dialogInterface, which ->
-                Toast.makeText(applicationContext, "clicked No", Toast.LENGTH_LONG).show()
-            }
-            val alertDialog: AlertDialog = builder.create()
-            alertDialog.setCancelable(false)
-            alertDialog.show()
-        }
-
+    private fun deleteButtonClickListener() {
         activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Are you sure?")
@@ -168,6 +92,87 @@ class AdminProductsEdit : AppCompatActivity() {
             alertDialog.setCancelable(false)
             alertDialog.show()
         }
+    }
+
+    private fun editButtonClickListener(product: Product) {
+        activity_admin_products_edit_content_scrolling_UpdateProductAdmin.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Are you sure?")
+            builder.setMessage("")
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+            builder.setPositiveButton("Yes") { dialogInterface, which ->
+                positiveClickListenerOverPopUpOnUpdateProduct(product)
+            }
+            builder.setNeutralButton("Cancel") { dialogInterface, which ->
+                Toast.makeText(
+                    applicationContext,
+                    "clicked cancel\n operation cancel",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            builder.setNegativeButton("No") { dialogInterface, which ->
+                Toast.makeText(applicationContext, "clicked No", Toast.LENGTH_LONG).show()
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+        }
+    }
+
+    private fun positiveClickListenerOverPopUpOnUpdateProduct(product: Product) {
+        Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
+        product.title =
+            activity_admin_products_edit_content_scrolling_productTitleAdmin.text.toString()
+        product.price =
+            activity_admin_products_edit_content_scrolling_productPriceAdmin.text.toString()
+                .toDouble()
+        if (activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString() != "") {
+            product.stock =
+                activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString()
+                    .toInt()
+        } else {
+            product.stock = 0
+        }
+        if (activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString() != "") {
+            product.description =
+                activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString()
+        } else {
+            product.description = ""
+        }
+        if (activity_admin_products_edit_content_scrolling_productImageLinkAdmin.text.toString() != "") {
+            product.photoUrl =
+                activity_admin_products_edit_content_scrolling_productImageLinkAdmin.text.toString()
+        } else {
+            product.photoUrl =
+                "https://firebasestorage.googleapis.com/v0/b/raunak-garments.appspot.com/o/productImages%2F1285051925?alt=media&token=85c30b32-3f21-42e4-8d08-d927f1e76d7f"
+        }
+        var tagFirebaseUtil = FirebaseUtil()
+
+        //removing old tags
+        for (tag in tagArray) {
+            tagFirebaseUtil.openFbReference("tags/${tag.key}")
+            tagFirebaseUtil.mDatabaseReference.child(productId).removeValue()
+        }
+
+        //adding new tags
+        var tagList = product.title.split(" ", ",")
+        val re = Regex("[^A-Za-z0-9]")
+        product.tagArray = HashMap<String, Int>()
+        for (tag in tagList) {
+            var processedTag = re.replace(tag.toLowerCase(), "")
+            d("EditTags", processedTag)
+            if (processedTag != "") {
+                product.tagArray[processedTag] = 1
+                tagFirebaseUtil.openFbReference("tags/$processedTag")
+                tagFirebaseUtil.mDatabaseReference.child(productId).setValue(1)
+            }
+        }
+
+        mDatabaseReference.child(productId).setValue(product)
+
+        var intent = Intent(this, AdminProductActivityNew::class.java)
+        intent.putExtra("flow", "updateFlow")
+        this.startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
