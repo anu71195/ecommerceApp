@@ -9,10 +9,14 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.Product
+import com.raunakgarments.model.ProductStockSync
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_admin_products_edit_content_scrolling.*
 
@@ -42,9 +46,21 @@ class AdminProductsEdit : AppCompatActivity() {
 
     }
     private fun populateTextFields(product: Product) {
+
+        var productStockFirebaseUtil = FirebaseUtil()
+        productStockFirebaseUtil.openFbReference("productStockSync")
+        productStockFirebaseUtil.mDatabaseReference.child(product.id).addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var productStock = snapshot.getValue(ProductStockSync::class.java)
+                if (productStock != null) {
+                    activity_admin_products_edit_content_scrolling_productStockAdmin.setText(productStock.stock.toString())
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
         activity_admin_products_edit_content_scrolling_productTitleAdmin.setText(product.title)
         activity_admin_products_edit_content_scrolling_productPriceAdmin.setText(product.price.toString())
-        activity_admin_products_edit_content_scrolling_productStockAdmin.setText(product.stock.toString())
         activity_admin_products_edit_content_scrolling_productImageLinkAdmin.setText(product.photoUrl)
         activity_admin_products_edit_content_scrolling_productDescriptionAdmin.setText(product.description)
         Picasso.get().load(product.photoUrl)
