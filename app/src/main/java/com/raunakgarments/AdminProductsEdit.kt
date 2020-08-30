@@ -139,19 +139,39 @@ class AdminProductsEdit : AppCompatActivity() {
     }
 
     private fun positiveClickListenerOverPopUpOnUpdateProduct(product: Product) {
+        var productStockSyncStock = 0
+        if (activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString() != "") {
+            productStockSyncStock =
+                activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString()
+                    .toInt()
+        } else {
+            productStockSyncStock = 0
+        }
+
+        var productStockFirebaseUtil = FirebaseUtil()
+        productStockFirebaseUtil.openFbReference("productStockSync")
+        productStockFirebaseUtil.mDatabaseReference.child(product.id).addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var productStockSync = snapshot.getValue(ProductStockSync::class.java)
+                if (productStockSync != null) {
+                    productStockSync.stock = productStockSyncStock
+                    ProductStockSyncHelper().setValueInChild(
+                        snapshot.key.toString(),
+                        productStockSync
+                    )
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
+
         Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
         product.title =
             activity_admin_products_edit_content_scrolling_productTitleAdmin.text.toString()
         product.price =
             activity_admin_products_edit_content_scrolling_productPriceAdmin.text.toString()
                 .toDouble()
-        if (activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString() != "") {
-            product.stock =
-                activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString()
-                    .toInt()
-        } else {
-            product.stock = 0
-        }
+
         if (activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString() != "") {
             product.description =
                 activity_admin_products_edit_content_scrolling_productDescriptionAdmin.text.toString()
