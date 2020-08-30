@@ -16,6 +16,7 @@
             android:id="@+id/activity_developer_admin_content_scrolling_edit_syncProductStockSync"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:padding="16dp"
             android:text="Sync Product Stock with Products"
             app:layout_constraintTop_toTopOf="parent" />
