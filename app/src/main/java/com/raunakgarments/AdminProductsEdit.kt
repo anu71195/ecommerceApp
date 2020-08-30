@@ -34,6 +34,14 @@ class AdminProductsEdit : AppCompatActivity() {
 
         val product =
             Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
+        populateTextFields(product)
+        uploadImageButtonClickListener()
+//todo edit of stock from stock sync
+        editButtonClickListener(product)
+        deleteButtonClickListener()
+
+    }
+    private fun populateTextFields(product: Product) {
         activity_admin_products_edit_content_scrolling_productTitleAdmin.setText(product.title)
         activity_admin_products_edit_content_scrolling_productPriceAdmin.setText(product.price.toString())
         activity_admin_products_edit_content_scrolling_productStockAdmin.setText(product.stock.toString())
@@ -43,8 +51,8 @@ class AdminProductsEdit : AppCompatActivity() {
             .into(activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin)
         productId = product.id
         tagArray = product.tagArray
-        d("anurag", "$productId")
-
+    }
+    private fun uploadImageButtonClickListener() {
         var uploadImageButton: Button =
             findViewById<Button>(R.id.activity_admin_products_edit_content_scrolling_uploadImageButtonAdmin)
         uploadImageButton.setOnClickListener {
@@ -53,12 +61,7 @@ class AdminProductsEdit : AppCompatActivity() {
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
             startActivityForResult(Intent.createChooser(intent, "Insert Picture"), PICTURE_RESULT)
         }
-//todo edit of stock from stock sync
-        editButtonClickListener(product)
-        deleteButtonClickListener()
-
     }
-
     private fun deleteButtonClickListener() {
         activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.setOnClickListener {
             val builder = AlertDialog.Builder(this)
