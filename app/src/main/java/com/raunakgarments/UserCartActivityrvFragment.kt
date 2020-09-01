@@ -3,6 +3,7 @@ package com.raunakgarments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -87,26 +88,29 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                 FirebaseAuth.getInstance().currentUser?.phoneNumber != null &&
                 FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() != null
             ) {
-                callCheckoutActivity(profile, userId)
+                processBeforeCallingCheckoutActivity(profile, userId)
             } else {
                 paymentErrorPopup()
             }
         }
     }
 
-    private fun callCheckoutActivity(profile: Profile, userID: String) {
-        getLocks()
-        var intent =
-            Intent(activity, CheckoutActivity::class.java)
-        intent.putExtra("userID", userID)
-        activity?.startActivity(intent)
+    private fun processBeforeCallingCheckoutActivity(profile: Profile, userID: String) {
+        getLocks(profile, userID)
     }
 
-    private fun getLocks() {
+private fun callCheckoutActivity(profile: Profile, userID: String) {
+    var intent =
+        Intent(activity, CheckoutActivity::class.java)
+    intent.putExtra("userID", userID)
+    activity?.startActivity(intent)
+}
+    private fun getLocks(profile: Profile, userID: String) {
         fragment_user_cart_activity_progessBar.visibility = View.VISIBLE
+        Handler().postDelayed({callCheckoutActivity(profile, userID)}, 5000)
     }
 
-    fun paymentErrorPopup() {
+    private fun paymentErrorPopup() {
         if (context != null) {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Can't Checkout?")
