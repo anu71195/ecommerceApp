@@ -8,17 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.gson.Gson
-import com.raunakgarments.model.Product
 import com.raunakgarments.model.Profile
 import kotlinx.android.synthetic.main.fragment_user_cart_activity_rv.*
 
@@ -42,14 +38,23 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val rvProductsAdmin = view.findViewById<RecyclerView>(R.id.fragment_user_cart_activity_rv)
+
+        fragment_user_cart_activity_progessBar.visibility = View.GONE
+        settingUpRecyclerView(view)
+        checkOutButtonClickListener()
+
+    }
+
+    private fun settingUpRecyclerView(view: View) {
         val totalCostView = view.findViewById<TextView>(R.id.fragment_user_cart_activity_totalPrice)
         val adapter = UserCartAdapter()
         context?.let { adapter.populate("userCart/" + this.userId, it, totalCostView) }
         fragment_user_cart_activity_rv.adapter = adapter
         val productsLayoutManager = GridLayoutManager(context, 1)
         fragment_user_cart_activity_rv.layoutManager = productsLayoutManager
+    }
 
+    private fun checkOutButtonClickListener() {
         fragment_user_cart_activity_checkoutButton.setOnClickListener {
             var firebaseUtil = FirebaseUtil()
             firebaseUtil.openFbReference("userProfile/")
@@ -90,10 +95,15 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
     }
 
     private fun callCheckoutActivity(profile: Profile, userID: String) {
+        getLocks()
         var intent =
             Intent(activity, CheckoutActivity::class.java)
         intent.putExtra("userID", userID)
         activity?.startActivity(intent)
+    }
+
+    private fun getLocks() {
+        fragment_user_cart_activity_progessBar.visibility = View.VISIBLE
     }
 
     fun paymentErrorPopup() {
