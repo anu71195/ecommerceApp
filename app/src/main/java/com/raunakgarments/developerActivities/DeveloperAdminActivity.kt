@@ -35,6 +35,7 @@ class DeveloperAdminActivity : AppCompatActivity() {
         syncProductStockSyncButtonClickListener()
     }
 
+    // DECOMMISSIONED
     private fun syncProductStockSyncButtonClickListener() {
         activity_developer_admin_content_scrolling_edit_syncProductStockSync.setOnClickListener {
             /*
