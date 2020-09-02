@@ -33,6 +33,18 @@
         app:layout_constraintTop_toBottomOf="@+id/cart_product_row_photo" />
 
     <TextView
+        android:id="@+id/cart_product_row_quantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="16dp"
+        android:textColor="#000000"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cart_product_row_title"/>
+
+
+    <TextView
         android:id="@+id/cart_product_row_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -41,7 +53,6 @@
         android:textColor="#000000"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cart_product_row_title"
-        tools:text="$5.99" />
+        app:layout_constraintTop_toBottomOf="@id/cart_product_row_quantity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
