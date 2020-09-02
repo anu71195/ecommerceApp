@@ -1,12 +1,13 @@
 package com.raunakgarments.model
 
 class CartProduct() {
-    public var productId = ""
-    public var objectId = ""
-
-    fun populate(objectId: String, productId: String) {
-        this.objectId = objectId
-        this.productId = productId
-    }
+    public var id = ""
+    var title: String = ""
+    var price = 0.0
+    var photoUrl: String = ""
+    var description: String = ""
+    var quantity = 1.0
+    var totalPrice = 0.0
+    var tagArray: HashMap<String, Int> = HashMap<String, Int>()
 
 }

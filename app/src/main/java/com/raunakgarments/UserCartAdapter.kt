@@ -10,19 +10,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import com.raunakgarments.helper.CostFormatterHelper
+import com.raunakgarments.model.CartProduct
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
 import java.lang.Math.ceil
 
 class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
 
-    var cartProduct: MutableList<Product> = ArrayList()
+    var cartProduct: MutableList<CartProduct> = ArrayList()
     private lateinit var mFirebaseDatebase: FirebaseDatabase
     private lateinit var mDatabaseReference: DatabaseReference
     private lateinit var mFirebaseDatebaseProduct: FirebaseDatabase
     private lateinit var mDatabaseReferenceProduct: DatabaseReference
     private lateinit var childEventListener: ChildEventListener
-//    private lateinit var childEventListenerProduct: ChildEventListener
+
+    //    private lateinit var childEventListenerProduct: ChildEventListener
     private lateinit var listener: (Product) -> Unit
     private lateinit var context: Context
     var totalCost = 0.0
@@ -46,24 +49,26 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onChildRemoved(snapshot: DataSnapshot) {}
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                var td = snapshot.value
-                d("anurag", td.toString())
+                var productQuantity = snapshot.value.toString().toDouble()
                 d("anurag", "Parent")
                 firebaseUtilProduct.openFbReference("products/" + snapshot.key.toString())
                 mFirebaseDatebaseProduct = firebaseUtilProduct.mFirebaseDatabase
                 mDatabaseReferenceProduct = firebaseUtilProduct.mDatabaseReference
-                mDatabaseReferenceProduct.addListenerForSingleValueEvent(object: ValueEventListener {
+                mDatabaseReferenceProduct.addListenerForSingleValueEvent(object :
+                    ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {}
 
                     override fun onDataChange(snapshot: DataSnapshot) {
                         d("anurag", "main")
                         d("anurag", "${snapshot.value}")
-                        var product = snapshot.getValue(Product::class.java)
+                        var product = snapshot.getValue(CartProduct::class.java)
                         if (product != null) {
+                            product.quantity = productQuantity
+                            product.totalPrice = CostFormatterHelper().formatCost(product.price * productQuantity)
                             cartProduct.add(product)
-                            totalCost += product.price
-                            totalCost= (ceil(totalCost*100))/100
-                            totalCostView.text = "Total Cost = " + totalCost.toString()
+                            totalCost += product.totalPrice
+                            totalCost = CostFormatterHelper().formatCost(totalCost)//(ceil(totalCost * 100)) / 100
+                            totalCostView.text = "Total Cost = ₹" + totalCost.toString()
                             notifyItemInserted(cartProduct.size - 1)
                         }
                     }
@@ -82,6 +87,7 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
         var tvTitle: TextView = itemView.findViewById(R.id.cart_product_row_title)
         var image: ImageView = itemView.findViewById(R.id.cart_product_row_photo)
         var price: TextView = itemView.findViewById(R.id.cart_product_row_price)
+        var quantity: TextView = itemView.findViewById(R.id.cart_product_row_quantity)
     }
 
     override fun onCreateViewHolder(
@@ -103,7 +109,8 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
 
         var product = cartProduct[position]
         holder.tvTitle.text = product.title
-        holder.price.text = product.price.toString()
+        holder.quantity.text = product.quantity.toString()
+        holder.price.text = "₹"+product.price.toString() + " X " + product.quantity.toInt().toString() + " = ₹"+product.totalPrice.toString()
         Picasso.get().load(product.photoUrl).into(holder.image)
     }
 }
