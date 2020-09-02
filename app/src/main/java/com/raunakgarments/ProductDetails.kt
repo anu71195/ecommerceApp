@@ -58,7 +58,8 @@ class ProductDetails : AppCompatActivity() {
         addToCartButton.setOnClickListener {
             d("cart button", "clicked")
             d("userId", userId)
-            mDatabaseReference.push().setValue(product.id)
+            mDatabaseReference.child(product.id).setValue(1)
+            //todo for multiple products of same type
         }
 
         Picasso.get().load(intent.getStringExtra("imageUrl")).into(photo)
