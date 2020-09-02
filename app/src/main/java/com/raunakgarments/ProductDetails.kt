@@ -14,10 +14,7 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
 import com.raunakgarments.repos.ProductsRepository
@@ -31,6 +28,7 @@ import kotlin.Double.Companion.POSITIVE_INFINITY
 
 class ProductDetails : AppCompatActivity() {
     var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    var canProductBeAdded = true
     lateinit var userId: String
     lateinit var firebaseUtil: FirebaseUtil
     lateinit var mDatabaseReference: DatabaseReference
@@ -56,10 +54,19 @@ class ProductDetails : AppCompatActivity() {
         val description = intent.getStringExtra("description") ?: ""
 
         addToCartButton.setOnClickListener {
-            d("cart button", "clicked")
-            d("userId", userId)
-            mDatabaseReference.child(product.id).setValue(1)
-            //todo for multiple products of same type
+            canProductBeAdded = true
+            mDatabaseReference.child(product.id).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists() && canProductBeAdded) {
+                        var number = snapshot.value.toString().toInt()
+                        mDatabaseReference.child(product.id).setValue(number + 1)
+                    } else if (!snapshot.exists()) {
+                        mDatabaseReference.child(product.id).setValue(1)
+                    }
+                    canProductBeAdded = false
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
         }
 
         Picasso.get().load(intent.getStringExtra("imageUrl")).into(photo)
