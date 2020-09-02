@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:padding="16dp"
-            android:text="Sync Product Stock with Products"
+            android:text="Sync Product Stock with Products (Decommissioned)"
             app:layout_constraintTop_toBottomOf="@id/activity_developer_admin_content_scrolling_edit_changeUserCartMapping" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
