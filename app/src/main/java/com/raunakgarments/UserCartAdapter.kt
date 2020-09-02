@@ -109,7 +109,7 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
 
         var product = cartProduct[position]
         holder.tvTitle.text = product.title
-        holder.quantity.text = product.quantity.toString()
+        holder.quantity.text = "Quantity = " + product.quantity.toInt().toString()
         holder.price.text = "₹"+product.price.toString() + " X " + product.quantity.toInt().toString() + " = ₹"+product.totalPrice.toString()
         Picasso.get().load(product.photoUrl).into(holder.image)
     }
