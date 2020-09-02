@@ -49,7 +49,7 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                 var td = snapshot.value
                 d("anurag", td.toString())
                 d("anurag", "Parent")
-                firebaseUtilProduct.openFbReference("products/" + snapshot.value.toString())
+                firebaseUtilProduct.openFbReference("products/" + snapshot.key.toString())
                 mFirebaseDatebaseProduct = firebaseUtilProduct.mFirebaseDatabase
                 mDatabaseReferenceProduct = firebaseUtilProduct.mDatabaseReference
                 mDatabaseReferenceProduct.addListenerForSingleValueEvent(object: ValueEventListener {
