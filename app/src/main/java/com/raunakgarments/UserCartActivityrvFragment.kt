@@ -107,6 +107,33 @@ private fun callCheckoutActivity(profile: Profile, userID: String) {
 }
     private fun getLocks(profile: Profile, userID: String) {
         fragment_user_cart_activity_progessBar.visibility = View.VISIBLE
+
+/*todo*/
+
+
+//        var userCartFirebaseUtil: FirebaseUtil = FirebaseUtil()
+//        userCartFirebaseUtil.openFbReference("userCart/"+FirebaseAuth.getInstance().uid.toString())
+//        userCartFirebaseUtil.mDatabaseReference.addValueEventListener(object: ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                d("checkout", "${snapshot.toString()}")
+//            }
+//            override fun onCancelled(error: DatabaseError) {}
+//
+//        })
+
+//        var productSyncFirebaseUtil = FirebaseUtil()
+//        productSyncFirebaseUtil.openFbReference("productStockSync")
+//        productSyncFirebaseUtil.mDatabaseReference.addValueEventListener(object: ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {}
+//
+//        })
+
+
+
         Handler().postDelayed({callCheckoutActivity(profile, userID)}, 5000)
     }
 
