@@ -128,13 +128,15 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                             var number = snapshot.value.toString().toInt()
                             mDatabaseReference.child(productId).setValue(number + 1)
                             cartProduct[position].quantity = (number + 1).toDouble()
-                            cartProduct[position].totalPrice = CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
+                            cartProduct[position].totalPrice =
+                                CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
                             notifyDataSetChanged()
                         } else if (!snapshot.exists()) {
                             mDatabaseReference.child(productId).setValue(1)
                         }
                         canProductBeAdded = false
                     }
+
                     override fun onCancelled(error: DatabaseError) {}
 
                 })
@@ -148,15 +150,19 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists() && canProductBeSubtracted) {
                             var number = snapshot.value.toString().toInt()
-                            mDatabaseReference.child(productId).setValue(number - 1)
-                            cartProduct[position].quantity = (number - 1).toDouble()
-                            cartProduct[position].totalPrice = CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
-                            notifyDataSetChanged()
+                            if (number > 0) {
+                                mDatabaseReference.child(productId).setValue(number - 1)
+                                cartProduct[position].quantity = (number - 1).toDouble()
+                                cartProduct[position].totalPrice =
+                                    CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
+                                notifyDataSetChanged()
+                            }
                         } else if (!snapshot.exists()) {
                             mDatabaseReference.child(productId).setValue(1)
                         }
                         canProductBeSubtracted = false
                     }
+
                     override fun onCancelled(error: DatabaseError) {}
 
                 })
