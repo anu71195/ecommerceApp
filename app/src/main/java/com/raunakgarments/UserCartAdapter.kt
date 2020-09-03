@@ -30,16 +30,17 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
     private lateinit var listener: (Product) -> Unit
     private lateinit var context: Context
     var totalCost = 0.0
+    lateinit var totalCostView:TextView
 
     fun populate(
         ref: String,
         context: Context,
-        totalCostView: TextView
+        totalCostViewInput: TextView
     ) {
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         var firebaseUtilProduct = FirebaseUtil()
         d("user address", "$ref")
-
+        totalCostView = totalCostViewInput
         firebaseUtil.openFbReference(ref)
 
         mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
@@ -128,9 +129,12 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                             var number = snapshot.value.toString().toInt()
                             mDatabaseReference.child(productId).setValue(number + 1)
                             cartProduct[position].quantity = (number + 1).toDouble()
+                            totalCost =
+                                CostFormatterHelper().formatCost(totalCost + cartProduct[position].price)
                             cartProduct[position].totalPrice =
                                 CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
                             notifyDataSetChanged()
+                            totalCostView.text = "Total Cost = ₹" + totalCost.toString()
                         } else if (!snapshot.exists()) {
                             mDatabaseReference.child(productId).setValue(1)
                         }
@@ -153,9 +157,12 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                             if (number > 0) {
                                 mDatabaseReference.child(productId).setValue(number - 1)
                                 cartProduct[position].quantity = (number - 1).toDouble()
+                                totalCost =
+                                    CostFormatterHelper().formatCost(totalCost - cartProduct[position].price)
                                 cartProduct[position].totalPrice =
                                     CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
                                 notifyDataSetChanged()
+                                totalCostView.text = "Total Cost = ₹" + totalCost.toString()
                             }
                         } else if (!snapshot.exists()) {
                             mDatabaseReference.child(productId).setValue(1)
