@@ -161,6 +161,9 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                                     CostFormatterHelper().formatCost(totalCost - cartProduct[position].price)
                                 cartProduct[position].totalPrice =
                                     CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
+                                if(number == 1) {
+                                    cartProduct.removeAt(position)
+                                }
                                 notifyDataSetChanged()
                                 totalCostView.text = "Total Cost = ₹" + totalCost.toString()
                             }
