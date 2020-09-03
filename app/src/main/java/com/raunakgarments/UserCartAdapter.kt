@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.model.CartProduct
@@ -64,10 +65,12 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                         var product = snapshot.getValue(CartProduct::class.java)
                         if (product != null) {
                             product.quantity = productQuantity
-                            product.totalPrice = CostFormatterHelper().formatCost(product.price * productQuantity)
+                            product.totalPrice =
+                                CostFormatterHelper().formatCost(product.price * productQuantity)
                             cartProduct.add(product)
                             totalCost += product.totalPrice
-                            totalCost = CostFormatterHelper().formatCost(totalCost)//(ceil(totalCost * 100)) / 100
+                            totalCost =
+                                CostFormatterHelper().formatCost(totalCost)//(ceil(totalCost * 100)) / 100
                             totalCostView.text = "Total Cost = ₹" + totalCost.toString()
                             notifyItemInserted(cartProduct.size - 1)
                         }
@@ -89,7 +92,8 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
         var price: TextView = itemView.findViewById(R.id.cart_product_row_price)
         var quantity: TextView = itemView.findViewById(R.id.cart_product_row_quantity)
         var addQuantityButton: Button = itemView.findViewById(R.id.cart_product_row_add_quantity)
-        var subtractQuantityButton: Button = itemView.findViewById(R.id.cart_product_row_subtract_quantity)
+        var subtractQuantityButton: Button =
+            itemView.findViewById(R.id.cart_product_row_subtract_quantity)
     }
 
     override fun onCreateViewHolder(
@@ -106,27 +110,51 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
         return return cartProduct.size
     }
 
-    private fun addQuantityClickListener(addQuantityButton: Button) {
-        addQuantityButton.setOnClickListener {
-            d("Quantity","Add")
+    private fun addSubtractQuantityClickListener(
+        holder: DealViewHolder,
+        productId: String,
+        position: Int
+    ) {
+        var productFirebaseUtil = FirebaseUtil()
+        productFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid.toString())
 
+        holder.addQuantityButton.setOnClickListener {
+            d("Quantity", "Add")
+            var canProductBeAdded = true
+            productFirebaseUtil.mDatabaseReference.child(productId)
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists() && canProductBeAdded) {
+                            var number = snapshot.value.toString().toInt()
+                            mDatabaseReference.child(productId).setValue(number + 1)
+                            cartProduct[position].quantity = (number + 1).toDouble()
+                            cartProduct[position].totalPrice = CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
+                            notifyDataSetChanged()
+                        } else if (!snapshot.exists()) {
+                            mDatabaseReference.child(productId).setValue(1)
+                        }
+                        canProductBeAdded = false
+                    }
+                    override fun onCancelled(error: DatabaseError) {}
+
+                })
+
+        }
+
+        holder.subtractQuantityButton.setOnClickListener {
+            d("Quantity", "Subtract")
         }
     }
 
-    private fun subtractQuantityClickListener(subtractQuantityButton: Button) {
-        subtractQuantityButton.setOnClickListener {
-            d("Quantity","Subtract")
-        }
-    }
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
         d("anurag", "process${cartProduct.size} ${position}")
 
         var product = cartProduct[position]
         holder.tvTitle.text = product.title
         holder.quantity.text = "Quantity = " + product.quantity.toInt().toString()
-        holder.price.text = "₹"+product.price.toString() + " X " + product.quantity.toInt().toString() + " = ₹"+product.totalPrice.toString()
+        holder.price.text = "₹" + product.price.toString() + " X " + product.quantity.toInt()
+            .toString() + " = ₹" + product.totalPrice.toString()
         Picasso.get().load(product.photoUrl).into(holder.image)
-        addQuantityClickListener(holder.addQuantityButton)
-        subtractQuantityClickListener(holder.subtractQuantityButton)
+        addSubtractQuantityClickListener(holder, product.id, position)
     }
 }
