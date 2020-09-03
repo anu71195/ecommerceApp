@@ -127,7 +127,7 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists() && canProductBeAdded) {
                             var number = snapshot.value.toString().toInt()
-                            mDatabaseReference.child(productId).setValue(number + 1)
+                            productFirebaseUtil.mDatabaseReference.child(productId).setValue(number + 1)
                             cartProduct[position].quantity = (number + 1).toDouble()
                             totalCost =
                                 CostFormatterHelper().formatCost(totalCost + cartProduct[position].price)
@@ -155,7 +155,7 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                         if (snapshot.exists() && canProductBeSubtracted) {
                             var number = snapshot.value.toString().toInt()
                             if (number > 0) {
-                                mDatabaseReference.child(productId).setValue(number - 1)
+                                productFirebaseUtil.mDatabaseReference.child(productId).setValue(number - 1)
                                 cartProduct[position].quantity = (number - 1).toDouble()
                                 totalCost =
                                     CostFormatterHelper().formatCost(totalCost - cartProduct[position].price)
