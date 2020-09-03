@@ -138,11 +138,28 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                     override fun onCancelled(error: DatabaseError) {}
 
                 })
-
         }
 
         holder.subtractQuantityButton.setOnClickListener {
             d("Quantity", "Subtract")
+            var canProductBeSubtracted = true
+            productFirebaseUtil.mDatabaseReference.child(productId)
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists() && canProductBeSubtracted) {
+                            var number = snapshot.value.toString().toInt()
+                            mDatabaseReference.child(productId).setValue(number - 1)
+                            cartProduct[position].quantity = (number - 1).toDouble()
+                            cartProduct[position].totalPrice = CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
+                            notifyDataSetChanged()
+                        } else if (!snapshot.exists()) {
+                            mDatabaseReference.child(productId).setValue(1)
+                        }
+                        canProductBeSubtracted = false
+                    }
+                    override fun onCancelled(error: DatabaseError) {}
+
+                })
         }
     }
 
