@@ -30,7 +30,7 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
     private lateinit var listener: (Product) -> Unit
     private lateinit var context: Context
     var totalCost = 0.0
-    lateinit var totalCostView:TextView
+    lateinit var totalCostView: TextView
 
     fun populate(
         ref: String,
@@ -108,7 +108,7 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return return cartProduct.size
+        return cartProduct.size
     }
 
     private fun addSubtractQuantityClickListener(
@@ -127,7 +127,8 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists() && canProductBeAdded) {
                             var number = snapshot.value.toString().toInt()
-                            productFirebaseUtil.mDatabaseReference.child(productId).setValue(number + 1)
+                            productFirebaseUtil.mDatabaseReference.child(productId)
+                                .setValue(number + 1)
                             cartProduct[position].quantity = (number + 1).toDouble()
                             totalCost =
                                 CostFormatterHelper().formatCost(totalCost + cartProduct[position].price)
@@ -155,13 +156,14 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                         if (snapshot.exists() && canProductBeSubtracted) {
                             var number = snapshot.value.toString().toInt()
                             if (number > 0) {
-                                productFirebaseUtil.mDatabaseReference.child(productId).setValue(number - 1)
+                                productFirebaseUtil.mDatabaseReference.child(productId)
+                                    .setValue(number - 1)
                                 cartProduct[position].quantity = (number - 1).toDouble()
                                 totalCost =
                                     CostFormatterHelper().formatCost(totalCost - cartProduct[position].price)
                                 cartProduct[position].totalPrice =
                                     CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
-                                if(number == 1) {
+                                if (number == 1) {
                                     cartProduct.removeAt(position)
                                 }
                                 notifyDataSetChanged()
