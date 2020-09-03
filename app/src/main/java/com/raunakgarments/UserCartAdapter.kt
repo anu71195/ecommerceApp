@@ -6,6 +6,7 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,6 @@ import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.model.CartProduct
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
-import java.lang.Math.ceil
 
 class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
 
@@ -88,6 +88,8 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
         var image: ImageView = itemView.findViewById(R.id.cart_product_row_photo)
         var price: TextView = itemView.findViewById(R.id.cart_product_row_price)
         var quantity: TextView = itemView.findViewById(R.id.cart_product_row_quantity)
+        var addQuantityButton: Button = itemView.findViewById(R.id.cart_product_row_add_quantity)
+        var subtractQuantityButton: Button = itemView.findViewById(R.id.cart_product_row_subtract_quantity)
     }
 
     override fun onCreateViewHolder(
@@ -104,6 +106,18 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
         return return cartProduct.size
     }
 
+    private fun addQuantityClickListener(addQuantityButton: Button) {
+        addQuantityButton.setOnClickListener {
+            d("Quantity","Add")
+
+        }
+    }
+
+    private fun subtractQuantityClickListener(subtractQuantityButton: Button) {
+        subtractQuantityButton.setOnClickListener {
+            d("Quantity","Subtract")
+        }
+    }
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
         d("anurag", "process${cartProduct.size} ${position}")
 
@@ -112,5 +126,7 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
         holder.quantity.text = "Quantity = " + product.quantity.toInt().toString()
         holder.price.text = "₹"+product.price.toString() + " X " + product.quantity.toInt().toString() + " = ₹"+product.totalPrice.toString()
         Picasso.get().load(product.photoUrl).into(holder.image)
+        addQuantityClickListener(holder.addQuantityButton)
+        subtractQuantityClickListener(holder.subtractQuantityButton)
     }
 }
