@@ -60,7 +60,7 @@ class ProductDetails : AppCompatActivity() {
                     if (snapshot.exists() && canProductBeAdded) {
                         var number = snapshot.value.toString().toInt()
                         mDatabaseReference.child(product.id).setValue(number + 1)
-                    } else if (!snapshot.exists()) {
+                    } else if (!snapshot.exists() && canProductBeAdded) {
                         mDatabaseReference.child(product.id).setValue(1)
                     }
                     canProductBeAdded = false

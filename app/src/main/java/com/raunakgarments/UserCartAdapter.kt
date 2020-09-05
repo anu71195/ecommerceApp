@@ -136,8 +136,6 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                                 CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
                             notifyDataSetChanged()
                             totalCostView.text = "Total Cost = ₹" + totalCost.toString()
-                        } else if (!snapshot.exists()) {
-                            mDatabaseReference.child(productId).setValue(1)
                         }
                         canProductBeAdded = false
                     }
@@ -165,12 +163,11 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                                     CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
                                 if (number == 1) {
                                     cartProduct.removeAt(position)
+                                    productFirebaseUtil.mDatabaseReference.child(productId).removeValue()
                                 }
                                 notifyDataSetChanged()
                                 totalCostView.text = "Total Cost = ₹" + totalCost.toString()
                             }
-                        } else if (!snapshot.exists()) {
-                            mDatabaseReference.child(productId).setValue(1)
                         }
                         canProductBeSubtracted = false
                     }
