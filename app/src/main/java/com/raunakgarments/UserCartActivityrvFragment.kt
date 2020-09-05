@@ -57,6 +57,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
 
     private fun checkOutButtonClickListener() {
         fragment_user_cart_activity_checkoutButton.setOnClickListener {
+            var checkButtonClicked = true
             var firebaseUtil = FirebaseUtil()
             firebaseUtil.openFbReference("userProfile/")
             firebaseUtil.mDatabaseReference.child(userId)
@@ -64,9 +65,11 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                     ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {}
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        d("deliverable log", "${snapshot.key} ${snapshot.value}")
-                        var profile = snapshot.getValue(Profile::class.java)
-                        checkConditionsForCheckout(profile)
+                        if (checkButtonClicked) {
+                            d("deliverable log", "${snapshot.key} ${snapshot.value}")
+                            var profile = snapshot.getValue(Profile::class.java)
+                            checkConditionsForCheckout(profile)
+                        }
                     }
                 })
         }
@@ -99,27 +102,30 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         getLocks(profile, userID)
     }
 
-private fun callCheckoutActivity(profile: Profile, userID: String) {
-    var intent =
-        Intent(activity, CheckoutActivity::class.java)
-    intent.putExtra("userID", userID)
-    activity?.startActivity(intent)
-}
+    private fun callCheckoutActivity(profile: Profile, userID: String) {
+        var intent =
+            Intent(activity, CheckoutActivity::class.java)
+        intent.putExtra("userID", userID)
+        activity?.startActivity(intent)
+    }
+
     private fun getLocks(profile: Profile, userID: String) {
         fragment_user_cart_activity_progessBar.visibility = View.VISIBLE
 
 /*todo*/
 
 
-//        var userCartFirebaseUtil: FirebaseUtil = FirebaseUtil()
-//        userCartFirebaseUtil.openFbReference("userCart/"+FirebaseAuth.getInstance().uid.toString())
-//        userCartFirebaseUtil.mDatabaseReference.addValueEventListener(object: ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                d("checkout", "${snapshot.toString()}")
-//            }
-//            override fun onCancelled(error: DatabaseError) {}
-//
-//        })
+        var userCartFirebaseUtil: FirebaseUtil = FirebaseUtil()
+        userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid.toString())
+        userCartFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                d("checkout", "${snapshot.toString()}")
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
 
 //        var productSyncFirebaseUtil = FirebaseUtil()
 //        productSyncFirebaseUtil.openFbReference("productStockSync")
@@ -133,8 +139,7 @@ private fun callCheckoutActivity(profile: Profile, userID: String) {
 //        })
 
 
-
-        Handler().postDelayed({callCheckoutActivity(profile, userID)}, 5000)
+        Handler().postDelayed({ callCheckoutActivity(profile, userID) }, 5000)
     }
 
     private fun paymentErrorPopup() {
