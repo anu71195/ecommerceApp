@@ -19,7 +19,6 @@ import com.raunakgarments.R
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
-import com.raunakgarments.model.ProductStockSyncOld
 import kotlinx.android.synthetic.main.activity_developer_admin_content_scrolling.*
 
 class DeveloperAdminActivity : AppCompatActivity() {
@@ -45,12 +44,10 @@ class DeveloperAdminActivity : AppCompatActivity() {
             productStockSyncFirebaseUtil.mDatabaseReference.addChildEventListener(object :
                 ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    var productStockSyncObjectOld = snapshot.getValue(ProductStockSyncOld::class.java)
-                    var productStockSyncObject = ProductStockSync()
+                    var productStockSyncObject = snapshot.getValue(ProductStockSync::class.java)
 
                     snapshot.key?.let { it1 ->
-                        if (productStockSyncObjectOld != null) {
-                            productStockSyncObject.stock = productStockSyncObjectOld.stock
+                        if (productStockSyncObject != null) {
                             ProductStockSyncHelper().setValueInChild(it1, productStockSyncObject)
                         }
                     }
