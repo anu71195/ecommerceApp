@@ -41,15 +41,11 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fragment_user_cart_activity_progessBar.visibility = View.GONE
-        removeZeroQuantityProducts(view)
+        settingUpRecyclerView(view)
         checkOutButtonClickListener()
 
     }
 
-    private fun removeZeroQuantityProducts(view: View) {
-//        todo
-        settingUpRecyclerView(view)
-    }
     private fun settingUpRecyclerView(view: View) {
         val totalCostView = view.findViewById<TextView>(R.id.fragment_user_cart_activity_totalPrice)
         val adapter = UserCartAdapter()
