@@ -16,8 +16,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.raunakgarments.helper.ProductStockSyncHelper
+import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.Profile
 import kotlinx.android.synthetic.main.fragment_user_cart_activity_rv.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class UserCartActivityrvFragment(context: Context) : Fragment() {
 
@@ -83,6 +87,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
             FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
         )
         FirebaseAuth.getInstance().currentUser?.reload()?.addOnCompleteListener {
+            // todo also check if cart is not empty
             if (profile != null &&
                 profile.deliverable &&
                 emailVerified &&
@@ -114,12 +119,50 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
 
 /*todo*/
 
-
         var userCartFirebaseUtil: FirebaseUtil = FirebaseUtil()
         userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid.toString())
-        userCartFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+
+        var productStockSyncFirebaseUtil = FirebaseUtil()
+        productStockSyncFirebaseUtil.openFbReference("productStockSync")
+
+        userCartFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(object :
+            ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                d("checkout", "${snapshot.toString()}")
+                if (snapshot.exists() && snapshot.value != null) {
+                    for (productId in snapshot.value as HashMap<String, Int>) {
+                        productStockSyncFirebaseUtil.mDatabaseReference.child(productId.key)
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    if (snapshot.exists()) {
+                                        var productStockSync =
+                                            snapshot.getValue(ProductStockSync::class.java)
+                                        if (productStockSync?.stock!! >= productId.value) {
+//                                            todo if in stock. First check timestamp if too old then get the lock. Else check the lock
+//                                            if (productStockSync.timeStamp == "0" && productStockSync.locked == "-1") {
+                                            productStockSync.locked =
+                                                FirebaseAuth.getInstance().uid.toString()
+
+
+                                            val gmtTime = SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+                                            gmtTime.timeZone = TimeZone.getTimeZone("Asia/Kolkata")
+
+                                            productStockSync.timeStamp = ((Date().time)/1000).toString()
+
+                                            ProductStockSyncHelper().setValueInChild(
+                                                snapshot.key.toString(),
+                                                productStockSync
+                                            )
+//                                            }
+                                        } else {
+//                                            todo if out of stock or lock not available
+                                        }
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {}
+                            })
+                    }
+                }
 
             }
 
