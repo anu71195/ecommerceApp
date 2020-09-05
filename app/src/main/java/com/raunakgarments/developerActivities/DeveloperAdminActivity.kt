@@ -32,7 +32,32 @@ class DeveloperAdminActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
         developerFlowWarning()
+        reUploadProductStockSyncButtonClickListener()
         syncProductStockSyncButtonClickListener()
+    }
+
+    private fun reUploadProductStockSyncButtonClickListener() {
+        activity_developer_admin_content_scrolling_edit_download_upload_productStockSync.setOnClickListener {
+            var productStockSyncFirebaseUtil = FirebaseUtil()
+            productStockSyncFirebaseUtil.openFbReference("productStockSync")
+
+            productStockSyncFirebaseUtil.mDatabaseReference.addChildEventListener(object :
+                ChildEventListener {
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    var productStockSyncObject = snapshot.getValue(ProductStockSync::class.java)
+                    snapshot.key?.let { it1 ->
+                        if (productStockSyncObject != null) {
+                            ProductStockSyncHelper().setValueInChild(it1, productStockSyncObject)
+                        }
+                    }
+                }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+                override fun onChildRemoved(snapshot: DataSnapshot) {}
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+                override fun onCancelled(error: DatabaseError) {}
+            })
+        }
     }
 
     // DECOMMISSIONED
