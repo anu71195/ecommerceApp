@@ -125,8 +125,8 @@ class ProfileActivity : AppCompatActivity() {
 
     fun showPinCodePopup() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Can't Checkout?")
-        builder.setMessage("Please check if your email is verified, pincode is deliverable and address is present from Profile section.")
+        builder.setTitle("OTP")
+        builder.setMessage("Please put your OTP received on y our phone below.")
         builder.setIcon(android.R.drawable.ic_dialog_alert)
         val pinCodeInputEditText: EditText = EditText(this)
         builder.setView(pinCodeInputEditText)
