@@ -63,7 +63,8 @@ class ProductDetails : AppCompatActivity() {
                     } else if (!snapshot.exists() && canProductBeAdded) {
                         mDatabaseReference.child(product.id).setValue(1)
                     }
-                    Toast.makeText(applicationContext, "Product added to cart", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Product added to cart", Toast.LENGTH_SHORT)
+                        .show()
                     canProductBeAdded = false
                 }
                 override fun onCancelled(error: DatabaseError) {}
