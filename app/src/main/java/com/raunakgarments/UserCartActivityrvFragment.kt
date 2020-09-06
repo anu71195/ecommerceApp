@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -137,24 +138,37 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                                         var productStockSync =
                                             snapshot.getValue(ProductStockSync::class.java)
                                         if (productStockSync?.stock!! >= productId.value) {
-//                                            todo if in stock. First check timestamp if too old then get the lock. Else check the lock
-//                                            if (productStockSync.timeStamp == "0" && productStockSync.locked == "-1") {
-                                            productStockSync.locked =
-                                                FirebaseAuth.getInstance().uid.toString()
+                                            if (productStockSync.locked == "-1" || checkTimeStampStatus(
+                                                    productStockSync.timeStamp
+                                                ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()
+                                            ) {
+                                                d("checkout","entered")
+                                                productStockSync.locked =
+                                                    FirebaseAuth.getInstance().uid.toString()
 
 
-                                            val gmtTime = SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
-                                            gmtTime.timeZone = TimeZone.getTimeZone("Asia/Kolkata")
+                                                val istTime =
+                                                    SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+                                                istTime.timeZone =
+                                                    TimeZone.getTimeZone("Asia/Kolkata")
 
-                                            productStockSync.timeStamp = ((Date().time)/1000).toString()
+                                                productStockSync.dateStamp = istTime.format(Date())
+                                                productStockSync.timeStamp =
+                                                    ((Date().time) / 1000).toString()
 
-                                            ProductStockSyncHelper().setValueInChild(
-                                                snapshot.key.toString(),
-                                                productStockSync
-                                            )
-//                                            }
+                                                ProductStockSyncHelper().setValueInChild(
+                                                    snapshot.key.toString(),
+                                                    productStockSync
+                                                )
+                                            }  else {
+                                                d("checkout","not entered")
+                                                Toast.makeText(activity, " lock not available", Toast.LENGTH_SHORT).show()
+
+                                            }
                                         } else {
-//                                            todo if out of stock or lock not available
+                                            d("checkout","not entered")
+                                            Toast.makeText(activity, " lock not available", Toast.LENGTH_SHORT).show()
+
                                         }
                                     }
                                 }
@@ -162,6 +176,8 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                                 override fun onCancelled(error: DatabaseError) {}
                             })
                     }
+                    Handler().postDelayed({ callCheckoutActivity(profile, userID) }, 5000)
+
                 }
 
             }
@@ -182,7 +198,10 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
 //        })
 
 
-        Handler().postDelayed({ callCheckoutActivity(profile, userID) }, 5000)
+    }
+
+    private fun checkTimeStampStatus(timeStamp: String): Boolean {
+        return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
     }
 
     private fun paymentErrorPopup() {
