@@ -134,8 +134,13 @@ class ProfileActivity : AppCompatActivity() {
         builder.setPositiveButton("Yes") { dialogInterface, which ->
 
             Toast.makeText(this, pinCodeInputEditText.text.toString(), Toast.LENGTH_LONG).show()
-            var credential = PhoneAuthProvider.getCredential(verificationID!!, pinCodeInputEditText.text.toString())
-            signInWithPhoneAuthCredential(credential)
+            if (pinCodeInputEditText.text.toString() != "") {
+                var credential = PhoneAuthProvider.getCredential(
+                    verificationID!!,
+                    pinCodeInputEditText.text.toString()
+                )
+                signInWithPhoneAuthCredential(credential)
+            }
 
         }
         builder.setNeutralButton("Cancel") { dialogInterface, which ->
@@ -317,9 +322,12 @@ class ProfileActivity : AppCompatActivity() {
             var address: String = activity_profile_content_scrolling_address.text.toString()
             var pinCode: String = activity_profile_content_scrolling_pincode.text.toString()
             var profile = Profile(name, number, email, address, pinCode)
-            d((activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
-                    activity_profile_content_scrolling_phoneNumberCode.text.toString() +
-                    activity_profile_content_scrolling_phoneNumber.text.toString()),FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() + "sometextprofile")
+            d(
+                (activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
+                        activity_profile_content_scrolling_phoneNumberCode.text.toString() +
+                        activity_profile_content_scrolling_phoneNumber.text.toString()),
+                FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() + "sometextprofile"
+            )
             if (FirebaseAuth.getInstance().currentUser?.phoneNumber == null || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == "" || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == null) {
                 profile.number = activity_profile_content_scrolling_phoneNumber.text.toString()
                 profile.areaPhoneCode =
