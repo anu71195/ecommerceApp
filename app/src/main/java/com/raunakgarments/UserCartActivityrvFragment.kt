@@ -108,7 +108,11 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         getLocks(profile, userID)
     }
 
-    private fun callCheckoutActivity(profile: Profile, userID: String) {
+    private fun callCheckoutActivity(
+        lockedProducts: HashMap<String, Int>,
+        profile: Profile,
+        userID: String
+    ) {
         var intent =
             Intent(activity, CheckoutActivity::class.java)
         intent.putExtra("userID", userID)
@@ -256,7 +260,13 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                             d("checkout", "Checked all products")
                             d("checkoutinside", lockedProducts.toString())
                             fragment_user_cart_activity_progessBar.visibility = View.GONE
-                            Handler().postDelayed({ callCheckoutActivity(profile, userID) }, 1000)
+                            Handler().postDelayed({
+                                callCheckoutActivity(
+                                    lockedProducts,
+                                    profile,
+                                    userID
+                                )
+                            }, 1000)
                         }
                     }
 
