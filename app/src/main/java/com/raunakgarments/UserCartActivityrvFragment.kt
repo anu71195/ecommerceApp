@@ -117,8 +117,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
 
     private fun getLocks(profile: Profile, userID: String) {
         fragment_user_cart_activity_progessBar.visibility = View.VISIBLE
-
-/*todo*/
+        var lockedProducts = HashMap<String, Int>()
 
         var userCartFirebaseUtil: FirebaseUtil = FirebaseUtil()
         userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid.toString())
@@ -130,7 +129,10 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists() && snapshot.value != null) {
-                    for (productId in snapshot.value as HashMap<String, Int>) {
+                    d("checkoutas", snapshot.value.toString())
+                    var productStockSyncHashmap = snapshot.value as HashMap<String, Int>
+                    /*todo if productstocksynchasmap;size is zero*/
+                    for (productId in productStockSyncHashmap) {
                         productStockSyncFirebaseUtil.mDatabaseReference.child(productId.key)
                             .addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -142,7 +144,8 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                                                     productStockSync.timeStamp
                                                 ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()
                                             ) {
-                                                d("checkout","entered")
+                                                /* locked product array*/
+                                                d("checkout", "entered")
                                                 productStockSync.locked =
                                                     FirebaseAuth.getInstance().uid.toString()
 
@@ -160,23 +163,51 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                                                     snapshot.key.toString(),
                                                     productStockSync
                                                 )
-                                            }  else {
-                                                d("checkout","not entered")
-                                                Toast.makeText(activity, " lock not available", Toast.LENGTH_SHORT).show()
+
+                                                lockedProducts[snapshot.key.toString()] = 1
+
+                                            } else {
+                                                /*stock is locked*/
+                                                lockedProducts[snapshot.key.toString()] = -1
+                                                d("checkout", "not entered")
+                                                Toast.makeText(
+                                                    activity,
+                                                    " lock not available",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
 
                                             }
                                         } else {
-                                            d("checkout","not entered")
-                                            Toast.makeText(activity, " lock not available", Toast.LENGTH_SHORT).show()
+//                                            stock not available
+                                            lockedProducts[snapshot.key.toString()] = -2
+                                            d("checkout", "not entered")
+                                            Toast.makeText(
+                                                activity,
+                                                " lock not available",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
 
                                         }
+                                    } else {
+                                        /*product is not available*/
+                                        lockedProducts[productId.key] = -4
                                     }
+
+                                    if (productStockSyncHashmap.size == lockedProducts.size) {
+                                        Handler().postDelayed({
+                                            checkForLockUser(
+                                                lockedProducts, profile, userID
+                                            )
+                                        }, 5000)
+                                    }
+
+
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {}
                             })
                     }
-                    Handler().postDelayed({ callCheckoutActivity(profile, userID) }, 5000)
+                    d("checkout", lockedProducts.toString())
 
                 }
 
@@ -185,19 +216,53 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
 
         })
+    }
 
-//        var productSyncFirebaseUtil = FirebaseUtil()
-//        productSyncFirebaseUtil.openFbReference("productStockSync")
-//        productSyncFirebaseUtil.mDatabaseReference.addValueEventListener(object: ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {}
-//
-//        })
+    private fun checkForLockUser(
+        lockedProducts: HashMap<String, Int>,
+        profile: Profile,
+        userID: String
+    ) {
+        /*todo check locks again*/
+        d("checkout", lockedProducts.toString())
+        var productCounter = 0
+        for (productSync in lockedProducts) {
+            var productId = productSync.key
+            var productStockSyncFirebaseUtil = FirebaseUtil()
+            productStockSyncFirebaseUtil.openFbReference("productStockSync")
+            productStockSyncFirebaseUtil.mDatabaseReference.child(productId)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            var productStockSync =
+                                snapshot.getValue(ProductStockSync::class.java)
+                            if (productStockSync != null) {
+                                if (productStockSync.locked == FirebaseAuth.getInstance().uid.toString()) {
+                                    lockedProducts[productId] = 1
+                                } else {
+                                    /*product lock is not available*/
+                                    lockedProducts[productId] = -3
+                                }
+                            }
+                        } else {
+                            /*product is not available*/
+                            lockedProducts[productId] = -4
+                        }
+                        productCounter += 1
+                        d("checkoutoutside", "${productCounter}")
 
+                        d("checkoutoutside", lockedProducts.toString())
+                        if (productCounter == lockedProducts.size) {
+                            d("checkout", "Checked all products")
+                            d("checkoutinside", lockedProducts.toString())
+                            fragment_user_cart_activity_progessBar.visibility = View.GONE
+                            Handler().postDelayed({ callCheckoutActivity(profile, userID) }, 1000)
+                        }
+                    }
 
+                    override fun onCancelled(error: DatabaseError) {}
+                })
+        }
     }
 
     private fun checkTimeStampStatus(timeStamp: String): Boolean {
