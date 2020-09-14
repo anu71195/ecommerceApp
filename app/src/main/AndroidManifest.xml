@@ -12,10 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".CartConfirmationActivity"
+            android:label="@string/title_activity_cart_confirmation"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".developerActivities.DeveloperAdminActivity"
             android:label="@string/title_activity_developer_admin"
-            android:parentActivityName="AdminProductActivityNew"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName=".AdminProductActivityNew"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AdminPinCodeEditActivity"
             android:label="@string/title_activity_admin_pin_code_edit"
