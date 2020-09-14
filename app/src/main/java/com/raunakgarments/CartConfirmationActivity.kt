@@ -16,7 +16,7 @@ class CartConfirmationActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.activity_cart_confirmation_frameLayout, CartConfirmationActivityrvFragment(this)).commit()
     }
-
-
 }
