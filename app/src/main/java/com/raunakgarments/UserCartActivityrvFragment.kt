@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.Profile
@@ -114,6 +115,8 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         userID: String
     ) {
         var intent = Intent(activity, CartConfirmationActivity::class.java)
+        intent.putExtra("lockedProducts", lockedProducts)
+        intent.putExtra("profile", Gson().toJson(profile))
         activity?.startActivity(intent)
 //        var intent =
 //            Intent(activity, CheckoutActivity::class.java)
