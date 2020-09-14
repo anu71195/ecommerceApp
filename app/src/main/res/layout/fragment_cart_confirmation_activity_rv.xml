@@ -29,7 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#FF0000"
-        android:text="Checkout"
+        android:text="Confirm Order"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/fragment_cart_confirmation_activity_totalPrice"
