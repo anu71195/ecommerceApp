@@ -12,5 +12,11 @@ class CartConfirmationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart_confirmation)
         setSupportActionBar(findViewById(R.id.activity_cart_confirmation_toolbar))
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
+        }
     }
+
+
 }

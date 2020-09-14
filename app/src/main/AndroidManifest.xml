@@ -14,6 +14,7 @@
         <activity
             android:name=".CartConfirmationActivity"
             android:label="@string/title_activity_cart_confirmation"
+            android:parentActivityName=".UserCartActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".developerActivities.DeveloperAdminActivity"
