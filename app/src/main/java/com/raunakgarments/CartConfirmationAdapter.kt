@@ -1,16 +1,20 @@
 package com.raunakgarments
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
-import org.w3c.dom.Text
 
 class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.DealViewHolder>() {
+
+    fun populate(profile: Profile, lockedProducts: HashMap<String, Int>, totalCostView: TextView) {
+
+    }
+
     class DealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var title: TextView = itemView.findViewById(R.id.cart_confirmation_product_row_title)
         var image: ImageView = itemView.findViewById(R.id.cart_confirmation_product_row_photo)
