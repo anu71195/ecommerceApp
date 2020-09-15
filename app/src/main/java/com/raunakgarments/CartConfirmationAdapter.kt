@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 import com.raunakgarments.model.CartProduct
 import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
@@ -37,23 +38,22 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
         firebaseUtilCart.mDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()) {
-                    d("cartconfirmationadapter", "${snapshot.key}")
-                    d("cartconfirmationadapter", "${snapshot.value}")
                     var cartProductsMap = snapshot.value as HashMap<String, Int>
                     var firebaseUtilProduct = FirebaseUtil()
 
                     for(cartProduct in cartProductsMap) {
-                        d("cartconfirmationaddapter", "${cartProduct.toString()}")
+                        firebaseUtilProduct.openFbReference("products/" + cartProduct.key)
+                        firebaseUtilProduct.mDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                d("cartconfirmationaddapter", snapshot.key.toString())
+                                d("cartconfirmationaddapter", snapshot.value.toString())
+                                var product = snapshot.getValue(CartProduct::class.java)
+                                d("cartconfirmationaddapter", "${Gson().toJson(product).toString()}")
+                            }
+                            override fun onCancelled(error: DatabaseError) {}
+
+                        })
                     }
-//                    firebaseUtilProduct.openFbReference("products/" + product)
-//                    firebaseUtilProduct.mDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
-//                        override fun onDataChange(snapshot: DataSnapshot) {
-//
-//                        }
-//
-//                        override fun onCancelled(error: DatabaseError) {}
-//
-//                    })
                 } else {
                     d("User error", "Cart does not exist for user")
                 }
