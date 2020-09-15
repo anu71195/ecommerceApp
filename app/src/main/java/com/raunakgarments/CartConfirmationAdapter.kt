@@ -48,6 +48,9 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
                                 d("cartconfirmationaddapter", snapshot.key.toString())
                                 d("cartconfirmationaddapter", snapshot.value.toString())
                                 var product = snapshot.getValue(CartProduct::class.java)
+                                if (product != null) {
+                                    product.quantity = cartProductsMap[snapshot.key].toString().toDouble()
+                                }
                                 d("cartconfirmationaddapter", "${Gson().toJson(product).toString()}")
                             }
                             override fun onCancelled(error: DatabaseError) {}
