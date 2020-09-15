@@ -32,7 +32,6 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
         this.totalCostView = totalCostView
 
         var firebaseUtilCart: FirebaseUtil = FirebaseUtil()
-        var firebaseUtilProduct = FirebaseUtil()
         firebaseUtilCart.openFbReference(ref)
 
         firebaseUtilCart.mDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
@@ -40,6 +39,21 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
                 if(snapshot.exists()) {
                     d("cartconfirmationadapter", "${snapshot.key}")
                     d("cartconfirmationadapter", "${snapshot.value}")
+                    var cartProductsMap = snapshot.value as HashMap<String, Int>
+                    var firebaseUtilProduct = FirebaseUtil()
+
+                    for(cartProduct in cartProductsMap) {
+                        d("cartconfirmationaddapter", "${cartProduct.toString()}")
+                    }
+//                    firebaseUtilProduct.openFbReference("products/" + product)
+//                    firebaseUtilProduct.mDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
+//                        override fun onDataChange(snapshot: DataSnapshot) {
+//
+//                        }
+//
+//                        override fun onCancelled(error: DatabaseError) {}
+//
+//                    })
                 } else {
                     d("User error", "Cart does not exist for user")
                 }
