@@ -20,7 +20,7 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
     lateinit var profile: Profile
     lateinit var lockedProducts: HashMap<String, Int>
     lateinit var totalCostView: TextView
-    var cartProduct: MutableList<CartProduct> = ArrayList()
+    var cartProductArray: MutableList<CartProduct> = ArrayList()
 
     fun populate(
         ref: String,
@@ -50,8 +50,10 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
                                 var product = snapshot.getValue(CartProduct::class.java)
                                 if (product != null) {
                                     product.quantity = cartProductsMap[snapshot.key].toString().toDouble()
+                                    cartProductArray.add(product)
                                 }
                                 d("cartconfirmationaddapter", "${Gson().toJson(product).toString()}")
+                                notifyItemInserted(cartProductArray.size - 1)
                             }
                             override fun onCancelled(error: DatabaseError) {}
 
@@ -86,15 +88,15 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
     }
 
     override fun onBindViewHolder(holder: CartConfirmationAdapter.DealViewHolder, position: Int) {
-        holder.title.text = "Colorful Tshirt"
+        holder.title.text = cartProductArray[position].title
         Picasso.get()
-            .load("https://images-na.ssl-images-amazon.com/images/I/61Ca1VD6fyL._UL1024_.jpg")
+            .load(cartProductArray[position].photoUrl)
             .into(holder.image)
-        holder.quantity.text = "3"
-        holder.price.text = "₹" + "320" + " X " + "3" + " = ₹" + "960"
+        holder.quantity.text = cartProductArray[position].quantity.toString()
+        holder.price.text = "₹" + cartProductArray[position].price.toString() + " X " + cartProductArray[position].quantity.toString() + " = ₹" + cartProductArray[position].totalPrice.toString()
     }
 
     override fun getItemCount(): Int {
-        return 3
+        return cartProductArray.size
     }
 }
