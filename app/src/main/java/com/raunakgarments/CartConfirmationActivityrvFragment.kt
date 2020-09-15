@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.fragment_cart_confirmation_activity_rv.*
 
 class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fragment() {
     var activityIntent: Intent = intent
+    val adapter = CartConfirmationAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,13 +38,15 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
 
     private fun confirmOrderButtonClickListener() {
         fragment_cart_confirmation_activity_checkoutButton.setOnClickListener {
-            callCheckoutActivity()
+            callCheckoutActivity(adapter.totalCartCost)
         }
     }
-    private fun callCheckoutActivity() {
+    private fun callCheckoutActivity(totalCartCost: Double) {
         var intent =
             Intent(activity, CheckoutActivity::class.java)
         intent.putExtra("userID", FirebaseAuth.getInstance().uid.toString())
+        intent.putExtra("totalCartCost", totalCartCost)
+        d("totalcartcost", totalCartCost.toString())
         activity?.startActivity(intent)
     }
     private fun settingUpRecyclerView(
@@ -52,7 +56,6 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
     ) {
         val totalCostView =
             view.findViewById<TextView>(R.id.fragment_cart_confirmation_activity_totalPrice)
-        val adapter = CartConfirmationAdapter()
         adapter.populate("userCart/" + FirebaseAuth.getInstance().uid.toString(), profile, lockedProducts, totalCostView)
         fragment_cart_confirmation_activity_rv.adapter = adapter
         val productsLayoutManager = GridLayoutManager(context, 1)
