@@ -21,6 +21,7 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
     lateinit var profile: Profile
     lateinit var lockedProducts: HashMap<String, Int>
     lateinit var totalCostView: TextView
+    var totalCartCost = 0.0
     var cartProductArray: MutableList<CartProduct> = ArrayList()
 
     fun populate(
@@ -53,7 +54,11 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
                                     product.quantity = cartProductsMap[snapshot.key].toString().toDouble()
                                     product.totalPrice = CostFormatterHelper().formatCost(product.price * product.quantity)
                                     cartProductArray.add(product)
+                                    totalCartCost += product.totalPrice
+                                    totalCartCost =
+                                        CostFormatterHelper().formatCost(totalCartCost)//(ceil(totalCost * 100)) / 100
                                 }
+                                totalCostView.text = "Total Cost = ₹" + totalCartCost.toString()
                                 d("cartconfirmationaddapter", "${Gson().toJson(product).toString()}")
                                 notifyItemInserted(cartProductArray.size - 1)
                             }
