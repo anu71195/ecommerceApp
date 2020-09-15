@@ -11,6 +11,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
+import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.model.CartProduct
 import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
@@ -50,6 +51,7 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
                                 var product = snapshot.getValue(CartProduct::class.java)
                                 if (product != null) {
                                     product.quantity = cartProductsMap[snapshot.key].toString().toDouble()
+                                    product.totalPrice = CostFormatterHelper().formatCost(product.price * product.quantity)
                                     cartProductArray.add(product)
                                 }
                                 d("cartconfirmationaddapter", "${Gson().toJson(product).toString()}")
