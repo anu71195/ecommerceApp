@@ -11,8 +11,13 @@ import com.squareup.picasso.Picasso
 
 class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.DealViewHolder>() {
 
+    lateinit var profile: Profile
+    lateinit var lockedProducts: HashMap<String, Int>
+    lateinit var totalCostView: TextView
     fun populate(profile: Profile, lockedProducts: HashMap<String, Int>, totalCostView: TextView) {
-
+        this.profile = profile
+        this.lockedProducts = lockedProducts
+        this.totalCostView = totalCostView
     }
 
     class DealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
