@@ -30,14 +30,14 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
             Gson().fromJson<Profile>(activityIntent.getStringExtra("profile"), Profile::class.java)
         var lockedProducts =
             activityIntent.getSerializableExtra("lockedProducts") as HashMap<String, Int>
-        checkOutButtonClickListener()
+        confirmOrderButtonClickListener()
         settingUpRecyclerView(view, profile, lockedProducts)
-        d("cartconfirmation", "${lockedProducts}")
-        d("cartconfirmation", "${(activityIntent.getStringExtra("profile"))}")
     }
 
-    private fun checkOutButtonClickListener() {
-
+    private fun confirmOrderButtonClickListener() {
+        fragment_cart_confirmation_activity_checkoutButton.setOnClickListener {
+            callCheckoutActivity()
+        }
     }
     private fun callCheckoutActivity() {
         var intent =
