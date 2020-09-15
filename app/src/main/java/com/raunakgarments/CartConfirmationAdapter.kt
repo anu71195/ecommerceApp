@@ -1,11 +1,15 @@
 package com.raunakgarments
 
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.raunakgarments.model.CartProduct
 import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
@@ -26,6 +30,25 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
         this.profile = profile
         this.lockedProducts = lockedProducts
         this.totalCostView = totalCostView
+
+        var firebaseUtilCart: FirebaseUtil = FirebaseUtil()
+        var firebaseUtilProduct = FirebaseUtil()
+        firebaseUtilCart.openFbReference(ref)
+
+        firebaseUtilCart.mDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    d("cartconfirmationadapter", "${snapshot.key}")
+                    d("cartconfirmationadapter", "${snapshot.value}")
+                } else {
+                    d("User error", "Cart does not exist for user")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
+
     }
 
     class DealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
