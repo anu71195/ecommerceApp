@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.raunakgarments.model.Profile
 import kotlinx.android.synthetic.main.fragment_cart_confirmation_activity_rv.*
@@ -25,8 +26,10 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var profile = Gson().fromJson<Profile>(activityIntent.getStringExtra("profile"), Profile::class.java)
-        var lockedProducts = activityIntent.getSerializableExtra("lockedProducts") as HashMap<String, Int>
+        var profile =
+            Gson().fromJson<Profile>(activityIntent.getStringExtra("profile"), Profile::class.java)
+        var lockedProducts =
+            activityIntent.getSerializableExtra("lockedProducts") as HashMap<String, Int>
         settingUpRecyclerView(view, profile, lockedProducts)
         d("cartconfirmation", "${lockedProducts}")
         d("cartconfirmation", "${(activityIntent.getStringExtra("profile"))}")
@@ -37,9 +40,10 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
         profile: Profile,
         lockedProducts: HashMap<String, Int>
     ) {
-        val totalCostView = view.findViewById<TextView>(R.id.fragment_cart_confirmation_activity_totalPrice)
+        val totalCostView =
+            view.findViewById<TextView>(R.id.fragment_cart_confirmation_activity_totalPrice)
         val adapter = CartConfirmationAdapter()
-        adapter.populate(profile, lockedProducts, totalCostView)
+        adapter.populate("userCart/" + FirebaseAuth.getInstance().uid.toString(), profile, lockedProducts, totalCostView)
 //        context?.let { adapter.populate("userCart/" + this.userId, it, totalCostView) }
         fragment_cart_confirmation_activity_rv.adapter = adapter
         val productsLayoutManager = GridLayoutManager(context, 1)

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.raunakgarments.model.CartProduct
 import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
 
@@ -14,7 +15,14 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
     lateinit var profile: Profile
     lateinit var lockedProducts: HashMap<String, Int>
     lateinit var totalCostView: TextView
-    fun populate(profile: Profile, lockedProducts: HashMap<String, Int>, totalCostView: TextView) {
+    var cartProduct: MutableList<CartProduct> = ArrayList()
+
+    fun populate(
+        ref: String,
+        profile: Profile,
+        lockedProducts: HashMap<String, Int>,
+        totalCostView: TextView
+    ) {
         this.profile = profile
         this.lockedProducts = lockedProducts
         this.totalCostView = totalCostView
