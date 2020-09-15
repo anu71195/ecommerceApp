@@ -30,11 +30,21 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
             Gson().fromJson<Profile>(activityIntent.getStringExtra("profile"), Profile::class.java)
         var lockedProducts =
             activityIntent.getSerializableExtra("lockedProducts") as HashMap<String, Int>
+        checkOutButtonClickListener()
         settingUpRecyclerView(view, profile, lockedProducts)
         d("cartconfirmation", "${lockedProducts}")
         d("cartconfirmation", "${(activityIntent.getStringExtra("profile"))}")
     }
 
+    private fun checkOutButtonClickListener() {
+
+    }
+    private fun callCheckoutActivity() {
+        var intent =
+            Intent(activity, CheckoutActivity::class.java)
+        intent.putExtra("userID", FirebaseAuth.getInstance().uid.toString())
+        activity?.startActivity(intent)
+    }
     private fun settingUpRecyclerView(
         view: View,
         profile: Profile,
@@ -44,7 +54,6 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
             view.findViewById<TextView>(R.id.fragment_cart_confirmation_activity_totalPrice)
         val adapter = CartConfirmationAdapter()
         adapter.populate("userCart/" + FirebaseAuth.getInstance().uid.toString(), profile, lockedProducts, totalCostView)
-//        context?.let { adapter.populate("userCart/" + this.userId, it, totalCostView) }
         fragment_cart_confirmation_activity_rv.adapter = adapter
         val productsLayoutManager = GridLayoutManager(context, 1)
         fragment_cart_confirmation_activity_rv.layoutManager = productsLayoutManager
