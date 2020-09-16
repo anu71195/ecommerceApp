@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.model.CartProduct
+import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
 
@@ -22,7 +23,7 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
     lateinit var lockedProducts: HashMap<String, Int>
     lateinit var totalCostView: TextView
     var totalCartCost = 0.0
-    var cartProductArray: MutableList<CartProduct> = ArrayList()
+    var confirmationCartProductArray: MutableList<ConfirmationCartProduct> = ArrayList()
 
     fun populate(
         ref: String,
@@ -40,27 +41,27 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
         firebaseUtilCart.mDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()) {
-                    var cartProductsMap = snapshot.value as HashMap<String, Int>
+                    var confirmationCartProductsMap = snapshot.value as HashMap<String, Int>
                     var firebaseUtilProduct = FirebaseUtil()
 
-                    for(cartProduct in cartProductsMap) {
-                        firebaseUtilProduct.openFbReference("products/" + cartProduct.key)
+                    for(confirmationCartProduct in confirmationCartProductsMap) {
+                        firebaseUtilProduct.openFbReference("products/" + confirmationCartProduct.key)
                         firebaseUtilProduct.mDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 d("cartconfirmationaddapter", snapshot.key.toString())
                                 d("cartconfirmationaddapter", snapshot.value.toString())
-                                var product = snapshot.getValue(CartProduct::class.java)
+                                var product = snapshot.getValue(ConfirmationCartProduct::class.java)
                                 if (product != null) {
-                                    product.quantity = cartProductsMap[snapshot.key].toString().toDouble()
+                                    product.quantity = confirmationCartProductsMap[snapshot.key].toString().toDouble()
                                     product.totalPrice = CostFormatterHelper().formatCost(product.price * product.quantity)
-                                    cartProductArray.add(product)
+                                    confirmationCartProductArray.add(product)
                                     totalCartCost += product.totalPrice
                                     totalCartCost =
                                         CostFormatterHelper().formatCost(totalCartCost)//(ceil(totalCost * 100)) / 100
                                 }
                                 totalCostView.text = "Total Cost = ₹" + totalCartCost.toString()
                                 d("cartconfirmationaddapter", "${Gson().toJson(product).toString()}")
-                                notifyItemInserted(cartProductArray.size - 1)
+                                notifyItemInserted(confirmationCartProductArray.size - 1)
                             }
                             override fun onCancelled(error: DatabaseError) {}
 
@@ -95,15 +96,15 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
     }
 
     override fun onBindViewHolder(holder: CartConfirmationAdapter.DealViewHolder, position: Int) {
-        holder.title.text = cartProductArray[position].title
+        holder.title.text = confirmationCartProductArray[position].title
         Picasso.get()
-            .load(cartProductArray[position].photoUrl)
+            .load(confirmationCartProductArray[position].photoUrl)
             .into(holder.image)
-        holder.quantity.text = cartProductArray[position].quantity.toString()
-        holder.price.text = "₹" + cartProductArray[position].price.toString() + " X " + cartProductArray[position].quantity.toString() + " = ₹" + cartProductArray[position].totalPrice.toString()
+        holder.quantity.text = confirmationCartProductArray[position].quantity.toString()
+        holder.price.text = "₹" + confirmationCartProductArray[position].price.toString() + " X " + confirmationCartProductArray[position].quantity.toString() + " = ₹" + confirmationCartProductArray[position].totalPrice.toString()
     }
 
     override fun getItemCount(): Int {
-        return cartProductArray.size
+        return confirmationCartProductArray.size
     }
 }
