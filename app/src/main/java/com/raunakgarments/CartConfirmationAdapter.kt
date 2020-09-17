@@ -119,6 +119,7 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
                 "₹" + confirmationCartProductArray[position].price.toString() + " X " + confirmationCartProductArray[position].quantity.toString() + " = ₹" + confirmationCartProductArray[position].totalPrice.toString()
         } else {
             holder.title.text = "This Product is not available.\nPlease try again later or try decreasing the quantity."
+            /*todo make this text red*/
         }
     }
 
