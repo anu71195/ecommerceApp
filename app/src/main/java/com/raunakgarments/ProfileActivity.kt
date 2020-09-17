@@ -157,7 +157,8 @@ class ProfileActivity : AppCompatActivity() {
         alertDialog.setCancelable(false)
         alertDialog.show()
     }
-
+/*todo need to dismiss otp popup if it is accepted in background*/
+    /*todo default 91 if phone area code is empty*/
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)
             ?.addOnCompleteListener(this) { task ->

@@ -72,7 +72,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                 }
             })
     }
-
+/*todo need to remove backbutton or go to home screen or user cart screen instead of confirmation screen*/
     fun startRazorpayPayment(co: Checkout, profile: Profile, userID: String) {
         val activity: Activity = this
         var totalCartCost = intent.getDoubleExtra("totalCartCost", 0.0)
