@@ -109,7 +109,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         }
     }
 
-
+/*todo on failure and success payment*/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
