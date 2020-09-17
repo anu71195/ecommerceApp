@@ -54,6 +54,8 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
                                 if (product != null) {
                                     product.quantity = confirmationCartProductsMap[snapshot.key].toString().toDouble()
                                     product.totalPrice = CostFormatterHelper().formatCost(product.price * product.quantity)
+                                    product.productStatus = lockedProducts[snapshot.key]!!
+                                    d("cartconfirmationaddapter", "${product.toString()}")
                                     confirmationCartProductArray.add(product)
                                     totalCartCost += product.totalPrice
                                     totalCartCost =

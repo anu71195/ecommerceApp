@@ -8,6 +8,7 @@ class ConfirmationCartProduct() {
     var description: String = ""
     var quantity = 1.0
     var totalPrice = 0.0
+    var productStatus = 0
     var tagArray: HashMap<String, Int> = HashMap<String, Int>()
 
 }
