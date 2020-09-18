@@ -33,23 +33,22 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
             Gson().fromJson<Profile>(activityIntent.getStringExtra("profile"), Profile::class.java)
         var lockedProducts =
             activityIntent.getSerializableExtra("lockedProducts") as HashMap<String, Int>
-        confirmOrderButtonClickListener(lockedProducts)
+        confirmOrderButtonClickListener()
         settingUpRecyclerView(view, profile, lockedProducts)
     }
 
-    private fun confirmOrderButtonClickListener(lockedProducts: HashMap<String, Int>) {
+    private fun confirmOrderButtonClickListener() {
         fragment_cart_confirmation_activity_checkoutButton.setOnClickListener {
-            callCheckoutActivity(adapter.totalCartCost, lockedProducts)
+            callCheckoutActivity(adapter.totalCartCost)
         }
     }
 
-    private fun callCheckoutActivity(totalCartCost: Double, lockedProducts: HashMap<String, Int>) {
+    private fun callCheckoutActivity(totalCartCost: Double) {
         var intent =
             Intent(activity, CheckoutActivity::class.java)
         UserCartSingletonClass.confirmationCartProductArray = adapter.confirmationCartProductArray
         intent.putExtra("userID", FirebaseAuth.getInstance().uid.toString())
         intent.putExtra("totalCartCost", totalCartCost)
-        intent.putExtra("lockedProducts", lockedProducts)
         d("totalcartcost", totalCartCost.toString())
         activity?.startActivity(intent)
     }

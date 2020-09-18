@@ -34,9 +34,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         d("checkoutactivitypre", "${ Gson().toJson(UserCartSingletonClass.confirmationCartProductArray)}")
         activity_checkout_content_scrolling_payButton.setOnClickListener {
             val userID = intent.getStringExtra("userID")
-            var lockedProducts =
-                intent.getSerializableExtra("lockedProducts") as HashMap<String, Int>
-            d("Checkoutactivity", "sdf ${lockedProducts.toString()}")
             getProfileAndStartPayment(userID)
         }
     }
