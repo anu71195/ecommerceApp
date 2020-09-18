@@ -69,7 +69,7 @@ class ProductActivityNew : AppCompatActivity() {
             drawerLayoutNew.closeDrawers()
             true
         }
-
+/*todo put progress circle on home screen*/
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
