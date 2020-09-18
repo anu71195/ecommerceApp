@@ -159,6 +159,8 @@ class ProfileActivity : AppCompatActivity() {
     }
 /*todo need to dismiss otp popup if it is accepted in background*/
     /*todo default 91 if phone area code is empty*/
+    /*todo give errors for the fields like phone number is not present or something like that*/
+    /*todo defect send otp button is not turning into unlink phone number when manually typed otp*/
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)
             ?.addOnCompleteListener(this) { task ->

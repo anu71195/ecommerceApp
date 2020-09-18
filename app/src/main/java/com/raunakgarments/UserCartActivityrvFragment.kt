@@ -60,7 +60,8 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         val productsLayoutManager = GridLayoutManager(context, 1)
         fragment_user_cart_activity_rv.layoutManager = productsLayoutManager
     }
-
+/*todo checkout error popup give exact conditions*/
+    /*todo how to mitigate if user is spamming the products and trying to get locks again and again*/
     private fun checkOutButtonClickListener() {
         fragment_user_cart_activity_checkoutButton.setOnClickListener {
             var checkButtonClicked = true

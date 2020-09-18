@@ -44,6 +44,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
         var view = inflater.inflate(
             R.layout.fragment_admin, container, false
         )
+        /*todo image compression*/
         var uploadImageButton: Button =
             view.findViewById<Button>(R.id.uploadImageButtonAdmin)
         uploadImageButton.setOnClickListener {

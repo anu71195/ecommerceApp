@@ -73,6 +73,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             })
     }
 /*todo need to remove backbutton or go to home screen or user cart screen instead of confirmation screen*/
+    /*todo 10 min if not paid then pay with razor pay button get disabled*/
     fun startRazorpayPayment(co: Checkout, profile: Profile, userID: String) {
         val activity: Activity = this
         var totalCartCost = intent.getDoubleExtra("totalCartCost", 0.0)
