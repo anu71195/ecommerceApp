@@ -32,23 +32,26 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
             Gson().fromJson<Profile>(activityIntent.getStringExtra("profile"), Profile::class.java)
         var lockedProducts =
             activityIntent.getSerializableExtra("lockedProducts") as HashMap<String, Int>
-        confirmOrderButtonClickListener()
+        confirmOrderButtonClickListener(lockedProducts)
         settingUpRecyclerView(view, profile, lockedProducts)
     }
 
-    private fun confirmOrderButtonClickListener() {
+    private fun confirmOrderButtonClickListener(lockedProducts: HashMap<String, Int>) {
         fragment_cart_confirmation_activity_checkoutButton.setOnClickListener {
-            callCheckoutActivity(adapter.totalCartCost)
+            callCheckoutActivity(adapter.totalCartCost, lockedProducts)
         }
     }
-    private fun callCheckoutActivity(totalCartCost: Double) {
+
+    private fun callCheckoutActivity(totalCartCost: Double, lockedProducts: HashMap<String, Int>) {
         var intent =
             Intent(activity, CheckoutActivity::class.java)
         intent.putExtra("userID", FirebaseAuth.getInstance().uid.toString())
         intent.putExtra("totalCartCost", totalCartCost)
+        intent.putExtra("lockedProducts", lockedProducts)
         d("totalcartcost", totalCartCost.toString())
         activity?.startActivity(intent)
     }
+
     private fun settingUpRecyclerView(
         view: View,
         profile: Profile,
@@ -56,7 +59,12 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
     ) {
         val totalCostView =
             view.findViewById<TextView>(R.id.fragment_cart_confirmation_activity_totalPrice)
-        adapter.populate("userCart/" + FirebaseAuth.getInstance().uid.toString(), profile, lockedProducts, totalCostView)
+        adapter.populate(
+            "userCart/" + FirebaseAuth.getInstance().uid.toString(),
+            profile,
+            lockedProducts,
+            totalCostView
+        )
         fragment_cart_confirmation_activity_rv.adapter = adapter
         val productsLayoutManager = GridLayoutManager(context, 1)
         fragment_cart_confirmation_activity_rv.layoutManager = productsLayoutManager
