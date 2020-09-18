@@ -121,9 +121,12 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     override fun onPaymentError(p0: Int, p1: String?) {
         Toast.makeText(this, "Error: Payment Unuccessful", Toast.LENGTH_LONG).show()
+        /*todo empty cart*/
+        finish()
     }
 
     override fun onPaymentSuccess(p0: String?) {
         Toast.makeText(this, "Payment Successful $p0", Toast.LENGTH_LONG).show()
+        finish()
     }
 }
