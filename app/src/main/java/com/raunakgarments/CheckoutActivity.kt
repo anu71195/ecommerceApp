@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.helper.CostFormatterHelper
+import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.Profile
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
@@ -74,6 +75,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     }
 /*todo need to remove backbutton or go to home screen or user cart screen instead of confirmation screen*/
     /*todo 10 min if not paid then pay with razor pay button get disabled*/
+    /*todo release lock*/
     fun startRazorpayPayment(co: Checkout, profile: Profile, userID: String) {
         val activity: Activity = this
         var totalCartCost = intent.getDoubleExtra("totalCartCost", 0.0)
