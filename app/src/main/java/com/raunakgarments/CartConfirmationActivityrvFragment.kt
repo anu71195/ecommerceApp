@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.model.Profile
 import kotlinx.android.synthetic.main.fragment_cart_confirmation_activity_rv.*
 
@@ -45,6 +46,7 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
     private fun callCheckoutActivity(totalCartCost: Double, lockedProducts: HashMap<String, Int>) {
         var intent =
             Intent(activity, CheckoutActivity::class.java)
+        UserCartSingletonClass.confirmationCartProductArray = adapter.confirmationCartProductArray
         intent.putExtra("userID", FirebaseAuth.getInstance().uid.toString())
         intent.putExtra("totalCartCost", totalCartCost)
         intent.putExtra("lockedProducts", lockedProducts)

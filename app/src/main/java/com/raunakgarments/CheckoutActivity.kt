@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
+import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.Profile
@@ -30,6 +31,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
         Checkout.preload(applicationContext)
+        d("checkoutactivitypre", "${ Gson().toJson(UserCartSingletonClass.confirmationCartProductArray)}")
         activity_checkout_content_scrolling_payButton.setOnClickListener {
             val userID = intent.getStringExtra("userID")
             var lockedProducts =
