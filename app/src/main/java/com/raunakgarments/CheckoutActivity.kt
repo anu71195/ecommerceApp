@@ -138,6 +138,10 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey).child("orderStatus")
                 .setValue("Payment Done")
         }
+
+        var userCartFirebaseUtil = FirebaseUtil()
+        userCartFirebaseUtil.openFbReference("userCart/"+FirebaseAuth.getInstance().uid)
+        userCartFirebaseUtil.mDatabaseReference.removeValue()
         /*todo empty cart*/
         finish()
     }
