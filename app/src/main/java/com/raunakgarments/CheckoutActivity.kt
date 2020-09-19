@@ -142,7 +142,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         var userCartFirebaseUtil = FirebaseUtil()
         userCartFirebaseUtil.openFbReference("userCart/"+FirebaseAuth.getInstance().uid)
         userCartFirebaseUtil.mDatabaseReference.removeValue()
-        /*todo empty cart*/
         finish()
     }
 }
