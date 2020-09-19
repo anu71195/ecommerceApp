@@ -6,6 +6,7 @@ import android.util.Log.d
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -112,7 +113,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             }
         }
     }
-
+/*todo decrement when product payment is done*/
 /*todo on failure and success payment*/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
@@ -120,12 +121,24 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     override fun onPaymentError(p0: Int, p1: String?) {
         Toast.makeText(this, "Error: Payment Unuccessful", Toast.LENGTH_LONG).show()
-        /*todo empty cart*/
         finish()
     }
 
     override fun onPaymentSuccess(p0: String?) {
         Toast.makeText(this, "Payment Successful $p0", Toast.LENGTH_LONG).show()
+        var userOrderFirebaseUtil = FirebaseUtil()
+        userOrderFirebaseUtil.openFbReference("userOrders/"+FirebaseAuth.getInstance().uid)
+        val userOrderPushReferenceKey = userOrderFirebaseUtil.mDatabaseReference.push().key
+
+        if (userOrderPushReferenceKey != null) {
+            for(userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
+                userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey).child(userOrderedProduct.id)
+                    .setValue(userOrderedProduct)
+            }
+            userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey).child("orderStatus")
+                .setValue("Payment Done")
+        }
+        /*todo empty cart*/
         finish()
     }
 }
