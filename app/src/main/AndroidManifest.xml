@@ -60,6 +60,7 @@
         <activity
             android:name=".UserCartActivity"
             android:label="@string/title_activity_user_cart"
+            android:noHistory="true"
             android:parentActivityName=".ProductActivityNew"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
