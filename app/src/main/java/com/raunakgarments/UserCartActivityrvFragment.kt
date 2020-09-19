@@ -124,7 +124,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
 //        intent.putExtra("userID", userID)
 //        activity?.startActivity(intent)
     }
-
+/*todo if user clicked on checkout button then he should not be able to perform any activity on the screen*/
     private fun getLocks(profile: Profile, userID: String) {
         fragment_user_cart_activity_progessBar.visibility = View.VISIBLE
         var lockedProducts = HashMap<String, Int>()
