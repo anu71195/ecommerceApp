@@ -56,6 +56,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     private fun setConditionsForRazorPayButtonTimeOut() {
         if(!razorPayButtonClicked){
+            Toast.makeText(this, "Timeout", Toast.LENGTH_LONG).show()
             finish()
         }
     }
