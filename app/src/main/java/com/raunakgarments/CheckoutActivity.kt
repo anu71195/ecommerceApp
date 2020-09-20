@@ -113,8 +113,9 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             }
         }
     }
-/*todo decrement when product payment is done*/
+    /*todo decrement when product payment is done*/
 /*todo on failure and success payment*/
+    /*todo keep another check on usercart for boughtticket*/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
@@ -127,13 +128,23 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     override fun onPaymentSuccess(p0: String?) {
         Toast.makeText(this, "Payment Successful $p0", Toast.LENGTH_LONG).show()
         var userOrderFirebaseUtil = FirebaseUtil()
+        var productStockSyncFirebaseUtil = FirebaseUtil()
+
         userOrderFirebaseUtil.openFbReference("userOrders/"+FirebaseAuth.getInstance().uid)
+
         val userOrderPushReferenceKey = userOrderFirebaseUtil.mDatabaseReference.push().key
 
         if (userOrderPushReferenceKey != null) {
             for(userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
                 userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey).child(userOrderedProduct.id)
                     .setValue(userOrderedProduct)
+
+                productStockSyncFirebaseUtil.openFbReference("productStockSync/"+userOrderedProduct.id+"/boughtTicket")
+                var productStockSyncReferenceKey = productStockSyncFirebaseUtil.mDatabaseReference.push().key
+                if (productStockSyncReferenceKey != null) {
+                    productStockSyncFirebaseUtil.mDatabaseReference.child(productStockSyncReferenceKey).setValue(userOrderedProduct.quantity)
+                }
+
             }
             userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey).child("orderStatus")
                 .setValue("Payment Done")
