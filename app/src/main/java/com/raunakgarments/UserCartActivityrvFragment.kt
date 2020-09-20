@@ -233,11 +233,12 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         })
     }
 /*todo also check insideboughtticket map*/
+/*todo also check insideboughtticket map also change*/
     private fun checkInStock(
         productStockSync: ProductStockSync?,
         productId: MutableMap.MutableEntry<String, Int>
     ): Boolean {
-        d("checkinstock", "${productStockSync?.stock!! >= productId.value}")
+        d("checkinstock", "${productStockSync?.boughtTicket.toString()}")
         return (productStockSync?.stock!! >= productId.value)
     }
 
