@@ -260,7 +260,6 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         profile: Profile,
         userID: String
     ) {
-        /*todo check locks again*/
         d("checkout", lockedProducts.toString())
         var productCounter = 0
         for (productSync in lockedProducts) {
