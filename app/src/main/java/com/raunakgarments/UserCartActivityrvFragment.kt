@@ -60,7 +60,8 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         val productsLayoutManager = GridLayoutManager(context, 1)
         fragment_user_cart_activity_rv.layoutManager = productsLayoutManager
     }
-/*todo checkout error popup give exact conditions*/
+
+    /*todo checkout error popup give exact conditions*/
     /*todo how to mitigate if user is spamming the products and trying to get locks again and again*/
     private fun checkOutButtonClickListener() {
         fragment_user_cart_activity_checkoutButton.setOnClickListener {
@@ -124,7 +125,8 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
 //        intent.putExtra("userID", userID)
 //        activity?.startActivity(intent)
     }
-/*todo if user clicked on checkout button then he should not be able to perform any activity on the screen*/
+
+    /*todo if user clicked on checkout button then he should not be able to perform any activity on the screen*/
     private fun getLocks(profile: Profile, userID: String) {
         fragment_user_cart_activity_progessBar.visibility = View.VISIBLE
         var lockedProducts = HashMap<String, Int>()
@@ -149,43 +151,46 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                                     if (snapshot.exists()) {
                                         var productStockSync =
                                             snapshot.getValue(ProductStockSync::class.java)
-                                        if (productStockSync?.stock!! >= productId.value) {
-                                            if (productStockSync.locked == "-1" || checkTimeStampStatus(
-                                                    productStockSync.timeStamp
-                                                ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()
-                                            ) {
-                                                /* locked product array*/
-                                                d("checkout", "entered")
-                                                productStockSync.locked =
-                                                    FirebaseAuth.getInstance().uid.toString()
+                                        if (checkInStock(productStockSync, productId)) {
+                                            if (productStockSync != null) {
+                                                if (productStockSync.locked == "-1" || checkTimeStampStatus(
+                                                        productStockSync.timeStamp
+                                                    ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()
+                                                ) {
+                                                    /* locked product array*/
+                                                    d("checkout", "entered")
+                                                    productStockSync.locked =
+                                                        FirebaseAuth.getInstance().uid.toString()
 
 
-                                                val istTime =
-                                                    SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
-                                                istTime.timeZone =
-                                                    TimeZone.getTimeZone("Asia/Kolkata")
+                                                    val istTime =
+                                                        SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+                                                    istTime.timeZone =
+                                                        TimeZone.getTimeZone("Asia/Kolkata")
 
-                                                productStockSync.dateStamp = istTime.format(Date())
-                                                productStockSync.timeStamp =
-                                                    ((Date().time) / 1000).toString()
+                                                    productStockSync.dateStamp =
+                                                        istTime.format(Date())
+                                                    productStockSync.timeStamp =
+                                                        ((Date().time) / 1000).toString()
 
-                                                ProductStockSyncHelper().setValueInChild(
-                                                    snapshot.key.toString(),
-                                                    productStockSync
-                                                )
+                                                    ProductStockSyncHelper().setValueInChild(
+                                                        snapshot.key.toString(),
+                                                        productStockSync
+                                                    )
 
-                                                lockedProducts[snapshot.key.toString()] = 1
+                                                    lockedProducts[snapshot.key.toString()] = 1
 
-                                            } else {
-                                                /*stock is locked*/
-                                                lockedProducts[snapshot.key.toString()] = -1
-                                                d("checkout", "not entered")
-                                                Toast.makeText(
-                                                    activity,
-                                                    " lock not available",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
+                                                } else {
+                                                    /*stock is locked*/
+                                                    lockedProducts[snapshot.key.toString()] = -1
+                                                    d("checkout", "not entered")
+                                                    Toast.makeText(
+                                                        activity,
+                                                        " lock not available",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
 
+                                                }
                                             }
                                         } else {
 //                                            stock not available
@@ -227,7 +232,16 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
 
         })
     }
-/*todo take care of double click on checkout and confirm and pay razor pay button*/
+
+    private fun checkInStock(
+        productStockSync: ProductStockSync?,
+        productId: MutableMap.MutableEntry<String, Int>
+    ): Boolean {
+        d("checkinstock", "${productStockSync?.stock!! >= productId.value}")
+        return (productStockSync?.stock!! >= productId.value)
+    }
+
+    /*todo take care of double click on checkout and confirm and pay razor pay button*/
     private fun checkForLockUser(
         lockedProducts: HashMap<String, Int>,
         profile: Profile,
@@ -243,20 +257,22 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
             productStockSyncFirebaseUtil.mDatabaseReference.child(productId)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-                            var productStockSync =
-                                snapshot.getValue(ProductStockSync::class.java)
-                            if (productStockSync != null) {
-                                if (productStockSync.locked == FirebaseAuth.getInstance().uid.toString()) {
-                                    lockedProducts[productId] = 1
-                                } else {
-                                    /*product lock is not available*/
-                                    lockedProducts[productId] = -3
+                        if (productSync.value == 1) {
+                            if (snapshot.exists()) {
+                                var productStockSync =
+                                    snapshot.getValue(ProductStockSync::class.java)
+                                if (productStockSync != null) {
+                                    if (productStockSync.locked == FirebaseAuth.getInstance().uid.toString()) {
+                                        lockedProducts[productId] = 1
+                                    } else {
+                                        /*product lock is not available*/
+                                        lockedProducts[productId] = -3
+                                    }
                                 }
+                            } else {
+                                /*product is not available*/
+                                lockedProducts[productId] = -4
                             }
-                        } else {
-                            /*product is not available*/
-                            lockedProducts[productId] = -4
                         }
                         productCounter += 1
                         d("checkoutoutside", "${productCounter}")
