@@ -101,7 +101,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     /*todo 10 min if not paid then pay with razor pay button get disabled*/
     /*todo record the product while tking locks as well*/
     /*todo release lock when */
-    /*todo time out toast*/
     /*todo after successful payment please wait not close */
     fun startRazorpayPayment(co: Checkout, profile: Profile, userID: String) {
         val activity: Activity = this
