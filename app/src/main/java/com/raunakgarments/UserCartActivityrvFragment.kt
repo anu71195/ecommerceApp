@@ -233,7 +233,6 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         })
     }
 
-    /*todo also check insideboughtticket map*/
 /*todo also check insideboughtticket map also change*/
     private fun checkInStock(
         productStockSync: ProductStockSync?,
