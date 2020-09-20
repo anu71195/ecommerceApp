@@ -23,6 +23,8 @@ import org.json.JSONObject
 
 class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
+    var razorPayButtonClicked = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
@@ -34,6 +36,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         Checkout.preload(applicationContext)
         d("checkoutactivitypre", "${ Gson().toJson(UserCartSingletonClass.confirmationCartProductArray)}")
         activity_checkout_content_scrolling_payButton.setOnClickListener {
+            razorPayButtonClicked = true
             val userID = intent.getStringExtra("userID")
             getProfileAndStartPayment(userID)
         }
