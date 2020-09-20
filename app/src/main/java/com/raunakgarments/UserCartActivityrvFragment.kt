@@ -232,7 +232,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
 
         })
     }
-
+/*todo also check insideboughtticket map*/
     private fun checkInStock(
         productStockSync: ProductStockSync?,
         productId: MutableMap.MutableEntry<String, Int>
