@@ -162,6 +162,15 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                                                     productStockSync.locked =
                                                         FirebaseAuth.getInstance().uid.toString()
 
+                                                    var totalBoughtItems = 0
+                                                    if (productStockSync != null) {
+                                                        for (boughtItems in productStockSync.boughtTicket) {
+                                                            totalBoughtItems += boughtItems.value
+                                                        }
+                                                    }
+
+                                                    productStockSync.stock = productStockSync.stock - totalBoughtItems
+                                                    productStockSync.boughtTicket = HashMap<String, Int>()
 
                                                     val istTime =
                                                         SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
