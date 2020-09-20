@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log.d
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -37,6 +38,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
         Checkout.preload(applicationContext)
+        activity_checkout_progressBar.visibility = View.GONE
         startRazorPayButtonTimer()
         d("checkoutactivitypre", "${ Gson().toJson(UserCartSingletonClass.confirmationCartProductArray)}")
         activity_checkout_content_scrolling_payButton.setOnClickListener {
@@ -149,7 +151,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     override fun onPaymentSuccess(p0: String?) {
-        Toast.makeText(this, "Payment Successful $p0", Toast.LENGTH_LONG).show()
+        activity_checkout_progressBar.visibility = View.VISIBLE
+        Toast.makeText(this, "If progress bar is running. \nPlease wait", Toast.LENGTH_LONG).show()
         var userOrderFirebaseUtil = FirebaseUtil()
         var productStockSyncFirebaseUtil = FirebaseUtil()
 
@@ -176,6 +179,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         var userCartFirebaseUtil = FirebaseUtil()
         userCartFirebaseUtil.openFbReference("userCart/"+FirebaseAuth.getInstance().uid)
         userCartFirebaseUtil.mDatabaseReference.removeValue()
+        activity_checkout_progressBar.visibility = View.GONE
         finish()
     }
 }
