@@ -114,7 +114,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         }
     }
     /*todo decrement when product payment is done*/
-/*todo on failure and success payment*/
     /*todo keep another check on usercart for boughtticket*/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
