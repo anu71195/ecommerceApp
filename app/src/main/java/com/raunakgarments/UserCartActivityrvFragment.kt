@@ -315,7 +315,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                 })
         }
     }
-
+// time stamp product stock sync delay = 600 seconds
     private fun checkTimeStampStatus(timeStamp: String): Boolean {
         return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
     }

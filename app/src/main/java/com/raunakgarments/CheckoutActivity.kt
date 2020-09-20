@@ -2,6 +2,7 @@ package com.raunakgarments
 
 import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log.d
 import android.view.MenuItem
 import android.widget.Toast
@@ -34,11 +35,23 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
         Checkout.preload(applicationContext)
+        startRazorPayButtonTimer()
         d("checkoutactivitypre", "${ Gson().toJson(UserCartSingletonClass.confirmationCartProductArray)}")
         activity_checkout_content_scrolling_payButton.setOnClickListener {
             razorPayButtonClicked = true
             val userID = intent.getStringExtra("userID")
             getProfileAndStartPayment(userID)
+        }
+    }
+
+    //razorpaybutton valid button = 300 seconds
+    private fun startRazorPayButtonTimer() {
+        Handler().postDelayed({setConditionsForRazorPayButtonTimeOut()}, 300000)
+    }
+
+    private fun setConditionsForRazorPayButtonTimeOut() {
+        if(!razorPayButtonClicked){
+            finish()
         }
     }
 
