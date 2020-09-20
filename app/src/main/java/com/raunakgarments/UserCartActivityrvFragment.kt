@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
+import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.Profile
@@ -216,7 +217,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                                         /*product is not available*/
                                         lockedProducts[productId.key] = -4
                                     }
-
+                                    UserCartSingletonClass.productLockAcquiredTimeStamp = (((Date().time)/1000)-productStockSyncHashmap.size)
                                     if (productStockSyncHashmap.size == lockedProducts.size) {
                                         Handler().postDelayed({
                                             checkForLockUser(

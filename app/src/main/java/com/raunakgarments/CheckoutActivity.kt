@@ -21,6 +21,8 @@ import com.razorpay.PaymentResultListener
 import kotlinx.android.synthetic.main.activity_checkout.*
 import kotlinx.android.synthetic.main.activity_checkout_content_scrolling.*
 import org.json.JSONObject
+import java.lang.Long.min
+import java.util.*
 
 class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
@@ -45,8 +47,11 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     //razorpaybutton valid button = 300 seconds
+    // one should be able to press razorpay within 7 mins of pressing checkout or 5 mins within the checkout activity started whichever is minimum
     private fun startRazorPayButtonTimer() {
-        Handler().postDelayed({setConditionsForRazorPayButtonTimeOut()}, 300000)
+        var timeRemaining = minOf(420 - (Date().time/1000) + UserCartSingletonClass.productLockAcquiredTimeStamp,300)
+        d("checkoutactivitype", "${timeRemaining}")
+        Handler().postDelayed({setConditionsForRazorPayButtonTimeOut()}, timeRemaining*1000)
     }
 
     private fun setConditionsForRazorPayButtonTimeOut() {
