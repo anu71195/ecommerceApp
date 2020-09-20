@@ -232,14 +232,26 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
 
         })
     }
-/*todo also check insideboughtticket map*/
+
+    /*todo also check insideboughtticket map*/
 /*todo also check insideboughtticket map also change*/
     private fun checkInStock(
         productStockSync: ProductStockSync?,
         productId: MutableMap.MutableEntry<String, Int>
     ): Boolean {
-        d("checkinstock", "${productStockSync?.boughtTicket.toString()}")
-        return (productStockSync?.stock!! >= productId.value)
+        var totalBoughtItems = 0
+        if (productStockSync != null) {
+            for (boughtItems in productStockSync.boughtTicket) {
+                totalBoughtItems += boughtItems.value
+            }
+        }
+        var totalAvailableStock = productStockSync?.stock?.minus(totalBoughtItems)
+
+        return if (totalAvailableStock != null) {
+            (totalAvailableStock >= productId.value)
+        } else {
+            (productStockSync?.stock!! >= productId.value)
+        }
     }
 
     /*todo take care of double click on checkout and confirm and pay razor pay button*/
