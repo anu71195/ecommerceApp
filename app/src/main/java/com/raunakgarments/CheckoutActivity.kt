@@ -147,7 +147,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         Toast.makeText(this, "Error: Payment Unuccessful", Toast.LENGTH_LONG).show()
         finish()
     }
-//todo checkboughtticket for the ones with status negative
+//todo checkboughtticket for the ones with status negative is also updating handle it
     override fun onPaymentSuccess(p0: String?) {
         activity_checkout_progressBar.visibility = View.VISIBLE
         Toast.makeText(this, "If progress bar is running. \nPlease wait", Toast.LENGTH_LONG).show()
