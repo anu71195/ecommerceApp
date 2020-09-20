@@ -115,6 +115,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     }
     /*todo decrement when product payment is done*/
     /*todo keep another check on usercart for boughtticket*/
+    /*todo release lock if timeout is not done*/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
