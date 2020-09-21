@@ -203,7 +203,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     }
 
-    //todo check the position of progress bar
     private fun emptyCartAndFinishActivity() {
         var userCartFirebaseUtil = FirebaseUtil()
         userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid)
