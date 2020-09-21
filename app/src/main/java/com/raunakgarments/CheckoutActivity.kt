@@ -37,15 +37,18 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
+        activityStartBookkeeping()
+        startRazorPayButtonTimer()
+        razorPayButtonClickListener()
+    }
+
+    private fun activityStartBookkeeping() {
         Checkout.preload(applicationContext)
         activity_checkout_progressBar.visibility = View.GONE
         activity_checkout_progressBarText.visibility = View.GONE
         activity_checkout_content_scrolling_payButton.isEnabled = true
-        startRazorPayButtonTimer()
-        d(
-            "checkoutactivitypre",
-            "${Gson().toJson(UserCartSingletonClass.confirmationCartProductArray)}"
-        )
+    }
+    private fun razorPayButtonClickListener() {
         activity_checkout_content_scrolling_payButton.setOnClickListener {
             activity_checkout_content_scrolling_payButton.isEnabled = false
             razorPayButtonClicked = true
