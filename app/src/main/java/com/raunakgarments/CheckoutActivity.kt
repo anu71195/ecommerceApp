@@ -194,7 +194,12 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         }
 
         releaseLockIfTimeIsLeft()
+        Handler().postDelayed({ emptyCartAndFinishActivity() }, 2 * 1000)
 
+
+    }
+//todo check the position of progress bar
+    private fun emptyCartAndFinishActivity() {
         var userCartFirebaseUtil = FirebaseUtil()
         userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid)
         userCartFirebaseUtil.mDatabaseReference.removeValue()
