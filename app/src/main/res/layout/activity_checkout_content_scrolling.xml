@@ -35,6 +35,16 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="197dp"
             tools:layout_editor_absoluteY="295dp" />
+
+        <TextView
+            android:id="@+id/activity_checkout_progressBarText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="If progress bar is running. \nPlease wait"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_checkout_progressBar"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

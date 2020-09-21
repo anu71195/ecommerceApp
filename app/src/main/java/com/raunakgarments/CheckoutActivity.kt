@@ -39,6 +39,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         }
         Checkout.preload(applicationContext)
         activity_checkout_progressBar.visibility = View.GONE
+        activity_checkout_progressBarText.visibility = View.GONE
         startRazorPayButtonTimer()
         d(
             "checkoutactivitypre",
@@ -162,6 +163,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     override fun onPaymentSuccess(p0: String?) {
         activity_checkout_progressBar.visibility = View.VISIBLE
+        activity_checkout_progressBarText.visibility = View.VISIBLE
         Toast.makeText(this, "If progress bar is running. \nPlease wait", Toast.LENGTH_LONG).show()
         var userOrderFirebaseUtil = FirebaseUtil()
         var productStockSyncFirebaseUtil = FirebaseUtil()
@@ -198,12 +200,14 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
 
     }
-//todo check the position of progress bar
+
+    //todo check the position of progress bar
     private fun emptyCartAndFinishActivity() {
         var userCartFirebaseUtil = FirebaseUtil()
         userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid)
         userCartFirebaseUtil.mDatabaseReference.removeValue()
         activity_checkout_progressBar.visibility = View.GONE
+        activity_checkout_progressBarText.visibility = View.GONE
         finish()
     }
 
