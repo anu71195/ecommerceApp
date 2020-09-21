@@ -152,14 +152,18 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     /*todo decrement when product payment is done*/
     /*todo release lock if timeout is not done*/
     //todo add timer for paymenterror like the success
+    //todo disable button pay razor pay when returning to the screen
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
 
     override fun onPaymentError(p0: Int, p1: String?) {
+        activity_checkout_progressBar.visibility = View.VISIBLE
+        activity_checkout_progressBarText.visibility = View.VISIBLE
         Toast.makeText(this, "Error: Payment Unuccessful", Toast.LENGTH_LONG).show()
         releaseLockIfTimeIsLeft()
-        finish()
+        Handler().postDelayed({ waitAndFinishActivity() }, 3 * 1000)
+
     }
 
     override fun onPaymentSuccess(p0: String?) {
@@ -196,20 +200,21 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         }
 
         releaseLockIfTimeIsLeft()
-        Handler().postDelayed({ emptyCartAndFinishActivity() }, 3 * 1000)
+        var userCartFirebaseUtil = FirebaseUtil()
+        userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid)
+        userCartFirebaseUtil.mDatabaseReference.removeValue()
+        Handler().postDelayed({ waitAndFinishActivity() }, 3 * 1000)
 
 
     }
 
-    private fun emptyCartAndFinishActivity() {
-        var userCartFirebaseUtil = FirebaseUtil()
-        userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid)
-        userCartFirebaseUtil.mDatabaseReference.removeValue()
+    private fun waitAndFinishActivity() {
+
         activity_checkout_progressBar.visibility = View.GONE
         activity_checkout_progressBarText.visibility = View.GONE
         finish()
     }
-
+//todo complete this function
     private fun releaseLockIfTimeIsLeft() {
 
     }
