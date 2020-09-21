@@ -40,7 +40,10 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         Checkout.preload(applicationContext)
         activity_checkout_progressBar.visibility = View.GONE
         startRazorPayButtonTimer()
-        d("checkoutactivitypre", "${ Gson().toJson(UserCartSingletonClass.confirmationCartProductArray)}")
+        d(
+            "checkoutactivitypre",
+            "${Gson().toJson(UserCartSingletonClass.confirmationCartProductArray)}"
+        )
         activity_checkout_content_scrolling_payButton.setOnClickListener {
             razorPayButtonClicked = true
             val userID = intent.getStringExtra("userID")
@@ -51,13 +54,16 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     //razorpaybutton valid button = 300 seconds
     // one should be able to press razorpay within 7 mins of pressing checkout or 5 mins within the checkout activity started whichever is minimum
     private fun startRazorPayButtonTimer() {
-        var timeRemaining = minOf(420 - (Date().time/1000) + UserCartSingletonClass.productLockAcquiredTimeStamp,300)
+        var timeRemaining = minOf(
+            420 - (Date().time / 1000) + UserCartSingletonClass.productLockAcquiredTimeStamp,
+            300
+        )
         d("checkoutactivitype", "${timeRemaining}")
-        Handler().postDelayed({setConditionsForRazorPayButtonTimeOut()}, timeRemaining*1000)
+        Handler().postDelayed({ setConditionsForRazorPayButtonTimeOut() }, timeRemaining * 1000)
     }
 
     private fun setConditionsForRazorPayButtonTimeOut() {
-        if(!razorPayButtonClicked){
+        if (!razorPayButtonClicked) {
             Toast.makeText(this, "Timeout", Toast.LENGTH_LONG).show()
             finish()
         }
@@ -100,13 +106,14 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                 }
             })
     }
+
     /*todo record the product while tking locks as well*/
     /*todo release lock when */
     fun startRazorpayPayment(co: Checkout, profile: Profile, userID: String) {
         val activity: Activity = this
         var totalCartCost = intent.getDoubleExtra("totalCartCost", 0.0)
         if (totalCartCost > 0.0) {
-            totalCartCost = CostFormatterHelper().formatCost(totalCartCost*100)
+            totalCartCost = CostFormatterHelper().formatCost(totalCartCost * 100)
             try {
                 val options = JSONObject()
                 val orderID = "ERUS" + userID + "EMTI" + System.currentTimeMillis()
@@ -119,7 +126,10 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                 options.put("theme.color", "#3399cc")
                 options.put("currency", "INR")
 //                        options.put("order_id", orderID)
-                options.put("amount", totalCartCost.toInt().toString())//pass amount in currency subunits
+                options.put(
+                    "amount",
+                    totalCartCost.toInt().toString()
+                )//pass amount in currency subunits
 
                 val prefill = JSONObject()
                 prefill.put("email", profile.email)
@@ -137,6 +147,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             }
         }
     }
+
     /*todo decrement when product payment is done*/
     /*todo release lock if timeout is not done*/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -147,35 +158,43 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         Toast.makeText(this, "Error: Payment Unuccessful", Toast.LENGTH_LONG).show()
         finish()
     }
-//todo checkboughtticket for the ones with status negative is also updating handle it
+
+    //todo checkboughtticket for the ones with status negative is also updating handle it
     override fun onPaymentSuccess(p0: String?) {
         activity_checkout_progressBar.visibility = View.VISIBLE
         Toast.makeText(this, "If progress bar is running. \nPlease wait", Toast.LENGTH_LONG).show()
         var userOrderFirebaseUtil = FirebaseUtil()
         var productStockSyncFirebaseUtil = FirebaseUtil()
 
-        userOrderFirebaseUtil.openFbReference("userOrders/"+FirebaseAuth.getInstance().uid)
+        userOrderFirebaseUtil.openFbReference("userOrders/" + FirebaseAuth.getInstance().uid)
 
         val userOrderPushReferenceKey = userOrderFirebaseUtil.mDatabaseReference.push().key
 
         if (userOrderPushReferenceKey != null) {
-            for(userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
-                userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey).child(userOrderedProduct.id)
-                    .setValue(userOrderedProduct)
+            for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
+                if (userOrderedProduct.productStatus == 1) {
+                    userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+                        .child(userOrderedProduct.id)
+                        .setValue(userOrderedProduct)
 
-                productStockSyncFirebaseUtil.openFbReference("productStockSync/"+userOrderedProduct.id+"/boughtTicket")
-                var productStockSyncReferenceKey = productStockSyncFirebaseUtil.mDatabaseReference.push().key
-                if (productStockSyncReferenceKey != null) {
-                    productStockSyncFirebaseUtil.mDatabaseReference.child(productStockSyncReferenceKey).setValue(userOrderedProduct.quantity)
+                    productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id + "/boughtTicket")
+                    var productStockSyncReferenceKey =
+                        productStockSyncFirebaseUtil.mDatabaseReference.push().key
+                    if (productStockSyncReferenceKey != null) {
+                        productStockSyncFirebaseUtil.mDatabaseReference.child(
+                            productStockSyncReferenceKey
+                        ).setValue(userOrderedProduct.quantity)
+                    }
+
                 }
-
             }
-            userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey).child("orderStatus")
+            userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+                .child("orderStatus")
                 .setValue("Payment Done")
         }
 
         var userCartFirebaseUtil = FirebaseUtil()
-        userCartFirebaseUtil.openFbReference("userCart/"+FirebaseAuth.getInstance().uid)
+        userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid)
         userCartFirebaseUtil.mDatabaseReference.removeValue()
         activity_checkout_progressBar.visibility = View.GONE
         finish()
