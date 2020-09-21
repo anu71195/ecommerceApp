@@ -48,6 +48,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         activity_checkout_progressBarText.visibility = View.GONE
         activity_checkout_content_scrolling_payButton.isEnabled = true
     }
+
     private fun razorPayButtonClickListener() {
         activity_checkout_content_scrolling_payButton.setOnClickListener {
             activity_checkout_content_scrolling_payButton.isEnabled = false
@@ -217,9 +218,16 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         activity_checkout_progressBarText.visibility = View.GONE
         finish()
     }
-//todo complete this function
-    private fun releaseLockIfTimeIsLeft() {
 
+    //todo complete this function
+    private fun releaseLockIfTimeIsLeft() {
+        var productStockSyncFirebaseUtil = FirebaseUtil()
+        for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
+            if (userOrderedProduct.productStatus == 1) {
+                productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id + "/boughtTicket")
+
+            }
+        }
     }
 
 }
