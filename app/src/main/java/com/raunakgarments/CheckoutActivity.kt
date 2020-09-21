@@ -151,6 +151,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     /*todo decrement when product payment is done*/
     /*todo release lock if timeout is not done*/
+    //todo remove toast for if progress bar is running
+    //todo add timer for paymenterror like the success
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
