@@ -156,6 +156,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     override fun onPaymentError(p0: Int, p1: String?) {
         Toast.makeText(this, "Error: Payment Unuccessful", Toast.LENGTH_LONG).show()
+        releaseLockIfTimeIsLeft()
         finish()
     }
 
@@ -192,10 +193,17 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                 .setValue("Payment Done")
         }
 
+        releaseLockIfTimeIsLeft()
+
         var userCartFirebaseUtil = FirebaseUtil()
         userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid)
         userCartFirebaseUtil.mDatabaseReference.removeValue()
         activity_checkout_progressBar.visibility = View.GONE
         finish()
     }
+
+    private fun releaseLockIfTimeIsLeft() {
+
+    }
+
 }
