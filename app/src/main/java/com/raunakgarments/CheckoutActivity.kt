@@ -151,7 +151,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     /*todo decrement when product payment is done*/
     /*todo release lock if timeout is not done*/
-    //todo remove toast for if progress bar is running
     //todo add timer for paymenterror like the success
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
@@ -166,7 +165,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     override fun onPaymentSuccess(p0: String?) {
         activity_checkout_progressBar.visibility = View.VISIBLE
         activity_checkout_progressBarText.visibility = View.VISIBLE
-        Toast.makeText(this, "If progress bar is running. \nPlease wait", Toast.LENGTH_LONG).show()
         var userOrderFirebaseUtil = FirebaseUtil()
         var productStockSyncFirebaseUtil = FirebaseUtil()
 
