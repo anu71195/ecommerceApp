@@ -16,11 +16,23 @@
             android:id="@+id/activity_checkout_content_scrolling_payButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pay_with_razorpay"
             android:layout_margin="16dp"
+            android:text="@string/pay_with_razorpay"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/activity_checkout_progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/activity_checkout_content_scrolling_payButton"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_editor_absoluteX="197dp"
+            tools:layout_editor_absoluteY="295dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

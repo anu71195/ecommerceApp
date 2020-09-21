@@ -194,7 +194,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         }
 
         releaseLockIfTimeIsLeft()
-        Handler().postDelayed({ emptyCartAndFinishActivity() }, 2 * 1000)
+        Handler().postDelayed({ emptyCartAndFinishActivity() }, 3 * 1000)
 
 
     }
