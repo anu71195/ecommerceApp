@@ -40,12 +40,14 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         Checkout.preload(applicationContext)
         activity_checkout_progressBar.visibility = View.GONE
         activity_checkout_progressBarText.visibility = View.GONE
+        activity_checkout_content_scrolling_payButton.isEnabled = true
         startRazorPayButtonTimer()
         d(
             "checkoutactivitypre",
             "${Gson().toJson(UserCartSingletonClass.confirmationCartProductArray)}"
         )
         activity_checkout_content_scrolling_payButton.setOnClickListener {
+            activity_checkout_content_scrolling_payButton.isEnabled = false
             razorPayButtonClicked = true
             val userID = intent.getStringExtra("userID")
             getProfileAndStartPayment(userID)
