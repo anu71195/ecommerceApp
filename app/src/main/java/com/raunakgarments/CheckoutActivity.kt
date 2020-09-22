@@ -16,6 +16,7 @@ import com.google.gson.Gson
 import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.model.ConfirmationCartProduct
+import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.Profile
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
@@ -114,7 +115,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             })
     }
 
-    /*todo record the product while tking locks as well*/
+    /*todo record the product while tking locks as well along with time*/
     /*todo release lock when */
     fun startRazorpayPayment(co: Checkout, profile: Profile, userID: String) {
         val activity: Activity = this
@@ -165,7 +166,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         activity_checkout_progressBar.visibility = View.VISIBLE
         activity_checkout_progressBarText.visibility = View.VISIBLE
         Toast.makeText(this, "Error: Payment Unuccessful", Toast.LENGTH_LONG).show()
-        releaseLockIfTimeIsLeft()
+        waitBeforeReleasingLock()
         Handler().postDelayed({ waitAndFinishActivity() }, 3 * 1000)
 
     }
@@ -203,7 +204,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                 .setValue("Payment Done")
         }
 
-        releaseLockIfTimeIsLeft()
+        waitBeforeReleasingLock()
         var userCartFirebaseUtil = FirebaseUtil()
         userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid)
         userCartFirebaseUtil.mDatabaseReference.removeValue()
@@ -219,13 +220,35 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         finish()
     }
 
+    private fun waitBeforeReleasingLock() {
+        Handler().postDelayed({ releaseLockIfTimeIsLeft() }, 1 * 1000)
+    }
+
     //todo complete this function
     private fun releaseLockIfTimeIsLeft() {
         var productStockSyncFirebaseUtil = FirebaseUtil()
         for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
-            if (userOrderedProduct.productStatus == 1) {
-                productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id + "/boughtTicket")
+            //if more than 1 minute is left for the lock timeout then release lock
+            var timeLeft =
+                540 - (Date().time / 1000) + UserCartSingletonClass.productLockAcquiredTimeStamp
+            d("checkoutactivity", "${timeLeft}")
+            if (timeLeft > 0 && userOrderedProduct.productStatus == 1) {
+                productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id)
+                productStockSyncFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(
+                    object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()) {
+                                var productStockSync =
+                                    snapshot.getValue(ProductStockSync::class.java)
+                                d("checkoutactivity", " releaseLockIfTimeIsLeft :- ${productStockSync.toString()}")
+                            } else {
+                                d("checkoutactivity", " releaseLockIfTimeIsLeft :- Snapshot does not exist")
+                            }
+                        }
 
+                        override fun onCancelled(error: DatabaseError) {}
+
+                    })
             }
         }
     }
