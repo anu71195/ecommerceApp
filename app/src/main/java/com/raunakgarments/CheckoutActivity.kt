@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.CostFormatterHelper
+import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.Profile
@@ -241,9 +242,34 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                             if (snapshot.exists()) {
                                 var productStockSync =
                                     snapshot.getValue(ProductStockSync::class.java)
-                                d("checkoutactivity", " releaseLockIfTimeIsLeft :- ${productStockSync.toString()}")
+                                if (productStockSync != null) {
+                                    if (productStockSync.locked ==
+                                        FirebaseAuth.getInstance().uid.toString()
+                                    ) {
+                                        d(
+                                            "checkoutactivity",
+                                            " releaseLockIfTimeIsLeft :- ${productStockSync.toString()}"
+                                        )
+
+                                        var totalBoughtItems = 0
+
+                                        for (boughtItems in productStockSync.boughtTicket) {
+                                            totalBoughtItems += boughtItems.value
+                                        }
+                                        productStockSync.stock =
+                                            productStockSync.stock - totalBoughtItems
+                                        productStockSync.boughtTicket = HashMap<String, Int>()
+                                        ProductStockSyncHelper().setValueInChild(
+                                            snapshot.key.toString(),
+                                            productStockSync)
+
+                                    }
+                                }
                             } else {
-                                d("checkoutactivity", " releaseLockIfTimeIsLeft :- Snapshot does not exist")
+                                d(
+                                    "checkoutactivity",
+                                    " releaseLockIfTimeIsLeft :- Snapshot does not exist"
+                                )
                             }
                         }
 
