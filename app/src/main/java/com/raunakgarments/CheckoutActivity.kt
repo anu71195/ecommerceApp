@@ -232,7 +232,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
             //if more than 1 minute is left for the lock timeout then release lock
             var timeLeft =
-                540 - (Date().time / 1000) + UserCartSingletonClass.productLockAcquiredTimeStamp
+                480 - (Date().time / 1000) + UserCartSingletonClass.productLockAcquiredTimeStamp
             d("checkoutactivity", "${timeLeft}")
             if (timeLeft > 0 && userOrderedProduct.productStatus == 1) {
                 productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id)
