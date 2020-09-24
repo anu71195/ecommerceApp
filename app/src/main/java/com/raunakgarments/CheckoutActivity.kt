@@ -251,6 +251,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                                             " releaseLockIfTimeIsLeft :- ${productStockSync.toString()}"
                                         )
 
+                                        productStockSync.locked = "-1"
+
                                         var totalBoughtItems = 0
 
                                         for (boughtItems in productStockSync.boughtTicket) {
@@ -259,6 +261,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                                         productStockSync.stock =
                                             productStockSync.stock - totalBoughtItems
                                         productStockSync.boughtTicket = HashMap<String, Int>()
+
                                         ProductStockSyncHelper().setValueInChild(
                                             snapshot.key.toString(),
                                             productStockSync)
