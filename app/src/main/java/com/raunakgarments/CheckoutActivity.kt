@@ -230,7 +230,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     private fun releaseLockIfTimeIsLeft() {
         var productStockSyncFirebaseUtil = FirebaseUtil()
         for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
-            //if more than 1 minute is left for the lock timeout then release lock
+            //if more than 2 minute is left for the lock timeout then release lock
             var timeLeft =
                 480 - (Date().time / 1000) + UserCartSingletonClass.productLockAcquiredTimeStamp
             d("checkoutactivity", "${timeLeft}")
