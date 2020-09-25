@@ -65,12 +65,12 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     private fun updateUserProductLockTimeoutRecurrently(timer: Int) {
-        Handler().postDelayed({increaseTimeout(timer)}, timer.toLong())
+        Handler().postDelayed({increaseTimeout(timer)}, 3000.toLong())
     }
     private fun increaseTimeout(timer: Int) {
         d("CheckoutActivity", "increaseTimeout - timer - ${timer}")
         if (isRazorPayOpen) {
-            updateUserProductLockTimeoutRecurrently(timer)
+            updateUserProductLockTimeoutRecurrently(timer+3000)
         }
     }
 
