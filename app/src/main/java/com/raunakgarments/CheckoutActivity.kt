@@ -57,7 +57,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             isRazorPayOpen = true
 
             //todo set timer over loop while razorpay is open
-            updateUserProductLockTimeoutRecurrently(300)
+            updateUserProductLockTimeoutRecurrently(3000)
 
             val userID = intent.getStringExtra("userID")
             getProfileAndStartPayment(userID)
@@ -70,7 +70,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     private fun increaseTimeout(timer: Int) {
         d("CheckoutActivity", "increaseTimeout - timer - ${timer}")
         if (isRazorPayOpen) {
-            updateUserProductLockTimeoutRecurrently(timer + 300)
+            updateUserProductLockTimeoutRecurrently(timer)
         }
     }
 
