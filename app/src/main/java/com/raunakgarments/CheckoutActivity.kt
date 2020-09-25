@@ -58,6 +58,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             isRazorPayOpen = true
 
             //todo set timer over loop while razorpay is open
+            //todo set timer when click on razorpay button as well
             updateUserProductLockTimeoutRecurrently(3000)
 
             val userID = intent.getStringExtra("userID")
@@ -98,20 +99,26 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                                     snapshot.getValue(ProductStockSync::class.java)
 
                                 if (productStockSync != null) {
+                                    if (productStockSync.locked ==
+                                        FirebaseAuth.getInstance().uid.toString()
+                                    ) {
+                                        //todo remove date refresh and instead change the timestamp to increase lock time
+//                                    val istTime =
+//                                        SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+//                                    istTime.timeZone =
+//                                        TimeZone.getTimeZone("Asia/Kolkata")
+//
+//                                    productStockSync.dateStamp =
+//                                        istTime.format(Date())
 
-                                    //todo remove date refresh and instead change the timestamp to increase lock time
-                                    val istTime =
-                                        SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
-                                    istTime.timeZone =
-                                        TimeZone.getTimeZone("Asia/Kolkata")
+                                        // net lock time out is of 10 minutes subtracting current time by 5 minutes will increase lock time by 5 minutes
+                                        productStockSync.timeStamp = (Date().time/1000 - (300)).toString()
 
-                                    productStockSync.dateStamp =
-                                        istTime.format(Date())
-
-                                    ProductStockSyncHelper().setValueInChild(
-                                        snapshot.key.toString(),
-                                        productStockSync
-                                    )
+                                        ProductStockSyncHelper().setValueInChild(
+                                            snapshot.key.toString(),
+                                            productStockSync
+                                        )
+                                    }
                                 }
                             } else {
                                 d(
