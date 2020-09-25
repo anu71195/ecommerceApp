@@ -8,15 +8,14 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.postDelayed
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.gson.Gson
 import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.helper.ProductStockSyncHelper
-import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.Profile
 import com.razorpay.Checkout
@@ -24,12 +23,12 @@ import com.razorpay.PaymentResultListener
 import kotlinx.android.synthetic.main.activity_checkout.*
 import kotlinx.android.synthetic.main.activity_checkout_content_scrolling.*
 import org.json.JSONObject
-import java.lang.Long.min
 import java.util.*
 
 class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     var razorPayButtonClicked = false
+    var isRazorPayOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +54,23 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         activity_checkout_content_scrolling_payButton.setOnClickListener {
             activity_checkout_content_scrolling_payButton.isEnabled = false
             razorPayButtonClicked = true
+            isRazorPayOpen = true
+
+            //todo set timer over loop while razorpay is open
+            updateUserProductLockTimeoutRecurrently(300)
+
             val userID = intent.getStringExtra("userID")
             getProfileAndStartPayment(userID)
+        }
+    }
+
+    private fun updateUserProductLockTimeoutRecurrently(timer: Int) {
+        Handler().postDelayed({increaseTimeout(timer)}, timer.toLong())
+    }
+    private fun increaseTimeout(timer: Int) {
+        d("CheckoutActivity", "increaseTimeout - timer - ${timer}")
+        if (isRazorPayOpen) {
+            updateUserProductLockTimeoutRecurrently(timer + 300)
         }
     }
 
@@ -166,6 +180,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     override fun onPaymentError(p0: Int, p1: String?) {
+        isRazorPayOpen = false
         activity_checkout_progressBar.visibility = View.VISIBLE
         activity_checkout_progressBarText.visibility = View.VISIBLE
         Toast.makeText(this, "Error: Payment Unuccessful", Toast.LENGTH_LONG).show()
@@ -175,6 +190,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     override fun onPaymentSuccess(p0: String?) {
+        isRazorPayOpen = false
         activity_checkout_progressBar.visibility = View.VISIBLE
         activity_checkout_progressBarText.visibility = View.VISIBLE
         var userOrderFirebaseUtil = FirebaseUtil()
