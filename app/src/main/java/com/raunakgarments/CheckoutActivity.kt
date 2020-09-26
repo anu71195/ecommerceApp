@@ -117,6 +117,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
                                         // net lock time out is of 10 minutes subtracting current time by 5 minutes will increase lock time by 5 minutes
                                         productStockSync.timeStamp = (Date().time/1000 - (300)).toString()
+                                        UserCartSingletonClass.productLockAcquiredTimeStamp = productStockSync.timeStamp.toLong()
 
                                         ProductStockSyncHelper().setValueInChild(
                                             snapshot.key.toString(),
