@@ -14,6 +14,7 @@ import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.DealViewHolder>() {
 
@@ -119,8 +120,15 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
-        Picasso.get().load(product.photoUrl).into(holder.image)
+        Picasso.get().load(product.photoUrl).into(holder.image, object : com.squareup.picasso.Callback {
+            override fun onSuccess() {
+                checkAndResetProgressBarVisibility(position)
+            }
+
+            override fun onError(e: Exception?) {
+                d("productadapternew", "onbindviewholder - image not loaded")
+            }
+        })
         holder.itemView.setOnClickListener { rvItemSegue(product) }
-        checkAndResetProgressBarVisibility(position)
     }
 }
