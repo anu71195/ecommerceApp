@@ -40,6 +40,15 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/searchTermNewAdmin" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProductsAdmin"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchTermNewAdmin" />
+
     <ProgressBar
         android:id="@+id/fragment_products_new_admin_progressBar"
         style="?android:attr/progressBarStyle"
@@ -53,14 +62,6 @@
         tools:layout_editor_absoluteX="197dp"
         tools:layout_editor_absoluteY="295dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvProductsAdmin"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchTermNewAdmin" />
     <!--    <ProgressBar-->
     <!--        android:id="@+id/progressBarNew"-->
     <!--        style="?android:attr/progressBarStyle"-->
