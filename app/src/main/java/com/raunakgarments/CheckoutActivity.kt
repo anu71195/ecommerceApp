@@ -59,7 +59,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
             //todo set timer over loop while razorpay is open
             //todo set timer when click on razorpay button as well
-            updateUserProductLockTimeoutRecurrently(3000)
+            //when  user clicks on razorpay button then user gets immediately 5 minutes of timeout
+            updateUserProductLockTimeoutRecurrently(0)
 
             val userID = intent.getStringExtra("userID")
             getProfileAndStartPayment(userID)
@@ -67,17 +68,19 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     private fun updateUserProductLockTimeoutRecurrently(timer: Int) {
-        Handler().postDelayed({ increaseTimeout(timer) }, 3000.toLong())
+        Handler().postDelayed({ increaseTimeout(timer) }, timer.toLong())
     }
 
+    //every 2 minutes it will check if razorpay screen is open, if yet then it will rest the timeout to 5 minutes from the time it is done
     private fun increaseTimeout(timer: Int) {
         d("CheckoutActivity", "increaseTimeout - timer - ${timer}")
-        accessDatabaseProductsIncreaseTimeout()
         if (isRazorPayOpen) {
-            updateUserProductLockTimeoutRecurrently(timer + 3000)
+            accessDatabaseProductsIncreaseTimeout()
+            updateUserProductLockTimeoutRecurrently(120*1000)
         }
     }
 
+    //if current user has lock then it will give exactly 5 minutes to for lock expiration
     private fun accessDatabaseProductsIncreaseTimeout() {
         var productStockSyncFirebaseUtil = FirebaseUtil()
         for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
@@ -103,6 +106,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                                         FirebaseAuth.getInstance().uid.toString()
                                     ) {
                                         //todo remove date refresh and instead change the timestamp to increase lock time
+                                        //todo set lock to -1 while releasing lock
 //                                    val istTime =
 //                                        SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
 //                                    istTime.timeZone =
