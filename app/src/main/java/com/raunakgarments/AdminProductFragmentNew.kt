@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.fragment_products_new.*
 import kotlinx.android.synthetic.main.fragment_products_new_admin.*
 
 /**
@@ -28,6 +27,7 @@ class AdminProductFragmentNew(productActivityNew: AdminProductActivityNew) : Fra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fragment_products_new_admin_progressBar.visibility = View.VISIBLE
         val rvProductsAdmin = view.findViewById<RecyclerView>(R.id.rvProductsAdmin)
         val myContext = context
         val productsLayoutManager = GridLayoutManager(context, 2)
@@ -87,7 +87,7 @@ class AdminProductFragmentNew(productActivityNew: AdminProductActivityNew) : Fra
             }
             val adapter = AdminProductAdapterNew()
             if (myContext != null) {
-                adapter.populate("products", myContext)
+                adapter.populate("products", myContext, fragment_products_new_admin_progressBar)
             }
             rvProductsAdmin.adapter = adapter
             rvProductsAdmin.layoutManager = productsLayoutManager
@@ -95,7 +95,7 @@ class AdminProductFragmentNew(productActivityNew: AdminProductActivityNew) : Fra
 
         val adapter = AdminProductAdapterNew()
         if (myContext != null) {
-            adapter.populate("products", myContext)
+            adapter.populate("products", myContext, fragment_products_new_admin_progressBar)
         }
         rvProductsAdmin.adapter = adapter
         rvProductsAdmin.layoutManager = productsLayoutManager
