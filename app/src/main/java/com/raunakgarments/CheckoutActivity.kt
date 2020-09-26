@@ -194,7 +194,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             })
     }
 
-    /*todo record the product while tking locks as well along with time*/
     fun startRazorpayPayment(co: Checkout, profile: Profile, userID: String) {
         val activity: Activity = this
         var totalCartCost = intent.getDoubleExtra("totalCartCost", 0.0)
