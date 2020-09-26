@@ -122,7 +122,6 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
         } else {
             holder.title.text = "This Product is not available.\nPlease try again later or try decreasing the quantity."
             holder.title.textColor = Color.parseColor("#FF0000")
-            /*todo make this text red*/
         }
     }
 
