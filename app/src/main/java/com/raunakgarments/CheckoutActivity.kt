@@ -57,8 +57,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             razorPayButtonClicked = true
             isRazorPayOpen = true
 
-            //todo set timer over loop while razorpay is open
-            //todo set timer when click on razorpay button as well
             //when  user clicks on razorpay button then user gets immediately 5 minutes of timeout
             updateUserProductLockTimeoutRecurrently(0)
 
