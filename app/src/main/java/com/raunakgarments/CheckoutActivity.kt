@@ -104,7 +104,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                                         FirebaseAuth.getInstance().uid.toString()
                                     ) {
                                         //todo remove date refresh and instead change the timestamp to increase lock time
-                                        //todo set lock to -1 while releasing lock
 //                                    val istTime =
 //                                        SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
 //                                    istTime.timeZone =
