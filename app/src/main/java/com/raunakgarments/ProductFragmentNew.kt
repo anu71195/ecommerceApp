@@ -49,6 +49,7 @@ class ProductFragmentNew() : Fragment() {
         productsLayoutManager: GridLayoutManager
     ) {
         searchButtonNew.setOnClickListener {
+            fragment_products_new_progressBar.visibility = View.VISIBLE
             d("Anuragadding", "addding")
             var searchTextReworked = searchTermNew.text.toString()
             var tagList = searchTextReworked.split(" ", ",")
@@ -88,7 +89,7 @@ class ProductFragmentNew() : Fragment() {
                                 d("producttagsList", products.toString())
                                 val searchAdapter = ProductSearchAdapterNew()
                                 if (myContext != null) {
-                                    searchAdapter.populate("products", products, myContext)
+                                    searchAdapter.populate("products", products, myContext, fragment_products_new_progressBar)
                                 }
                                 rvProducts.adapter = searchAdapter
                                 rvProducts.layoutManager = productsLayoutManager

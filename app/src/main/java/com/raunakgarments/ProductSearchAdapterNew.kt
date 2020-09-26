@@ -1,25 +1,19 @@
 package com.raunakgarments
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.product_row.view.*
 
 class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.DealViewHolder>() {
 
@@ -29,8 +23,16 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
     private lateinit var childEventListener: ChildEventListener
     private lateinit var listener: (Product) -> Unit
     private lateinit var context: Context
+    private lateinit var fragment_products_new_progressBar: ProgressBar
 
-    fun populate(ref: String, productIds: MutableList<String>, context: Context) {
+    fun populate(
+        ref: String,
+        productIds: MutableList<String>,
+        context: Context,
+        fragment_products_new_progressBar: ProgressBar
+    ) {
+        this.fragment_products_new_progressBar = fragment_products_new_progressBar
+
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         firebaseUtil.openFbReference(ref)
 
@@ -107,6 +109,9 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
     }
 
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
+        if(position == minOf(products.size, 4)-1) {
+            fragment_products_new_progressBar.visibility = View.GONE
+        }
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
