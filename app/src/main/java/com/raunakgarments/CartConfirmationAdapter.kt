@@ -1,5 +1,6 @@
 package com.raunakgarments
 
+import android.graphics.Color
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.raunakgarments.model.CartProduct
 import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
+import org.jetbrains.anko.textColor
 
 class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.DealViewHolder>() {
 
@@ -119,6 +121,7 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
                 "₹" + confirmationCartProductArray[position].price.toString() + " X " + confirmationCartProductArray[position].quantity.toString() + " = ₹" + confirmationCartProductArray[position].totalPrice.toString()
         } else {
             holder.title.text = "This Product is not available.\nPlease try again later or try decreasing the quantity."
+            holder.title.textColor = Color.parseColor("#FF0000")
             /*todo make this text red*/
         }
     }
