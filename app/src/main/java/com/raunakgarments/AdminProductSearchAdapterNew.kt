@@ -15,7 +15,8 @@ import com.google.gson.Gson
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
 
-class AdminProductSearchAdapterNew : RecyclerView.Adapter<AdminProductSearchAdapterNew.DealViewHolder>() {
+class AdminProductSearchAdapterNew :
+    RecyclerView.Adapter<AdminProductSearchAdapterNew.DealViewHolder>() {
 
     var products: MutableList<Product> = ArrayList()
     private lateinit var mFirebaseDatebase: FirebaseDatabase
@@ -37,7 +38,7 @@ class AdminProductSearchAdapterNew : RecyclerView.Adapter<AdminProductSearchAdap
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         firebaseUtil.openFbReference(ref)
         for (productId in productIds) {
-            d("ref","$ref/$productId")
+            d("ref", "$ref/$productId")
             firebaseUtil.mDatabaseReference.child(productId)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {}
@@ -71,9 +72,9 @@ class AdminProductSearchAdapterNew : RecyclerView.Adapter<AdminProductSearchAdap
 //            }
 //        }
 //        mDatabaseReference.addChildEventListener(childEventListener)
-        d("anurag","${products.size}")
+        d("anurag", "${products.size}")
         this.context = context
-        d("anurag","I'm populating ended")
+        d("anurag", "I'm populating ended")
 
     }
 
@@ -84,12 +85,15 @@ class AdminProductSearchAdapterNew : RecyclerView.Adapter<AdminProductSearchAdap
     }
 
     private fun rvItemSegue(product: Product) {
-        d("anurag","I'm segueing")
+        d("anurag", "I'm segueing")
         var description = ""
-        try { description = product.description } finally {}
+        try {
+            description = product.description
+        } finally {
+        }
         product.description = description
 
-        var intent = Intent(context ,AdminProductDetails::class.java)
+        var intent = Intent(context, AdminProductDetails::class.java)
         intent.putExtra("product", Gson().toJson(product))
         context.startActivity(intent)
     }
@@ -101,18 +105,23 @@ class AdminProductSearchAdapterNew : RecyclerView.Adapter<AdminProductSearchAdap
     }
 
     override fun getItemCount(): Int {
-        d("anurag","${products.size}")
+        d("anurag", "${products.size}")
         return products.size
     }
 
-    override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
-        if(position == minOf(products.size, 4)-1) {
+    private fun checkAndResetProgressBarVisibility(position: Int) {
+        if (position == minOf(products.size, 4) - 1) {
             fragment_products_new_admin_progressBar.visibility = View.GONE
         }
+    }
+
+    override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
+
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
         Picasso.get().load(product.photoUrl).into(holder.image)
         holder.itemView.setOnClickListener { rvItemSegue(product) }
+        checkAndResetProgressBarVisibility(position)
     }
 }

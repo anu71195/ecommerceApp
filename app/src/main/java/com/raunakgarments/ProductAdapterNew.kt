@@ -23,7 +23,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     private lateinit var childEventListener: ChildEventListener
     private lateinit var listener: (Product) -> Unit
     private lateinit var context: Context
-    private lateinit var fragment_products_new_progressBar:ProgressBar
+    private lateinit var fragment_products_new_progressBar: ProgressBar
 
     fun populate(ref: String, context: Context, fragment_products_new_progressBar: ProgressBar) {
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
@@ -37,21 +37,21 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onChildRemoved(snapshot: DataSnapshot) {}
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                d("anurag","I over here")
+                d("anurag", "I over here")
                 var td = snapshot.getValue(Product::class.java)
                 if (td != null) {
                     td.id = snapshot.key.toString()
-                    d(td.price.toString(),"lksd")
+                    d(td.price.toString(), "lksd")
                     products.add(td)
                     d("anurag", "${td.price.toString()}")
-                    notifyItemInserted(products.size-1)
+                    notifyItemInserted(products.size - 1)
                 }
             }
         }
         mDatabaseReference.addChildEventListener(childEventListener)
-        d("anurag","${products.size}")
+        d("anurag", "${products.size}")
         this.context = context
-        d("anurag","I'm populating ended")
+        d("anurag", "I'm populating ended")
 
     }
 
@@ -62,10 +62,13 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     }
 
     private fun rvItemSegue(product: Product) {
-        d("anurag","I'm segueing")
+        d("anurag", "I'm segueing")
         var description = ""
-        try { description = product.description } finally {}
-        var intent = Intent(context ,ProductDetails::class.java)
+        try {
+            description = product.description
+        } finally {
+        }
+        var intent = Intent(context, ProductDetails::class.java)
         intent.putExtra("title", product.title)
         intent.putExtra("price", product.price)
         intent.putExtra("imageUrl", product.photoUrl)
@@ -81,18 +84,23 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     }
 
     override fun getItemCount(): Int {
-        d("anurag","${products.size}")
+        d("anurag", "${products.size}")
         return products.size
     }
 
-    override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
-        if(position == minOf(products.size,4)-1) {
+    private fun checkAndResetProgressBarVisibility(position: Int) {
+        if (position == minOf(products.size, 4) - 1) {
             fragment_products_new_progressBar.visibility = View.GONE
         }
+    }
+
+    override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
+
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
         Picasso.get().load(product.photoUrl).into(holder.image)
         holder.itemView.setOnClickListener { rvItemSegue(product) }
+        checkAndResetProgressBarVisibility(position)
     }
 }

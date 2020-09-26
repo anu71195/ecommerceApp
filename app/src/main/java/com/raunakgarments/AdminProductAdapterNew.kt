@@ -42,21 +42,21 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onChildRemoved(snapshot: DataSnapshot) {}
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                d("anurag","I over here")
+                d("anurag", "I over here")
                 var td = snapshot.getValue(Product::class.java)
                 if (td != null) {
                     td.id = snapshot.key.toString()
-                    d(td.price.toString(),"lksd")
+                    d(td.price.toString(), "lksd")
                     products.add(td)
                     d("anurag", "${td.price.toString()}")
-                    notifyItemInserted(products.size-1)
+                    notifyItemInserted(products.size - 1)
                 }
             }
         }
         mDatabaseReference.addChildEventListener(childEventListener)
-        d("anurag","${products.size}")
+        d("anurag", "${products.size}")
         this.context = context
-        d("anurag","I'm populating ended")
+        d("anurag", "I'm populating ended")
 
     }
 
@@ -67,12 +67,15 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
     }
 
     private fun rvItemSegue(product: Product) {
-        d("anurag","I'm segueing")
+        d("anurag", "I'm segueing")
         var description = ""
-        try { description = product.description } finally {}
+        try {
+            description = product.description
+        } finally {
+        }
         product.description = description
 
-        var intent = Intent(context ,AdminProductDetails::class.java)
+        var intent = Intent(context, AdminProductDetails::class.java)
         intent.putExtra("product", Gson().toJson(product))
         context.startActivity(intent)
     }
@@ -84,19 +87,24 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
     }
 
     override fun getItemCount(): Int {
-        d("anurag","${products.size}")
+        d("anurag", "${products.size}")
         return products.size
     }
 
-    override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
-        if(position == minOf(products.size,4)-1) {
+    private fun checkAndResetProgressBarVisibility(position: Int) {
+        if (position == minOf(products.size, 4) - 1) {
             fragment_products_new_admin_progressBar.visibility = View.GONE
         }
+    }
+
+    override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
+
 
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
         Picasso.get().load(product.photoUrl).into(holder.image)
         holder.itemView.setOnClickListener { rvItemSegue(product) }
+        checkAndResetProgressBarVisibility(position)
     }
 }

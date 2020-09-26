@@ -37,7 +37,7 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
         firebaseUtil.openFbReference(ref)
 
         for (productId in productIds) {
-            d("ref","$ref/$productId")
+            d("ref", "$ref/$productId")
             firebaseUtil.mDatabaseReference.child(productId)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {}
@@ -108,14 +108,19 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
         return products.size
     }
 
-    override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
-        if(position == minOf(products.size, 4)-1) {
+    private fun checkAndResetProgressBarVisibility(position: Int) {
+        if (position == minOf(products.size, 4) - 1) {
             fragment_products_new_progressBar.visibility = View.GONE
         }
+    }
+
+    override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
+
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
         Picasso.get().load(product.photoUrl).into(holder.image)
         holder.itemView.setOnClickListener { rvItemSegue(product) }
+        checkAndResetProgressBarVisibility(position)
     }
 }
