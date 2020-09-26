@@ -103,14 +103,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                                     if (productStockSync.locked ==
                                         FirebaseAuth.getInstance().uid.toString()
                                     ) {
-                                        //todo remove date refresh and instead change the timestamp to increase lock time
-//                                    val istTime =
-//                                        SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
-//                                    istTime.timeZone =
-//                                        TimeZone.getTimeZone("Asia/Kolkata")
-//
-//                                    productStockSync.dateStamp =
-//                                        istTime.format(Date())
 
                                         // net lock time out is of 10 minutes subtracting current time by 5 minutes will increase lock time by 5 minutes
                                         productStockSync.timeStamp = (Date().time/1000 - (300)).toString()
