@@ -35,6 +35,9 @@ class AdminProductFragmentNew(productActivityNew: AdminProductActivityNew) : Fra
 
         searchButtonNewAdmin.setOnClickListener {
             Log.d("Anuragadding", "addding")
+
+            fragment_products_new_admin_progressBar.visibility = View.VISIBLE
+
             var searchTextReworked = searchTermNewAdmin.text.toString()
             var tagList = searchTextReworked.split(" ", ",")
             val re = Regex("[^A-Za-z0-9]")
@@ -76,7 +79,7 @@ class AdminProductFragmentNew(productActivityNew: AdminProductActivityNew) : Fra
                                 Log.d("producttagsList", products.toString())
                                 val searchAdapter = AdminProductSearchAdapterNew()
                                 if (myContext != null) {
-                                    searchAdapter.populate("products", products, myContext)
+                                    searchAdapter.populate("products", products, myContext, fragment_products_new_admin_progressBar)
                                 }
                                 rvProductsAdmin.adapter = searchAdapter
                                 rvProductsAdmin.layoutManager = productsLayoutManager
