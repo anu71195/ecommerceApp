@@ -29,6 +29,8 @@ class ProductFragmentNew() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fragment_products_new_progressBar.visibility = View.VISIBLE
+
         val rvProducts = view.findViewById<RecyclerView>(R.id.rvProducts)
         val myContext = context
         val productsLayoutManager = GridLayoutManager(context, 2)
@@ -36,7 +38,7 @@ class ProductFragmentNew() : Fragment() {
         searchButtonClickListener(myContext, productsLayoutManager)
         val adapter = ProductAdapterNew()
         if (myContext != null) {
-            adapter.populate("products", myContext)
+            adapter.populate("products", myContext, fragment_products_new_progressBar)
         }
         rvProducts.adapter = adapter
         rvProducts.layoutManager = productsLayoutManager
@@ -98,7 +100,7 @@ class ProductFragmentNew() : Fragment() {
             }
             val adapter = ProductAdapterNew()
             if (myContext != null) {
-                adapter.populate("products", myContext)
+                adapter.populate("products", myContext, fragment_products_new_progressBar)
             }
             rvProducts.adapter = adapter
             rvProducts.layoutManager = productsLayoutManager
