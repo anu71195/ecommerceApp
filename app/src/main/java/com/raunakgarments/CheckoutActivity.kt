@@ -237,7 +237,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         }
     }
 
-/*todo release lock if timeout is not done*/
 /*todo add time when razorpay button is clicked*/
 /*todo add timeout in the background while razorpay is up and increment user product lock timeout accordingly*/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
