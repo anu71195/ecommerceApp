@@ -124,6 +124,7 @@ class AdminProductSearchAdapterNew :
         val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
         if ((position == (minOf(products.size, 4) - 1)) && isLoadingFirstTime) {
             fragment_products_new_admin_progressBar.visibility = View.GONE
+            isLoadingFirstTime = false
         } else if(!isLoadingFirstTime) {
             fragment_products_new_admin_progressBar.visibility = View.GONE
 
