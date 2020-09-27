@@ -116,7 +116,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         if ((position == (minOf(products.size, 4) - 1)) && isLoadingFirstTime) {
             fragment_products_new_progressBar.visibility = View.GONE
             isLoadingFirstTime = false
-            fragment_products_new_progressBarTextView.text = ""
+            fragment_products_new_progressBarTextView.text = " "
             Handler().postDelayed({
                 fragment_products_new_progressBarTextView.text = R.string.it_is_taking_longer_than_expected_please_check_your_network_connection.toString()
                 fragment_products_new_progressBarTextView.visibility = View.GONE
