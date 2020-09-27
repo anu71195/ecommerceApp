@@ -174,96 +174,100 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                 if (snapshot.exists() && snapshot.value != null) {
                     d("checkoutas", snapshot.value.toString())
                     var productStockSyncHashmap = snapshot.value as HashMap<String, Int>
-                    /*todo if productstocksynchasmap;size is zero*/
-                    for (productId in productStockSyncHashmap) {
-                        productStockSyncFirebaseUtil.mDatabaseReference.child(productId.key)
-                            .addListenerForSingleValueEvent(object : ValueEventListener {
-                                override fun onDataChange(snapshot: DataSnapshot) {
-                                    if (snapshot.exists()) {
-                                        var productStockSync =
-                                            snapshot.getValue(ProductStockSync::class.java)
-                                        if (checkInStock(productStockSync, productId)) {
-                                            if (productStockSync != null) {
-                                                if (productStockSync.locked == "-1" || checkTimeStampStatus(
-                                                        productStockSync.timeStamp
-                                                    ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()
-                                                ) {
-                                                    /* locked product array*/
-                                                    d("checkout", "entered")
-                                                    productStockSync.locked =
-                                                        FirebaseAuth.getInstance().uid.toString()
+                    if (productStockSyncHashmap.size > 0 ) {
+                        for (productId in productStockSyncHashmap) {
+                            productStockSyncFirebaseUtil.mDatabaseReference.child(productId.key)
+                                .addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        if (snapshot.exists()) {
+                                            var productStockSync =
+                                                snapshot.getValue(ProductStockSync::class.java)
+                                            if (checkInStock(productStockSync, productId)) {
+                                                if (productStockSync != null) {
+                                                    if (productStockSync.locked == "-1" || checkTimeStampStatus(
+                                                            productStockSync.timeStamp
+                                                        ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()
+                                                    ) {
+                                                        /* locked product array*/
+                                                        d("checkout", "entered")
+                                                        productStockSync.locked =
+                                                            FirebaseAuth.getInstance().uid.toString()
 
-                                                    var totalBoughtItems = 0
-                                                    if (productStockSync != null) {
-                                                        for (boughtItems in productStockSync.boughtTicket) {
-                                                            totalBoughtItems += boughtItems.value
+                                                        var totalBoughtItems = 0
+                                                        if (productStockSync != null) {
+                                                            for (boughtItems in productStockSync.boughtTicket) {
+                                                                totalBoughtItems += boughtItems.value
+                                                            }
                                                         }
+
+                                                        productStockSync.stock =
+                                                            productStockSync.stock - totalBoughtItems
+                                                        productStockSync.boughtTicket =
+                                                            HashMap<String, Int>()
+
+                                                        val istTime =
+                                                            SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+                                                        istTime.timeZone =
+                                                            TimeZone.getTimeZone("Asia/Kolkata")
+
+                                                        productStockSync.dateStamp =
+                                                            istTime.format(Date())
+                                                        productStockSync.timeStamp =
+                                                            ((Date().time) / 1000).toString()
+
+                                                        ProductStockSyncHelper().setValueInChild(
+                                                            snapshot.key.toString(),
+                                                            productStockSync
+                                                        )
+
+                                                        lockedProducts[snapshot.key.toString()] = 1
+
+                                                    } else {
+                                                        /*stock is locked*/
+                                                        lockedProducts[snapshot.key.toString()] = -1
+                                                        d("checkout", "not entered")
+                                                        Toast.makeText(
+                                                            activity,
+                                                            " lock not available",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+
                                                     }
-
-                                                    productStockSync.stock =
-                                                        productStockSync.stock - totalBoughtItems
-                                                    productStockSync.boughtTicket =
-                                                        HashMap<String, Int>()
-
-                                                    val istTime =
-                                                        SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
-                                                    istTime.timeZone =
-                                                        TimeZone.getTimeZone("Asia/Kolkata")
-
-                                                    productStockSync.dateStamp =
-                                                        istTime.format(Date())
-                                                    productStockSync.timeStamp =
-                                                        ((Date().time) / 1000).toString()
-
-                                                    ProductStockSyncHelper().setValueInChild(
-                                                        snapshot.key.toString(),
-                                                        productStockSync
-                                                    )
-
-                                                    lockedProducts[snapshot.key.toString()] = 1
-
-                                                } else {
-                                                    /*stock is locked*/
-                                                    lockedProducts[snapshot.key.toString()] = -1
-                                                    d("checkout", "not entered")
-                                                    Toast.makeText(
-                                                        activity,
-                                                        " lock not available",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
-
                                                 }
+                                            } else {
+//                                            stock not available
+                                                lockedProducts[snapshot.key.toString()] = -2
+                                                d("checkout", "not entered")
+                                                Toast.makeText(
+                                                    activity,
+                                                    " lock not available",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+
                                             }
                                         } else {
-//                                            stock not available
-                                            lockedProducts[snapshot.key.toString()] = -2
-                                            d("checkout", "not entered")
-                                            Toast.makeText(
-                                                activity,
-                                                " lock not available",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-
+                                            /*product is not available*/
+                                            lockedProducts[productId.key] = -4
                                         }
-                                    } else {
-                                        /*product is not available*/
-                                        lockedProducts[productId.key] = -4
+                                        UserCartSingletonClass.productLockAcquiredTimeStamp =
+                                            (((Date().time) / 1000) - productStockSyncHashmap.size)
+                                        if (productStockSyncHashmap.size == lockedProducts.size) {
+                                            Handler().postDelayed({
+                                                checkForLockUser(
+                                                    lockedProducts, profile, userID
+                                                )
+                                            }, 5000)
+                                        }
+
+
                                     }
-                                    UserCartSingletonClass.productLockAcquiredTimeStamp =
-                                        (((Date().time) / 1000) - productStockSyncHashmap.size)
-                                    if (productStockSyncHashmap.size == lockedProducts.size) {
-                                        Handler().postDelayed({
-                                            checkForLockUser(
-                                                lockedProducts, profile, userID
-                                            )
-                                        }, 5000)
-                                    }
 
-
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {}
-                            })
+                                    override fun onCancelled(error: DatabaseError) {}
+                                })
+                        }
+                    } else {
+                        //This situation should never come ideally
+                        paymentErrorPopup()//todo add conditions if cart is emtpy
                     }
                     d("checkout", lockedProducts.toString())
 
