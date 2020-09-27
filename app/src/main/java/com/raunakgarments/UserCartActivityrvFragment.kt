@@ -31,6 +31,10 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
     var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     lateinit var userId: String
 
+    enum class errorType {
+        emptyCart, ow
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mFirebaseAuth = FirebaseAuth.getInstance()
@@ -109,10 +113,10 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                         if (productStockSyncHashmap.size > 0) {
                             checkAndValidateUserProfile(profile, emailVerified)
                         }else {
-                            paymentErrorPopup()//todo add conditions if cart is emtpy
+                            paymentErrorPopup(errorType.emptyCart)
                         }
                     } else {
-                        paymentErrorPopup()//todo add conditions if cart is emtpy
+                        paymentErrorPopup(errorType.emptyCart)
                     }
                 }
 
@@ -134,7 +138,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         ) {
             processBeforeCallingCheckoutActivity(profile, userId)
         } else {
-            paymentErrorPopup()
+            paymentErrorPopup(errorType.ow)//todo add proper string here
         }
     }
 
@@ -267,7 +271,7 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                         }
                     } else {
                         //This situation should never come ideally
-                        paymentErrorPopup()//todo add conditions if cart is emtpy
+                        paymentErrorPopup(errorType.emptyCart)
                     }
                     d("checkout", lockedProducts.toString())
 
@@ -369,9 +373,26 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         alertDialog.setCancelable(false)
         alertDialog.show()
     }
-    private fun paymentErrorPopup() {
+
+    private fun paymentErrorPopupEmptyCart(builder: AlertDialog.Builder) {
+        builder.setTitle("Can't Checkout?")
+        builder.setMessage("Your cart is empty.")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        builder.setPositiveButton("OK") { dialogInterface, which ->
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+
+    private fun paymentErrorPopup(errorTypeValue: errorType) {
         val builder = AlertDialog.Builder(requireContext())
-        paymentErrorPopupProfile(builder)
+        if(errorTypeValue == errorType.emptyCart) {
+            paymentErrorPopupEmptyCart(builder)
+        } else {
+            paymentErrorPopupProfile(builder)
+        }
     }
 
 }
