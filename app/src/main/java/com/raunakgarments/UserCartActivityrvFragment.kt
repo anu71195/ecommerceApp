@@ -355,18 +355,19 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
     }
 
-    private fun paymentErrorPopup() {
-        if (context != null) {
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Can't Checkout?")
-            builder.setMessage("Please check if your email and phone Number is verified, pincode is deliverable and address is present from Profile section.")
-            builder.setIcon(android.R.drawable.ic_dialog_alert)
-            builder.setPositiveButton("OK") { dialogInterface, which ->
-            }
-            val alertDialog: AlertDialog = builder.create()
-            alertDialog.setCancelable(false)
-            alertDialog.show()
+    private fun paymentErrorPopupProfile(builder: AlertDialog.Builder) {
+        builder.setTitle("Can't Checkout?")
+        builder.setMessage("Please check if your email and phone Number is verified, pincode is deliverable and address is present from Profile section.")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        builder.setPositiveButton("OK") { dialogInterface, which ->
         }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+    private fun paymentErrorPopup() {
+        val builder = AlertDialog.Builder(requireContext())
+        paymentErrorPopupProfile(builder)
     }
 
 }
