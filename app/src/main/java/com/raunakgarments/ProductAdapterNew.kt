@@ -101,14 +101,11 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     }
 
     private fun checkAndResetProgressBarVisibility(position: Int) {
-        d("productadapter", "onbindviewholder outside ${position}")
-
-        d("productadapter", "onbindviewholder inside ${position}")
-            val totalItemCount = rvProducts!!.layoutManager?.itemCount
-            val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
-            d("MyTAG", "Load new list not entered")
-         fragment_products_new_progressBar.visibility = View.GONE
-
+        val totalItemCount = rvProducts!!.layoutManager?.itemCount
+        val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
+        if (position == minOf(products.size, 4) - 1) {
+            fragment_products_new_progressBar.visibility = View.GONE
+        }
     }
 
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {

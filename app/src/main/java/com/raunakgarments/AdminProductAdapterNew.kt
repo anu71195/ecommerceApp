@@ -101,6 +101,8 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
     }
 
     private fun checkAndResetProgressBarVisibility(position: Int) {
+        val totalItemCount = rvProductsAdmin!!.layoutManager?.itemCount
+        val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
         if (position == minOf(products.size, 4) - 1) {
             fragment_products_new_admin_progressBar.visibility = View.GONE
         }
