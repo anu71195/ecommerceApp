@@ -28,6 +28,8 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
     private lateinit var fragment_products_new_admin_progressBar: ProgressBar
     private lateinit var rvProductsAdmin: RecyclerView
     private lateinit var productsLayoutManager: GridLayoutManager
+    private var isLoadingFirstTime = false
+
 
 
     fun populate(
@@ -37,6 +39,8 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
         rvProductsAdmin: RecyclerView,
         productsLayoutManager: GridLayoutManager
     ) {
+        isLoadingFirstTime = false
+
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         this.rvProductsAdmin = rvProductsAdmin
         this.productsLayoutManager = productsLayoutManager

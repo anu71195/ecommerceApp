@@ -28,6 +28,8 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     private lateinit var fragment_products_new_progressBar: ProgressBar
     private lateinit var rvProducts: RecyclerView
     private lateinit var productsLayoutManager: GridLayoutManager
+    private var isLoadingFirstTime = false
+
 
     fun populate(
         ref: String,
@@ -36,6 +38,8 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         rvProducts: RecyclerView,
         productsLayoutManager: GridLayoutManager
     ) {
+        isLoadingFirstTime = false
+
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         this.fragment_products_new_progressBar = fragment_products_new_progressBar
         this.rvProducts = rvProducts

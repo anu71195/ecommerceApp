@@ -28,6 +28,7 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
     private lateinit var fragment_products_new_progressBar: ProgressBar
     private lateinit var rvProducts: RecyclerView
     private lateinit var productsLayoutManager: GridLayoutManager
+    private var isLoadingFirstTime = false
 
     fun populate(
         ref: String,
@@ -37,6 +38,8 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
         rvProducts: RecyclerView,
         productsLayoutManager: GridLayoutManager
     ) {
+        isLoadingFirstTime = false
+
         this.fragment_products_new_progressBar = fragment_products_new_progressBar
         this.rvProducts = rvProducts
         this.productsLayoutManager = productsLayoutManager

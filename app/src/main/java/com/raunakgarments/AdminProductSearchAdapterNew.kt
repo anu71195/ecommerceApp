@@ -29,6 +29,7 @@ class AdminProductSearchAdapterNew :
     private lateinit var fragment_products_new_admin_progressBar: ProgressBar
     private lateinit var rvProductsAdmin: RecyclerView
     private lateinit var productsLayoutManager: GridLayoutManager
+    private var isLoadingFirstTime = false
 
     fun populate(
         ref: String,
@@ -38,6 +39,7 @@ class AdminProductSearchAdapterNew :
         rvProductsAdmin: RecyclerView,
         productsLayoutManager: GridLayoutManager
     ) {
+        isLoadingFirstTime = false
 
         this.fragment_products_new_admin_progressBar = fragment_products_new_admin_progressBar
         this.rvProductsAdmin = rvProductsAdmin
