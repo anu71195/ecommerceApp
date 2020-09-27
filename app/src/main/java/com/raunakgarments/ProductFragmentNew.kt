@@ -117,7 +117,9 @@ class ProductFragmentNew() : Fragment() {
                                         "products",
                                         products,
                                         myContext,
-                                        fragment_products_new_progressBar
+                                        fragment_products_new_progressBar,
+                                        rvProducts,
+                                        productsLayoutManager
                                     )
                                 }
                                 rvProducts.adapter = searchAdapter

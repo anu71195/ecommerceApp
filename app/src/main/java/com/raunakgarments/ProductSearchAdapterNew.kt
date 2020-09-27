@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.google.gson.Gson
@@ -25,15 +26,20 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
     private lateinit var listener: (Product) -> Unit
     private lateinit var context: Context
     private lateinit var fragment_products_new_progressBar: ProgressBar
+    private lateinit var rvProducts: RecyclerView
+    private lateinit var productsLayoutManager: GridLayoutManager
 
     fun populate(
         ref: String,
         productIds: MutableList<String>,
         context: Context,
-        fragment_products_new_progressBar: ProgressBar
+        fragment_products_new_progressBar: ProgressBar,
+        rvProducts: RecyclerView,
+        productsLayoutManager: GridLayoutManager
     ) {
         this.fragment_products_new_progressBar = fragment_products_new_progressBar
-
+        this.rvProducts = rvProducts
+        this.productsLayoutManager = productsLayoutManager
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         firebaseUtil.openFbReference(ref)
 
@@ -110,9 +116,13 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
     }
 
     private fun checkAndResetProgressBarVisibility(position: Int) {
-        if (position == minOf(products.size, 4) - 1) {
-            fragment_products_new_progressBar.visibility = View.GONE
-        }
+        d("productadapter", "onbindviewholder outside ${position}")
+
+        d("productadapter", "onbindviewholder inside ${position}")
+        val totalItemCount = rvProducts!!.layoutManager?.itemCount
+        val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
+        d("MyTAG", "Load new list not entered")
+        fragment_products_new_progressBar.visibility = View.GONE
     }
 
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
