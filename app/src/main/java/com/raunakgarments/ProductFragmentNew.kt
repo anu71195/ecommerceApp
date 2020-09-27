@@ -30,9 +30,10 @@ class ProductFragmentNew() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //If products are not displayed within 10 seconds then it shows connectivity issue text. Admin does not need this because unless internet connectivity is not there, admin can't access admin flow.
         Handler().postDelayed({
             fragment_products_new_progressBarTextView.visibility = View.VISIBLE
-        }, 7 * 1000)
+        }, 10 * 1000)
         fragment_products_new_progressBar.visibility = View.VISIBLE
 
         val rvProducts = view.findViewById<RecyclerView>(R.id.rvProducts)
