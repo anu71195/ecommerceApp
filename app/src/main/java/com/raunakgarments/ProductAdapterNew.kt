@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.google.gson.Gson
@@ -25,10 +26,20 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     private lateinit var listener: (Product) -> Unit
     private lateinit var context: Context
     private lateinit var fragment_products_new_progressBar: ProgressBar
+    private lateinit var rvProducts: RecyclerView
+    private lateinit var productsLayoutManager: GridLayoutManager
 
-    fun populate(ref: String, context: Context, fragment_products_new_progressBar: ProgressBar) {
+    fun populate(
+        ref: String,
+        context: Context,
+        fragment_products_new_progressBar: ProgressBar,
+        rvProducts: RecyclerView,
+        productsLayoutManager: GridLayoutManager
+    ) {
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         this.fragment_products_new_progressBar = fragment_products_new_progressBar
+        this.rvProducts = rvProducts
+        this.productsLayoutManager = productsLayoutManager
         firebaseUtil.openFbReference(ref)
         mFirebaseDatebase = firebaseUtil.mFirebaseDatabase
         mDatabaseReference = firebaseUtil.mDatabaseReference
@@ -90,24 +101,32 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     }
 
     private fun checkAndResetProgressBarVisibility(position: Int) {
-        if (position == minOf(products.size, 4) - 1) {
-            fragment_products_new_progressBar.visibility = View.GONE
-        }
+        d("productadapter", "onbindviewholder outside ${position}")
+
+        d("productadapter", "onbindviewholder inside ${position}")
+            val totalItemCount = rvProducts!!.layoutManager?.itemCount
+            val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
+            d("MyTAG", "Load new list not entered")
+         fragment_products_new_progressBar.visibility = View.GONE
+
     }
 
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
-
+        if (fragment_products_new_progressBar.visibility == View.GONE) {
+            fragment_products_new_progressBar.visibility = View.VISIBLE
+        }
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
         Picasso.get().load(product.photoUrl)
             .into(holder.image, object : com.squareup.picasso.Callback {
                 override fun onSuccess() {
+                    d("productadapter", "onbindviewholder ${position}")
                     checkAndResetProgressBarVisibility(position)
                 }
 
                 override fun onError(e: Exception?) {
-                   d("productadapternew", "onbindviewholder - image not loaded")
+                    d("productadapternew", "onbindviewholder - image not loaded")
                 }
             })
         holder.itemView.setOnClickListener { rvItemSegue(product) }

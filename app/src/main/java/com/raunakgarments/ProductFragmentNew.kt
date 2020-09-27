@@ -38,10 +38,34 @@ class ProductFragmentNew() : Fragment() {
         searchButtonClickListener(myContext, productsLayoutManager)
         val adapter = ProductAdapterNew()
         if (myContext != null) {
-            adapter.populate("products", myContext, fragment_products_new_progressBar)
+            adapter.populate(
+                "products",
+                myContext,
+                fragment_products_new_progressBar,
+                rvProducts,
+                productsLayoutManager
+            )
         }
         rvProducts.adapter = adapter
         rvProducts.layoutManager = productsLayoutManager
+
+        rvProducts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                val totalItemCount = rvProducts!!.layoutManager?.itemCount
+                val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
+                d("MyTAG", "Load new list not entered")
+
+                if (totalItemCount != lastVisibleItemPosition) {
+                    d("MyTAG", "Load new list")
+                    if (fragment_products_new_progressBar.visibility == View.GONE) {
+                        fragment_products_new_progressBar.visibility = View.VISIBLE
+                        android.os.Handler().postDelayed({
+                            fragment_products_new_progressBar.visibility = View.GONE
+                        }, 3000)
+                    }
+                }
+            }
+        })
     }
 
     private fun searchButtonClickListener(
@@ -89,7 +113,12 @@ class ProductFragmentNew() : Fragment() {
                                 d("producttagsList", products.toString())
                                 val searchAdapter = ProductSearchAdapterNew()
                                 if (myContext != null) {
-                                    searchAdapter.populate("products", products, myContext, fragment_products_new_progressBar)
+                                    searchAdapter.populate(
+                                        "products",
+                                        products,
+                                        myContext,
+                                        fragment_products_new_progressBar
+                                    )
                                 }
                                 rvProducts.adapter = searchAdapter
                                 rvProducts.layoutManager = productsLayoutManager
@@ -101,7 +130,13 @@ class ProductFragmentNew() : Fragment() {
             }
             val adapter = ProductAdapterNew()
             if (myContext != null) {
-                adapter.populate("products", myContext, fragment_products_new_progressBar)
+                adapter.populate(
+                    "products",
+                    myContext,
+                    fragment_products_new_progressBar,
+                    rvProducts,
+                    productsLayoutManager
+                )
             }
             rvProducts.adapter = adapter
             rvProducts.layoutManager = productsLayoutManager
