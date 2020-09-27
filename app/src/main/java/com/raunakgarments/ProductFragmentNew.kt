@@ -2,6 +2,7 @@ package com.raunakgarments
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,6 +30,9 @@ class ProductFragmentNew() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Handler().postDelayed({
+            fragment_products_new_progressBarTextView.visibility = View.VISIBLE
+        }, 7 * 1000)
         fragment_products_new_progressBar.visibility = View.VISIBLE
 
         val rvProducts = view.findViewById<RecyclerView>(R.id.rvProducts)
@@ -43,7 +47,7 @@ class ProductFragmentNew() : Fragment() {
                 myContext,
                 fragment_products_new_progressBar,
                 rvProducts,
-                productsLayoutManager
+                productsLayoutManager,fragment_products_new_progressBarTextView
             )
         }
         rvProducts.adapter = adapter
@@ -137,7 +141,8 @@ class ProductFragmentNew() : Fragment() {
                     myContext,
                     fragment_products_new_progressBar,
                     rvProducts,
-                    productsLayoutManager
+                    productsLayoutManager,
+                    fragment_products_new_progressBarTextView
                 )
             }
             rvProducts.adapter = adapter

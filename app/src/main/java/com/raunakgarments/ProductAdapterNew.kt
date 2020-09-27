@@ -2,6 +2,7 @@ package com.raunakgarments
 
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_products_new.*
 import java.lang.Exception
 
 class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>() {
@@ -29,6 +31,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     private lateinit var rvProducts: RecyclerView
     private lateinit var productsLayoutManager: GridLayoutManager
     private var isLoadingFirstTime = true
+    private lateinit var fragment_products_new_progressBarTextView: TextView
 
 
     fun populate(
@@ -36,9 +39,12 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         context: Context,
         fragment_products_new_progressBar: ProgressBar,
         rvProducts: RecyclerView,
-        productsLayoutManager: GridLayoutManager
+        productsLayoutManager: GridLayoutManager,
+        fragment_products_new_progressBarTextView: TextView
     ) {
         isLoadingFirstTime = true
+
+        this.fragment_products_new_progressBarTextView = fragment_products_new_progressBarTextView
 
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         this.fragment_products_new_progressBar = fragment_products_new_progressBar
@@ -110,7 +116,13 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         if ((position == (minOf(products.size, 4) - 1)) && isLoadingFirstTime) {
             fragment_products_new_progressBar.visibility = View.GONE
             isLoadingFirstTime = false
-        } else if(!isLoadingFirstTime) {
+            fragment_products_new_progressBarTextView.text = ""
+            Handler().postDelayed({
+                fragment_products_new_progressBarTextView.text = R.string.it_is_taking_longer_than_expected_please_check_your_network_connection.toString()
+                fragment_products_new_progressBarTextView.visibility = View.GONE
+            }, 7 * 1000)
+
+        } else if (!isLoadingFirstTime) {
             fragment_products_new_progressBar.visibility = View.GONE
 
         }

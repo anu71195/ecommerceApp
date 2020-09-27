@@ -123,4 +123,5 @@
     <string name="title_activity_developer_admin">ScrollingActivity</string>
     <string name="productAddedToCartToast">Product added to cart\nYou can manage product quantity in cart also</string>
     <string name="title_activity_cart_confirmation">ScrollingActivity</string>
+    <string name="it_is_taking_longer_than_expected_please_check_your_network_connection">It is taking longer than expected. Please check your network connection.</string>
 </resources>
