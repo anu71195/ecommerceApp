@@ -92,7 +92,6 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
             FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
         )
         FirebaseAuth.getInstance().currentUser?.reload()?.addOnCompleteListener {
-            // todo also check if cart is not empty
 
             var userCartFirebaseUtil: FirebaseUtil = FirebaseUtil()
             userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid.toString())
@@ -103,8 +102,19 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                     if (snapshot.exists() && snapshot.value != null) {
                         d("checkoutas", snapshot.value.toString())
                         var productStockSyncHashmap = snapshot.value as HashMap<String, Int>
-                        checkAndValidateUserProfile(profile, emailVerified)
-                    }}
+                        d(
+                            "usercartactivityrvfragment",
+                            "checkconditionsforcheckout ${productStockSyncHashmap.size}, ${productStockSyncHashmap}"
+                        )
+                        if (productStockSyncHashmap.size > 0) {
+                            checkAndValidateUserProfile(profile, emailVerified)
+                        }else {
+                            paymentErrorPopup()//todo add conditions if cart is emtpy
+                        }
+                    } else {
+                        paymentErrorPopup()//todo add conditions if cart is emtpy
+                    }
+                }
 
                 override fun onCancelled(error: DatabaseError) {}
             })
@@ -190,8 +200,10 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                                                         }
                                                     }
 
-                                                    productStockSync.stock = productStockSync.stock - totalBoughtItems
-                                                    productStockSync.boughtTicket = HashMap<String, Int>()
+                                                    productStockSync.stock =
+                                                        productStockSync.stock - totalBoughtItems
+                                                    productStockSync.boughtTicket =
+                                                        HashMap<String, Int>()
 
                                                     val istTime =
                                                         SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
@@ -237,7 +249,8 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                                         /*product is not available*/
                                         lockedProducts[productId.key] = -4
                                     }
-                                    UserCartSingletonClass.productLockAcquiredTimeStamp = (((Date().time)/1000)-productStockSyncHashmap.size)
+                                    UserCartSingletonClass.productLockAcquiredTimeStamp =
+                                        (((Date().time) / 1000) - productStockSyncHashmap.size)
                                     if (productStockSyncHashmap.size == lockedProducts.size) {
                                         Handler().postDelayed({
                                             checkForLockUser(
@@ -336,7 +349,8 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
                 })
         }
     }
-// time stamp product stock sync delay = 600 seconds
+
+    // time stamp product stock sync delay = 600 seconds
     private fun checkTimeStampStatus(timeStamp: String): Boolean {
         return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
     }
