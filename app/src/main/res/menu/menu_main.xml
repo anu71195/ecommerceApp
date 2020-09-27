@@ -19,6 +19,12 @@
             android:title="Profile"
             app:showAsAction="never" />
 
+        <item
+            android:id="@+id/menu_main_actionMyOrder"
+            android:icon="@drawable/ic_baseline_library_books_24"
+            android:orderInCategory="100"
+            android:title="My orders (under progress)"
+            app:showAsAction="never" />
 
         <item
             android:id="@+id/menu_main_actionSettings"
