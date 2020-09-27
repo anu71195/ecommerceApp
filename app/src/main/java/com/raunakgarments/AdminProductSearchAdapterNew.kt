@@ -29,7 +29,7 @@ class AdminProductSearchAdapterNew :
     private lateinit var fragment_products_new_admin_progressBar: ProgressBar
     private lateinit var rvProductsAdmin: RecyclerView
     private lateinit var productsLayoutManager: GridLayoutManager
-    private var isLoadingFirstTime = false
+    private var isLoadingFirstTime = true
 
     fun populate(
         ref: String,
@@ -39,7 +39,7 @@ class AdminProductSearchAdapterNew :
         rvProductsAdmin: RecyclerView,
         productsLayoutManager: GridLayoutManager
     ) {
-        isLoadingFirstTime = false
+        isLoadingFirstTime = true
 
         this.fragment_products_new_admin_progressBar = fragment_products_new_admin_progressBar
         this.rvProductsAdmin = rvProductsAdmin
@@ -122,8 +122,11 @@ class AdminProductSearchAdapterNew :
     private fun checkAndResetProgressBarVisibility(position: Int) {
         val totalItemCount = rvProductsAdmin!!.layoutManager?.itemCount
         val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
-        if (position == minOf(products.size, 4) - 1) {
+        if ((position == (minOf(products.size, 4) - 1)) && isLoadingFirstTime) {
             fragment_products_new_admin_progressBar.visibility = View.GONE
+        } else if(!isLoadingFirstTime) {
+            fragment_products_new_admin_progressBar.visibility = View.GONE
+
         }
     }
 

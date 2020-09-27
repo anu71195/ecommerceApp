@@ -28,7 +28,7 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
     private lateinit var fragment_products_new_progressBar: ProgressBar
     private lateinit var rvProducts: RecyclerView
     private lateinit var productsLayoutManager: GridLayoutManager
-    private var isLoadingFirstTime = false
+    private var isLoadingFirstTime = true
 
     fun populate(
         ref: String,
@@ -38,7 +38,7 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
         rvProducts: RecyclerView,
         productsLayoutManager: GridLayoutManager
     ) {
-        isLoadingFirstTime = false
+        isLoadingFirstTime = true
 
         this.fragment_products_new_progressBar = fragment_products_new_progressBar
         this.rvProducts = rvProducts
@@ -121,8 +121,11 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
     private fun checkAndResetProgressBarVisibility(position: Int) {
         val totalItemCount = rvProducts!!.layoutManager?.itemCount
         val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
-        if (position == minOf(products.size, 4) - 1) {
+        if ((position == (minOf(products.size, 4) - 1)) && isLoadingFirstTime) {
             fragment_products_new_progressBar.visibility = View.GONE
+        } else if(!isLoadingFirstTime) {
+            fragment_products_new_progressBar.visibility = View.GONE
+
         }
     }
 

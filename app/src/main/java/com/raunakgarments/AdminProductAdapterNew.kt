@@ -28,7 +28,7 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
     private lateinit var fragment_products_new_admin_progressBar: ProgressBar
     private lateinit var rvProductsAdmin: RecyclerView
     private lateinit var productsLayoutManager: GridLayoutManager
-    private var isLoadingFirstTime = false
+    private var isLoadingFirstTime = true
 
 
 
@@ -39,7 +39,7 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
         rvProductsAdmin: RecyclerView,
         productsLayoutManager: GridLayoutManager
     ) {
-        isLoadingFirstTime = false
+        isLoadingFirstTime = true
 
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         this.rvProductsAdmin = rvProductsAdmin
@@ -107,8 +107,11 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
     private fun checkAndResetProgressBarVisibility(position: Int) {
         val totalItemCount = rvProductsAdmin!!.layoutManager?.itemCount
         val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
-        if (position == minOf(products.size, 4) - 1) {
+        if ((position == (minOf(products.size, 4) - 1)) && isLoadingFirstTime) {
             fragment_products_new_admin_progressBar.visibility = View.GONE
+        } else if(!isLoadingFirstTime) {
+            fragment_products_new_admin_progressBar.visibility = View.GONE
+
         }
     }
 
