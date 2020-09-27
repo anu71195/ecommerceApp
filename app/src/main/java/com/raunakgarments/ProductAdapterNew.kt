@@ -2,6 +2,7 @@ package com.raunakgarments
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Handler
 import android.util.Log.d
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.google.gson.Gson
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_products_new.*
+import org.jetbrains.anko.textColor
 import java.lang.Exception
 
 class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>() {
@@ -45,6 +47,10 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         isLoadingFirstTime = true
 
         this.fragment_products_new_progressBarTextView = fragment_products_new_progressBarTextView
+
+        Handler().postDelayed({
+            fragment_products_new_progressBarTextView.visibility = View.VISIBLE
+        }, 10 * 1000)
 
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         this.fragment_products_new_progressBar = fragment_products_new_progressBar
