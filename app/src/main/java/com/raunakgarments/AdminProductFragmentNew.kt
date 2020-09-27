@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_products_new.*
 import kotlinx.android.synthetic.main.fragment_products_new_admin.*
+import kotlinx.android.synthetic.main.fragment_products_new_admin.searchButtonNewAdmin
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -32,6 +34,23 @@ class AdminProductFragmentNew(productActivityNew: AdminProductActivityNew) : Fra
         val myContext = context
         val productsLayoutManager = GridLayoutManager(context, 2)
 
+        rvProductsAdmin.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                val totalItemCount = rvProductsAdmin!!.layoutManager?.itemCount
+                val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
+                Log.d("MyTAG", "Load new list not entered")
+
+                if (totalItemCount != lastVisibleItemPosition) {
+                    Log.d("MyTAG", "Load new list")
+                    if (fragment_products_new_admin_progressBar.visibility == View.GONE) {
+                        fragment_products_new_admin_progressBar.visibility = View.VISIBLE
+                        android.os.Handler().postDelayed({
+                            fragment_products_new_admin_progressBar.visibility = View.GONE
+                        }, 3000)
+                    }
+                }
+            }
+        })
 
         searchButtonNewAdmin.setOnClickListener {
             Log.d("Anuragadding", "addding")
