@@ -93,18 +93,38 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         )
         FirebaseAuth.getInstance().currentUser?.reload()?.addOnCompleteListener {
             // todo also check if cart is not empty
-            if (profile != null &&
-                profile.deliverable &&
-                emailVerified &&
-                profile.address != "" &&
-                FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() != "" &&
-                FirebaseAuth.getInstance().currentUser?.phoneNumber != null &&
-                FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() != null
-            ) {
-                processBeforeCallingCheckoutActivity(profile, userId)
-            } else {
-                paymentErrorPopup()
-            }
+
+            var userCartFirebaseUtil: FirebaseUtil = FirebaseUtil()
+            userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid.toString())
+
+            userCartFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(object :
+                ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists() && snapshot.value != null) {
+                        d("checkoutas", snapshot.value.toString())
+                        var productStockSyncHashmap = snapshot.value as HashMap<String, Int>
+                        checkAndValidateUserProfile(profile, emailVerified)
+                    }}
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
+
+
+        }
+    }
+
+    private fun checkAndValidateUserProfile(profile: Profile?, emailVerified: Boolean) {
+        if (profile != null &&
+            profile.deliverable &&
+            emailVerified &&
+            profile.address != "" &&
+            FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() != "" &&
+            FirebaseAuth.getInstance().currentUser?.phoneNumber != null &&
+            FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() != null
+        ) {
+            processBeforeCallingCheckoutActivity(profile, userId)
+        } else {
+            paymentErrorPopup()
         }
     }
 
