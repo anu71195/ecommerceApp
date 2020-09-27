@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.fragment_products_new.*
 import kotlinx.android.synthetic.main.fragment_products_new_admin.*
 import kotlinx.android.synthetic.main.fragment_products_new_admin.searchButtonNewAdmin
 
@@ -98,7 +97,7 @@ class AdminProductFragmentNew(productActivityNew: AdminProductActivityNew) : Fra
                                 Log.d("producttagsList", products.toString())
                                 val searchAdapter = AdminProductSearchAdapterNew()
                                 if (myContext != null) {
-                                    searchAdapter.populate("products", products, myContext, fragment_products_new_admin_progressBar)
+                                    searchAdapter.populate("products", products, myContext, fragment_products_new_admin_progressBar, rvProductsAdmin, productsLayoutManager)
                                 }
                                 rvProductsAdmin.adapter = searchAdapter
                                 rvProductsAdmin.layoutManager = productsLayoutManager
@@ -109,7 +108,7 @@ class AdminProductFragmentNew(productActivityNew: AdminProductActivityNew) : Fra
             }
             val adapter = AdminProductAdapterNew()
             if (myContext != null) {
-                adapter.populate("products", myContext, fragment_products_new_admin_progressBar)
+                adapter.populate("products", myContext, fragment_products_new_admin_progressBar, rvProductsAdmin, productsLayoutManager)
             }
             rvProductsAdmin.adapter = adapter
             rvProductsAdmin.layoutManager = productsLayoutManager
@@ -117,7 +116,13 @@ class AdminProductFragmentNew(productActivityNew: AdminProductActivityNew) : Fra
 
         val adapter = AdminProductAdapterNew()
         if (myContext != null) {
-            adapter.populate("products", myContext, fragment_products_new_admin_progressBar)
+            adapter.populate(
+                "products",
+                myContext,
+                fragment_products_new_admin_progressBar,
+                rvProductsAdmin,
+                productsLayoutManager
+            )
         }
         rvProductsAdmin.adapter = adapter
         rvProductsAdmin.layoutManager = productsLayoutManager

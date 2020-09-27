@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.google.gson.Gson
@@ -26,15 +27,21 @@ class AdminProductSearchAdapterNew :
     private lateinit var listener: (Product) -> Unit
     private lateinit var context: Context
     private lateinit var fragment_products_new_admin_progressBar: ProgressBar
+    private lateinit var rvProductsAdmin: RecyclerView
+    private lateinit var productsLayoutManager: GridLayoutManager
 
     fun populate(
         ref: String,
         productIds: MutableList<String>,
         context: Context,
-        fragment_products_new_admin_progressBar: ProgressBar
+        fragment_products_new_admin_progressBar: ProgressBar,
+        rvProductsAdmin: RecyclerView,
+        productsLayoutManager: GridLayoutManager
     ) {
 
         this.fragment_products_new_admin_progressBar = fragment_products_new_admin_progressBar
+        this.rvProductsAdmin = rvProductsAdmin
+        this.productsLayoutManager = productsLayoutManager
 
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         firebaseUtil.openFbReference(ref)
