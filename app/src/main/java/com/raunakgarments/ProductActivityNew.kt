@@ -46,6 +46,11 @@ class ProductActivityNew : AppCompatActivity() {
                     var intent = Intent(this, ProfileActivity::class.java)
                     this.startActivity(intent)
                 }
+                R.id.menu_main_actionMyOrder -> {
+                    d("UserOrder", "My orders was pressed")
+                    var intent = Intent(this, UserOrdersActivity::class.java)
+                    this.startActivity(intent)
+                }
                 R.id.menu_main_actionSettings -> {
                     d("Settings", "Settings was pressed")
                     var intent = Intent(this, SettingsActivity::class.java)
