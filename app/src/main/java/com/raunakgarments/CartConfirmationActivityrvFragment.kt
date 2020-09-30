@@ -41,11 +41,13 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
     }
 
     private fun cartConfirmationActivityrvFragmentStartBookkeeping() {
-
+        fragment_cart_confirmation_activity_confirmButton.isEnabled = true
     }
 
     private fun confirmOrderButtonClickListener() {
         fragment_cart_confirmation_activity_confirmButton.setOnClickListener {
+            d("CartConfirmationActivityrvFragment", "confirmOrderButtonClickListener - confirm button clicked")
+            fragment_cart_confirmation_activity_confirmButton.isEnabled = false
             callCheckoutActivity(adapter.totalCartCost)
         }
     }
