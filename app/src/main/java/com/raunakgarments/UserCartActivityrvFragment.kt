@@ -51,10 +51,14 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fragment_user_cart_activity_progessBar.visibility = View.GONE
+        userCartActivityrvFragmentStartBookkeeping()
         settingUpRecyclerView(view)
         checkOutButtonClickListener()
+    }
 
+    private fun userCartActivityrvFragmentStartBookkeeping() {
+        fragment_user_cart_activity_progessBar.visibility = View.GONE
+        fragment_user_cart_activity_checkoutButton.isEnabled = true
     }
 
     private fun settingUpRecyclerView(view: View) {
@@ -70,6 +74,8 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
     /*todo how to mitigate if user is spamming the products and trying to get locks again and again*/
     private fun checkOutButtonClickListener() {
         fragment_user_cart_activity_checkoutButton.setOnClickListener {
+            d("UserCartActivityrvFragment", "checkOutButtonClickListener - checkoutbutton clicked")
+            fragment_user_cart_activity_checkoutButton.isEnabled = false
             var checkButtonClicked = true
             var firebaseUtil = FirebaseUtil()
             firebaseUtil.openFbReference("userProfile/")
