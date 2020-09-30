@@ -145,7 +145,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
-        getProductStocksLocksDetails(product.id)
+        getProductStocksLocksDetails(holder, product.id)
         loadImageAndAvailabilityBanner(holder, position, product)
         holder.itemView.setOnClickListener { rvItemSegue(product) }
 
@@ -155,8 +155,10 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
     }
 
-    private fun getProductStocksLocksDetails(productId: String) {
+    private fun getProductStocksLocksDetails(holder: DealViewHolder, productId: String) {
         //todo get product stock sync details
+        //todo refresh when user is changed
+        //todo refresh when scrolled up high
         var productStockSync: ProductStockSync
         productStockSyncFirebaseUtil.mDatabaseReference.child(productId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -168,11 +170,17 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                                 "ProductAdapterNew",
                                 "getProductStocksLocksDetails-Not available}"
                             )
+                            holder.image.alpha = 0.5F
+                            holder.notAvailableTv.text = "Not Available"
+                            holder.notAvailableTv.visibility = View.VISIBLE
                         } else if (!isProductAvailableConditions(productStockSync)) {
                             d(
                                 "ProductAdapterNew",
                                 "getProductStocksLocksDetails-Coming soon}"
                             )
+                            holder.image.alpha = 0.75F
+                            holder.notAvailableTv.text = "Coming Soon"
+                            holder.notAvailableTv.visibility = View.VISIBLE
                         } else {
                             d(
                                 "ProductAdapterNew",
@@ -198,7 +206,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     }
 
     private fun isProductAvailableConditions(productStockSync: ProductStockSync): Boolean {
-        return ((productStockSync.locked == "-1" || !checkTimeStampStatus(
+        return ((productStockSync.locked == "-1" || checkTimeStampStatus(
             productStockSync.timeStamp
         ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()))
     }
