@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,10 +27,17 @@ import kotlinx.android.synthetic.main.fragment_user_cart_activity_rv.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class UserCartActivityrvFragment(context: Context) : Fragment() {
+class UserCartActivityrvFragment() : Fragment() {
 
     var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     lateinit var userId: String
+    private lateinit var supportActionBar: ActionBar
+
+    constructor(context: Context, supportActionBar: ActionBar?) : this() {
+        if (supportActionBar != null) {
+            this.supportActionBar = supportActionBar
+        }
+    }
 
     enum class errorType {
         emptyCart, ow
@@ -78,6 +86,11 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
             d("UserCartActivityrvFragment", "checkOutButtonClickListener - checkoutbutton clicked")
             fragment_user_cart_activity_checkoutButton.isEnabled = false
             adapter.notifyDataSetChanged()
+
+            supportActionBar?.apply {
+                setDisplayHomeAsUpEnabled(false)
+                setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
+            }
 
             var checkButtonClicked = true
             var firebaseUtil = FirebaseUtil()

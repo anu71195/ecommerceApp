@@ -16,6 +16,6 @@
             }
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.activity_user_cart_frameLayout, UserCartActivityrvFragment(this)).commit()
+                .replace(R.id.activity_user_cart_frameLayout, UserCartActivityrvFragment(this, supportActionBar)).commit()
         }
     }
