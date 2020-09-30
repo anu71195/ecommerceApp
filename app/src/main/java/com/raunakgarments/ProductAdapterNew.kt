@@ -2,7 +2,6 @@ package com.raunakgarments
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Handler
 import android.util.Log.d
 import android.view.LayoutInflater
@@ -17,8 +16,6 @@ import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_products_new.*
-import org.jetbrains.anko.textColor
 import java.lang.Exception
 
 class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>() {
@@ -87,6 +84,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var tvTitle: TextView = itemView.findViewById(R.id.title)
         var image: ImageView = itemView.findViewById(R.id.photo)
         var price: TextView = itemView.findViewById(R.id.price)
+        var notAvailableTv: TextView = itemView.findViewById(R.id.product_row_notAvailableTextView)
     }
 
     private fun rvItemSegue(product: Product) {
@@ -124,7 +122,8 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
             isLoadingFirstTime = false
             fragment_products_new_progressBarTextView.text = " "
             Handler().postDelayed({
-                fragment_products_new_progressBarTextView.text = R.string.it_is_taking_longer_than_expected_please_check_your_network_connection.toString()
+                fragment_products_new_progressBarTextView.text =
+                    R.string.it_is_taking_longer_than_expected_please_check_your_network_connection.toString()
                 fragment_products_new_progressBarTextView.visibility = View.GONE
             }, 7 * 1000)
 
@@ -141,6 +140,21 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
+        getProductStocksLocksDetails()
+        loadImageAndAvailabilityBanner(holder, position, product)
+        holder.itemView.setOnClickListener { rvItemSegue(product) }
+
+    }
+
+    private fun getProductStocksLocksDetails() {
+        //todo get product stock sync details
+    }
+
+    private fun loadImageAndAvailabilityBanner(
+        holder: DealViewHolder,
+        position: Int,
+        product: Product
+    ) {
         Picasso.get().load(product.photoUrl)
             .into(holder.image, object : com.squareup.picasso.Callback {
                 override fun onSuccess() {
@@ -152,7 +166,5 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                     d("productadapternew", "onbindviewholder - image not loaded")
                 }
             })
-        holder.itemView.setOnClickListener { rvItemSegue(product) }
-
     }
 }
