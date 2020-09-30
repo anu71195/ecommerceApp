@@ -16,6 +16,7 @@ import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.model.CartProduct
 import com.raunakgarments.model.Product
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_user_cart_activity_rv.*
 
 class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
 
@@ -25,6 +26,8 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
     private lateinit var mFirebaseDatebaseProduct: FirebaseDatabase
     private lateinit var mDatabaseReferenceProduct: DatabaseReference
     private lateinit var childEventListener: ChildEventListener
+    private lateinit var userCartActivityrvFragment: UserCartActivityrvFragment
+
 
     //    private lateinit var childEventListenerProduct: ChildEventListener
     private lateinit var listener: (Product) -> Unit
@@ -35,8 +38,12 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
     fun populate(
         ref: String,
         context: Context,
-        totalCostViewInput: TextView
+        totalCostViewInput: TextView,
+        userCartActivityrvFragment: UserCartActivityrvFragment
     ) {
+
+        this.userCartActivityrvFragment = userCartActivityrvFragment
+
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         var firebaseUtilProduct = FirebaseUtil()
         d("user address", "$ref")
@@ -163,7 +170,8 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
                                     CostFormatterHelper().formatCost(cartProduct[position].price * cartProduct[position].quantity)
                                 if (number == 1) {
                                     cartProduct.removeAt(position)
-                                    productFirebaseUtil.mDatabaseReference.child(productId).removeValue()
+                                    productFirebaseUtil.mDatabaseReference.child(productId)
+                                        .removeValue()
                                 }
                                 notifyDataSetChanged()
                                 totalCostView.text = "Total Cost = ₹" + totalCost.toString()
@@ -188,5 +196,9 @@ class UserCartAdapter : RecyclerView.Adapter<UserCartAdapter.DealViewHolder>() {
             .toString() + " = ₹" + product.totalPrice.toString()
         Picasso.get().load(product.photoUrl).into(holder.image)
         addSubtractQuantityClickListener(holder, product.id, position)
+        if(!userCartActivityrvFragment.fragment_user_cart_activity_checkoutButton.isEnabled) {
+            holder.addQuantityButton.isEnabled = false
+            holder.subtractQuantityButton.isEnabled = false
+        }
     }
 }

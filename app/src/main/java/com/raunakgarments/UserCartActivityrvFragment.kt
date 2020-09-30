@@ -52,8 +52,8 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         userCartActivityrvFragmentStartBookkeeping()
-        settingUpRecyclerView(view)
-        checkOutButtonClickListener()
+        val adapter = settingUpRecyclerView(view)
+        checkOutButtonClickListener(adapter)
     }
 
     private fun userCartActivityrvFragmentStartBookkeeping() {
@@ -61,21 +61,24 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         fragment_user_cart_activity_checkoutButton.isEnabled = true
     }
 
-    private fun settingUpRecyclerView(view: View) {
+    private fun settingUpRecyclerView(view: View): UserCartAdapter {
         val totalCostView = view.findViewById<TextView>(R.id.fragment_user_cart_activity_totalPrice)
         val adapter = UserCartAdapter()
-        context?.let { adapter.populate("userCart/" + this.userId, it, totalCostView) }
+        context?.let { adapter.populate("userCart/" + this.userId, it, totalCostView, this) }
         fragment_user_cart_activity_rv.adapter = adapter
         val productsLayoutManager = GridLayoutManager(context, 1)
         fragment_user_cart_activity_rv.layoutManager = productsLayoutManager
+        return adapter
     }
 
     /*todo checkout error popup give exact conditions*/
     /*todo how to mitigate if user is spamming the products and trying to get locks again and again*/
-    private fun checkOutButtonClickListener() {
+    private fun checkOutButtonClickListener(adapter: UserCartAdapter) {
         fragment_user_cart_activity_checkoutButton.setOnClickListener {
             d("UserCartActivityrvFragment", "checkOutButtonClickListener - checkoutbutton clicked")
             fragment_user_cart_activity_checkoutButton.isEnabled = false
+            adapter.notifyDataSetChanged()
+
             var checkButtonClicked = true
             var firebaseUtil = FirebaseUtil()
             firebaseUtil.openFbReference("userProfile/")
