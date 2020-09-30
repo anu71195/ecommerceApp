@@ -93,7 +93,8 @@ class ProductActivityNew : AppCompatActivity() {
         drawerLayoutNew.openDrawer(GravityCompat.START)
         return super.onOptionsItemSelected(item)
     }
-
+//todo progress bar text view show bogus number
+    //todo put not available mark on the image if it is not available
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         return true
