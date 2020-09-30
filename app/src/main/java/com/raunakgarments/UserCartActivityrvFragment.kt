@@ -177,10 +177,6 @@ class UserCartActivityrvFragment() : Fragment() {
         intent.putExtra("lockedProducts", lockedProducts)
         intent.putExtra("profile", Gson().toJson(profile))
         activity?.startActivity(intent)
-//        var intent =
-//            Intent(activity, CheckoutActivity::class.java)
-//        intent.putExtra("userID", userID)
-//        activity?.startActivity(intent)
     }
 
     private fun getLocks(profile: Profile, userID: String) {
