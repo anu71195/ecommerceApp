@@ -12,12 +12,15 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
 import com.squareup.picasso.Picasso
 import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>() {
 
@@ -33,7 +36,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     private var isLoadingFirstTime = true
     private lateinit var fragment_products_new_progressBarTextView: TextView
     var productStockSyncFirebaseUtil = FirebaseUtil()
-
 
 
     fun populate(
@@ -149,23 +151,55 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
 
     }
 
+    private fun checkTimeStampStatus(timeStamp: String): Boolean {
+        return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
+    }
+
     private fun getProductStocksLocksDetails(productId: String) {
         //todo get product stock sync details
-        productStockSyncFirebaseUtil.mDatabaseReference.child(productId).addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()) {
-                    var productStockSync = snapshot.getValue(ProductStockSync::class.java)
-                    d("ProductAdapterNew","getProductStocksLocksDetails-${Gson().toJson(productStockSync)}")
-                }else{
-                    d("ProductAdapterNew","getProductStocksLocksDetails-snapshot does not exist")
+        var productStockSync: ProductStockSync
+        productStockSyncFirebaseUtil.mDatabaseReference.child(productId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        productStockSync = snapshot.getValue(ProductStockSync::class.java)!!
+                        if (productStockSync.stock == 0) {
+                            d(
+                                "ProductAdapterNew",
+                                "getProductStocksLocksDetails-Not available}"
+                            )
+                        } else if (!isProductAvailableCondition(productStockSync)) {
+                            d(
+                                "ProductAdapterNew",
+                                "getProductStocksLocksDetails-Coming soon}"
+                            )
+                        } else {
+                            d(
+                                "ProductAdapterNew",
+                                "getProductStocksLocksDetails-Available}")
+                        }
+                            d(
+                                "ProductAdapterNew",
+                                "getProductStocksLocksDetails-${Gson().toJson(productStockSync)}"
+                            )
+                    } else {
+                        d(
+                            "ProductAdapterNew",
+                            "getProductStocksLocksDetails-snapshot does not exist"
+                        )
+                    }
                 }
 
-            }
+                override fun onCancelled(error: DatabaseError) {}
 
-            override fun onCancelled(error: DatabaseError) {}
+            })
 
-        })
+    }
 
+    private fun isProductAvailableCondition(productStockSync: ProductStockSync): Boolean {
+        return ((productStockSync.locked == "-1" || !checkTimeStampStatus(
+            productStockSync.timeStamp
+        ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()))
     }
 
     private fun loadImageAndAvailabilityBanner(
