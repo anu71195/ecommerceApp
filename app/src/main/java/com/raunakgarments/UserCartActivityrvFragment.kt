@@ -309,7 +309,6 @@ class UserCartActivityrvFragment(context: Context) : Fragment() {
         }
     }
 
-    /*todo take care of double click on checkout and confirm and pay razor pay button*/
     private fun checkForLockUser(
         lockedProducts: HashMap<String, Int>,
         profile: Profile,
