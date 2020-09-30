@@ -81,8 +81,9 @@ class ProfileActivity : AppCompatActivity() {
     private fun attachSendOTPButtonWithSendOTPCode() {
         activity_profile_content_scrolling_sendOTPNumber.setOnClickListener {
             verificationCallbacks()
+            var phoneNumber = activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() + activity_profile_content_scrolling_phoneNumberCode.text.toString() + activity_profile_content_scrolling_phoneNumber.text.toString()
             PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() + activity_profile_content_scrolling_phoneNumberCode.text.toString() + activity_profile_content_scrolling_phoneNumber.text.toString(),
+                phoneNumber,
                 5,
                 TimeUnit.SECONDS,
                 this@ProfileActivity,
