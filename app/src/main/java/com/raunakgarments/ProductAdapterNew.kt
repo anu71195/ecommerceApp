@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
+import com.raunakgarments.model.ProductStockSync
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 
@@ -31,6 +32,8 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     private lateinit var productsLayoutManager: GridLayoutManager
     private var isLoadingFirstTime = true
     private lateinit var fragment_products_new_progressBarTextView: TextView
+    var productStockSyncFirebaseUtil = FirebaseUtil()
+
 
 
     fun populate(
@@ -42,7 +45,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         fragment_products_new_progressBarTextView: TextView
     ) {
         isLoadingFirstTime = true
-
+        productStockSyncFirebaseUtil.openFbReference("productStockSync")
         this.fragment_products_new_progressBarTextView = fragment_products_new_progressBarTextView
 
         Handler().postDelayed({
@@ -140,14 +143,29 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
-        getProductStocksLocksDetails()
+        getProductStocksLocksDetails(product.id)
         loadImageAndAvailabilityBanner(holder, position, product)
         holder.itemView.setOnClickListener { rvItemSegue(product) }
 
     }
 
-    private fun getProductStocksLocksDetails() {
+    private fun getProductStocksLocksDetails(productId: String) {
         //todo get product stock sync details
+        productStockSyncFirebaseUtil.mDatabaseReference.child(productId).addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    var productStockSync = snapshot.getValue(ProductStockSync::class.java)
+                    d("ProductAdapterNew","getProductStocksLocksDetails-${Gson().toJson(productStockSync)}")
+                }else{
+                    d("ProductAdapterNew","getProductStocksLocksDetails-snapshot does not exist")
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
+
     }
 
     private fun loadImageAndAvailabilityBanner(
