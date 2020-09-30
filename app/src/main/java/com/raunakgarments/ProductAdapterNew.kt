@@ -168,7 +168,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                                 "ProductAdapterNew",
                                 "getProductStocksLocksDetails-Not available}"
                             )
-                        } else if (!isProductAvailableCondition(productStockSync)) {
+                        } else if (!isProductAvailableConditions(productStockSync)) {
                             d(
                                 "ProductAdapterNew",
                                 "getProductStocksLocksDetails-Coming soon}"
@@ -196,7 +196,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
 
     }
 
-    private fun isProductAvailableCondition(productStockSync: ProductStockSync): Boolean {
+    private fun isProductAvailableConditions(productStockSync: ProductStockSync): Boolean {
         return ((productStockSync.locked == "-1" || !checkTimeStampStatus(
             productStockSync.timeStamp
         ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()))
