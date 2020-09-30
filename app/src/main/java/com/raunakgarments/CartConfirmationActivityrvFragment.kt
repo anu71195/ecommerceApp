@@ -29,16 +29,23 @@ class CartConfirmationActivityrvFragment(context: Context, intent: Intent) : Fra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        cartConfirmationActivityrvFragmentStartBookkeeping()
+
         var profile =
             Gson().fromJson<Profile>(activityIntent.getStringExtra("profile"), Profile::class.java)
         var lockedProducts =
             activityIntent.getSerializableExtra("lockedProducts") as HashMap<String, Int>
+
         confirmOrderButtonClickListener()
         settingUpRecyclerView(view, profile, lockedProducts)
     }
 
+    private fun cartConfirmationActivityrvFragmentStartBookkeeping() {
+
+    }
+
     private fun confirmOrderButtonClickListener() {
-        fragment_cart_confirmation_activity_checkoutButton.setOnClickListener {
+        fragment_cart_confirmation_activity_confirmButton.setOnClickListener {
             callCheckoutActivity(adapter.totalCartCost)
         }
     }

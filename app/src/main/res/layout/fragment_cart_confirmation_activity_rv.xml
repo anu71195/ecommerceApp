@@ -9,7 +9,7 @@
         android:id="@+id/fragment_cart_confirmation_activity_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/fragment_cart_confirmation_activity_checkoutButton"
+        app:layout_constraintBottom_toTopOf="@id/fragment_cart_confirmation_activity_confirmButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,11 +21,11 @@
         android:background="#00FF73"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/fragment_cart_confirmation_activity_checkoutButton"
-        app:layout_constraintTop_toTopOf="@id/fragment_cart_confirmation_activity_checkoutButton" />
+        app:layout_constraintRight_toLeftOf="@id/fragment_cart_confirmation_activity_confirmButton"
+        app:layout_constraintTop_toTopOf="@id/fragment_cart_confirmation_activity_confirmButton" />
 
     <Button
-        android:id="@+id/fragment_cart_confirmation_activity_checkoutButton"
+        android:id="@+id/fragment_cart_confirmation_activity_confirmButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#FF0000"
