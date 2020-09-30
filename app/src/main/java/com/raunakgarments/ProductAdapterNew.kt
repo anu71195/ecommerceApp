@@ -176,12 +176,13 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                         } else {
                             d(
                                 "ProductAdapterNew",
-                                "getProductStocksLocksDetails-Available}")
-                        }
-                            d(
-                                "ProductAdapterNew",
-                                "getProductStocksLocksDetails-${Gson().toJson(productStockSync)}"
+                                "getProductStocksLocksDetails-Available}"
                             )
+                        }
+                        d(
+                            "ProductAdapterNew",
+                            "getProductStocksLocksDetails-${Gson().toJson(productStockSync)}"
+                        )
                     } else {
                         d(
                             "ProductAdapterNew",
