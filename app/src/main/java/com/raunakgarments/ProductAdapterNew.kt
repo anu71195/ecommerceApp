@@ -156,9 +156,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
     }
 
     private fun getProductStocksLocksDetails(holder: DealViewHolder, productId: String) {
-        //todo get product stock sync details
-        //todo refresh when user is changed
-        //todo refresh when scrolled up high
         var productStockSync: ProductStockSync
         productStockSyncFirebaseUtil.mDatabaseReference.child(productId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
