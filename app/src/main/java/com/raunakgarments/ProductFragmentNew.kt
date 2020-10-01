@@ -60,14 +60,16 @@ class ProductFragmentNew() : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 val totalItemCount = rvProducts!!.layoutManager?.itemCount
                 val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
-                d("MyTAG", "Load new list not entered")
+                d("MyTAG", "Load new list not entered ${lastVisibleItemPosition} ${totalItemCount}")
 
                 if (totalItemCount != lastVisibleItemPosition) {
                     d("MyTAG", "Load new list")
                     if (fragment_products_new_progressBar.visibility == View.GONE) {
                         fragment_products_new_progressBar.visibility = View.VISIBLE
                         android.os.Handler().postDelayed({
-                            fragment_products_new_progressBar.visibility = View.GONE
+                            if(fragment_products_new_progressBar != null) {
+                                fragment_products_new_progressBar.visibility = View.GONE
+                            }
                         }, 3000)
                     }
                 }
