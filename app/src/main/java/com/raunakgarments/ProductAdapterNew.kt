@@ -168,7 +168,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                         if (productStockSync.stock == 0) {
                             d(
                                 "ProductAdapterNew",
-                                "getProductStocksLocksDetails-Not available}"
+                                "getProductStocksLocksDetails-Not available${productId}"
                             )
                             holder.image.alpha = 0.5F
                             holder.notAvailableTv.text = "Not Available"
@@ -176,7 +176,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                         } else if (!isProductAvailableConditions(productStockSync)) {
                             d(
                                 "ProductAdapterNew",
-                                "getProductStocksLocksDetails-Coming soon}"
+                                "getProductStocksLocksDetails-Coming soon${productId}"
                             )
                             holder.image.alpha = 0.75F
                             holder.notAvailableTv.text = "Coming Soon"
@@ -184,8 +184,11 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                         } else {
                             d(
                                 "ProductAdapterNew",
-                                "getProductStocksLocksDetails-Available}"
+                                "getProductStocksLocksDetails-Available${productId}"
                             )
+                            holder.image.alpha = 1F
+                            holder.notAvailableTv.text = ""
+                            holder.notAvailableTv.visibility = View.INVISIBLE
                         }
                         d(
                             "ProductAdapterNew",
