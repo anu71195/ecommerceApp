@@ -119,25 +119,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         return products.size
     }
 
-    private fun checkAndResetProgressBarVisibility(position: Int) {
-        val totalItemCount = rvProducts!!.layoutManager?.itemCount
-        val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
-        if ((position == (minOf(products.size, 4) - 1)) && isLoadingFirstTime) {
-            fragment_products_new_progressBar.visibility = View.GONE
-            isLoadingFirstTime = false
-            fragment_products_new_progressBarTextView.text = " "
-            Handler().postDelayed({
-                fragment_products_new_progressBarTextView.text =
-                    R.string.it_is_taking_longer_than_expected_please_check_your_network_connection.toString()
-                fragment_products_new_progressBarTextView.visibility = View.GONE
-            }, 7 * 1000)
-
-        } else if (!isLoadingFirstTime) {
-            fragment_products_new_progressBar.visibility = View.GONE
-
-        }
-    }
-
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
         if (fragment_products_new_progressBar.visibility == View.GONE) {
             fragment_products_new_progressBar.visibility = View.VISIBLE
@@ -145,9 +126,8 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
-        getProductStocksLocksDetails(holder, product.id)
-        loadImageAndAvailabilityBanner(holder, position, product)
-        holder.itemView.setOnClickListener { rvItemSegue(product) }
+        getProductStocksLocksDetails(holder, product)
+        loadImageAndProgressBarVisibility(holder, position, product)
 
     }
 
@@ -155,17 +135,18 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
     }
 
-    private fun getProductStocksLocksDetails(holder: DealViewHolder, productId: String) {
+    private fun getProductStocksLocksDetails(holder: DealViewHolder, product: Product) {
         var productStockSync: ProductStockSync
-        productStockSyncFirebaseUtil.mDatabaseReference.child(productId)
+        productStockSyncFirebaseUtil.mDatabaseReference.child(product.id)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
+                        holder.itemView.setOnClickListener { rvItemSegue(product) }
                         productStockSync = snapshot.getValue(ProductStockSync::class.java)!!
                         if (productStockSync.stock == 0) {
                             d(
                                 "ProductAdapterNew",
-                                "getProductStocksLocksDetails-Not available${productId}"
+                                "getProductStocksLocksDetails-Not available${product.id}"
                             )
                             holder.image.alpha = 0.5F
                             holder.notAvailableTv.text = "Not Available"
@@ -173,7 +154,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                         } else if (!isProductAvailableConditions(productStockSync)) {
                             d(
                                 "ProductAdapterNew",
-                                "getProductStocksLocksDetails-Coming soon${productId}"
+                                "getProductStocksLocksDetails-Coming soon${product.id}"
                             )
                             holder.image.alpha = 0.75F
                             holder.notAvailableTv.text = "Coming Soon"
@@ -181,7 +162,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                         } else {
                             d(
                                 "ProductAdapterNew",
-                                "getProductStocksLocksDetails-Available${productId}"
+                                "getProductStocksLocksDetails-Available${product.id}"
                             )
                             holder.image.alpha = 1F
                             holder.notAvailableTv.text = ""
@@ -211,7 +192,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()))
     }
 
-    private fun loadImageAndAvailabilityBanner(
+    private fun loadImageAndProgressBarVisibility(
         holder: DealViewHolder,
         position: Int,
         product: Product
@@ -227,5 +208,24 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                     d("productadapternew", "onbindviewholder - image not loaded")
                 }
             })
+    }
+
+    private fun checkAndResetProgressBarVisibility(position: Int) {
+        val totalItemCount = rvProducts!!.layoutManager?.itemCount
+        val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
+        if ((position == (minOf(products.size, 4) - 1)) && isLoadingFirstTime) {
+            fragment_products_new_progressBar.visibility = View.GONE
+            isLoadingFirstTime = false
+            fragment_products_new_progressBarTextView.text = " "
+            Handler().postDelayed({
+                fragment_products_new_progressBarTextView.text =
+                    R.string.it_is_taking_longer_than_expected_please_check_your_network_connection.toString()
+                fragment_products_new_progressBarTextView.visibility = View.GONE
+            }, 7 * 1000)
+
+        } else if (!isLoadingFirstTime) {
+            fragment_products_new_progressBar.visibility = View.GONE
+
+        }
     }
 }
