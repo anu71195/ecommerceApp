@@ -92,7 +92,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var notAvailableTv: TextView = itemView.findViewById(R.id.product_row_notAvailableTextView)
     }
 
-    private fun rvItemSegue(product: Product) {
+    private fun rvItemSegue(product: Product, productStockSync: ProductStockSync) {
         d("anurag", "I'm segueing")
         var description = ""
         try {
@@ -141,8 +141,8 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
-                        holder.itemView.setOnClickListener { rvItemSegue(product) }
                         productStockSync = snapshot.getValue(ProductStockSync::class.java)!!
+                        holder.itemView.setOnClickListener { rvItemSegue(product, productStockSync) }
                         if (productStockSync.stock == 0) {
                             d(
                                 "ProductAdapterNew",
