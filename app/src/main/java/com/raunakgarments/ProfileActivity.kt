@@ -37,6 +37,7 @@ class ProfileActivity : AppCompatActivity() {
     private var orderNumber: Int = 1
     lateinit var mCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     var verificationID: String = ""
+    private lateinit var alertDialogOTP: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -160,8 +161,8 @@ class ProfileActivity : AppCompatActivity() {
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
+        alertDialogOTP = alertDialog
     }
-/*todo need to dismiss otp popup if it is accepted in background*/
     /*todo give errors for the fields like phone number is not present or something like that*/
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)
@@ -170,6 +171,9 @@ class ProfileActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("90", "signInWithCredential:success")
                     val user = task.result?.user
+                    if(alertDialogOTP != null) {
+                        alertDialogOTP.dismiss()
+                    }
                     unlinkAndSendOTPPhoneNumberDecision()
 
                     // ...
