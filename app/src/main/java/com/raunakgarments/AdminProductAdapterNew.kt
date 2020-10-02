@@ -31,7 +31,6 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
     private var isLoadingFirstTime = true
 
 
-
     fun populate(
         ref: String,
         context: Context,
@@ -110,7 +109,7 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
         if ((position == (minOf(products.size, 4) - 1)) && isLoadingFirstTime) {
             fragment_products_new_admin_progressBar.visibility = View.GONE
             isLoadingFirstTime = false
-        } else if(!isLoadingFirstTime) {
+        } else if (!isLoadingFirstTime) {
             fragment_products_new_admin_progressBar.visibility = View.GONE
 
         }
@@ -118,19 +117,19 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
 
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
 
-
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
-        Picasso.get().load(product.photoUrl).into(holder.image, object : com.squareup.picasso.Callback {
-            override fun onSuccess() {
-                checkAndResetProgressBarVisibility(position)
-            }
+        Picasso.get().load(product.photoUrl)
+            .into(holder.image, object : com.squareup.picasso.Callback {
+                override fun onSuccess() {
+                    checkAndResetProgressBarVisibility(position)
+                }
 
-            override fun onError(e: Exception?) {
-                d("productadapternew", "onbindviewholder - image not loaded")
-            }
-        })
+                override fun onError(e: Exception?) {
+                    d("productadapternew", "onbindviewholder - image not loaded")
+                }
+            })
         holder.itemView.setOnClickListener { rvItemSegue(product) }
     }
 }
