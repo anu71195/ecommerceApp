@@ -105,6 +105,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         intent.putExtra("imageUrl", product.photoUrl)
         intent.putExtra("description", description)
         intent.putExtra("product", Gson().toJson(product))
+        intent.putExtra("productStockSync", Gson().toJson(productStockSync))
         context.startActivity(intent)
     }
 

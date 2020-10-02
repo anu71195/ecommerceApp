@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
+import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.repos.ProductsRepository
 import com.squareup.picasso.Picasso
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -49,6 +50,8 @@ class ProductDetails : AppCompatActivity() {
 
         val product =
             Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
+        val productStockSync =
+            Gson().fromJson<ProductStockSync>(intent.getStringExtra("product"), ProductStockSync::class.java)
         val title = intent.getStringExtra("title") ?: ""
         val price = intent.getDoubleExtra("price", POSITIVE_INFINITY)
         val description = intent.getStringExtra("description") ?: ""
