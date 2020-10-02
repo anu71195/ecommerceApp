@@ -82,7 +82,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         d("anurag", "${products.size}")
         this.context = context
         d("anurag", "I'm populating ended")
-
     }
 
     public class DealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -129,7 +128,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         holder.price.text = "\u20b9" + product.price
         getProductStocksLocksDetails(holder,position, product)
         loadImageAndProgressBarVisibility(holder, position, product)
-
     }
 
     private fun checkTimeStampStatus(timeStamp: String): Boolean {
@@ -190,7 +188,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                 override fun onCancelled(error: DatabaseError) {}
 
             })
-
     }
 
     private fun isProductAvailableConditions(productStockSync: ProductStockSync): Boolean {
@@ -232,7 +229,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
 
         } else if (!isLoadingFirstTime) {
             fragment_products_new_progressBar.visibility = View.GONE
-
         }
     }
 }
