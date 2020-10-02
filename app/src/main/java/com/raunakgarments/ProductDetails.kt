@@ -7,6 +7,7 @@ import android.os.PersistableBundle
 import android.util.Log.d
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -79,7 +80,8 @@ class ProductDetails : AppCompatActivity() {
             })
         }
 
-        Picasso.get().load(intent.getStringExtra("imageUrl")).into(photo)
+        loadImageAndAvailabilityBanner()
+        product_details_notAvailableTextView.visibility = View.VISIBLE
         product_name.text = title
         productPrice.text = "\u20B9" + price
         productDescription.text = description
@@ -93,6 +95,10 @@ class ProductDetails : AppCompatActivity() {
                 .create()
                 .show()
         }
+    }
+
+    private fun loadImageAndAvailabilityBanner() {
+        Picasso.get().load(intent.getStringExtra("imageUrl")).into(photo)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
