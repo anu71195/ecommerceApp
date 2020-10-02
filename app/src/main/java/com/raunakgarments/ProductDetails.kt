@@ -44,8 +44,6 @@ class ProductDetails : AppCompatActivity() {
         firebaseUtil.openFbReference("userCart/" + this.userId)
         mDatabaseReference = firebaseUtil.mDatabaseReference
 
-
-
         d("anurag", "I'm at product details")
 
         val product =
