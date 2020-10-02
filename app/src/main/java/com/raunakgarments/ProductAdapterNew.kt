@@ -171,9 +171,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                             "ProductAdapterNew",
                             "getProductStocksLocksDetails-${Gson().toJson(productStockSync)}"
                         )
-                        //todo check if removing this will affect anything
-                        loadImageAndProgressBarVisibility(holder, position, product)
-
                     } else {
                         d(
                             "ProductAdapterNew",
