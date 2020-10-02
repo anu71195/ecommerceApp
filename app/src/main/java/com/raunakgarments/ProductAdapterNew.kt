@@ -130,10 +130,6 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         loadImageAndProgressBarVisibility(holder, position, product)
     }
 
-    private fun checkTimeStampStatus(timeStamp: String): Boolean {
-        return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
-    }
-
     private fun getProductStocksLocksDetails(
         holder: DealViewHolder,
         position: Int,
@@ -195,6 +191,10 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         return ((productStockSync.locked == "-1" || checkTimeStampStatus(
             productStockSync.timeStamp
         ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()))
+    }
+
+    private fun checkTimeStampStatus(timeStamp: String): Boolean {
+        return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
     }
 
     private fun loadImageAndProgressBarVisibility(
