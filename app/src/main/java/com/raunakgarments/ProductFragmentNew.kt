@@ -31,6 +31,7 @@ class ProductFragmentNew() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //If products are not displayed within 10 seconds then it shows connectivity issue text. Admin does not need this because unless internet connectivity is not there, admin can't access admin flow.
+        //Even search doesn't need because if internet connectivity is not there, then search adapter will not be able to search anything
         Handler().postDelayed({
             if(fragment_products_new_progressBarTextView != null) {
                 fragment_products_new_progressBarTextView.visibility = View.VISIBLE
