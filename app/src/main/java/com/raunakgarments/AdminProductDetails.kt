@@ -36,7 +36,7 @@ class AdminProductDetails : AppCompatActivity() {
             this.startActivity(intent)
         }
 
-        loadImageAndAvailabilityBanner(product)
+        loadImageAndAvailabilityBanner(product, productStockSync)
         product_details_admin_notAvailableTextView.visibility = View.VISIBLE
         product_details_admin_product_name.text = title
         product_details_admin_productPrice.text = "\u20B9" + price
@@ -52,7 +52,10 @@ class AdminProductDetails : AppCompatActivity() {
         }
     }
 
-    private fun loadImageAndAvailabilityBanner(product: Product) {
+    private fun loadImageAndAvailabilityBanner(
+        product: Product,
+        productStockSync: ProductStockSync
+    ) {
         Picasso.get().load(product.photoUrl).into(product_details_admin_photo)
     }
 }
