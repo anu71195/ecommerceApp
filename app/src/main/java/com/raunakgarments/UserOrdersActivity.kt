@@ -2,10 +2,9 @@ package com.raunakgarments
 
 import android.os.Bundle
 import android.view.MenuItem
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.android.synthetic.main.activity_user_orders_content_scrolling.*
 
 class UserOrdersActivity : AppCompatActivity() {
 
@@ -17,7 +16,18 @@ class UserOrdersActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
+
+        initializeUserOrdersRecyclerViewAdapter()
     }
+
+    private fun initializeUserOrdersRecyclerViewAdapter() {
+        val userOrdersAdapter = UserOrdersAdapter()
+        val productsLayoutManager = GridLayoutManager(this, 1)
+        userOrdersAdapter.populate(getString(R.string.database_userOrders), this)
+        activity_user_orders_content_scrolling_OrdersRecyclerView.adapter = userOrdersAdapter
+        activity_user_orders_content_scrolling_OrdersRecyclerView.layoutManager = productsLayoutManager
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
