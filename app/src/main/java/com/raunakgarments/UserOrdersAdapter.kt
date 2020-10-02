@@ -26,6 +26,6 @@ class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHol
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return 100
     }
 }

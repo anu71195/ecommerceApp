@@ -20,7 +20,6 @@
         app:title="@string/app_name"
         app:titleTextColor="#FFFFFF" />
 
-
     <FrameLayout
         android:id="@+id/activity_user_orders_frameLayout"
         android:layout_width="0dp"
