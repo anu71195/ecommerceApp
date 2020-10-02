@@ -53,11 +53,12 @@
                 android:id="@+id/product_details_admin_notAvailableTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 android:text="Not Available"
+                android:textAlignment="center"
                 android:visibility="invisible"
-                app:layout_constraintTop_toTopOf="@id/product_details_admin_photo"
                 app:layout_constraintBottom_toBottomOf="@id/product_details_admin_photo"
-                android:background="#FFFFFF"/>
+                app:layout_constraintTop_toTopOf="@id/product_details_admin_photo" />
 
             <TextView
                 android:id="@+id/product_details_admin_product_name"
