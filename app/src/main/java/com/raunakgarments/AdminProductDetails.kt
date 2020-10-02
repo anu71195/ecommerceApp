@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
+import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.repos.ProductsRepository
 import com.squareup.picasso.Picasso
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -27,7 +28,13 @@ class AdminProductDetails : AppCompatActivity() {
 
         d("anurag", "I'm at product details")
 
-        val product = Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
+        val product =
+            Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
+        val productStockSync =
+            Gson().fromJson<ProductStockSync>(
+                intent.getStringExtra("product"),
+                ProductStockSync::class.java
+            )
         val title = product.title
         val price = product.price
         val description = product.description

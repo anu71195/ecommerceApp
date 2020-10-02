@@ -112,6 +112,7 @@ class AdminProductSearchAdapterNew :
 
         var intent = Intent(context, AdminProductDetails::class.java)
         intent.putExtra("product", Gson().toJson(product))
+        intent.putExtra("productStockSync", Gson().toJson(productStockSync))
         context.startActivity(intent)
     }
 
