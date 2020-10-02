@@ -131,15 +131,19 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
 
-        getProductStocksLocksDetails(holder, product)
-        loadImageAndProgressBarVisibility(holder, position, product)
+        getProductStocksLocksDetails(holder,position, product)
+
     }
 
     private fun checkTimeStampStatus(timeStamp: String): Boolean {
         return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
     }
 
-    private fun getProductStocksLocksDetails(holder: DealViewHolder, product: Product) {
+    private fun getProductStocksLocksDetails(
+        holder: DealViewHolder,
+        position: Int,
+        product: Product
+    ) {
         var productStockSync: ProductStockSync
         productStockSyncFirebaseUtil.mDatabaseReference.child(product.id)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -176,6 +180,7 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
                             "ProductAdapterNew",
                             "getProductStocksLocksDetails-${Gson().toJson(productStockSync)}"
                         )
+                        loadImageAndProgressBarVisibility(holder, position, product)
                     } else {
                         d(
                             "ProductAdapterNew",

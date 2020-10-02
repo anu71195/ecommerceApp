@@ -126,7 +126,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
-        getProductStocksLocksDetails(holder, product)
+        getProductStocksLocksDetails(holder,position, product)
         loadImageAndProgressBarVisibility(holder, position, product)
 
     }
@@ -135,7 +135,11 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
     }
 
-    private fun getProductStocksLocksDetails(holder: DealViewHolder, product: Product) {
+    private fun getProductStocksLocksDetails(
+        holder: DealViewHolder,
+        position: Int,
+        product: Product
+    ) {
         var productStockSync: ProductStockSync
         productStockSyncFirebaseUtil.mDatabaseReference.child(product.id)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -172,6 +176,8 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                             "ProductAdapterNew",
                             "getProductStocksLocksDetails-${Gson().toJson(productStockSync)}"
                         )
+                        loadImageAndProgressBarVisibility(holder, position, product)
+
                     } else {
                         d(
                             "ProductAdapterNew",
