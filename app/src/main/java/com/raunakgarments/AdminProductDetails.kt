@@ -1,25 +1,16 @@
 package com.raunakgarments
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log.d
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
-import com.raunakgarments.repos.ProductsRepository
 import com.squareup.picasso.Picasso
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.android.synthetic.main.product_details.*
 import kotlinx.android.synthetic.main.product_details_admin.*
-import org.jetbrains.anko.Android
-import kotlin.Double.Companion.POSITIVE_INFINITY
 
 class AdminProductDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +36,8 @@ class AdminProductDetails : AppCompatActivity() {
             this.startActivity(intent)
         }
 
-        Picasso.get().load(product.photoUrl).into(product_details_admin_photo)
+        loadImageAndAvailabilityBanner(product)
+        product_details_admin_notAvailableTextView.visibility = View.VISIBLE
         product_details_admin_product_name.text = title
         product_details_admin_productPrice.text = "\u20B9" + price
         product_details_admin_productDescription.text = description
@@ -58,5 +50,9 @@ class AdminProductDetails : AppCompatActivity() {
                 .create()
                 .show()
         }
+    }
+
+    private fun loadImageAndAvailabilityBanner(product: Product) {
+        Picasso.get().load(product.photoUrl).into(product_details_admin_photo)
     }
 }
