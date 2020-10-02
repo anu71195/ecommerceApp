@@ -24,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Not Available"
+        android:textAlignment="center"
         android:visibility="invisible"
         app:layout_constraintTop_toTopOf="@id/photo"
         app:layout_constraintBottom_toBottomOf="@id/photo"
