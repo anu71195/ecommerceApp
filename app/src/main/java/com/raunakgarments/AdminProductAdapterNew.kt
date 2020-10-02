@@ -45,7 +45,6 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
         isLoadingFirstTime = true
         productStockSyncFirebaseUtil.openFbReference("productStockSync")
 
-
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         this.rvProductsAdmin = rvProductsAdmin
         this.productsLayoutManager = productsLayoutManager

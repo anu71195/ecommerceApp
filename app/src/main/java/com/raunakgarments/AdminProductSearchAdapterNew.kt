@@ -11,11 +11,15 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.raunakgarments.model.Product
+import com.raunakgarments.model.ProductStockSync
 import com.squareup.picasso.Picasso
 import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AdminProductSearchAdapterNew :
     RecyclerView.Adapter<AdminProductSearchAdapterNew.DealViewHolder>() {
@@ -30,6 +34,7 @@ class AdminProductSearchAdapterNew :
     private lateinit var rvProductsAdmin: RecyclerView
     private lateinit var productsLayoutManager: GridLayoutManager
     private var isLoadingFirstTime = true
+    var productStockSyncFirebaseUtil = FirebaseUtil()
 
     fun populate(
         ref: String,
@@ -40,6 +45,7 @@ class AdminProductSearchAdapterNew :
         productsLayoutManager: GridLayoutManager
     ) {
         isLoadingFirstTime = true
+        productStockSyncFirebaseUtil.openFbReference("productStockSync")
 
         this.fragment_products_new_admin_progressBar = fragment_products_new_admin_progressBar
         this.rvProductsAdmin = rvProductsAdmin
@@ -92,9 +98,10 @@ class AdminProductSearchAdapterNew :
         var tvTitle: TextView = itemView.findViewById(R.id.title)
         var image: ImageView = itemView.findViewById(R.id.photo)
         var price: TextView = itemView.findViewById(R.id.price)
+        var notAvailableTv: TextView = itemView.findViewById(R.id.product_row_notAvailableTextView)
     }
 
-    private fun rvItemSegue(product: Product) {
+    private fun rvItemSegue(product: Product, productStockSync: ProductStockSync) {
         d("anurag", "I'm segueing")
         var description = ""
         try {
@@ -119,32 +126,113 @@ class AdminProductSearchAdapterNew :
         return products.size
     }
 
-    private fun checkAndResetProgressBarVisibility(position: Int) {
-        val totalItemCount = rvProductsAdmin!!.layoutManager?.itemCount
-        val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
-        if ((position == (minOf(products.size, 4) - 1)) && isLoadingFirstTime) {
-            fragment_products_new_admin_progressBar.visibility = View.GONE
-            isLoadingFirstTime = false
-        } else if(!isLoadingFirstTime) {
-            fragment_products_new_admin_progressBar.visibility = View.GONE
-
-        }
-    }
 
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
 
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
-        Picasso.get().load(product.photoUrl).into(holder.image, object : com.squareup.picasso.Callback {
-            override fun onSuccess() {
-                checkAndResetProgressBarVisibility(position)
-            }
+        getProductStocksLocksDetails(holder, position, product)
+    }
 
-            override fun onError(e: Exception?) {
-                d("productadapternew", "onbindviewholder - image not loaded")
-            }
-        })
-        holder.itemView.setOnClickListener { rvItemSegue(product) }
+    private fun checkTimeStampStatus(timeStamp: String): Boolean {
+        return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
+    }
+
+    private fun getProductStocksLocksDetails(
+        holder: DealViewHolder,
+        position: Int,
+        product: Product
+    ) {
+        var productStockSync: ProductStockSync
+        productStockSyncFirebaseUtil.mDatabaseReference.child(product.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        productStockSync = snapshot.getValue(ProductStockSync::class.java)!!
+                        holder.itemView.setOnClickListener {
+                            rvItemSegue(
+                                product,
+                                productStockSync
+                            )
+                        }
+                        if (productStockSync.stock == 0) {
+                            d(
+                                "ProductAdapterNew",
+                                "getProductStocksLocksDetails-Not available${product.id}"
+                            )
+                            holder.image.alpha = 0.5F
+                            holder.notAvailableTv.text = "Not Available"
+                            holder.notAvailableTv.visibility = View.VISIBLE
+                        } else if (!isProductAvailableConditions(productStockSync)) {
+                            d(
+                                "ProductAdapterNew",
+                                "getProductStocksLocksDetails-Coming soon${product.id}"
+                            )
+                            holder.image.alpha = 0.75F
+                            holder.notAvailableTv.text = "Coming Soon"
+                            holder.notAvailableTv.visibility = View.VISIBLE
+                        } else {
+                            d(
+                                "ProductAdapterNew",
+                                "getProductStocksLocksDetails-Available${product.id}"
+                            )
+                            holder.image.alpha = 1F
+                            holder.notAvailableTv.text = ""
+                            holder.notAvailableTv.visibility = View.INVISIBLE
+                        }
+                        d(
+                            "ProductAdapterNew",
+                            "getProductStocksLocksDetails-${Gson().toJson(productStockSync)}"
+                        )
+                        loadImageAndProgressBarVisibility(holder, position, product)
+                    } else {
+                        d(
+                            "ProductAdapterNew",
+                            "getProductStocksLocksDetails-snapshot does not exist"
+                        )
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+
+            })
+
+    }
+
+    private fun isProductAvailableConditions(productStockSync: ProductStockSync): Boolean {
+        return ((productStockSync.locked == "-1" || checkTimeStampStatus(
+            productStockSync.timeStamp
+        ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()))
+    }
+
+    private fun loadImageAndProgressBarVisibility(
+        holder: DealViewHolder,
+        position: Int,
+        product: Product
+    ) {
+        Picasso.get().load(product.photoUrl)
+            .into(holder.image, object : com.squareup.picasso.Callback {
+                override fun onSuccess() {
+                    d("productadapter", "onbindviewholder ${position}")
+                    checkAndResetProgressBarVisibility(position)
+                }
+
+                override fun onError(e: Exception?) {
+                    d("productadapternew", "onbindviewholder - image not loaded")
+                }
+            })
+    }
+
+    private fun checkAndResetProgressBarVisibility(position: Int) {
+        val totalItemCount = rvProductsAdmin!!.layoutManager?.itemCount
+        val lastVisibleItemPosition = productsLayoutManager.findLastVisibleItemPosition()
+        if ((position == (minOf(products.size, 4) - 1)) && isLoadingFirstTime) {
+            fragment_products_new_admin_progressBar.visibility = View.GONE
+            isLoadingFirstTime = false
+        } else if (!isLoadingFirstTime) {
+            fragment_products_new_admin_progressBar.visibility = View.GONE
+
+        }
     }
 }
