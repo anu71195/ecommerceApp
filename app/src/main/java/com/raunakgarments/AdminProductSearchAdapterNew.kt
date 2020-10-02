@@ -50,7 +50,7 @@ class AdminProductSearchAdapterNew :
         for (productId in productIds) {
             d("ref", "$ref/$productId")
             firebaseUtil.mDatabaseReference.child(productId)
-                .addListenerForSingleValueEvent(object : ValueEventListener {
+                .addValueEventListener(object : ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {}
                     override fun onDataChange(snapshot: DataSnapshot) {
                         var product = snapshot.getValue(Product::class.java)
