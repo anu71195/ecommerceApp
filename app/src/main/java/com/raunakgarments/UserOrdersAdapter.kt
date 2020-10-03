@@ -43,21 +43,6 @@ class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHol
             override fun onCancelled(error: DatabaseError) {}
 
         })
-//        userOrderFirebaseUtil.mDatabaseReference.addValueEventListener(object : ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                d("UserOrdersAdapter", "populate-${Gson().toJson(snapshot.key)}")
-//                d("UserOrdersAdapter", "populate-${Gson().toJson(snapshot.value)}")
-//                if(snapshot.exists()) {
-//                    var userOrders = snapshot.getValue(UserOrders::class.java)
-//                    d("UserOrdersAdapter", "populate-${Gson().toJson(userOrders)}")
-//                } else {
-//                    d("UserOrdersAdapter", "populate-snapshot does not exist")
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {}
-//
-//        })
     }
 
     class UserOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
