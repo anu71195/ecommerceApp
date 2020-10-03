@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
@@ -13,6 +14,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.model.UserOrders
+import org.w3c.dom.Text
 
 class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHolder>() {
 
@@ -47,6 +49,7 @@ class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHol
 
     class UserOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var titleButton: Button = itemView.findViewById(R.id.activity_user_orders_adapter_user_orders_row_button)
+        var informationTextView: TextView = itemView.findViewById(R.id.activity_user_orders_adapter_user_orders_row_textViewInformation)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserOrderViewHolder {
@@ -56,6 +59,7 @@ class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHol
 
     override fun onBindViewHolder(holder: UserOrderViewHolder, position: Int) {
         holder.titleButton.text = userOrdersList[position].dateStamp
+        holder.informationTextView.text = userOrdersList[position].totalCost
     }
 
     override fun getItemCount(): Int {
