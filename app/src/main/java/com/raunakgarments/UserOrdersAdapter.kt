@@ -11,10 +11,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.model.UserOrders
-import org.w3c.dom.Text
 
 class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHolder>() {
 
@@ -53,6 +51,7 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
             itemView.findViewById(R.id.activity_user_orders_adapter_user_orders_row_button)
         var informationTextView: TextView =
             itemView.findViewById(R.id.activity_user_orders_adapter_user_orders_row_textViewInformation)
+        var showDetailsOnInformationTextView = false
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserOrderViewHolder {
@@ -64,7 +63,24 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
     override fun onBindViewHolder(holder: UserOrderViewHolder, position: Int) {
         holder.titleButton.text = userOrdersList[position].dateStamp
         holder.informationTextView.text =
-            "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus + "\n" + "orderStatus = " + userOrdersList[position].orderStatus
+            "total Cost = " + userOrdersList[position].totalCost
+        informationTextViewOnClickListener(holder, position)
+    }
+
+    private fun informationTextViewOnClickListener(holder: UserOrderViewHolder, position: Int) {
+
+        holder.informationTextView.setOnClickListener {
+            if(!holder.showDetailsOnInformationTextView) {
+                holder.informationTextView.text =
+                    "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus + "\n" + "orderStatus = " + userOrdersList[position].orderStatus
+                holder.showDetailsOnInformationTextView = true
+            } else {
+                holder.informationTextView.text =
+                    "total Cost = " + userOrdersList[position].totalCost
+                holder.showDetailsOnInformationTextView = false
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {
