@@ -16,17 +16,23 @@ import com.raunakgarments.model.UserOrders
 
 class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHolder>() {
 
+    var userOrdersList: MutableList<UserOrders> = ArrayList()
+
     fun populate(userOrdersRef: String, userOrdersActivity: UserOrdersActivity) {
         var userOrderFirebaseUtil = FirebaseUtil()
         userOrderFirebaseUtil.openFbReference(userOrdersRef+"/"+FirebaseAuth.getInstance().uid)
 
         userOrderFirebaseUtil.mDatabaseReference.addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                d("UserOrdersAdapter", "populate-${Gson().toJson(snapshot.key)}")
-                d("UserOrdersAdapter", "populate-${Gson().toJson(snapshot.value)}")
                 if(snapshot.exists()) {
                     var userOrders = snapshot.getValue(UserOrders::class.java)
                     d("UserOrdersAdapter", "populate-${Gson().toJson(userOrders)}")
+                    if (userOrders != null) {
+                        userOrdersList.add(userOrders)
+                        notifyItemInserted(userOrdersList.size-1)
+                    } else {
+                        d("UserOrdersAdapter", "populate-userOrders is null")
+                    }
                 } else {
                     d("UserOrdersAdapter", "populate-snapshot does not exist")
                 }
@@ -68,6 +74,6 @@ class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHol
     }
 
     override fun getItemCount(): Int {
-        return 100
+        return userOrdersList.size
     }
 }
