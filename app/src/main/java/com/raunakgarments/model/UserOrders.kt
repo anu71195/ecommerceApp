@@ -6,6 +6,7 @@ import kotlin.collections.HashMap
 class UserOrders {
     var orders: HashMap<String, ConfirmationCartProduct> = HashMap<String, ConfirmationCartProduct>()
     var orderStatus = ""
+    var deliveryStatus = ""
     var dateStamp = ""
     var timeStamp = ""
     var fullDateStampRaw = ""
