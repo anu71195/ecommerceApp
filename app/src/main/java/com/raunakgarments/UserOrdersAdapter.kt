@@ -1,15 +1,32 @@
 package com.raunakgarments
 
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 
 class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHolder>() {
 
     fun populate(userOrdersRef: String, userOrdersActivity: UserOrdersActivity) {
+        var userOrderFirebaseUtil = FirebaseUtil()
+        userOrderFirebaseUtil.openFbReference(userOrdersRef+"/"+FirebaseAuth.getInstance().uid)
 
+        userOrderFirebaseUtil.mDatabaseReference.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                d("UserOrdersAdapter", "populate-${Gson().toJson(snapshot.key)}")
+                d("UserOrdersAdapter", "populate-${Gson().toJson(snapshot.value)}")
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
     }
 
     class UserOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
