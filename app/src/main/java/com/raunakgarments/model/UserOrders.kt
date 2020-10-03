@@ -11,5 +11,6 @@ class UserOrders {
     var fullDateStampRaw = ""
     var dateStampRaw: Date = Date()
     var dayStamp = ""
+    var totalCost = ""
 }
 

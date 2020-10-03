@@ -312,7 +312,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("totalCost")
-            .setValue(totalCartCost.toString())
+            .setValue((totalCartCost/100).toString())
     }
 
     private fun populateUserOrdersDatabase(
