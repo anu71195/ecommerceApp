@@ -63,7 +63,7 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
     override fun onBindViewHolder(holder: UserOrderViewHolder, position: Int) {
         holder.titleButton.text = userOrdersList[position].dateStamp
         holder.informationTextView.text =
-            "total Cost = " + userOrdersList[position].totalCost
+            "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus
         informationTextViewOnClickListener(holder, position)
     }
 
@@ -76,7 +76,7 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
                             holder.showDetailsOnInformationTextView = true
             } else {
                 holder.informationTextView.text =
-                    "total Cost = " + userOrdersList[position].totalCost
+                    "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus
                 holder.showDetailsOnInformationTextView = false
             }
         }
