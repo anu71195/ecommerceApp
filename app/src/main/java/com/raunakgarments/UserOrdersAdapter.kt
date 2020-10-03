@@ -55,7 +55,7 @@ class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHol
     }
 
     override fun onBindViewHolder(holder: UserOrderViewHolder, position: Int) {
-        holder.titleButton.text = userOrdersList[position].orders.size.toString()
+        holder.titleButton.text = userOrdersList[position].dateStamp
     }
 
     override fun getItemCount(): Int {

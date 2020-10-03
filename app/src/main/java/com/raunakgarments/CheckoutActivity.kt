@@ -274,8 +274,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             .child("orderStatus")
             .setValue("Payment Done")
 
-        val istTime =
-            SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+        var istTime =
+            SimpleDateFormat("MMMM dd, yyyy HH:mm:ss a")
         istTime.timeZone =
             TimeZone.getTimeZone("Asia/Kolkata")
 
@@ -286,6 +286,24 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("dateStampRaw")
             .setValue(Date())
+
+        istTime =
+            SimpleDateFormat("EEEE")
+        istTime.timeZone =
+            TimeZone.getTimeZone("Asia/Kolkata")
+
+        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+            .child("dayStamp")
+            .setValue(istTime.format(Date()))
+
+        istTime =
+            SimpleDateFormat("EEEE dd.MM.yyyy HH:mm:ss")
+        istTime.timeZone =
+            TimeZone.getTimeZone("Asia/Kolkata")
+
+        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+            .child("fullDateStampRaw")
+            .setValue(istTime.format(Date()))
 
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("timeStamp")
