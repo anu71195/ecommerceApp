@@ -254,7 +254,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         if (userOrderPushReferenceKey != null) {
             for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
                 if (userOrderedProduct.productStatus == 1) {
-                    userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+                    userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey).child("orders")
                         .child(userOrderedProduct.id)
                         .setValue(userOrderedProduct)
 
