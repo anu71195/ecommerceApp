@@ -74,7 +74,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         d("CheckoutActivity", "increaseTimeout - timer - ${timer}")
         if (isRazorPayOpen) {
             accessDatabaseProductsIncreaseTimeout()
-            updateUserProductLockTimeoutRecurrently(120*1000)
+            updateUserProductLockTimeoutRecurrently(120 * 1000)
         }
     }
 
@@ -105,8 +105,10 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                                     ) {
 
                                         // net lock time out is of 10 minutes subtracting current time by 5 minutes will increase lock time by 5 minutes
-                                        productStockSync.timeStamp = (Date().time/1000 - (300)).toString()
-                                        UserCartSingletonClass.productLockAcquiredTimeStamp = productStockSync.timeStamp.toLong()
+                                        productStockSync.timeStamp =
+                                            (Date().time / 1000 - (300)).toString()
+                                        UserCartSingletonClass.productLockAcquiredTimeStamp =
+                                            productStockSync.timeStamp.toLong()
 
                                         ProductStockSyncHelper().setValueInChild(
                                             snapshot.key.toString(),
@@ -245,7 +247,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         var userOrderFirebaseUtil = FirebaseUtil()
         var productStockSyncFirebaseUtil = FirebaseUtil()
 
-        userOrderFirebaseUtil.openFbReference("userOrders/" + FirebaseAuth.getInstance().uid)
+        userOrderFirebaseUtil.openFbReference(getString(R.string.database_userOrders) + "/" + FirebaseAuth.getInstance().uid)
 
         val userOrderPushReferenceKey = userOrderFirebaseUtil.mDatabaseReference.push().key
 
