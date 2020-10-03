@@ -4,6 +4,7 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -30,7 +31,7 @@ class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHol
     }
 
     class UserOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var title: TextView = itemView.findViewById(R.id.activity_user_orders_adapter_user_orders_row_textView)
+        var titleButton: Button = itemView.findViewById(R.id.activity_user_orders_adapter_user_orders_row_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserOrderViewHolder {
@@ -39,7 +40,7 @@ class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHol
     }
 
     override fun onBindViewHolder(holder: UserOrderViewHolder, position: Int) {
-        holder.title.text = "hello ${position}"
+        holder.titleButton.text = "hello ${position}"
     }
 
     override fun getItemCount(): Int {
