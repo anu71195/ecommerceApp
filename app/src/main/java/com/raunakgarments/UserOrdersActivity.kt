@@ -23,6 +23,7 @@ class UserOrdersActivity : AppCompatActivity() {
     private fun initializeUserOrdersRecyclerViewAdapter() {
         val userOrdersAdapter = UserOrdersAdapter()
         val productsLayoutManager = GridLayoutManager(this, 1)
+        productsLayoutManager.reverseLayout = true
         userOrdersAdapter.populate(getString(R.string.database_userOrders), this)
         activity_user_orders_content_scrolling_OrdersRecyclerView.adapter = userOrdersAdapter
         activity_user_orders_content_scrolling_OrdersRecyclerView.layoutManager = productsLayoutManager
