@@ -266,6 +266,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         userCartFirebaseUtil.mDatabaseReference.removeValue()
         Handler().postDelayed({ waitAndFinishActivity() }, 3 * 1000)
     }
+//todo remove backbutton when pay razorpaybutton is clicked
 
     private fun populateUserOrderMetadata(
         userOrderFirebaseUtil: FirebaseUtil,
@@ -273,6 +274,10 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     ) {
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("orderStatus")
+            .setValue("Payment Done")
+
+        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+            .child("deliveryStatus")
             .setValue("Payment Done")
 
         var istTime =
