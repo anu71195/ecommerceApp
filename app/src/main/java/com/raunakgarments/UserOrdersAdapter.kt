@@ -70,10 +70,10 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
     private fun informationTextViewOnClickListener(holder: UserOrderViewHolder, position: Int) {
 
         holder.informationTextView.setOnClickListener {
-            if(!holder.showDetailsOnInformationTextView) {
+            if (!holder.showDetailsOnInformationTextView) {
                 holder.informationTextView.text =
-                    "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus + "\n" + "orderStatus = " + userOrdersList[position].orderStatus
-                holder.showDetailsOnInformationTextView = true
+                    "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus + "\n" + "orderStatus = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size
+                            holder.showDetailsOnInformationTextView = true
             } else {
                 holder.informationTextView.text =
                     "total Cost = " + userOrdersList[position].totalCost
