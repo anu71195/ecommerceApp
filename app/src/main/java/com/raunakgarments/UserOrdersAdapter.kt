@@ -70,7 +70,7 @@ class UserOrdersAdapter: RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHol
     }
 
     override fun onBindViewHolder(holder: UserOrderViewHolder, position: Int) {
-        holder.titleButton.text = "hello ${position}"
+        holder.titleButton.text = userOrdersList[position].orders.size.toString()
     }
 
     override fun getItemCount(): Int {

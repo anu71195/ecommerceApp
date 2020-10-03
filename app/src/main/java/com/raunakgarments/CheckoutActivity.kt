@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.postDelayed
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -252,26 +251,12 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         val userOrderPushReferenceKey = userOrderFirebaseUtil.mDatabaseReference.push().key
 
         if (userOrderPushReferenceKey != null) {
-            for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
-                if (userOrderedProduct.productStatus == 1) {
-                    userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey).child("orders")
-                        .child(userOrderedProduct.id)
-                        .setValue(userOrderedProduct)
-
-                    productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id + "/boughtTicket")
-                    var productStockSyncReferenceKey =
-                        productStockSyncFirebaseUtil.mDatabaseReference.push().key
-                    if (productStockSyncReferenceKey != null) {
-                        productStockSyncFirebaseUtil.mDatabaseReference.child(
-                            productStockSyncReferenceKey
-                        ).setValue(userOrderedProduct.quantity)
-                    }
-
-                }
-            }
-            userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
-                .child("orderStatus")
-                .setValue("Payment Done")
+            populateUserOrdersDatabase(
+                userOrderFirebaseUtil,
+                productStockSyncFirebaseUtil,
+                userOrderPushReferenceKey
+            )
+            populateUserOrderMetadata(userOrderFirebaseUtil, userOrderPushReferenceKey)
         }
 
         waitBeforeReleasingLock()
@@ -279,8 +264,57 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid)
         userCartFirebaseUtil.mDatabaseReference.removeValue()
         Handler().postDelayed({ waitAndFinishActivity() }, 3 * 1000)
+    }
 
+    private fun populateUserOrderMetadata(
+        userOrderFirebaseUtil: FirebaseUtil,
+        userOrderPushReferenceKey: String
+    ) {
+        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+            .child("orderStatus")
+            .setValue("Payment Done")
 
+        val istTime =
+            SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+        istTime.timeZone =
+            TimeZone.getTimeZone("Asia/Kolkata")
+
+        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+            .child("dateStamp")
+            .setValue(istTime.format(Date()))
+
+        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+            .child("dateStampRaw")
+            .setValue(Date())
+
+        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+            .child("timeStamp")
+            .setValue(((Date().time) / 1000).toString())
+    }
+
+    private fun populateUserOrdersDatabase(
+        userOrderFirebaseUtil: FirebaseUtil,
+        productStockSyncFirebaseUtil: FirebaseUtil,
+        userOrderPushReferenceKey: String
+    ) {
+        for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
+            if (userOrderedProduct.productStatus == 1) {
+                userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+                    .child("orders")
+                    .child(userOrderedProduct.id)
+                    .setValue(userOrderedProduct)
+
+                productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id + "/boughtTicket")
+                var productStockSyncReferenceKey =
+                    productStockSyncFirebaseUtil.mDatabaseReference.push().key
+                if (productStockSyncReferenceKey != null) {
+                    productStockSyncFirebaseUtil.mDatabaseReference.child(
+                        productStockSyncReferenceKey
+                    ).setValue(userOrderedProduct.quantity)
+                }
+
+            }
+        }
     }
 
     private fun waitAndFinishActivity() {
