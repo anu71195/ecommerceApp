@@ -29,6 +29,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     var razorPayButtonClicked = false
     var isRazorPayOpen = false
+    var totalCartCost = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -188,7 +189,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     fun startRazorpayPayment(co: Checkout, profile: Profile, userID: String) {
         val activity: Activity = this
-        var totalCartCost = intent.getDoubleExtra("totalCartCost", 0.0)
+        totalCartCost = intent.getDoubleExtra("totalCartCost", 0.0)
         if (totalCartCost > 0.0) {
             totalCartCost = CostFormatterHelper().formatCost(totalCartCost * 100)
             try {
@@ -308,6 +309,10 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("timeStamp")
             .setValue(((Date().time) / 1000).toString())
+
+        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+            .child("totalCost")
+            .setValue(totalCartCost.toString())
     }
 
     private fun populateUserOrdersDatabase(
