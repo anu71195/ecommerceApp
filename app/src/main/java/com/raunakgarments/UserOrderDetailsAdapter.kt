@@ -1,7 +1,9 @@
 package com.raunakgarments
 
 import android.content.Intent
+import android.util.DisplayMetrics
 import android.util.Log
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +12,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.raunakgarments.model.ConfirmationCartProduct
-import com.raunakgarments.model.Product
 import com.raunakgarments.model.UserOrders
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_admin.*
 
 class UserOrderDetailsAdapter :
     RecyclerView.Adapter<UserOrderDetailsAdapter.UserOrderDetailsViewHolder>() {
@@ -21,9 +21,12 @@ class UserOrderDetailsAdapter :
     private lateinit var activityIntent: Intent
     private lateinit var userOrders: UserOrders
     var productList: MutableList<ConfirmationCartProduct> = ArrayList()
+    private lateinit var userOrderDetailsActivity: UserOrderDetailsActivity
 
-    fun populate(intent: Intent) {
+    fun populate(intent: Intent, userOrderDetailsActivity: UserOrderDetailsActivity) {
         this.activityIntent = intent
+        this.userOrderDetailsActivity = userOrderDetailsActivity
+
         this.userOrders =
             Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
         for (orderedProduct in userOrders.orders) {
@@ -62,6 +65,17 @@ class UserOrderDetailsAdapter :
         holder.productTitle.text = productList[position].title
         Picasso.get().load(productList[position].photoUrl).into(holder.productImage)
 
+
+
+        holder.productImage.layoutParams.width = getScreenWidth()/3
+
+
+    }
+
+    private fun getScreenWidth(): Int {
+        val displayMetrics = DisplayMetrics()
+        userOrderDetailsActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics.widthPixels
     }
 
     override fun getItemCount(): Int {

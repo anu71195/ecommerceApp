@@ -1,11 +1,8 @@
 package com.raunakgarments
 
 import android.os.Bundle
-import android.util.Log.d
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.gson.Gson
-import com.raunakgarments.model.UserOrders
 import kotlinx.android.synthetic.main.activity_user_order_details_content_scrolling.*
 
 class UserOrderDetailsActivity : AppCompatActivity() {
@@ -26,7 +23,7 @@ class UserOrderDetailsActivity : AppCompatActivity() {
             UserOrderDetailsAdapter()
         val productsLayoutManager = GridLayoutManager(this, 1)
 //        productsLayoutManager.reverseLayout = true
-        userOrderDetailsAdapter.populate(intent)
+        userOrderDetailsAdapter.populate(intent, this)
         activity_user_order_details_content_scrolling_OrdersRecyclerView.adapter = userOrderDetailsAdapter
         activity_user_order_details_content_scrolling_OrdersRecyclerView.layoutManager = productsLayoutManager
     }
