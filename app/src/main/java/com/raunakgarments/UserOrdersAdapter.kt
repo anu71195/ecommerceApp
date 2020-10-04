@@ -77,6 +77,7 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
         holder.titleButton.setOnClickListener{
             d("UserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
             var intent = Intent(userOrdersActivity, UserOrderDetailsActivity:: class.java)
+            intent.putExtra("userOrders",Gson().toJson(userOrdersList[position]))
             userOrdersActivity.startActivity(intent)
         }
     }
