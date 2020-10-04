@@ -5,12 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.UserOrders
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_admin.*
 
 class UserOrderDetailsAdapter :
     RecyclerView.Adapter<UserOrderDetailsAdapter.UserOrderDetailsViewHolder>() {
@@ -39,6 +42,7 @@ class UserOrderDetailsAdapter :
 
     class UserOrderDetailsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var productTitle: TextView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productTitleTextView)
+        var productImage: ImageView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productImage)
     }
 
     override fun onCreateViewHolder(
@@ -56,6 +60,8 @@ class UserOrderDetailsAdapter :
         position: Int
     ) {
         holder.productTitle.text = productList[position].title
+        Picasso.get().load(productList[position].photoUrl).into(holder.productImage)
+
     }
 
     override fun getItemCount(): Int {
