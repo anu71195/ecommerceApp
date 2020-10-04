@@ -2,14 +2,14 @@ package com.raunakgarments
 
 import android.os.Bundle
 import android.util.Log.d
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.Gson
 import com.raunakgarments.model.UserOrders
+import kotlinx.android.synthetic.main.activity_user_order_details_content_scrolling.*
 
 class UserOrderDetailsActivity : AppCompatActivity() {
+
     private lateinit var userOrders: UserOrders
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +20,21 @@ class UserOrderDetailsActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
+        initializeUserOrdersRecyclerViewAdapter()
+    }
 
+    private fun initializeUserOrdersRecyclerViewAdapter() {
         userOrders =
             Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
-        d("UserOrderDetailsActivity", "onCreate-${Gson().toJson(userOrders)}")
-        d("UserOrderDetailsActivity", "onCreate-${Gson().toJson(userOrders.orders)}")
+        d("UserOrderDetailsActivity", "initializeUserOrdersRecyclerViewAdapter-${Gson().toJson(userOrders)}")
+
+        val userOrderDetailsAdapter =
+            UserOrderDetailsAdapter()
+        val productsLayoutManager = GridLayoutManager(this, 1)
+//        productsLayoutManager.reverseLayout = true
+//        userOrderDetailsAdapter.populate()
+        activity_user_order_details_content_scrolling_OrdersRecyclerView.adapter = userOrderDetailsAdapter
+        activity_user_order_details_content_scrolling_OrdersRecyclerView.layoutManager = productsLayoutManager
     }
+
 }
