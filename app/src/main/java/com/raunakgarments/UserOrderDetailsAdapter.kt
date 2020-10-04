@@ -64,12 +64,7 @@ class UserOrderDetailsAdapter :
     ) {
         holder.productTitle.text = productList[position].title
         Picasso.get().load(productList[position].photoUrl).into(holder.productImage)
-
-
-
         holder.productImage.layoutParams.width = getScreenWidth()/3
-
-
     }
 
     private fun getScreenWidth(): Int {
