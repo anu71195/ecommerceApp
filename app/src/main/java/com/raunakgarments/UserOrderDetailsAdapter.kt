@@ -46,6 +46,7 @@ class UserOrderDetailsAdapter :
     class UserOrderDetailsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var productTitle: TextView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productTitleTextView)
         var productImage: ImageView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productImage)
+        var totalPriceTv: TextView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productTotalPriceTextView)
     }
 
     override fun onCreateViewHolder(
@@ -65,6 +66,7 @@ class UserOrderDetailsAdapter :
         holder.productTitle.text = productList[position].title
         Picasso.get().load(productList[position].photoUrl).into(holder.productImage)
         holder.productImage.layoutParams.width = getScreenWidth()/3
+        holder.totalPriceTv.text = productList[position].price.toString() + " X " + productList[position].quantity + " = " + productList[position].totalPrice
     }
 
     private fun getScreenWidth(): Int {

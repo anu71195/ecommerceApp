@@ -34,6 +34,13 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/activity_user_order_details_adapter_user_orders_row_productTotalPriceTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_user_order_details_adapter_user_orders_row_productTitleTextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
