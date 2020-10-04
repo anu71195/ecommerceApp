@@ -1,5 +1,7 @@
 package com.raunakgarments
 
+import android.app.Activity
+import android.content.Intent
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +19,11 @@ import com.raunakgarments.model.UserOrders
 class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHolder>() {
 
     var userOrdersList: MutableList<UserOrders> = ArrayList()
+    private lateinit var userOrdersActivity: Activity
 
     fun populate(userOrdersRef: String, userOrdersActivity: UserOrdersActivity) {
+        this.userOrdersActivity = userOrdersActivity
+
         var userOrderFirebaseUtil = FirebaseUtil()
         userOrderFirebaseUtil.openFbReference(userOrdersRef + "/" + FirebaseAuth.getInstance().uid)
 
@@ -71,6 +76,8 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
     private fun titleButtonOnClickListener(holder: UserOrderViewHolder, position: Int) {
         holder.titleButton.setOnClickListener{
             d("UserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
+            var intent = Intent(userOrdersActivity, UserOrderDetailsActivity:: class.java)
+            userOrdersActivity.startActivity(intent)
         }
     }
 
