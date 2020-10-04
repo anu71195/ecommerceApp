@@ -64,7 +64,14 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
         holder.titleButton.text = userOrdersList[position].dateStamp
         holder.informationTextView.text =
             "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus
+        titleButtonOnClickListener(holder, position)
         informationTextViewOnClickListener(holder, position)
+    }
+
+    private fun titleButtonOnClickListener(holder: UserOrderViewHolder, position: Int) {
+        holder.titleButton.setOnClickListener{
+            d("UserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
+        }
     }
 
     private fun informationTextViewOnClickListener(holder: UserOrderViewHolder, position: Int) {
