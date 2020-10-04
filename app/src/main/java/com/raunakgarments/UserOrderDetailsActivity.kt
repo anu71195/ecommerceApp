@@ -10,8 +10,6 @@ import kotlinx.android.synthetic.main.activity_user_order_details_content_scroll
 
 class UserOrderDetailsActivity : AppCompatActivity() {
 
-    private lateinit var userOrders: UserOrders
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_order_details)
@@ -24,15 +22,11 @@ class UserOrderDetailsActivity : AppCompatActivity() {
     }
 
     private fun initializeUserOrdersRecyclerViewAdapter() {
-        userOrders =
-            Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
-        d("UserOrderDetailsActivity", "initializeUserOrdersRecyclerViewAdapter-${Gson().toJson(userOrders)}")
-
         val userOrderDetailsAdapter =
             UserOrderDetailsAdapter()
         val productsLayoutManager = GridLayoutManager(this, 1)
 //        productsLayoutManager.reverseLayout = true
-//        userOrderDetailsAdapter.populate()
+        userOrderDetailsAdapter.populate(intent)
         activity_user_order_details_content_scrolling_OrdersRecyclerView.adapter = userOrderDetailsAdapter
         activity_user_order_details_content_scrolling_OrdersRecyclerView.layoutManager = productsLayoutManager
     }

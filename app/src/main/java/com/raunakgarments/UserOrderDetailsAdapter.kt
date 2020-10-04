@@ -1,16 +1,34 @@
 package com.raunakgarments
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.raunakgarments.model.UserOrders
 
 class UserOrderDetailsAdapter :
     RecyclerView.Adapter<UserOrderDetailsAdapter.UserOrderDetailsViewHolder>() {
 
+    private lateinit var activityIntent: Intent
+    private lateinit var userOrders: UserOrders
+
+    fun populate(intent: Intent) {
+        this.activityIntent = intent
+        this.userOrders =
+            Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
+        Log.d(
+            "UserOrderDetailsAdapter",
+            "populate-${Gson().toJson(userOrders)}"
+        )
+
+    }
+
     class UserOrderDetailsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var title: TextView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_textView)
+        var productTitle: TextView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productTitleTextView)
     }
 
     override fun onCreateViewHolder(
@@ -27,7 +45,7 @@ class UserOrderDetailsAdapter :
         holder: UserOrderDetailsViewHolder,
         position: Int
     ) {
-        holder.title.text = "Hello World ${position}"
+        holder.productTitle.text = "Hello World ${position}"
     }
 
     override fun getItemCount(): Int {
