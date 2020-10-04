@@ -74,10 +74,10 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
     }
 
     private fun titleButtonOnClickListener(holder: UserOrderViewHolder, position: Int) {
-        holder.titleButton.setOnClickListener{
+        holder.titleButton.setOnClickListener {
             d("UserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
-            var intent = Intent(userOrdersActivity, UserOrderDetailsActivity:: class.java)
-            intent.putExtra("userOrders",Gson().toJson(userOrdersList[position]))
+            var intent = Intent(userOrdersActivity, UserOrderDetailsActivity::class.java)
+            intent.putExtra("userOrders", Gson().toJson(userOrdersList[position]))
             userOrdersActivity.startActivity(intent)
         }
     }
@@ -88,7 +88,7 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
             if (!holder.showDetailsOnInformationTextView) {
                 holder.informationTextView.text =
                     "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus + "\n" + "orderStatus = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size
-                            holder.showDetailsOnInformationTextView = true
+                holder.showDetailsOnInformationTextView = true
             } else {
                 holder.informationTextView.text =
                     "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus

@@ -21,7 +21,8 @@ class UserOrderDetailsActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
 
-        userOrders = Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
+        userOrders =
+            Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
         d("UserOrderDetailsActivity", "onCreate-${Gson().toJson(userOrders)}")
         d("UserOrderDetailsActivity", "onCreate-${Gson().toJson(userOrders.orders)}")
     }
