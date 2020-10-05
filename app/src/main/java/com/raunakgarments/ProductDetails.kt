@@ -3,6 +3,7 @@ package com.raunakgarments
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -64,12 +65,13 @@ class ProductDetails : AppCompatActivity() {
                         mDatabaseReference.child(product.id).setValue(1)
                     }
                     if (canProductBeAdded) {
-                        Toast.makeText(
+                        var productAddedToCartToast = Toast.makeText(
                             applicationContext,
                             R.string.productAddedToCartToast,
                             Toast.LENGTH_SHORT
                         )
-                            .show()
+                        productAddedToCartToast.setGravity(Gravity.CENTER, 0,0)
+                        productAddedToCartToast.show()
                     }
                     canProductBeAdded = false
                 }
@@ -77,7 +79,7 @@ class ProductDetails : AppCompatActivity() {
                 override fun onCancelled(error: DatabaseError) {}
             })
         }
-
+//todo remove see availability button
         loadImageAndAvailabilityBanner(product, productStockSync)
         product_name.text = title
         productPrice.text = "\u20B9" + price
