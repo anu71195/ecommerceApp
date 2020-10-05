@@ -1,6 +1,8 @@
 package com.raunakgarments
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.util.DisplayMetrics
 import android.util.Log
 import android.util.Log.d
@@ -14,6 +16,7 @@ import com.google.gson.Gson
 import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.UserOrders
 import com.squareup.picasso.Picasso
+import org.jetbrains.anko.textColor
 
 class UserOrderDetailsAdapter :
     RecyclerView.Adapter<UserOrderDetailsAdapter.UserOrderDetailsViewHolder>() {
@@ -43,10 +46,16 @@ class UserOrderDetailsAdapter :
 
     }
 
-    class UserOrderDetailsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var productTitleTv: TextView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productTitleTextView)
-        var productImageIv: ImageView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productImage)
-        var totalPriceTv: TextView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productTotalPriceTextView)
+    class UserOrderDetailsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var productTitleTv: TextView =
+            itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productTitleTextView)
+        var productImageIv: ImageView =
+            itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productImage)
+        var totalPriceTv: TextView =
+            itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productTotalPriceTextView)
+        var deliveryStatusTv: TextView =
+            itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productDeliveryStatusTextView)
+        var orderStatusTv: TextView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productOrderStatusTextView)
     }
 
     override fun onCreateViewHolder(
@@ -65,8 +74,20 @@ class UserOrderDetailsAdapter :
     ) {
         holder.productTitleTv.text = productList[position].title
         Picasso.get().load(productList[position].photoUrl).into(holder.productImageIv)
-        holder.productImageIv.layoutParams.width = getScreenWidth()/3
-        holder.totalPriceTv.text = productList[position].price.toString() + " X " + productList[position].quantity + " = " + productList[position].totalPrice
+        holder.productImageIv.layoutParams.width = getScreenWidth() / 3
+        holder.totalPriceTv.text =
+            productList[position].price.toString() + " X " + productList[position].quantity + " = " + productList[position].totalPrice
+        holder.deliveryStatusTv.text = "Delivery Status = " + userOrders.deliveryStatus
+        holder.orderStatusTv.text = "Order Status = " + userOrders.orderStatus
+
+
+        //create these for each item in order
+        if(userOrders.deliveryStatus == "Delivered") {
+            holder.deliveryStatusTv.setTextColor(Color.parseColor("#008000"))
+        }
+        if(userOrders.orderStatus == "Payment Done") {
+            holder.orderStatusTv.setTextColor(Color.parseColor("#008000"))
+        }
     }
 
     private fun getScreenWidth(): Int {

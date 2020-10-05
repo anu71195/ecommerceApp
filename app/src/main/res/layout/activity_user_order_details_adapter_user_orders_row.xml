@@ -31,8 +31,8 @@
                 android:id="@+id/activity_user_order_details_adapter_user_orders_row_productTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,6 +43,22 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/activity_user_order_details_adapter_user_orders_row_productTitleTextView" />
+
+            <TextView
+                android:id="@+id/activity_user_order_details_adapter_user_orders_row_productDeliveryStatusTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_adapter_user_orders_row_productTotalPriceTextView" />
+
+            <TextView
+                android:id="@+id/activity_user_order_details_adapter_user_orders_row_productOrderStatusTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_adapter_user_orders_row_productDeliveryStatusTextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
