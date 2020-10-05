@@ -3,9 +3,13 @@ package com.raunakgarments
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.gson.Gson
+import com.raunakgarments.model.UserOrders
 import kotlinx.android.synthetic.main.activity_user_order_details_content_scrolling.*
 
 class UserOrderDetailsActivity : AppCompatActivity() {
+
+    private lateinit var userOrders: UserOrders
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,7 +19,10 @@ class UserOrderDetailsActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
-        activity_user_order_details_content_scrolling_OrdersTotalCost.text = "Hello World"
+
+        this.userOrders =
+            Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
+        activity_user_order_details_content_scrolling_OrdersTotalCost.text = "Total Cost = " + this.userOrders.totalCost
         initializeUserOrdersRecyclerViewAdapter()
     }
 
