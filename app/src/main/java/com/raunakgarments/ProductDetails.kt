@@ -80,6 +80,7 @@ class ProductDetails : AppCompatActivity() {
             })
         }
 //todo remove see availability button or do something with it
+        //todo let admin take control of locks and release it according to his convenience to manage the stock which is same for offline and online
         loadImageAndAvailabilityBanner(product, productStockSync)
         product_name.text = title
         productPrice.text = "\u20B9" + price
