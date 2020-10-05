@@ -79,7 +79,7 @@ class ProductDetails : AppCompatActivity() {
                 override fun onCancelled(error: DatabaseError) {}
             })
         }
-//todo remove see availability button
+//todo remove see availability button or do something with it
         loadImageAndAvailabilityBanner(product, productStockSync)
         product_name.text = title
         productPrice.text = "\u20B9" + price
