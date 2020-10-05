@@ -22,7 +22,7 @@ class UserOrderDetailsActivity : AppCompatActivity() {
 
         this.userOrders =
             Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
-        activity_user_order_details_content_scrolling_OrdersTotalCost.text = "Total Cost = " + this.userOrders.totalCost
+        activity_user_order_details_content_scrolling_OrdersTotalCost.text = "Total Cost = ₹" + this.userOrders.totalCost
         initializeUserOrdersRecyclerViewAdapter()
     }
 
