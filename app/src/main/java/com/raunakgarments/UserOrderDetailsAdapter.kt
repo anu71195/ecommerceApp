@@ -55,9 +55,11 @@ class UserOrderDetailsAdapter :
             itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productTotalPriceTextView)
         var deliveryStatusTv: TextView =
             itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productDeliveryStatusTextView)
-        var orderStatusTv: TextView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productOrderStatusTextView)
+        var orderStatusTv: TextView =
+            itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productOrderStatusTextView)
     }
-//todo you can manage product from cart do something about that
+
+    //todo you can manage product from cart do something about that
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -76,16 +78,16 @@ class UserOrderDetailsAdapter :
         Picasso.get().load(productList[position].photoUrl).into(holder.productImageIv)
         holder.productImageIv.layoutParams.width = getScreenWidth() / 3
         holder.totalPriceTv.text =
-            productList[position].price.toString() + " X " + productList[position].quantity + " = " + productList[position].totalPrice
+            "₹" + productList[position].price.toString() + " X " + productList[position].quantity + " = ₹" + productList[position].totalPrice
         holder.deliveryStatusTv.text = "Delivery Status = " + userOrders.deliveryStatus
         holder.orderStatusTv.text = "Order Status = " + userOrders.orderStatus
 
 
         //todo create these for each item in order
-        if(userOrders.deliveryStatus == "Delivered") {
+        if (userOrders.deliveryStatus == "Delivered") {
             holder.deliveryStatusTv.setTextColor(Color.parseColor("#008000"))
         }
-        if(userOrders.orderStatus == "Payment Done") {
+        if (userOrders.orderStatus == "Payment Done") {
             holder.orderStatusTv.setTextColor(Color.parseColor("#008000"))
         }
     }
