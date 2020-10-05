@@ -15,6 +15,7 @@ class UserOrderDetailsActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
+        activity_user_order_details_content_scrolling_OrdersTotalCost.text = "Hello World"
         initializeUserOrdersRecyclerViewAdapter()
     }
 
