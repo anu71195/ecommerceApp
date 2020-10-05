@@ -57,7 +57,7 @@ class UserOrderDetailsAdapter :
             itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productDeliveryStatusTextView)
         var orderStatusTv: TextView = itemView.findViewById(R.id.activity_user_order_details_adapter_user_orders_row_productOrderStatusTextView)
     }
-
+//todo you can manage product from cart do something about that
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
