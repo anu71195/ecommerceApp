@@ -68,7 +68,7 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
     override fun onBindViewHolder(holder: UserOrderViewHolder, position: Int) {
         holder.titleButton.text = userOrdersList[position].dateStamp
         holder.informationTextView.text =
-            "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus
+            "Total Cost = " + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus
         titleButtonOnClickListener(holder, position)
         informationTextViewOnClickListener(holder, position)
     }
@@ -87,11 +87,11 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
         holder.informationTextView.setOnClickListener {
             if (!holder.showDetailsOnInformationTextView) {
                 holder.informationTextView.text =
-                    "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus + "\n" + "orderStatus = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size
+                    "Total Cost = " + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus + "\n" + "Order Status = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size
                 holder.showDetailsOnInformationTextView = true
             } else {
                 holder.informationTextView.text =
-                    "total Cost = " + userOrdersList[position].totalCost + "\n" + "delivery status = " + userOrdersList[position].deliveryStatus
+                    "Total Cost = " + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus
                 holder.showDetailsOnInformationTextView = false
             }
         }
