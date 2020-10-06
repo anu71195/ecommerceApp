@@ -34,4 +34,6 @@ class SettingsActivity : AppCompatActivity() {
         this.windowManager.defaultDisplay.getMetrics(displayMetrics)
         return displayMetrics.widthPixels
     }
+
+    //todo confirm screen recycler view duplicate colors as old viewholder are used
 }
