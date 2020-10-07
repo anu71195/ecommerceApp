@@ -53,10 +53,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     private fun razorPayButtonClickListener() {
         activity_checkout_content_scrolling_payButton.setOnClickListener {
-            supportActionBar?.apply {
-                setDisplayHomeAsUpEnabled(false)
-                setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
-            }
+            disableBackButtonOnRazorPayButtonClick()
             activity_checkout_content_scrolling_payButton.isEnabled = false
             razorPayButtonClicked = true
             isRazorPayOpen = true
@@ -66,6 +63,13 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
             val userID = intent.getStringExtra("userID")
             getProfileAndStartPayment(userID)
+        }
+    }
+
+    private fun disableBackButtonOnRazorPayButtonClick() {
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(false)
+            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
     }
 
@@ -270,7 +274,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         userCartFirebaseUtil.mDatabaseReference.removeValue()
         Handler().postDelayed({ waitAndFinishActivity() }, 3 * 1000)
     }
-//todo remove backbutton when pay razorpaybutton is clicked
 
     private fun populateUserOrderMetadata(
         userOrderFirebaseUtil: FirebaseUtil,
