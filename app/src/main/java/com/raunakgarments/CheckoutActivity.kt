@@ -53,6 +53,10 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     private fun razorPayButtonClickListener() {
         activity_checkout_content_scrolling_payButton.setOnClickListener {
+            supportActionBar?.apply {
+                setDisplayHomeAsUpEnabled(false)
+                setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
+            }
             activity_checkout_content_scrolling_payButton.isEnabled = false
             razorPayButtonClicked = true
             isRazorPayOpen = true
