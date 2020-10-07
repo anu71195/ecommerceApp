@@ -116,12 +116,16 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
             .into(holder.image)
         if (confirmationCartProductArray[position].productStatus == 1) {
             holder.title.text = confirmationCartProductArray[position].title
+            holder.title.textColor = Color.parseColor("#000000")
             holder.quantity.text = confirmationCartProductArray[position].quantity.toString()
             holder.price.text =
                 "₹" + confirmationCartProductArray[position].price.toString() + " X " + confirmationCartProductArray[position].quantity.toString() + " = ₹" + confirmationCartProductArray[position].totalPrice.toString()
+
         } else {
             holder.title.text = "This Product is not available.\nPlease try again later or try decreasing the quantity."
             holder.title.textColor = Color.parseColor("#FF0000")
+            holder.quantity.text = ""
+            holder.price.text = ""
         }
     }
 
