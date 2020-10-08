@@ -71,18 +71,18 @@
                 android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@id/product_details_admin_photo" />
 
-            <Button
-                android:id="@+id/product_details_admin_availability"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center_horizontal"
-                android:text="@string/see_availability"
-                android:textAlignment="center"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/product_details_admin_product_name" />
+<!--            <Button-->
+<!--                android:id="@+id/product_details_admin_availability"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:text="@string/see_availability"-->
+<!--                android:textAlignment="center"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/product_details_admin_product_name" />-->
 
             <TextView
                 android:id="@+id/product_details_admin_productPrice"
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_details_admin_availability" />
+                app:layout_constraintTop_toBottomOf="@+id/product_details_admin_product_name" />
 
             <TextView
                 android:id="@+id/product_details_admin_productDescription"

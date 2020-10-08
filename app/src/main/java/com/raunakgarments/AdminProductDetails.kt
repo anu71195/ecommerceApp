@@ -44,14 +44,14 @@ class AdminProductDetails : AppCompatActivity() {
         product_details_admin_productPrice.text = "\u20B9" + price
         product_details_admin_productDescription.text = description
 
-        product_details_admin_availability.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setMessage("Hey $title is in stock!")
-                .setPositiveButton("OK") { p0, p1 ->
-                }
-                .create()
-                .show()
-        }
+//        product_details_admin_availability.setOnClickListener {
+//            AlertDialog.Builder(this)
+//                .setMessage("Hey $title is in stock!")
+//                .setPositiveButton("OK") { p0, p1 ->
+//                }
+//                .create()
+//                .show()
+//        }
     }
 
     private fun loadImageAndAvailabilityBanner(
