@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.raunakgarments.FirebaseUtil
+import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.R
 
 class AdminPinCodeAdapter : RecyclerView.Adapter<AdminPinCodeAdapter.PinCodeViewHolder>() {

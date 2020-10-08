@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.raunakgarments.FirebaseUtil
+import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.R
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.Product

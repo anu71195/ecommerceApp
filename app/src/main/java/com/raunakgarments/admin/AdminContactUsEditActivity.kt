@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
-import com.raunakgarments.FirebaseUtil
+import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.R
 import com.raunakgarments.model.ContactUs
 import kotlinx.android.synthetic.main.activity_admin_contact_us_edit_content_scrolling.*

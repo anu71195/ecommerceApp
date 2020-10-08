@@ -20,11 +20,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
+import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.Profile
 import kotlinx.android.synthetic.main.activity_profile_content_scrolling.*
-import java.nio.channels.spi.AsynchronousChannelProvider.provider
-import java.nio.channels.spi.SelectorProvider.provider
 import java.util.concurrent.TimeUnit
 
 class ProfileActivity : AppCompatActivity() {

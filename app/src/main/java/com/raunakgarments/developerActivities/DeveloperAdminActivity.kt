@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.raunakgarments.FirebaseUtil
+import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.R
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.ProductStockSync

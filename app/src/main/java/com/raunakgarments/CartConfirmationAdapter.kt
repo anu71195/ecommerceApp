@@ -13,7 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.helper.CostFormatterHelper
-import com.raunakgarments.model.CartProduct
+import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso

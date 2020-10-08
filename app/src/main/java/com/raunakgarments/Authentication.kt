@@ -7,8 +7,8 @@ import com.firebase.ui.auth.AuthUI
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.Profile
-import kotlinx.android.synthetic.main.activity_profile_content_scrolling.*
 
 class Authentication {
     var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()

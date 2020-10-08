@@ -1,6 +1,5 @@
 package com.raunakgarments.helper
 
-import com.raunakgarments.FirebaseUtil
 import com.raunakgarments.model.ProductStockSync
 class ProductStockSyncHelper {
     fun setValueInChild(childId: String, productStockSync: ProductStockSync) {
