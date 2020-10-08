@@ -1,4 +1,4 @@
-package com.raunakgarments.database
+package com.raunakgarments.NU.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -1,4 +1,4 @@
-package com.raunakgarments.database
+package com.raunakgarments.NU.database
 
 import androidx.room.Dao
 import androidx.room.Insert

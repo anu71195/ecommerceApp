@@ -1,14 +1,14 @@
-package com.raunakgarments.database
+package com.raunakgarments.NU.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class CartModel(
+data class DatabaseProduct(
 
     @PrimaryKey(autoGenerate = true) val uid: Int?,
     @ColumnInfo val title: String,
-    @ColumnInfo val price: Double,
-    @ColumnInfo val quantity: Int
+    @ColumnInfo val price: Double
+
 )

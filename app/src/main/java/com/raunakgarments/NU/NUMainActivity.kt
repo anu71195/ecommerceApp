@@ -10,9 +10,9 @@ package com.raunakgarments.NU//package com.raunakgarments
 //import androidx.recyclerview.widget.GridLayoutManager
 //import androidx.room.Room
 //import com.raunakgarments.cart.CartActivity
-//import com.raunakgarments.database.AppDatabase
-//import com.raunakgarments.database.CartModel
-//import com.raunakgarments.database.DatabaseProduct
+//import com.raunakgarments.NU.database.AppDatabase
+//import com.raunakgarments.NU.database.CartModel
+//import com.raunakgarments.NU.database.DatabaseProduct
 //import com.raunakgarments.model.Product
 //
 //import kotlinx.android.synthetic.main.activity_main.*
