@@ -82,10 +82,8 @@ class ProfileActivity : AppCompatActivity() {
     private fun attachSendOTPButtonWithSendOTPCode() {
         activity_profile_content_scrolling_sendOTPNumber.setOnClickListener {
             verificationCallbacks()
-            if(activity_profile_content_scrolling_phoneNumberCode.text.toString() == "") {
-                activity_profile_content_scrolling_phoneNumberCode.setText("91")
-            }
-            var phoneNumber = activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() + activity_profile_content_scrolling_phoneNumberCode.text.toString() + activity_profile_content_scrolling_phoneNumber.text.toString()
+            var phoneNumber =
+                activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() + getPhoneNumberCountryCode() + activity_profile_content_scrolling_phoneNumber.text.toString()
             PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,
                 5,
@@ -93,6 +91,14 @@ class ProfileActivity : AppCompatActivity() {
                 this@ProfileActivity,
                 mCallbacks
             )
+        }
+    }
+
+    private fun getPhoneNumberCountryCode(): String {
+        return if (activity_profile_content_scrolling_phoneNumberCode.text.toString() == "") {
+            "91"
+        } else {
+            activity_profile_content_scrolling_phoneNumberCode.text.toString()
         }
     }
 
@@ -163,6 +169,7 @@ class ProfileActivity : AppCompatActivity() {
         alertDialog.show()
         alertDialogOTP = alertDialog
     }
+
     /*todo give errors for the fields like phone number is not present or something like that*/
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)
@@ -171,7 +178,7 @@ class ProfileActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("90", "signInWithCredential:success")
                     val user = task.result?.user
-                    if(alertDialogOTP != null) {
+                    if (alertDialogOTP != null) {
                         alertDialogOTP.dismiss()
                     }
                     unlinkAndSendOTPPhoneNumberDecision()
