@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".AdminPinCodeEditActivity"
+    tools:context=".admin.AdminPinCodeEditActivity"
     tools:showIn="@layout/activity_admin_pin_code_edit">
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,13 +1,11 @@
-package com.raunakgarments
+package com.raunakgarments.admin
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.MenuItem
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.raunakgarments.FirebaseUtil
+import com.raunakgarments.R
 import kotlinx.android.synthetic.main.activity_admin_pin_code_edit_content_scrolling.*
 
 class AdminPinCodeEditActivity : AppCompatActivity() {

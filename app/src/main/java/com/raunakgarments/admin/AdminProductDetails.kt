@@ -1,17 +1,16 @@
-package com.raunakgarments
+package com.raunakgarments.admin
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import com.raunakgarments.R
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.product_details.*
 import kotlinx.android.synthetic.main.product_details_admin.*
 import java.util.*
 

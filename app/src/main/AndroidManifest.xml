@@ -30,22 +30,22 @@
         <activity
             android:name=".developerActivities.DeveloperAdminActivity"
             android:label="@string/title_activity_developer_admin"
-            android:parentActivityName=".AdminProductActivityNew"
+            android:parentActivityName=".admin.AdminProductActivityNew"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AdminPinCodeEditActivity"
+            android:name=".admin.AdminPinCodeEditActivity"
             android:label="@string/title_activity_admin_pin_code_edit"
-            android:parentActivityName=".AdminFunctionsActivity"
+            android:parentActivityName=".admin.AdminFunctionsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AdminContactUsEditActivity"
+            android:name=".admin.AdminContactUsEditActivity"
             android:label="@string/title_activity_admin_contact_us_edit"
-            android:parentActivityName=".AdminFunctionsActivity"
+            android:parentActivityName=".admin.AdminFunctionsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AdminFunctionsActivity"
+            android:name=".admin.AdminFunctionsActivity"
             android:label="@string/title_activity_admin_functions"
-            android:parentActivityName=".AdminProductActivityNew"
+            android:parentActivityName=".admin.AdminProductActivityNew"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ContactUsActivity"
@@ -74,7 +74,7 @@
             android:parentActivityName=".ProductActivityNew"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AdminProductsEdit"
+            android:name=".admin.AdminProductsEdit"
             android:label="@string/title_activity_admin_products_edit"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -94,10 +94,10 @@
         <activity
             android:name=".ProductDetails"
             android:parentActivityName=".ProductActivityNew" />
-        <activity android:name=".AdminProductActivityNew" />
+        <activity android:name=".admin.AdminProductActivityNew" />
         <activity
-            android:name=".AdminProductDetails"
-            android:parentActivityName=".AdminProductActivityNew" /> <!-- <activity android:name=".cart.CartActivity" /> -->
+            android:name=".admin.AdminProductDetails"
+            android:parentActivityName=".admin.AdminProductActivityNew" /> <!-- <activity android:name=".cart.CartActivity" /> -->
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />

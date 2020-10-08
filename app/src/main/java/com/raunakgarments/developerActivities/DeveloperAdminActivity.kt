@@ -1,23 +1,15 @@
 package com.raunakgarments.developerActivities
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log.d
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.gson.Gson
-import com.raunakgarments.AdminProductActivityNew
 import com.raunakgarments.FirebaseUtil
 import com.raunakgarments.R
 import com.raunakgarments.helper.ProductStockSyncHelper
-import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
 import kotlinx.android.synthetic.main.activity_developer_admin_content_scrolling.*
 

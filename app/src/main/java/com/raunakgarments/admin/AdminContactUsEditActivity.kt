@@ -1,17 +1,13 @@
-package com.raunakgarments
+package com.raunakgarments.admin
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
+import com.raunakgarments.FirebaseUtil
+import com.raunakgarments.R
 import com.raunakgarments.model.ContactUs
 import kotlinx.android.synthetic.main.activity_admin_contact_us_edit_content_scrolling.*
-import kotlinx.android.synthetic.main.activity_admin_functions_content_scrolling.*
-import kotlinx.android.synthetic.main.activity_contact_us_content_scrolling.*
 
 class AdminContactUsEditActivity : AppCompatActivity() {
 

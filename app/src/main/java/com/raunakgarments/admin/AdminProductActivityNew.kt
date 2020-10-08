@@ -1,10 +1,12 @@
-package com.raunakgarments
+package com.raunakgarments.admin
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import com.raunakgarments.ProductActivityNew
+import com.raunakgarments.R
 import com.raunakgarments.developerActivities.DeveloperAdminActivity
 import kotlinx.android.synthetic.main.activity_product_new_admin.*
 

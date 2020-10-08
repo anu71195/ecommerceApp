@@ -1,15 +1,11 @@
-package com.raunakgarments
+package com.raunakgarments.admin
 
 import android.content.Context
-import android.content.Intent
-import android.media.Image
-import android.util.Log
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -17,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.raunakgarments.model.Product
+import com.raunakgarments.FirebaseUtil
+import com.raunakgarments.R
 
 class AdminPinCodeAdapter : RecyclerView.Adapter<AdminPinCodeAdapter.PinCodeViewHolder>() {
 

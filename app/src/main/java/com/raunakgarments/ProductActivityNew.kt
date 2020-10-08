@@ -11,6 +11,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.raunakgarments.admin.AdminProductActivityNew
 import com.raunakgarments.model.Product
 import kotlinx.android.synthetic.main.activity_product_new.*
 import kotlinx.android.synthetic.main.main.*
@@ -57,7 +58,7 @@ class ProductActivityNew : AppCompatActivity() {
                     this.startActivity(intent)
                 }
                 R.id.menu_main_actionAdmin -> {
-                    var intent = Intent(this ,AdminProductActivityNew::class.java)
+                    var intent = Intent(this , AdminProductActivityNew::class.java)
                     intent.putExtra("flow", "startFlow")
                     this.startActivity(intent)
                 }

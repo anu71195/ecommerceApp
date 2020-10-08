@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".AdminContactUsEditActivity">
+    tools:context=".admin.AdminContactUsEditActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_admin_contact_us_edit_toolbar"

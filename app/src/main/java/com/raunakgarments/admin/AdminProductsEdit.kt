@@ -1,4 +1,4 @@
-package com.raunakgarments
+package com.raunakgarments.admin
 
 import android.app.Activity
 import android.content.Intent
@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
+import com.raunakgarments.FirebaseUtil
+import com.raunakgarments.R
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync

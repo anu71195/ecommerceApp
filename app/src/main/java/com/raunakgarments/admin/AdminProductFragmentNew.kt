@@ -1,4 +1,4 @@
-package com.raunakgarments
+package com.raunakgarments.admin
 
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.raunakgarments.FirebaseUtil
+import com.raunakgarments.R
 import kotlinx.android.synthetic.main.fragment_products_new_admin.*
 import kotlinx.android.synthetic.main.fragment_products_new_admin.searchButtonNewAdmin
 
