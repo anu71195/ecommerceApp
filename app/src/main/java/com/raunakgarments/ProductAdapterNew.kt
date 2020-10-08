@@ -224,7 +224,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                 fragment_products_new_progressBarTextView.text =
                     R.string.it_is_taking_longer_than_expected_please_check_your_network_connection.toString()
                 fragment_products_new_progressBarTextView.visibility = View.GONE
-            }, 7 * 1000)
+            }, 10 * 1000)
 
         } else if (!isLoadingFirstTime) {
             fragment_products_new_progressBar.visibility = View.GONE
