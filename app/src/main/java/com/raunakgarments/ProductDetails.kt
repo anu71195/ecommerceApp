@@ -79,13 +79,11 @@ class ProductDetails : AppCompatActivity() {
                 override fun onCancelled(error: DatabaseError) {}
             })
         }
-//todo remove see availability button or do something with it
         //todo let admin take control of locks and release it according to his convenience to manage the stock which is same for offline and online
         loadImageAndAvailabilityBanner(product, productStockSync)
         product_name.text = title
         productPrice.text = "\u20B9" + price
         productDescription.text = description
-//todo check availability by checking stock and lock
         // todo do same in settings by adding show out of stock and opposite switch
 //        availability.setOnClickListener {
 //            AlertDialog.Builder(this)
