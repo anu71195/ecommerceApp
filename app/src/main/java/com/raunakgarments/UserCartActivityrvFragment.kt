@@ -40,7 +40,7 @@ class UserCartActivityrvFragment() : Fragment() {
     }
 
     enum class errorType {
-        emptyCart, ow
+        emptyCart, email, phone, pincode, address, ow
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -135,10 +135,10 @@ class UserCartActivityrvFragment() : Fragment() {
                         if (productStockSyncHashmap.size > 0) {
                             checkAndValidateUserProfile(profile, emailVerified)
                         }else {
-                            paymentErrorPopup(errorType.emptyCart)
+                            paymentErrorPopup(listOf(errorType.emptyCart))
                         }
                     } else {
-                        paymentErrorPopup(errorType.emptyCart)
+                        paymentErrorPopup(listOf(errorType.emptyCart))
                     }
                 }
 
@@ -160,7 +160,7 @@ class UserCartActivityrvFragment() : Fragment() {
         ) {
             processBeforeCallingCheckoutActivity(profile, userId)
         } else {
-            paymentErrorPopup(errorType.ow)//todo add proper string here
+            paymentErrorPopup(listOf(errorType.ow))//todo add proper string here
         }
     }
 
@@ -288,7 +288,7 @@ class UserCartActivityrvFragment() : Fragment() {
                         }
                     } else {
                         //This situation should never come ideally
-                        paymentErrorPopup(errorType.emptyCart)
+                        paymentErrorPopup(listOf(errorType.emptyCart))
                     }
                     d("checkout", lockedProducts.toString())
 
@@ -402,9 +402,9 @@ class UserCartActivityrvFragment() : Fragment() {
     }
 
 
-    private fun paymentErrorPopup(errorTypeValue: errorType) {
+    private fun paymentErrorPopup(errorTypeValueList: List<errorType>) {
         val builder = AlertDialog.Builder(requireContext())
-        if(errorTypeValue == errorType.emptyCart) {
+        if(errorTypeValueList.contains(errorType.emptyCart)) {
             paymentErrorPopupEmptyCart(builder)
         } else {
             paymentErrorPopupProfile(builder)
