@@ -71,6 +71,9 @@ class ProductFragmentNew() : Fragment() {
                             if(fragment_products_new_progressBar != null) {
                                 fragment_products_new_progressBar.visibility = View.GONE
                             }
+                            if(fragment_products_new_progressBarTextView != null) {
+                                fragment_products_new_progressBarTextView.visibility = View.GONE
+                            }
                         }, 3000)
                     }
                 }
