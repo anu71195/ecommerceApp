@@ -87,14 +87,14 @@ class ProductDetails : AppCompatActivity() {
         productDescription.text = description
 //todo check availability by checking stock and lock
         // todo do same in settings by adding show out of stock and opposite switch
-        availability.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setMessage("Hey $title is in stock!")
-                .setPositiveButton("OK") { p0, p1 ->
-                }
-                .create()
-                .show()
-        }
+//        availability.setOnClickListener {
+//            AlertDialog.Builder(this)
+//                .setMessage("Hey $title is in stock!")
+//                .setPositiveButton("OK") { p0, p1 ->
+//                }
+//                .create()
+//                .show()
+//        }
     }
 
     private fun loadImageAndAvailabilityBanner(
