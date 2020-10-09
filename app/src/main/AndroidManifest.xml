@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".admin.AdminOrdersActivity"
+            android:parentActivityName=".admin.AdminProductActivityNew"
             android:label="@string/title_activity_admin_orders"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
