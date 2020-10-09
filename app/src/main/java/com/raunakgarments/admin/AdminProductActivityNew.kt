@@ -49,7 +49,8 @@ class AdminProductActivityNew : AppCompatActivity() {
                     this.startActivity(intent)
                 }
                 R.id.menu_main_admin_actionOrders -> {
-
+                    var intent = Intent(this, AdminOrdersActivity::class.java)
+                    this.startActivity(intent)
                 }
                 R.id.menu_main_admin_actionStats -> {
 
