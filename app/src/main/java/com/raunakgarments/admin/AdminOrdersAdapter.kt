@@ -3,12 +3,16 @@ package com.raunakgarments.admin
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.raunakgarments.R
 
 class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderViewHolder>()  {
+
+    fun populate(string: String, adminOrdersActivity: AdminOrdersActivity) {
+
+    }
+
     class AdminOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
         var titleButton: TextView =
             itemView.findViewById(R.id.activity_admin_orders_adapter_admin_orders_row_TextView)

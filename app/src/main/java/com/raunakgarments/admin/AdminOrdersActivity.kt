@@ -1,16 +1,10 @@
 package com.raunakgarments.admin
 
 import android.os.Bundle
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.raunakgarments.R
-import com.raunakgarments.UserOrdersAdapter
 import kotlinx.android.synthetic.main.activity_admin_orders_content_scrolling.*
-import kotlinx.android.synthetic.main.activity_user_orders_content_scrolling.*
-import kotlinx.android.synthetic.main.activity_user_orders_content_scrolling.activity_user_orders_content_scrolling_OrdersRecyclerView
 
 class AdminOrdersActivity : AppCompatActivity() {
 
@@ -28,7 +22,7 @@ class AdminOrdersActivity : AppCompatActivity() {
     private fun initializeUserOrdersRecyclerViewAdapter() {
         val adminOrdersAdapter = AdminOrdersAdapter()
         val productsLayoutManager = GridLayoutManager(this, 1)
-//        adminOrdersAdapter.populate(, this)
+        adminOrdersAdapter.populate(getString(R.string.database_userOrders), this)
         activity_admin_orders_content_scrolling_OrdersRecyclerView.adapter = adminOrdersAdapter
         activity_admin_orders_content_scrolling_OrdersRecyclerView.layoutManager = productsLayoutManager
     }
