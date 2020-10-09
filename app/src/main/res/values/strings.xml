@@ -127,4 +127,5 @@
     <string name="it_is_taking_longer_than_expected_please_check_your_network_connection">It is taking longer than expected. Please check your network connection.</string>
     <string name="title_activity_user_orders">ScrollingActivity</string>
     <string name="title_activity_user_order_details">ScrollingActivity</string>
+    <string name="title_activity_admin_orders">ScrollingActivity</string>
 </resources>

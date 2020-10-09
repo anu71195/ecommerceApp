@@ -12,10 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".UserOrderDetailsActivity"
-            android:parentActivityName=".UserOrdersActivity"
-            android:label="@string/title_activity_user_order_details"
+            android:name=".admin.AdminOrdersActivity"
+            android:label="@string/title_activity_admin_orders"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".UserOrderDetailsActivity"
+            android:label="@string/title_activity_user_order_details"
+            android:parentActivityName=".UserOrdersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UserOrdersActivity"
             android:label="@string/title_activity_user_orders"
