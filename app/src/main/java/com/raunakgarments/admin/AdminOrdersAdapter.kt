@@ -15,9 +15,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.raunakgarments.R
 import com.raunakgarments.helper.FirebaseUtil
+import com.raunakgarments.model.UserOrderProfile
+import com.raunakgarments.model.UserOrders
 
-class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderViewHolder>()  {
+class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderViewHolder>() {
 
+    var userOrderProfileList: MutableList<UserOrderProfile> = ArrayList()
     private lateinit var adminOrdersActivity: Activity
 
     fun populate(userOrdersRef: String, adminOrdersActivity: AdminOrdersActivity) {
@@ -26,18 +29,23 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
         var adminOrderFirebaseUtil = FirebaseUtil()
         adminOrderFirebaseUtil.openFbReference(userOrdersRef)
 
-        adminOrderFirebaseUtil.mDatabaseReference.addChildEventListener(object: ChildEventListener {
+        adminOrderFirebaseUtil.mDatabaseReference.addChildEventListener(object :
+            ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                if(snapshot.exists()) {
+                if (snapshot.exists()) {
                     d("AdminOrdersAdapter", "populate-${snapshot.key}")
                     d("AdminOrdersAdapter", "populate-${snapshot.value}")
+                    var userOrderProfile = UserOrderProfile()
+                    userOrderProfile.id = snapshot.key.toString()
+                    userOrderProfileList.add(userOrderProfile)
+                    notifyItemInserted(userOrderProfileList.size - 1)
                 } else {
                     d("AdminOrdersAdapter", "populate-snapshot does not exist")
                 }
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onChildRemoved(snapshot: DataSnapshot) { }
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onCancelled(error: DatabaseError) {}
 
@@ -45,7 +53,7 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
 
     }
 
-    class AdminOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
+    class AdminOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var titleButton: Button =
             itemView.findViewById(R.id.activity_admin_orders_adapter_admin_orders_row_Button)
     }
@@ -57,10 +65,12 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
     }
 
     override fun getItemCount(): Int {
-        return 100
+        d("AdminOrdersAdapter", "getItemCount-${userOrderProfileList.size}")
+
+        return userOrderProfileList.size
     }
 
     override fun onBindViewHolder(holder: AdminOrderViewHolder, position: Int) {
-        holder.titleButton.text = "Hello World ${position}"
+        holder.titleButton.text = userOrderProfileList[position].id
     }
 }
