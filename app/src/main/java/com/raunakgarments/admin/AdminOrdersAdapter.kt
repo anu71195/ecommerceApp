@@ -6,6 +6,7 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -45,8 +46,8 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
     }
 
     class AdminOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
-        var titleButton: TextView =
-            itemView.findViewById(R.id.activity_admin_orders_adapter_admin_orders_row_TextView)
+        var titleButton: Button =
+            itemView.findViewById(R.id.activity_admin_orders_adapter_admin_orders_row_Button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminOrderViewHolder {
