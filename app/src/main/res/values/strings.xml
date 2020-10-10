@@ -129,4 +129,5 @@
     <string name="title_activity_user_order_details">ScrollingActivity</string>
     <string name="title_activity_admin_orders">ScrollingActivity</string>
     <string name="title_activity_admin_user_order">ScrollingActivity</string>
+    <string name="admin_panel">Admin Panel</string>
 </resources>
