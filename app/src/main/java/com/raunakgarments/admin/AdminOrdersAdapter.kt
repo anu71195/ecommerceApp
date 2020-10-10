@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.gson.Gson
 import com.raunakgarments.R
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.UserOrderProfile
@@ -75,7 +76,7 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
         holder.titleButton.setOnClickListener {
             d("AdminOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
             var intent = Intent(adminOrdersActivity, AdminUserOrderActivity::class.java)
-//            intent.putExtra("userOrders", Gson().toJson(userOrdersList[position]))
+            intent.putExtra("userOrderProfile", Gson().toJson(userOrderProfileList[position]))
             adminOrdersActivity.startActivity(intent)
         }
     }
