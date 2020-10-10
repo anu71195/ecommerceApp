@@ -12,4 +12,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="#d3d3d3"
+        app:layout_constraintTop_toBottomOf="@id/activity_admin_orders_adapter_admin_orders_row_Button"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
