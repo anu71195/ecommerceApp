@@ -89,13 +89,13 @@ class AdminUserOrdersAdapter :
 
     private fun titleButtonOnClickListener(holder: AdminUserOrderViewHolder, position: Int) {
 
-        d("AdminUserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
-//        holder.titleButton.setOnClickListener {
+        holder.titleButton.setOnClickListener {
+            d("AdminUserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
 //            d("UserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
 //            var intent = Intent(userOrdersActivity, UserOrderDetailsActivity::class.java)
 //            intent.putExtra("userOrders", Gson().toJson(userOrdersList[position]))
 //            userOrdersActivity.startActivity(intent)
-//        }
+        }
     }
 
     private fun informationTextViewOnClickListener(holder: AdminUserOrderViewHolder, position: Int) {
