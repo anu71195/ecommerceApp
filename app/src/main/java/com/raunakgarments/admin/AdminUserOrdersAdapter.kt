@@ -2,14 +2,13 @@ package com.raunakgarments.admin
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -49,10 +48,10 @@ class AdminUserOrdersAdapter :
                         userOrdersList.add(userOrders)
                         notifyItemInserted(userOrdersList.size - 1)
                     } else {
-                        d("UserOrdersAdapter", "populate-userOrders is null")
+                        d("AdminUserOrdersAdapter", "populate-userOrders is null")
                     }
                 } else {
-                    d("UserOrdersAdapter", "populate-snapshot does not exist")
+                    d("AdminUserOrdersAdapter", "populate-snapshot does not exist")
                 }
             }
 
@@ -67,7 +66,11 @@ class AdminUserOrdersAdapter :
     }
 
     class AdminUserOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
-        var title: TextView = itemView.findViewById(R.id.activity_user_orders_adapter_admin_user_orders_row_textViewInformation)
+        var titleButton: Button =
+            itemView.findViewById(R.id.activity_admin_user_orders_adapter_user_orders_row_button)
+        var informationTextView: TextView =
+            itemView.findViewById(R.id.activity_admin_user_orders_adapter_user_orders_row_textViewInformation)
+        var showDetailsOnInformationTextView = false
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminUserOrderViewHolder {
@@ -77,7 +80,37 @@ class AdminUserOrdersAdapter :
     }
 
     override fun onBindViewHolder(holder: AdminUserOrderViewHolder, position: Int) {
-        holder.title.text = "Hello World ${position}"
+        holder.titleButton.text = userOrdersList[position].dateStamp
+        holder.informationTextView.text =
+            "Total Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus
+        titleButtonOnClickListener(holder, position)
+        informationTextViewOnClickListener(holder, position)
+    }
+
+    private fun titleButtonOnClickListener(holder: AdminUserOrderViewHolder, position: Int) {
+
+        d("AdminUserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
+//        holder.titleButton.setOnClickListener {
+//            d("UserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
+//            var intent = Intent(userOrdersActivity, UserOrderDetailsActivity::class.java)
+//            intent.putExtra("userOrders", Gson().toJson(userOrdersList[position]))
+//            userOrdersActivity.startActivity(intent)
+//        }
+    }
+
+    private fun informationTextViewOnClickListener(holder: AdminUserOrderViewHolder, position: Int) {
+
+        holder.informationTextView.setOnClickListener {
+            if (!holder.showDetailsOnInformationTextView) {
+                holder.informationTextView.text =
+                    "Total Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus + "\n" + "Order Status = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size
+                holder.showDetailsOnInformationTextView = true
+            } else {
+                holder.informationTextView.text =
+                    "Total Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus
+                holder.showDetailsOnInformationTextView = false
+            }
+        }
     }
 
     override fun getItemCount(): Int {

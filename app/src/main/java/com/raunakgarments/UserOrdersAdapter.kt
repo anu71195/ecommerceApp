@@ -96,7 +96,6 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
                 holder.showDetailsOnInformationTextView = false
             }
         }
-
     }
 
     override fun getItemCount(): Int {
