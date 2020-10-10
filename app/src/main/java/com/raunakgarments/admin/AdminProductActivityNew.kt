@@ -18,7 +18,7 @@ class AdminProductActivityNew : AppCompatActivity() {
         var manager = supportFragmentManager
         var transaction = manager.beginTransaction()
         var flow = intent.getStringExtra("flow")
-
+/*todo add locks while admin updates the stock*/
         if (flow == "startFlow") {
             transaction.replace(R.id.product_main_fragment_admin, AdminFragment(this)).commit()
         } else if (flow == "deleteFlow") {
