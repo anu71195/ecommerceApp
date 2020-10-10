@@ -58,6 +58,6 @@ class AdminUserOrderDetailsAdapter : RecyclerView.Adapter<AdminUserOrderDetailsA
     }
 
     override fun getItemCount(): Int {
-        return 100
+        return productList.size
     }
 }
