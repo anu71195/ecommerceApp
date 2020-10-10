@@ -6,8 +6,10 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.Gson
 import com.raunakgarments.R
+import com.raunakgarments.UserOrderDetailsAdapter
 import com.raunakgarments.model.UserOrders
 import kotlinx.android.synthetic.main.activity_admin_user_order_details_content_scrolling.*
 import kotlinx.android.synthetic.main.activity_user_order_details_content_scrolling.*
@@ -30,5 +32,16 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         activity_admin_user_order_details_content_scrolling_OrdersTotalCost.text = "Total Cost = ₹" + this.userOrders.totalCost
 
         d("AdminUserOrderDetailsActivity", "onCreate-${Gson().toJson(userOrders)}")
+        initializeAdminUserOrdersRecyclerViewAdapter()
+    }
+
+    private fun initializeAdminUserOrdersRecyclerViewAdapter() {
+        val adminUserOrderDetailsAdapter =
+            AdminUserOrderDetailsAdapter()
+        val productsLayoutManager = GridLayoutManager(this, 1)
+//        productsLayoutManager.reverseLayout = true
+//        adminUserOrderDetailsAdapter.populate(intent, this)
+        activity_admin_user_order_details_content_scrolling_OrdersRecyclerView.adapter = adminUserOrderDetailsAdapter
+        activity_admin_user_order_details_content_scrolling_OrdersRecyclerView.layoutManager = productsLayoutManager
     }
 }
