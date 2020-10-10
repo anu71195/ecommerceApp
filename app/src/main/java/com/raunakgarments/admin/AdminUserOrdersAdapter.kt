@@ -91,10 +91,9 @@ class AdminUserOrdersAdapter :
 
         holder.titleButton.setOnClickListener {
             d("AdminUserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
-//            d("UserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
-//            var intent = Intent(userOrdersActivity, UserOrderDetailsActivity::class.java)
-//            intent.putExtra("userOrders", Gson().toJson(userOrdersList[position]))
-//            userOrdersActivity.startActivity(intent)
+            var intent = Intent(adminUserOrdersActivity, AdminUserOrderDetailsActivity::class.java)
+            intent.putExtra("userOrders", Gson().toJson(userOrdersList[position]))
+            adminUserOrdersActivity.startActivity(intent)
         }
     }
 
