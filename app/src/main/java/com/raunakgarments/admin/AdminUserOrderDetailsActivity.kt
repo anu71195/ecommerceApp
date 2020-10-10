@@ -1,13 +1,21 @@
 package com.raunakgarments.admin
 
 import android.os.Bundle
+import android.util.Log.d
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
 import com.raunakgarments.R
+import com.raunakgarments.model.UserOrders
+import kotlinx.android.synthetic.main.activity_admin_user_order_details_content_scrolling.*
+import kotlinx.android.synthetic.main.activity_user_order_details_content_scrolling.*
+import kotlinx.android.synthetic.main.activity_user_order_details_content_scrolling.activity_user_order_details_content_scrolling_OrdersTotalCost
 
 class AdminUserOrderDetailsActivity : AppCompatActivity() {
+
+    private lateinit var userOrders: UserOrders
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,5 +25,10 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
+        this.userOrders =
+            Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
+        activity_admin_user_order_details_content_scrolling_OrdersTotalCost.text = "Total Cost = ₹" + this.userOrders.totalCost
+
+        d("AdminUserOrderDetailsActivity", "onCreate-${Gson().toJson(userOrders)}")
     }
 }
