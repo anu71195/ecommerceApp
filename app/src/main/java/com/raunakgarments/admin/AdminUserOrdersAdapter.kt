@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -36,6 +37,32 @@ class AdminUserOrdersAdapter :
 
         d("AdminUserOrdersAdapter", "populate-${Gson().toJson(userOrderProfile)}")
 
+        var userOrderFirebaseUtil = FirebaseUtil()
+        userOrderFirebaseUtil.openFbReference(userOrdersRef + "/" + userOrderProfile.id)
+
+        userOrderFirebaseUtil.mDatabaseReference.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                if (snapshot.exists()) {
+                    var userOrders = snapshot.getValue(UserOrders::class.java)
+                    d("AdminUserOrdersAdapter", "populate-${Gson().toJson(userOrders)}")
+                    if (userOrders != null) {
+                        userOrdersList.add(userOrders)
+                        notifyItemInserted(userOrdersList.size - 1)
+                    } else {
+                        d("UserOrdersAdapter", "populate-userOrders is null")
+                    }
+                } else {
+                    d("UserOrdersAdapter", "populate-snapshot does not exist")
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
+
 
     }
 
@@ -54,6 +81,6 @@ class AdminUserOrdersAdapter :
     }
 
     override fun getItemCount(): Int {
-        return 100
+        return userOrdersList.size
     }
 }
