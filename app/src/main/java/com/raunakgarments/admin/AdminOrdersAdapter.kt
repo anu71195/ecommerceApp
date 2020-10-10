@@ -1,22 +1,19 @@
 package com.raunakgarments.admin
 
 import android.app.Activity
-import android.util.Log
+import android.content.Intent
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.raunakgarments.R
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.UserOrderProfile
-import com.raunakgarments.model.UserOrders
 
 class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderViewHolder>() {
 
@@ -66,11 +63,20 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
 
     override fun getItemCount(): Int {
         d("AdminOrdersAdapter", "getItemCount-${userOrderProfileList.size}")
-
         return userOrderProfileList.size
     }
 
     override fun onBindViewHolder(holder: AdminOrderViewHolder, position: Int) {
         holder.titleButton.text = userOrderProfileList[position].id
+        titleButtonOnClickListener(holder, position)
+    }
+
+    private fun titleButtonOnClickListener(holder: AdminOrderViewHolder, position: Int) {
+        holder.titleButton.setOnClickListener {
+            d("AdminOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
+            var intent = Intent(adminOrdersActivity, AdminUserOrderActivity::class.java)
+//            intent.putExtra("userOrders", Gson().toJson(userOrdersList[position]))
+            adminOrdersActivity.startActivity(intent)
+        }
     }
 }
