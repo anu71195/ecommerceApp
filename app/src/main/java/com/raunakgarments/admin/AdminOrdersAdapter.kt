@@ -75,7 +75,7 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
     private fun titleButtonOnClickListener(holder: AdminOrderViewHolder, position: Int) {
         holder.titleButton.setOnClickListener {
             d("AdminOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
-            var intent = Intent(adminOrdersActivity, AdminUserOrderActivity::class.java)
+            var intent = Intent(adminOrdersActivity, AdminUserOrdersActivity::class.java)
             intent.putExtra("userOrderProfile", Gson().toJson(userOrderProfileList[position]))
             adminOrdersActivity.startActivity(intent)
         }

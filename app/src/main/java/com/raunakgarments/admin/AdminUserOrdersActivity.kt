@@ -11,7 +11,7 @@ import com.raunakgarments.R
 import com.raunakgarments.model.UserOrderProfile
 import com.raunakgarments.model.UserOrders
 
-class AdminUserOrderActivity : AppCompatActivity() {
+class AdminUserOrdersActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class AdminUserOrderActivity : AppCompatActivity() {
     private fun initializeAdminUserOrdersRecyclerViewAdapter() {
         var adminUserOrders =
             Gson().fromJson<UserOrderProfile>(intent.getStringExtra("userOrderProfile"), UserOrderProfile::class.java)
-        d("AdminUserOrderActivity", "initializeAdminUserOrdersRecyclerViewAdapter - ${adminUserOrders}")
-        d("AdminUserOrderActivity", "initializeAdminUserOrdersRecyclerViewAdapter - ${Gson().toJson(adminUserOrders)}")
+        d("AdminUserOrdersActivity", "initializeAdminUserOrdersRecyclerViewAdapter - ${adminUserOrders}")
+        d("AdminUserOrdersActivity", "initializeAdminUserOrdersRecyclerViewAdapter - ${Gson().toJson(adminUserOrders)}")
     }
 }
