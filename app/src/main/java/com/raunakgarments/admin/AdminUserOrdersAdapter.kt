@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.gson.Gson
 import com.raunakgarments.R
+import com.raunakgarments.global.UserOrderProfileSingletonClass
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.UserOrderProfile
 import com.raunakgarments.model.UserOrders
@@ -31,8 +32,17 @@ class AdminUserOrdersAdapter :
         adminUserOrdersActivity: AdminUserOrdersActivity
     ) {
         this.adminUserOrdersActivity = adminUserOrdersActivity
-        this.userOrderProfile =
-            Gson().fromJson<UserOrderProfile>(intent.getStringExtra("userOrderProfile"), UserOrderProfile::class.java)
+        if(intent.getStringExtra("userOrderProfile") == null) {
+            d("AdminUserOrdersAdapter", "populate- intentgetstring extra is empty")
+            this.userOrderProfile = UserOrderProfileSingletonClass.userOrderProfile
+        } else {
+            this.userOrderProfile =
+                Gson().fromJson<UserOrderProfile>(
+                    intent.getStringExtra("userOrderProfile"),
+                    UserOrderProfile::class.java
+                )
+            UserOrderProfileSingletonClass.userOrderProfile = this.userOrderProfile
+        }
 
         d("AdminUserOrdersAdapter", "populate-${Gson().toJson(userOrderProfile)}")
 
