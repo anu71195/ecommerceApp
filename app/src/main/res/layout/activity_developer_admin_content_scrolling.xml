@@ -16,7 +16,6 @@
             android:id="@+id/activity_developer_admin_content_scrolling_edit_download_upload_productStockSyncAdminVariable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:padding="16dp"
             android:text="@string/download_and_re_upload_product_stock_sync_with_admin_lock_variable"
             app:layout_constraintTop_toTopOf="parent" />
