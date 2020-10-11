@@ -131,4 +131,7 @@
     <string name="title_activity_admin_user_order">ScrollingActivity</string>
     <string name="admin_panel">Admin Panel</string>
     <string name="title_activity_admin_user_order_details">ScrollingActivity</string>
+    <string name="download_and_re_upload_product_stock_sync_with_admin_lock_variable">Download and re-upload Product Stock Sync with Admin Lock Variable</string>
+    <string name="sync_product_stock_with_products_decommissioned">Sync Product Stock with Products (Decommissioned)</string>
+    <string name="download_and_re_upload_product_stock_sync">Download and re-upload Product Stock Sync</string>
 </resources>
