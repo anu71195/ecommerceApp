@@ -84,7 +84,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:background="@drawable/rounded_corners_red"
+            android:background="@drawable/button_red_green_color_selector"
             android:text="Get Locks"
             android:textColor="#FFF"
             app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_productDescriptionAdmin"
