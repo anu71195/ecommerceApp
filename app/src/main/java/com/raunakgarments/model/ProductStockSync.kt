@@ -6,4 +6,5 @@ class ProductStockSync {
     var timeStamp = "0"
     var dateStamp = ""
     var boughtTicket = HashMap<String, Int>()
+    var adminLock = false
 }
