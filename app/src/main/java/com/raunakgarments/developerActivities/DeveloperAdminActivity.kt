@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.gson.Gson
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.R
 import com.raunakgarments.helper.ProductStockSyncHelper
@@ -31,9 +32,32 @@ class DeveloperAdminActivity : AppCompatActivity() {
     }
 
     private fun reUploadProductStockAdminVariableSyncButtonClickListener() {
-        activity_developer_admin_content_scrolling_edit_download_upload_productStockSyncAdminVariable.setOnClickListener{
-            d("DeveloperAdminActivity", "reUploadProductStockAdminVariableSyncButtonClickListener - reupload productstocksyncadminvariable clicked")
+        activity_developer_admin_content_scrolling_edit_download_upload_productStockSyncAdminVariable.setOnClickListener {
+            d(
+                "DeveloperAdminActivity",
+                "reUploadProductStockAdminVariableSyncButtonClickListener - reupload productstocksyncadminvariable clicked"
+            )
+            var productStockSyncFirebaseUtil = FirebaseUtil()
+            productStockSyncFirebaseUtil.openFbReference("productStockSync")
+
+            productStockSyncFirebaseUtil.mDatabaseReference.addChildEventListener(object :
+                ChildEventListener {
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    var productStockSyncObject = snapshot.getValue(ProductStockSync::class.java)
+                    d(
+                        "DeveloperAdminActivity",
+                        "reUploadProductStockAdminVariableSyncButtonClickListener - ${Gson().toJson(productStockSyncObject)}"
+                    )
+                }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+                override fun onChildRemoved(snapshot: DataSnapshot) {}
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+                override fun onCancelled(error: DatabaseError) {}
+            })
         }
+
+
     }
 
     private fun reUploadProductStockSyncButtonClickListener() {
