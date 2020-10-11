@@ -80,6 +80,18 @@
             app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_productImageLinkAdmin" />
 
         <Button
+            android:id="@+id/activity_admin_products_edit_content_scrolling_getLocks"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/rounded_corners_red"
+            android:text="Get Locks"
+            android:textColor="#FFF"
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_productDescriptionAdmin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
             android:id="@+id/activity_admin_products_edit_content_scrolling_UpdateProductAdmin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -88,9 +100,8 @@
             android:text="Update Product"
             android:textColor="#FFF"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_productDescriptionAdmin" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_products_edit_content_scrolling_getLocks" />
 
         <Button
             android:id="@+id/activity_admin_products_edit_content_scrolling_DeleteButtonAdmin"
