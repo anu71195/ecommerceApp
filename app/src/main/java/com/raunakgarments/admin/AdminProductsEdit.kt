@@ -148,7 +148,7 @@ class AdminProductsEdit : AppCompatActivity() {
         } else {
             productStockSyncStock = 0
         }
-
+//todo admin lock
         var productStockFirebaseUtil = FirebaseUtil()
         productStockFirebaseUtil.openFbReference("productStockSync")
         productStockFirebaseUtil.mDatabaseReference.child(product.id).addValueEventListener(object: ValueEventListener{

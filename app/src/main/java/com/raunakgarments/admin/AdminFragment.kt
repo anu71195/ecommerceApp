@@ -133,6 +133,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 }
             }
             mDatabaseReference.child(pushReferenceKey).setValue(product)
+            //todo admin lock
             ProductStockSyncHelper().setValueInChild(
                 pushReferenceKey,
                 productStockSync

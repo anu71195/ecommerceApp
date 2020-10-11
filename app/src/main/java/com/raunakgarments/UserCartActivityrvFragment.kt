@@ -236,7 +236,7 @@ class UserCartActivityrvFragment() : Fragment() {
                                                             istTime.format(Date())
                                                         productStockSync.timeStamp =
                                                             ((Date().time) / 1000).toString()
-
+//todo admin lock
                                                         ProductStockSyncHelper().setValueInChild(
                                                             snapshot.key.toString(),
                                                             productStockSync
