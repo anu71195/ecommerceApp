@@ -40,6 +40,7 @@ class AdminProductsEdit : AppCompatActivity() {
 
         val product =
             Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
+
         populateTextFields(product)
         uploadImageButtonClickListener()
         editButtonClickListener(product)
@@ -47,6 +48,11 @@ class AdminProductsEdit : AppCompatActivity() {
 
     }
     private fun populateTextFields(product: Product) {
+
+        activity_admin_products_edit_content_scrolling_productStockAdmin.isEnabled = false
+        activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.isEnabled = false
+
+        //todo refresh the contents in the textfields when enabling them true after getting locks
 
         var productStockFirebaseUtil = FirebaseUtil()
         productStockFirebaseUtil.openFbReference("productStockSync")
