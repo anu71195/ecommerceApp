@@ -16,9 +16,11 @@
             android:id="@+id/activity_developer_admin_content_scrolling_edit_download_upload_productStockSync"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:padding="16dp"
             android:text="Download and re-upload Product Stock Sync"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/activity_developer_admin_content_scrolling_edit_syncProductStockSync"
             android:layout_width="match_parent"
