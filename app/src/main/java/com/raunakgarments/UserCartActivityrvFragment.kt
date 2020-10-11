@@ -149,7 +149,7 @@ class UserCartActivityrvFragment() : Fragment() {
 
         }
     }
-
+/*todo add variable for admin lock*/
     private fun checkAndValidateUserProfile(profile: Profile?, emailVerified: Boolean) {
         if (profile != null &&
             profile.deliverable &&
