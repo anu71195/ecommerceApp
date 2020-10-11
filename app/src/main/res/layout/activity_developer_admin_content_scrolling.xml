@@ -24,7 +24,6 @@
             android:id="@+id/activity_developer_admin_content_scrolling_edit_download_upload_productStockSync"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:padding="16dp"
             android:text="@string/download_and_re_upload_product_stock_sync"
             app:layout_constraintTop_toBottomOf="@id/activity_developer_admin_content_scrolling_edit_download_upload_productStockSyncAdminVariable" />
