@@ -1,6 +1,7 @@
 package com.raunakgarments.developerActivities
 
 import android.os.Bundle
+import android.util.Log.d
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -24,8 +25,15 @@ class DeveloperAdminActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
         developerFlowWarning()
+        reUploadProductStockAdminVariableSyncButtonClickListener()
         reUploadProductStockSyncButtonClickListener()
         syncProductStockSyncButtonClickListener()
+    }
+
+    private fun reUploadProductStockAdminVariableSyncButtonClickListener() {
+        activity_developer_admin_content_scrolling_edit_download_upload_productStockSyncAdminVariable.setOnClickListener{
+            d("DeveloperAdminActivity", "reUploadProductStockAdminVariableSyncButtonClickListener - reupload productstocksyncadminvariable clicked")
+        }
     }
 
     private fun reUploadProductStockSyncButtonClickListener() {
