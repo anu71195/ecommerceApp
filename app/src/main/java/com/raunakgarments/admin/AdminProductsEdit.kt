@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -51,6 +52,7 @@ class AdminProductsEdit : AppCompatActivity() {
 
         activity_admin_products_edit_content_scrolling_productStockAdmin.isEnabled = false
         activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.isEnabled = false
+        activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.background = ContextCompat.getDrawable(this, R.drawable.rounded_corners_unselected_red)
 
         //todo refresh the contents in the textfields when enabling them true after getting locks
 
