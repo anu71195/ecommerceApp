@@ -43,11 +43,24 @@ class AdminProductsEdit : AppCompatActivity() {
             Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
 
         populateTextFields(product)
+        getLocksButtonClickListener()
         uploadImageButtonClickListener()
         editButtonClickListener(product)
         deleteButtonClickListener()
 
     }
+
+    private fun getLocksButtonClickListener() {
+        activity_admin_products_edit_content_scrolling_getLocks.setOnClickListener({
+            //todo set adminLock (not inside productstocksync) as true
+            //todo then try to get locks in productstocksync
+            //todo if adminLock is true then user will not get lock unless he already has
+            //todo release productstocksynclock and adminLock when done\
+            //todo release adminLock when done even when productstocksynclock is not retrieved
+            //todo for user if adminlock is true do not get locks else BAU but anywhere where productstocksync is getting udpated check the adminlock
+        })
+    }
+
     private fun populateTextFields(product: Product) {
 
         activity_admin_products_edit_content_scrolling_productStockAdmin.isEnabled = false
