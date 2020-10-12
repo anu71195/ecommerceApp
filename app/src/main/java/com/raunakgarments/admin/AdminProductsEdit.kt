@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -20,6 +21,7 @@ import com.raunakgarments.R
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
+import com.raunakgarments.model.ProductStockSyncAdminLock
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_admin_products_edit_content_scrolling.*
 
@@ -43,22 +45,34 @@ class AdminProductsEdit : AppCompatActivity() {
             Gson().fromJson<Product>(intent.getStringExtra("product"), Product::class.java)
 
         populateTextFields(product)
-        getLocksButtonClickListener()
+        getLocksButtonClickListener(product)
         uploadImageButtonClickListener()
         editButtonClickListener(product)
         deleteButtonClickListener()
 
     }
 
-    private fun getLocksButtonClickListener() {
-        activity_admin_products_edit_content_scrolling_getLocks.setOnClickListener({
+    private fun getLocksButtonClickListener(product: Product) {
+        activity_admin_products_edit_content_scrolling_getLocks.setOnClickListener {
+
+            var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
+            productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
+
+            var productStockSyncAdminLock = ProductStockSyncAdminLock()
+            productStockSyncAdminLock.productId = product.id
+            productStockSyncAdminLock.adminLock = true
+            productStockSyncAdminLock.adminId = FirebaseAuth.getInstance().uid.toString()
+            // todo populate admin name
+
+            productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id).setValue(productStockSyncAdminLock)
+
             //todo set adminLock (not inside productstocksync) as true (make a model out of it)
             //todo then try to get locks in productstocksync
             //todo if adminLock is true then user will not get lock unless he already has
             //todo release productstocksynclock and adminLock when done\
             //todo release adminLock when done even when productstocksynclock is not retrieved
             //todo for user if adminlock is true do not get locks else BAU but anywhere where productstocksync is getting udpated check the adminlock
-        })
+        }
     }
 
     private fun populateTextFields(product: Product) {
