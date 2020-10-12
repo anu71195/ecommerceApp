@@ -52,7 +52,7 @@ class AdminProductsEdit : AppCompatActivity() {
 
     private fun getLocksButtonClickListener() {
         activity_admin_products_edit_content_scrolling_getLocks.setOnClickListener({
-            //todo set adminLock (not inside productstocksync) as true
+            //todo set adminLock (not inside productstocksync) as true (make a model out of it)
             //todo then try to get locks in productstocksync
             //todo if adminLock is true then user will not get lock unless he already has
             //todo release productstocksynclock and adminLock when done\
