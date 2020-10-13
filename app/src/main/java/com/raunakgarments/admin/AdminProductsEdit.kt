@@ -22,6 +22,7 @@ import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.ProductStockSyncAdminLock
+import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_admin_products_edit_content_scrolling.*
 
@@ -55,24 +56,46 @@ class AdminProductsEdit : AppCompatActivity() {
     private fun getLocksButtonClickListener(product: Product) {
         activity_admin_products_edit_content_scrolling_getLocks.setOnClickListener {
 
-            var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
-            productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
+            var userProfileFirebaseUtil = FirebaseUtil()
+            userProfileFirebaseUtil.openFbReference("userProfile/")
 
-            var productStockSyncAdminLock = ProductStockSyncAdminLock()
-            productStockSyncAdminLock.productId = product.id
-            productStockSyncAdminLock.adminLock = true
-            productStockSyncAdminLock.adminId = FirebaseAuth.getInstance().uid.toString()
-            // todo populate admin name
+            userProfileFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(snapshot.exists()){
+                        var userProfile = snapshot.getValue(Profile::class.java)
+                        d("AdminProductsEdit", "getLocksButtonClickListener-${Gson().toJson(userProfile)}")
+                        checkAndSetProductSyncAdminLock(product, userProfile)
 
-            productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id).setValue(productStockSyncAdminLock)
+                    } else {
+                        d("AdminProductsEdit", "getLocksButtonClickListener-snapshot does not exist")
+                    }
+                }
 
-            //todo set adminLock (not inside productstocksync) as true (make a model out of it)
+                override fun onCancelled(error: DatabaseError) {}
+            })
+
+
+
+            //todo set adminLock (not inside productstocksync) as true (make a model out of it) if not other admin has lock
             //todo then try to get locks in productstocksync
             //todo if adminLock is true then user will not get lock unless he already has
             //todo release productstocksynclock and adminLock when done\
             //todo release adminLock when done even when productstocksynclock is not retrieved
             //todo for user if adminlock is true do not get locks else BAU but anywhere where productstocksync is getting udpated check the adminlock
         }
+    }
+
+    private fun checkAndSetProductSyncAdminLock(product: Product, userProfile: Profile?) {
+        var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
+        productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
+
+        var productStockSyncAdminLock = ProductStockSyncAdminLock()
+        productStockSyncAdminLock.productId = product.id
+        productStockSyncAdminLock.adminLock = true
+        productStockSyncAdminLock.adminId = FirebaseAuth.getInstance().uid.toString()
+        // todo populate admin name
+
+        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id).setValue(productStockSyncAdminLock)
     }
 
     private fun populateTextFields(product: Product) {
