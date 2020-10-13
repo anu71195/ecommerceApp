@@ -92,17 +92,46 @@ class AdminProductsEdit : AppCompatActivity() {
         }
     }
 
+    //checks if admin can take adminlock
     private fun checkAndSetProductSyncAdminLock(product: Product, userProfile: Profile) {
         var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
         productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
 
-        SetProductSyncAdminLock(product, userProfile,productStockSyncAdminLockFirebaseUtil)
+        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id).addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    var productStockSyncAdminLock = snapshot.getValue(ProductStockSyncAdminLock()::class.java)
+                    if(productStockSyncAdminLock != null && productStockSyncAdminLock.adminLock && productStockSyncAdminLock.adminId != FirebaseAuth.getInstance().uid){
+                        showAdminLockNotAvailablePopup(productStockSyncAdminLock)
+                    } else {
+                        setProductSyncAdminLock(product, userProfile,productStockSyncAdminLockFirebaseUtil)
+                    }
 
+                } else  {
+                    d("AdminProductsEdit", "checkAndSetProductSyncAdminLock-snapshot does not exist")
+                    setProductSyncAdminLock(product, userProfile,productStockSyncAdminLockFirebaseUtil)
+                }
+            }
 
+            override fun onCancelled(error: DatabaseError) {}
 
+        })
     }
 
-    private fun SetProductSyncAdminLock(
+
+    private fun showAdminLockNotAvailablePopup(productStockSyncAdminLock: ProductStockSyncAdminLock) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Admin Lock Not Available")
+        builder.setMessage("Currently Lock is with ${productStockSyncAdminLock.adminName} with id ${productStockSyncAdminLock.adminId}")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        builder.setNeutralButton("OK") { dialogInterface, which ->
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+    private fun setProductSyncAdminLock(
         product: Product,
         userProfile: Profile,
         productStockSyncAdminLockFirebaseUtil: FirebaseUtil
