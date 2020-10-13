@@ -67,12 +67,10 @@ class AdminProductsEdit : AppCompatActivity() {
                         if(userProfile!=null) {
                             checkAndSetProductSyncAdminLock(product, userProfile)
                         }
-
                     } else {
                         d("AdminProductsEdit", "getLocksButtonClickListener-snapshot does not exist")
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {}
             })
 
@@ -95,6 +93,7 @@ class AdminProductsEdit : AppCompatActivity() {
         productStockSyncAdminLock.productId = product.id
         productStockSyncAdminLock.adminLock = true
         productStockSyncAdminLock.adminId = FirebaseAuth.getInstance().uid.toString()
+        productStockSyncAdminLock.adminName = userProfile.userName
         // todo populate admin name
 
         productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id).setValue(productStockSyncAdminLock)
