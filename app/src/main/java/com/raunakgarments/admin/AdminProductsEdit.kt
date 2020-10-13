@@ -64,7 +64,9 @@ class AdminProductsEdit : AppCompatActivity() {
                     if(snapshot.exists()){
                         var userProfile = snapshot.getValue(Profile::class.java)
                         d("AdminProductsEdit", "getLocksButtonClickListener-${Gson().toJson(userProfile)}")
-                        checkAndSetProductSyncAdminLock(product, userProfile)
+                        if(userProfile!=null) {
+                            checkAndSetProductSyncAdminLock(product, userProfile)
+                        }
 
                     } else {
                         d("AdminProductsEdit", "getLocksButtonClickListener-snapshot does not exist")
@@ -85,7 +87,7 @@ class AdminProductsEdit : AppCompatActivity() {
         }
     }
 
-    private fun checkAndSetProductSyncAdminLock(product: Product, userProfile: Profile?) {
+    private fun checkAndSetProductSyncAdminLock(product: Product, userProfile: Profile) {
         var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
         productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
 
