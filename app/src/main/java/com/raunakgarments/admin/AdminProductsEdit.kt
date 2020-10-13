@@ -94,7 +94,6 @@ class AdminProductsEdit : AppCompatActivity() {
         productStockSyncAdminLock.adminLock = true
         productStockSyncAdminLock.adminId = FirebaseAuth.getInstance().uid.toString()
         productStockSyncAdminLock.adminName = userProfile.userName
-        // todo populate admin name
 
         productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id).setValue(productStockSyncAdminLock)
     }
