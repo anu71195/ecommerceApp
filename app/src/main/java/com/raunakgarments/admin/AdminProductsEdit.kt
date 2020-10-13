@@ -82,6 +82,7 @@ class AdminProductsEdit : AppCompatActivity() {
                     override fun onCancelled(error: DatabaseError) {}
                 })
 
+            //todo set timer to check if still the productstocksync is available for admin
             //todo then try to get locks in productstocksync
             //todo if adminLock is true then user will not get lock unless he already has
             //todo release productstocksynclock and adminLock when done\
