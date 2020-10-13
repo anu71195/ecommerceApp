@@ -87,6 +87,7 @@ class AdminProductsEdit : AppCompatActivity() {
             //todo then try to get locks in productstocksync
             //todo if adminLock is true then user will not get lock unless he already has
             //todo release productstocksynclock and adminLock when done\
+            //todo when updating the stock make sure the lock is the users
             //todo release adminLock when done even when productstocksynclock is not retrieved
             //todo for user if adminlock is true do not get locks else BAU but anywhere where productstocksync is getting udpated check the adminlock
         }
