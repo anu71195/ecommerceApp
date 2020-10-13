@@ -59,21 +59,28 @@ class AdminProductsEdit : AppCompatActivity() {
             var userProfileFirebaseUtil = FirebaseUtil()
             userProfileFirebaseUtil.openFbReference("userProfile/")
 
-            userProfileFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.exists()){
-                        var userProfile = snapshot.getValue(Profile::class.java)
-                        d("AdminProductsEdit", "getLocksButtonClickListener-${Gson().toJson(userProfile)}")
-                        if(userProfile!=null) {
-                            checkAndSetProductSyncAdminLock(product, userProfile)
+            userProfileFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString())
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            var userProfile = snapshot.getValue(Profile::class.java)
+                            d(
+                                "AdminProductsEdit",
+                                "getLocksButtonClickListener-${Gson().toJson(userProfile)}"
+                            )
+                            if (userProfile != null) {
+                                checkAndSetProductSyncAdminLock(product, userProfile)
+                            }
+                        } else {
+                            d(
+                                "AdminProductsEdit",
+                                "getLocksButtonClickListener-snapshot does not exist"
+                            )
                         }
-                    } else {
-                        d("AdminProductsEdit", "getLocksButtonClickListener-snapshot does not exist")
                     }
-                }
-                override fun onCancelled(error: DatabaseError) {}
-            })
 
+                    override fun onCancelled(error: DatabaseError) {}
+                })
 
 
             //todo set adminLock (not inside productstocksync) as true (make a model out of it) if not other admin has lock
@@ -89,34 +96,51 @@ class AdminProductsEdit : AppCompatActivity() {
         var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
         productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
 
+        SetProductSyncAdminLock(product, userProfile,productStockSyncAdminLockFirebaseUtil)
+
+
+
+    }
+
+    private fun SetProductSyncAdminLock(
+        product: Product,
+        userProfile: Profile,
+        productStockSyncAdminLockFirebaseUtil: FirebaseUtil
+    ) {
         var productStockSyncAdminLock = ProductStockSyncAdminLock()
         productStockSyncAdminLock.productId = product.id
         productStockSyncAdminLock.adminLock = true
         productStockSyncAdminLock.adminId = FirebaseAuth.getInstance().uid.toString()
         productStockSyncAdminLock.adminName = userProfile.userName
 
-        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id).setValue(productStockSyncAdminLock)
+        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id)
+            .setValue(productStockSyncAdminLock)
     }
 
     private fun populateTextFields(product: Product) {
 
         activity_admin_products_edit_content_scrolling_productStockAdmin.isEnabled = false
         activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.isEnabled = false
-        activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.background = ContextCompat.getDrawable(this, R.drawable.rounded_corners_unselected_red)
+        activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.background =
+            ContextCompat.getDrawable(this, R.drawable.rounded_corners_unselected_red)
 
         //todo refresh the contents in the textfields when enabling them true after getting locks
 
         var productStockFirebaseUtil = FirebaseUtil()
         productStockFirebaseUtil.openFbReference("productStockSync")
-        productStockFirebaseUtil.mDatabaseReference.child(product.id).addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var productStock = snapshot.getValue(ProductStockSync::class.java)
-                if (productStock != null) {
-                    activity_admin_products_edit_content_scrolling_productStockAdmin.setText(productStock.stock.toString())
+        productStockFirebaseUtil.mDatabaseReference.child(product.id)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var productStock = snapshot.getValue(ProductStockSync::class.java)
+                    if (productStock != null) {
+                        activity_admin_products_edit_content_scrolling_productStockAdmin.setText(
+                            productStock.stock.toString()
+                        )
+                    }
                 }
-            }
-            override fun onCancelled(error: DatabaseError) {}
-        })
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
 
         activity_admin_products_edit_content_scrolling_productTitleAdmin.setText(product.title)
         activity_admin_products_edit_content_scrolling_productPriceAdmin.setText(product.price.toString())
@@ -127,6 +151,7 @@ class AdminProductsEdit : AppCompatActivity() {
         productId = product.id
         tagArray = product.tagArray
     }
+
     private fun uploadImageButtonClickListener() {
         var uploadImageButton: Button =
             findViewById<Button>(R.id.activity_admin_products_edit_content_scrolling_uploadImageButtonAdmin)
@@ -137,6 +162,7 @@ class AdminProductsEdit : AppCompatActivity() {
             startActivityForResult(Intent.createChooser(intent, "Insert Picture"), PICTURE_RESULT)
         }
     }
+
     private fun deleteButtonClickListener() {
         activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.setOnClickListener {
             val builder = AlertDialog.Builder(this)
@@ -209,19 +235,21 @@ class AdminProductsEdit : AppCompatActivity() {
 //todo admin lock
         var productStockFirebaseUtil = FirebaseUtil()
         productStockFirebaseUtil.openFbReference("productStockSync")
-        productStockFirebaseUtil.mDatabaseReference.child(product.id).addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var productStockSync = snapshot.getValue(ProductStockSync::class.java)
-                if (productStockSync != null) {
-                    productStockSync.stock = productStockSyncStock
-                    ProductStockSyncHelper().setValueInChild(
-                        snapshot.key.toString(),
-                        productStockSync
-                    )
+        productStockFirebaseUtil.mDatabaseReference.child(product.id)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var productStockSync = snapshot.getValue(ProductStockSync::class.java)
+                    if (productStockSync != null) {
+                        productStockSync.stock = productStockSyncStock
+                        ProductStockSyncHelper().setValueInChild(
+                            snapshot.key.toString(),
+                            productStockSync
+                        )
+                    }
                 }
-            }
-            override fun onCancelled(error: DatabaseError) {}
-        })
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
 
 
         Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
