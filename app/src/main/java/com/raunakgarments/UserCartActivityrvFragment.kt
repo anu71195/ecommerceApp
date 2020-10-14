@@ -300,7 +300,7 @@ class UserCartActivityrvFragment() : Fragment() {
         lockedProducts: HashMap<String, Int>
     ): HashMap<String, Int> {
         lockedProducts[snapshot.key.toString()] = -2
-        d("checkout", "not entered")
+        d("UserCartActivityrvFragment", "stockNotAvailableValueInsertion-not entered${lockedProducts}")
         Toast.makeText(
             activity,
             " lock not available",
