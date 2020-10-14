@@ -206,10 +206,10 @@ class UserCartActivityrvFragment() : Fragment() {
                                                 snapshot.getValue(ProductStockSync::class.java)
                                             if (checkInStock(productStockSync, productId)) {
                                                 if (productStockSync != null) {
-                                                    if (productStockSync.locked == "-1" || checkTimeStampStatus(
+                                                    if ((productStockSync.locked == "-1" || checkTimeStampStatus(
                                                             productStockSync.timeStamp
                                                         ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()
-                                                    ) {
+                                                    )) {
                                                         /* locked product array*/
                                                         d("checkout", "entered")
                                                         productStockSync.locked =
@@ -258,14 +258,7 @@ class UserCartActivityrvFragment() : Fragment() {
                                                 }
                                             } else {
 //                                            stock not available
-                                                lockedProducts[snapshot.key.toString()] = -2
-                                                d("checkout", "not entered")
-                                                Toast.makeText(
-                                                    activity,
-                                                    " lock not available",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
-
+                                                lockedProducts = stockNotAvailableValueInsertion(snapshot, lockedProducts)
                                             }
                                         } else {
                                             /*product is not available*/
@@ -300,6 +293,20 @@ class UserCartActivityrvFragment() : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
 
         })
+    }
+
+    private fun stockNotAvailableValueInsertion(
+        snapshot: DataSnapshot,
+        lockedProducts: HashMap<String, Int>
+    ): HashMap<String, Int> {
+        lockedProducts[snapshot.key.toString()] = -2
+        d("checkout", "not entered")
+        Toast.makeText(
+            activity,
+            " lock not available",
+            Toast.LENGTH_SHORT
+        ).show()
+        return lockedProducts
     }
 
     private fun checkInStock(
