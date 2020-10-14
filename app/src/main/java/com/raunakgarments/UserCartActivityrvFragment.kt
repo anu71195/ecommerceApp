@@ -264,19 +264,8 @@ class UserCartActivityrvFragment() : Fragment() {
                                             /*product is not available*/
                                             productNotAvailableValueInsertion(productId,lockedProducts)
                                         }
-                                        UserCartSingletonClass.productLockAcquiredTimeStamp =
-                                            (((Date().time) / 1000) - productStockSyncHashmap.size)
-                                        if (productStockSyncHashmap.size == lockedProducts.size) {
-                                            Handler().postDelayed({
-                                                checkForLockUser(
-                                                    lockedProducts, profile, userID
-                                                )
-                                            }, 5000)
-                                        }
-
-
+                                        updateAcquiredTimeStampAndSetTimeDelayCheckLockedUser(productStockSyncHashmap, lockedProducts, profile, userID)
                                     }
-
                                     override fun onCancelled(error: DatabaseError) {}
                                 })
                         }
@@ -293,6 +282,23 @@ class UserCartActivityrvFragment() : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
 
         })
+    }
+
+    private fun updateAcquiredTimeStampAndSetTimeDelayCheckLockedUser(
+        productStockSyncHashmap: HashMap<String, Int>,
+        lockedProducts: HashMap<String, Int>,
+        profile: Profile,
+        userID: String
+    ) {
+        UserCartSingletonClass.productLockAcquiredTimeStamp =
+            (((Date().time) / 1000) - productStockSyncHashmap.size)
+        if (productStockSyncHashmap.size == lockedProducts.size) {
+            Handler().postDelayed({
+                checkForLockUser(
+                    lockedProducts, profile, userID
+                )
+            }, 5000)
+        }
     }
 
     private fun stockNotAvailableValueInsertion(
