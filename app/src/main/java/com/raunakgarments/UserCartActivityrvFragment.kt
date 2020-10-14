@@ -258,7 +258,7 @@ class UserCartActivityrvFragment() : Fragment() {
                                                 }
                                             } else {
 //                                            stock not available
-                                                lockedProducts = stockNotAvailableValueInsertion(snapshot, lockedProducts)
+                                                stockNotAvailableValueInsertion(snapshot, lockedProducts)
                                             }
                                         } else {
                                             /*product is not available*/
