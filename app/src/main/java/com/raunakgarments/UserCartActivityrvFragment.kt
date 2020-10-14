@@ -262,7 +262,7 @@ class UserCartActivityrvFragment() : Fragment() {
                                             }
                                         } else {
                                             /*product is not available*/
-                                            lockedProducts[productId.key] = -4
+                                            productNotAvailableValueInsertion(productId,lockedProducts)
                                         }
                                         UserCartSingletonClass.productLockAcquiredTimeStamp =
                                             (((Date().time) / 1000) - productStockSyncHashmap.size)
@@ -307,6 +307,13 @@ class UserCartActivityrvFragment() : Fragment() {
             Toast.LENGTH_SHORT
         ).show()
         return lockedProducts
+    }
+
+    private fun productNotAvailableValueInsertion(
+        productId: MutableMap.MutableEntry<String, Int>,
+        lockedProducts: HashMap<String, Int>
+    ) {
+        lockedProducts[productId.key] = -4
     }
 
     private fun checkInStock(
