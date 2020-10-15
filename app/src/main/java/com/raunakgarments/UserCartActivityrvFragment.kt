@@ -246,14 +246,7 @@ class UserCartActivityrvFragment() : Fragment() {
 
                                                     } else {
                                                         /*stock is locked*/
-                                                        lockedProducts[snapshot.key.toString()] = -1
-                                                        d("checkout", "not entered")
-                                                        Toast.makeText(
-                                                            activity,
-                                                            " lock not available",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
-
+                                                        stockLockedValueInsertion(snapshot, lockedProducts)
                                                     }
                                                 }
                                             } else {
@@ -274,14 +267,25 @@ class UserCartActivityrvFragment() : Fragment() {
                         paymentErrorPopup(listOf(errorType.emptyCart))
                     }
                     d("checkout", lockedProducts.toString())
-
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {}
 
         })
+    }
+
+    private fun stockLockedValueInsertion(
+        snapshot: DataSnapshot,
+        lockedProducts: HashMap<String, Int>
+    ) {
+        lockedProducts[snapshot.key.toString()] = -1
+        d("checkout", "not entered")
+        Toast.makeText(
+            activity,
+            " lock not available",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun updateAcquiredTimeStampAndSetTimeDelayCheckLockedUser(
