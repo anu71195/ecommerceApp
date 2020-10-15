@@ -238,8 +238,7 @@ class UserCartActivityrvFragment() : Fragment() {
                                                             snapshot.key.toString(),
                                                             productStockSync
                                                         )
-
-                                                        lockedProducts[snapshot.key.toString()] = 1
+                                                        stockAvailableValueInsertion(snapshot,lockedProducts)
 
                                                     } else {
                                                         /*stock is locked*/
@@ -285,6 +284,13 @@ class UserCartActivityrvFragment() : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
 
         })
+    }
+
+    private fun stockAvailableValueInsertion(
+        snapshot: DataSnapshot,
+        lockedProducts: HashMap<String, Int>
+    ) {
+        lockedProducts[snapshot.key.toString()] = 1
     }
 
     private fun getIstTime(): SimpleDateFormat {
