@@ -215,12 +215,7 @@ class UserCartActivityrvFragment() : Fragment() {
                                                         productStockSync.locked =
                                                             FirebaseAuth.getInstance().uid.toString()
 
-                                                        var totalBoughtItems = 0
-                                                        if (productStockSync != null) {
-                                                            for (boughtItems in productStockSync.boughtTicket) {
-                                                                totalBoughtItems += boughtItems.value
-                                                            }
-                                                        }
+                                                        val totalBoughtItems = calculateTotalBoughtItems(productStockSync)
 
                                                         productStockSync.stock =
                                                             productStockSync.stock - totalBoughtItems
@@ -273,6 +268,16 @@ class UserCartActivityrvFragment() : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
 
         })
+    }
+
+    private fun calculateTotalBoughtItems(productStockSync: ProductStockSync): Int {
+        var totalBoughtItems = 0
+        if (productStockSync != null) {
+            for (boughtItems in productStockSync.boughtTicket) {
+                totalBoughtItems += boughtItems.value
+            }
+        }
+        return totalBoughtItems
     }
 
     private fun stockLockedValueInsertion(
