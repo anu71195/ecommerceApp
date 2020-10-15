@@ -135,7 +135,7 @@ class UserCartActivityrvFragment() : Fragment() {
                         )
                         if (productStockSyncHashmap.size > 0) {
                             checkAndValidateUserProfile(profile, emailVerified)
-                        }else {
+                        } else {
                             paymentErrorPopup(listOf(errorType.emptyCart))
                         }
                     } else {
@@ -149,7 +149,8 @@ class UserCartActivityrvFragment() : Fragment() {
 
         }
     }
-/*todo add variable for admin lock*/
+
+    /*todo add variable for admin lock*/
     private fun checkAndValidateUserProfile(profile: Profile?, emailVerified: Boolean) {
         if (profile != null &&
             profile.deliverable &&
@@ -196,7 +197,7 @@ class UserCartActivityrvFragment() : Fragment() {
                 if (snapshot.exists() && snapshot.value != null) {
                     d("checkoutas", snapshot.value.toString())
                     var productStockSyncHashmap = snapshot.value as HashMap<String, Int>
-                    if (productStockSyncHashmap.size > 0 ) {
+                    if (productStockSyncHashmap.size > 0) {
                         for (productId in productStockSyncHashmap) {
                             productStockSyncFirebaseUtil.mDatabaseReference.child(productId.key)
                                 .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -209,23 +210,24 @@ class UserCartActivityrvFragment() : Fragment() {
                                                     if ((productStockSync.locked == "-1" || checkTimeStampStatus(
                                                             productStockSync.timeStamp
                                                         ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()
-                                                    )) {
+                                                                )
+                                                    ) {
                                                         /* locked product array*/
                                                         d("checkout", "entered")
                                                         productStockSync.locked =
                                                             FirebaseAuth.getInstance().uid.toString()
 
-                                                        val totalBoughtItems = calculateTotalBoughtItems(productStockSync)
+                                                        val totalBoughtItems =
+                                                            calculateTotalBoughtItems(
+                                                                productStockSync
+                                                            )
 
                                                         productStockSync.stock =
                                                             productStockSync.stock - totalBoughtItems
                                                         productStockSync.boughtTicket =
                                                             HashMap<String, Int>()
 
-                                                        val istTime =
-                                                            SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
-                                                        istTime.timeZone =
-                                                            TimeZone.getTimeZone("Asia/Kolkata")
+                                                        val istTime = getIstTime()
 
                                                         productStockSync.dateStamp =
                                                             istTime.format(Date())
@@ -241,19 +243,34 @@ class UserCartActivityrvFragment() : Fragment() {
 
                                                     } else {
                                                         /*stock is locked*/
-                                                        stockLockedValueInsertion(snapshot, lockedProducts)
+                                                        stockLockedValueInsertion(
+                                                            snapshot,
+                                                            lockedProducts
+                                                        )
                                                     }
                                                 }
                                             } else {
 //                                            stock not available
-                                                stockNotAvailableValueInsertion(snapshot, lockedProducts)
+                                                stockNotAvailableValueInsertion(
+                                                    snapshot,
+                                                    lockedProducts
+                                                )
                                             }
                                         } else {
                                             /*product is not available*/
-                                            productNotAvailableValueInsertion(productId,lockedProducts)
+                                            productNotAvailableValueInsertion(
+                                                productId,
+                                                lockedProducts
+                                            )
                                         }
-                                        updateAcquiredTimeStampAndSetTimeDelayCheckLockedUser(productStockSyncHashmap, lockedProducts, profile, userID)
+                                        updateAcquiredTimeStampAndSetTimeDelayCheckLockedUser(
+                                            productStockSyncHashmap,
+                                            lockedProducts,
+                                            profile,
+                                            userID
+                                        )
                                     }
+
                                     override fun onCancelled(error: DatabaseError) {}
                                 })
                         }
@@ -268,6 +285,12 @@ class UserCartActivityrvFragment() : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
 
         })
+    }
+
+    private fun getIstTime(): SimpleDateFormat {
+        var istTime = SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+        istTime.timeZone = TimeZone.getTimeZone("Asia/Kolkata")
+        return istTime
     }
 
     private fun calculateTotalBoughtItems(productStockSync: ProductStockSync): Int {
@@ -315,7 +338,10 @@ class UserCartActivityrvFragment() : Fragment() {
         lockedProducts: HashMap<String, Int>
     ): HashMap<String, Int> {
         lockedProducts[snapshot.key.toString()] = -2
-        d("UserCartActivityrvFragment", "stockNotAvailableValueInsertion-not entered${lockedProducts}")
+        d(
+            "UserCartActivityrvFragment",
+            "stockNotAvailableValueInsertion-not entered${lockedProducts}"
+        )
         Toast.makeText(
             activity,
             " lock not available",
@@ -434,7 +460,7 @@ class UserCartActivityrvFragment() : Fragment() {
 
     private fun paymentErrorPopup(errorTypeValueList: List<errorType>) {
         val builder = AlertDialog.Builder(requireContext())
-        if(errorTypeValueList.contains(errorType.emptyCart)) {
+        if (errorTypeValueList.contains(errorType.emptyCart)) {
             paymentErrorPopupEmptyCart(builder)
         } else {
             paymentErrorPopupProfile(builder)
