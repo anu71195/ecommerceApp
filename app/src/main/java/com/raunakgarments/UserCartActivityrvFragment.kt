@@ -214,21 +214,18 @@ class UserCartActivityrvFragment() : Fragment() {
                                                     ) {
                                                         /* locked product array*/
                                                         d("checkout", "entered")
-                                                        productStockSync.locked =
-                                                            FirebaseAuth.getInstance().uid.toString()
-
                                                         val totalBoughtItems =
                                                             calculateTotalBoughtItems(
                                                                 productStockSync
                                                             )
+                                                        val istTime = getIstTime()
 
+                                                        productStockSync.locked =
+                                                            FirebaseAuth.getInstance().uid.toString()
                                                         productStockSync.stock =
                                                             productStockSync.stock - totalBoughtItems
                                                         productStockSync.boughtTicket =
                                                             HashMap<String, Int>()
-
-                                                        val istTime = getIstTime()
-
                                                         productStockSync.dateStamp =
                                                             istTime.format(Date())
                                                         productStockSync.timeStamp =
@@ -238,7 +235,10 @@ class UserCartActivityrvFragment() : Fragment() {
                                                             snapshot.key.toString(),
                                                             productStockSync
                                                         )
-                                                        stockAvailableValueInsertion(snapshot,lockedProducts)
+                                                        stockAvailableValueInsertion(
+                                                            snapshot,
+                                                            lockedProducts
+                                                        )
 
                                                     } else {
                                                         /*stock is locked*/
