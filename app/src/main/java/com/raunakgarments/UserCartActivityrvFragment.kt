@@ -220,21 +220,19 @@ class UserCartActivityrvFragment() : Fragment() {
                                                             )
                                                         val istTime = getIstTime()
 
-                                                        productStockSync.locked =
-                                                            FirebaseAuth.getInstance().uid.toString()
-                                                        productStockSync.stock =
-                                                            productStockSync.stock - totalBoughtItems
-                                                        productStockSync.boughtTicket =
-                                                            HashMap<String, Int>()
-                                                        productStockSync.dateStamp =
-                                                            istTime.format(Date())
-                                                        productStockSync.timeStamp =
-                                                            ((Date().time) / 1000).toString()
+                                                        productStockSync =
+                                                            populateProductStockSyncSnapshot(
+                                                                productStockSync,
+                                                                totalBoughtItems,
+                                                                istTime
+                                                            )
 //todo admin lock
-                                                        ProductStockSyncHelper().setValueInChild(
-                                                            snapshot.key.toString(),
-                                                            productStockSync
-                                                        )
+                                                        if (productStockSync != null) {
+                                                            ProductStockSyncHelper().setValueInChild(
+                                                                snapshot.key.toString(),
+                                                                productStockSync
+                                                            )
+                                                        }
                                                         stockAvailableValueInsertion(
                                                             snapshot,
                                                             lockedProducts
@@ -284,6 +282,20 @@ class UserCartActivityrvFragment() : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
 
         })
+    }
+
+    private fun populateProductStockSyncSnapshot(
+        productStockSync: ProductStockSync,
+        totalBoughtItems: Int,
+        istTime: SimpleDateFormat
+    ): ProductStockSync? {
+        productStockSync.locked = FirebaseAuth.getInstance().uid.toString()
+        productStockSync.stock = productStockSync.stock - totalBoughtItems
+        productStockSync.boughtTicket = HashMap<String, Int>()
+        productStockSync.dateStamp = istTime.format(Date())
+        productStockSync.timeStamp = ((Date().time) / 1000).toString()
+
+        return productStockSync
     }
 
     private fun stockAvailableValueInsertion(
