@@ -212,7 +212,7 @@ class UserCartActivityrvFragment() : Fragment() {
                                                         ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()
                                                                 )
                                                     ) {
-                                                        /* locked product array*/
+                                                        /* stock avaiilable*/
                                                         getLockAndPopulateProductStockSyncSnapshot(
                                                             productStockSync,
                                                             snapshot,
@@ -308,6 +308,7 @@ class UserCartActivityrvFragment() : Fragment() {
         snapshot: DataSnapshot,
         lockedProducts: HashMap<String, Int>
     ) {
+        //locked product array
         lockedProducts[snapshot.key.toString()] = 1
     }
 
