@@ -213,31 +213,12 @@ class UserCartActivityrvFragment() : Fragment() {
                                                                 )
                                                     ) {
                                                         /* locked product array*/
-                                                        d("checkout", "entered")
-                                                        val totalBoughtItems =
-                                                            calculateTotalBoughtItems(
-                                                                productStockSync
-                                                            )
-                                                        val istTime = getIstTime()
-
-                                                        productStockSync =
-                                                            populateProductStockSyncSnapshot(
-                                                                productStockSync,
-                                                                totalBoughtItems,
-                                                                istTime
-                                                            )
-//todo admin lock
-                                                        if (productStockSync != null) {
-                                                            ProductStockSyncHelper().setValueInChild(
-                                                                snapshot.key.toString(),
-                                                                productStockSync
-                                                            )
-                                                        }
-                                                        stockAvailableValueInsertion(
+                                                        getLockAndPopulateProductStockSyncSnapshot(
+                                                            productStockSync,
                                                             snapshot,
                                                             lockedProducts
                                                         )
-
+                                                        //todo admin lock
                                                     } else {
                                                         /*stock is locked*/
                                                         stockLockedValueInsertion(
@@ -284,17 +265,42 @@ class UserCartActivityrvFragment() : Fragment() {
         })
     }
 
+    private fun getLockAndPopulateProductStockSyncSnapshot(
+        productStockSync: ProductStockSync,
+        snapshot: DataSnapshot,
+        lockedProducts: HashMap<String, Int>
+    ) {
+        d("checkout", "entered")
+
+        val totalBoughtItems = calculateTotalBoughtItems(productStockSync)
+        val istTime = getIstTime()
+
+        populateProductStockSyncSnapshot(productStockSync, totalBoughtItems, istTime, snapshot)
+
+        stockAvailableValueInsertion(
+            snapshot,
+            lockedProducts
+        )
+    }
+
     private fun populateProductStockSyncSnapshot(
         productStockSync: ProductStockSync,
         totalBoughtItems: Int,
-        istTime: SimpleDateFormat
-    ): ProductStockSync? {
+        istTime: SimpleDateFormat,
+        snapshot: DataSnapshot
+    ): ProductStockSync {
         productStockSync.locked = FirebaseAuth.getInstance().uid.toString()
         productStockSync.stock = productStockSync.stock - totalBoughtItems
         productStockSync.boughtTicket = HashMap<String, Int>()
         productStockSync.dateStamp = istTime.format(Date())
         productStockSync.timeStamp = ((Date().time) / 1000).toString()
 
+        if (productStockSync != null) {
+            ProductStockSyncHelper().setValueInChild(
+                snapshot.key.toString(),
+                productStockSync
+            )
+        }
         return productStockSync
     }
 
