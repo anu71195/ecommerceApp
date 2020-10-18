@@ -207,10 +207,7 @@ class UserCartActivityrvFragment() : Fragment() {
                                                 snapshot.getValue(ProductStockSync::class.java)
                                             if (checkInStock(productStockSync, productId)) {
                                                 if (productStockSync != null) {
-                                                    if ((productStockSync.locked == "-1" || checkTimeStampStatus(
-                                                            productStockSync.timeStamp
-                                                        ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()
-                                                                )
+                                                    if (checkConditionsForLock(productStockSync)
                                                     ) {
                                                         /* stock avaiilable*/
                                                         getLockAndPopulateProductStockSyncSnapshot(
@@ -263,6 +260,12 @@ class UserCartActivityrvFragment() : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
 
         })
+    }
+
+    private fun checkConditionsForLock(productStockSync: ProductStockSync): Boolean {
+        return ((productStockSync.locked == "-1" || checkTimeStampStatus(
+            productStockSync.timeStamp
+        ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()))
     }
 
     private fun getLockAndPopulateProductStockSyncSnapshot(
