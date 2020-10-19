@@ -265,7 +265,7 @@ class UserCartActivityrvFragment() : Fragment() {
     private fun checkConditionsForLock(productStockSync: ProductStockSync): Boolean {
         return (((productStockSync.locked == "-1" || checkTimeStampStatus(
             productStockSync.timeStamp
-        ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()))&&(!productStockSync.adminLock))
+        ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString())) && (!productStockSync.adminLock))
     }
 
     private fun getLockAndPopulateProductStockSyncSnapshot(
