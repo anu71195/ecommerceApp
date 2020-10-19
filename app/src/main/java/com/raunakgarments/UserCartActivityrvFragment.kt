@@ -191,6 +191,9 @@ class UserCartActivityrvFragment() : Fragment() {
         var productStockSyncFirebaseUtil = FirebaseUtil()
         productStockSyncFirebaseUtil.openFbReference("productStockSync")
 
+        var productStockSyncAdminFirebaseUtil = FirebaseUtil()
+        productStockSyncAdminFirebaseUtil.openFbReference("productStockSyncAdminLock")
+
         userCartFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -210,6 +213,20 @@ class UserCartActivityrvFragment() : Fragment() {
                                                     if (checkConditionsForLock(productStockSync)
                                                     ) {
                                                         /* stock avaiilable*/
+
+                                                        productStockSyncAdminFirebaseUtil.mDatabaseReference.child(productId.key).addListenerForSingleValueEvent(object : ValueEventListener{
+                                                            override fun onDataChange(snapshot: DataSnapshot) {
+                                                                if(snapshot.exists()) {
+                                                                    //todo
+                                                                    d("UserCartActivityrvFragment", "getLocks - ${snapshot}")
+                                                                } else {
+
+                                                                }
+                                                            }
+
+                                                            override fun onCancelled(error: DatabaseError) {}
+                                                        })
+
                                                         getLockAndPopulateProductStockSyncSnapshot(
                                                             productStockSync,
                                                             snapshot,
