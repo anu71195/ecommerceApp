@@ -23,6 +23,7 @@ import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.ProductStockSync
+import com.raunakgarments.model.ProductStockSyncAdminLock
 import com.raunakgarments.model.Profile
 import kotlinx.android.synthetic.main.fragment_user_cart_activity_rv.*
 import java.text.SimpleDateFormat
@@ -214,24 +215,64 @@ class UserCartActivityrvFragment() : Fragment() {
                                                     ) {
                                                         /* stock avaiilable*/
 
-                                                        productStockSyncAdminFirebaseUtil.mDatabaseReference.child(productId.key).addListenerForSingleValueEvent(object : ValueEventListener{
+                                                        productStockSyncAdminFirebaseUtil.mDatabaseReference.child(
+                                                            productId.key
+                                                        ).addListenerForSingleValueEvent(object :
+                                                            ValueEventListener {
                                                             override fun onDataChange(snapshot: DataSnapshot) {
-                                                                if(snapshot.exists()) {
-                                                                    //todo
-                                                                    d("UserCartActivityrvFragment", "getLocks - ${snapshot}")
+                                                                if (snapshot.exists()) {
+                                                                    //todoproductStockSyncAdminLock
+                                                                    var productStockSyncAdminLock =
+                                                                        snapshot.getValue(
+                                                                            ProductStockSyncAdminLock::class.java
+                                                                        )
+                                                                    d(
+                                                                        "UserCartActivityrvFragment",
+                                                                        "getLocks - ${productStockSyncAdminLock}"
+                                                                    )
+                                                                    d(
+                                                                        "UserCartActivityrvFragment",
+                                                                        "getLocks - ${
+                                                                            Gson().toJson(
+                                                                                productStockSyncAdminLock
+                                                                            )
+                                                                        }"
+                                                                    )
+                                                                    if (productStockSyncAdminLock != null && productStockSyncAdminLock.adminLock) {
+                                                                        //user will not get the lock, also update productstock sync here if required
+                                                                        adminLockIsTakenValueInsertion(snapshot, lockedProducts)
+                                                                    } else {
+                                                                        // user will get the lock as either productStockSyncAdminLock is not found or productStockSyncAdminLock.adminLock is false
+                                                                        getLockAndPopulateProductStockSyncSnapshot(
+                                                                            productStockSync,
+                                                                            snapshot,
+                                                                            lockedProducts
+                                                                        )
+                                                                    }
                                                                 } else {
-
+                                                                    d(
+                                                                        "UserCartActivityrvFragment",
+                                                                        "getLocks - snapshot does not exists"
+                                                                    )
+                                                                    //productstocksyncadminfirebaseutil snapshot does not exists mean no admin wants lock so user can get the lock
+                                                                    getLockAndPopulateProductStockSyncSnapshot(
+                                                                        productStockSync,
+                                                                        snapshot,
+                                                                        lockedProducts
+                                                                    )
                                                                 }
+                                                                updateAcquiredTimeStampAndSetTimeDelayCheckLockedUser(
+                                                                    productStockSyncHashmap,
+                                                                    lockedProducts,
+                                                                    profile,
+                                                                    userID
+                                                                )
                                                             }
 
                                                             override fun onCancelled(error: DatabaseError) {}
                                                         })
 
-                                                        getLockAndPopulateProductStockSyncSnapshot(
-                                                            productStockSync,
-                                                            snapshot,
-                                                            lockedProducts
-                                                        )
+
                                                         //todo admin lock
                                                     } else {
                                                         /*stock is locked*/
@@ -322,6 +363,13 @@ class UserCartActivityrvFragment() : Fragment() {
             )
         }
         return productStockSync
+    }
+
+    private fun adminLockIsTakenValueInsertion(
+        snapshot: DataSnapshot,
+        lockedProducts: HashMap<String, Int>
+    ) {
+        lockedProducts[snapshot.key.toString()] = -5
     }
 
     private fun stockAvailableValueInsertion(
