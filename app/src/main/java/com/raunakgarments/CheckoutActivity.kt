@@ -276,6 +276,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         Handler().postDelayed({ waitAndFinishActivity() }, 3 * 1000)
     }
 
+    //todo admin lock
     private fun populateUserOrderMetadata(
         userOrderFirebaseUtil: FirebaseUtil,
         userOrderPushReferenceKey: String
@@ -328,6 +329,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             .setValue((totalCartCost/100).toString())
     }
 
+//    todo admin lock
     private fun populateUserOrdersDatabase(
         userOrderFirebaseUtil: FirebaseUtil,
         productStockSyncFirebaseUtil: FirebaseUtil,
@@ -364,6 +366,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         Handler().postDelayed({ releaseLockIfTimeIsLeft() }, 1 * 1000)
     }
 
+    //    todo admin lock
     private fun releaseLockIfTimeIsLeft() {
         var productStockSyncFirebaseUtil = FirebaseUtil()
         for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
