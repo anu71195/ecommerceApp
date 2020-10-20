@@ -151,7 +151,6 @@ class UserCartActivityrvFragment() : Fragment() {
         }
     }
 
-    /*todo add variable for admin lock*/
     private fun checkAndValidateUserProfile(profile: Profile?, emailVerified: Boolean) {
         if (profile != null &&
             profile.deliverable &&
@@ -272,8 +271,6 @@ class UserCartActivityrvFragment() : Fragment() {
                                                             override fun onCancelled(error: DatabaseError) {}
                                                         })
 
-
-                                                        //todo admin lock
                                                     } else {
                                                         /*stock is locked*/
                                                         stockLockedValueInsertion(
