@@ -12,11 +12,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.ProductStockSync
+import com.raunakgarments.model.ProductStockSyncAdminLock
 import com.raunakgarments.model.Profile
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
@@ -90,6 +92,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     //if current user has lock then it will give exactly 5 minutes to for lock expiration
     private fun accessDatabaseProductsIncreaseTimeout() {
         var productStockSyncFirebaseUtil = FirebaseUtil()
+        var productStockSyncAdminFirebaseUtil = FirebaseUtil()
+
         for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
             d(
                 "checkoutactivity",
@@ -108,21 +112,32 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                                 var productStockSync =
                                     snapshot.getValue(ProductStockSync::class.java)
 
+                                var snapshotKeyString = snapshot.key.toString()
+
                                 if (productStockSync != null) {
                                     if (productStockSync.locked ==
                                         FirebaseAuth.getInstance().uid.toString()
                                     ) {
+                                        productStockSyncAdminFirebaseUtil.openFbReference("productStockSyncAdminLock")
+                                        productStockSyncAdminFirebaseUtil.mDatabaseReference.child(userOrderedProduct.id).addListenerForSingleValueEvent(object : ValueEventListener {
+                                            override fun onDataChange(snapshot: DataSnapshot) {
+                                                d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout out")
+                                                //todo if snapshot does not exists means admin ock is false, if snapshot exists and the admin lock is true then only admin lock is true.
+                                                if(snapshot.exists()) {
+                                                    var productStockSyncAdmin = snapshot.getValue(ProductStockSyncAdminLock::class.java)
+                                                    d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout in")
+                                                    if(productStockSyncAdmin != null) {
+                                                        d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout ${Gson().toJson(productStockSyncAdmin)}")
+                                                    }//todo similarly for here if not null then check if admin lock is true or not, if it is null then automatically it is false
+                                                } else {
 
-                                        // net lock time out is of 10 minutes subtracting current time by 5 minutes will increase lock time by 5 minutes
-                                        productStockSync.timeStamp =
-                                            (Date().time / 1000 - (300)).toString()
-                                        UserCartSingletonClass.productLockAcquiredTimeStamp =
-                                            productStockSync.timeStamp.toLong()
-//todo admin lock
-                                        ProductStockSyncHelper().setValueInChild(
-                                            snapshot.key.toString(),
-                                            productStockSync
-                                        )
+                                                }
+                                                increaseTimeoutInProductStockSync(productStockSync, snapshotKeyString)
+                                            }
+
+                                            override fun onCancelled(error: DatabaseError) {}
+
+                                        })
                                     }
                                 }
                             } else {
@@ -138,6 +153,22 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                     })
             }
         }
+    }
+
+    private fun increaseTimeoutInProductStockSync(
+        productStockSync: ProductStockSync,
+        snapshotKeyString: String
+    ) {
+        // net lock time out is of 10 minutes subtracting current time by 5 minutes will increase lock time by 5 minutes
+        productStockSync.timeStamp =
+            (Date().time / 1000 - (300)).toString()
+        UserCartSingletonClass.productLockAcquiredTimeStamp =
+            productStockSync.timeStamp.toLong()
+        //todo admin lock
+        ProductStockSyncHelper().setValueInChild(
+            snapshotKeyString,
+            productStockSync
+        )
     }
 
     //razorpaybutton valid button = 300 seconds
@@ -329,7 +360,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             .setValue((totalCartCost/100).toString())
     }
 
-//    todo admin lock
+    //    todo admin lock
     private fun populateUserOrdersDatabase(
         userOrderFirebaseUtil: FirebaseUtil,
         productStockSyncFirebaseUtil: FirebaseUtil,
