@@ -17,6 +17,7 @@ import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.helper.ProductStockSyncHelper
+import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.ProductStockSyncAdminLock
 import com.raunakgarments.model.Profile
@@ -104,55 +105,89 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                     "checkoutactivity",
                     "accessDatabaseproductsincreseTimeout ${userOrderedProduct.productStatus}"
                 )
-                productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id)
-                productStockSyncFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(
-                    object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (snapshot.exists()) {
-                                var productStockSync =
-                                    snapshot.getValue(ProductStockSync::class.java)
-
-                                var snapshotKeyString = snapshot.key.toString()
-
-                                if (productStockSync != null) {
-                                    if (productStockSync.locked ==
-                                        FirebaseAuth.getInstance().uid.toString()
-                                    ) {
-                                        productStockSyncAdminFirebaseUtil.openFbReference("productStockSyncAdminLock")
-                                        productStockSyncAdminFirebaseUtil.mDatabaseReference.child(userOrderedProduct.id).addListenerForSingleValueEvent(object : ValueEventListener {
-                                            override fun onDataChange(snapshot: DataSnapshot) {
-                                                d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout out")
-                                                //todo if snapshot does not exists means admin ock is false, if snapshot exists and the admin lock is true then only admin lock is true.
-                                                if(snapshot.exists()) {
-                                                    var productStockSyncAdmin = snapshot.getValue(ProductStockSyncAdminLock::class.java)
-                                                    d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout in")
-                                                    if(productStockSyncAdmin != null) {
-                                                        d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout ${Gson().toJson(productStockSyncAdmin)}")
-                                                    }//todo similarly for here if not null then check if admin lock is true or not, if it is null then automatically it is false
-                                                } else {
-
-                                                }
-                                                increaseTimeoutInProductStockSync(productStockSync, snapshotKeyString)
-                                            }
-
-                                            override fun onCancelled(error: DatabaseError) {}
-
-                                        })
-                                    }
-                                }
-                            } else {
-                                d(
-                                    "checkoutactivity",
-                                    " releaseLockIfTimeIsLeft :- Snapshot does not exist"
-                                )
-                            }
-                        }
-
-                        override fun onCancelled(error: DatabaseError) {}
-
-                    })
+                productStockSyncValueListener(productStockSyncFirebaseUtil, productStockSyncAdminFirebaseUtil, userOrderedProduct)
             }
         }
+    }
+
+    private fun productStockSyncValueListener(
+        productStockSyncFirebaseUtil: FirebaseUtil,
+        productStockSyncAdminFirebaseUtil: FirebaseUtil,
+        userOrderedProduct: ConfirmationCartProduct
+    ) {
+        productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id)
+        productStockSyncFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(
+            object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    productStockSyncSnapshotNullCheckWithAdminLock(snapshot, productStockSyncAdminFirebaseUtil, userOrderedProduct)
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+
+            })
+    }
+
+    private fun productStockSyncSnapshotNullCheckWithAdminLock(
+        snapshot: DataSnapshot,
+        productStockSyncAdminFirebaseUtil: FirebaseUtil,
+        userOrderedProduct: ConfirmationCartProduct
+    ) {
+        if (snapshot.exists()) {
+            var productStockSync =
+                snapshot.getValue(ProductStockSync::class.java)
+
+            var snapshotKeyString = snapshot.key.toString()
+
+            productStockSyncNullCheck(productStockSyncAdminFirebaseUtil, userOrderedProduct, productStockSync, snapshotKeyString)
+        } else {
+            d(
+                "checkoutactivity",
+                " releaseLockIfTimeIsLeft :- Snapshot does not exist"
+            )
+        }
+    }
+
+    private fun productStockSyncNullCheck(
+        productStockSyncAdminFirebaseUtil: FirebaseUtil,
+        userOrderedProduct: ConfirmationCartProduct,
+        productStockSync: ProductStockSync?,
+        snapshotKeyString: String
+    ) {
+        if (productStockSync != null) {
+            if (productStockSync.locked ==
+                FirebaseAuth.getInstance().uid.toString()
+            ) {
+                updateProductStockSyncWithAdminLock(productStockSyncAdminFirebaseUtil, userOrderedProduct, productStockSync, snapshotKeyString)
+            }
+        }
+    }
+
+    private fun updateProductStockSyncWithAdminLock(
+        productStockSyncAdminFirebaseUtil: FirebaseUtil,
+        userOrderedProduct: ConfirmationCartProduct,
+        productStockSync: ProductStockSync,
+        snapshotKeyString: String
+    ) {
+        productStockSyncAdminFirebaseUtil.openFbReference("productStockSyncAdminLock")
+        productStockSyncAdminFirebaseUtil.mDatabaseReference.child(userOrderedProduct.id).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout out")
+                //todo if snapshot does not exists means admin ock is false, if snapshot exists and the admin lock is true then only admin lock is true.
+                if(snapshot.exists()) {
+                    var productStockSyncAdmin = snapshot.getValue(ProductStockSyncAdminLock::class.java)
+                    d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout in")
+                    if(productStockSyncAdmin != null) {
+                        d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout ${Gson().toJson(productStockSyncAdmin)}")
+                    }//todo similarly for here if not null then check if admin lock is true or not, if it is null then automatically it is false
+                } else {
+
+                }
+                increaseTimeoutInProductStockSync(productStockSync, snapshotKeyString)
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
     }
 
     private fun increaseTimeoutInProductStockSync(
