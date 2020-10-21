@@ -172,15 +172,18 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         productStockSyncAdminFirebaseUtil.mDatabaseReference.child(userOrderedProduct.id).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout out")
-                //todo if snapshot does not exists means admin ock is false, if snapshot exists and the admin lock is true then only admin lock is true.
+                //if snapshot does not exists means admin lock is false, if snapshot exists and the admin lock is true then only admin lock is true.
                 if(snapshot.exists()) {
                     var productStockSyncAdmin = snapshot.getValue(ProductStockSyncAdminLock::class.java)
                     d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout in")
+                    //todo similarly for here if not null then check if admin lock is true or not, if it is null then automatically it is false
                     if(productStockSyncAdmin != null) {
                         d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout ${Gson().toJson(productStockSyncAdmin)}")
-                    }//todo similarly for here if not null then check if admin lock is true or not, if it is null then automatically it is false
+                    } else {
+                        productStockSync.adminLock = false
+                    }
                 } else {
-
+                    productStockSync.adminLock = false
                 }
                 increaseTimeoutInProductStockSync(productStockSync, snapshotKeyString)
             }
