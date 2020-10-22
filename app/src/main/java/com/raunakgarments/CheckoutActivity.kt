@@ -176,9 +176,10 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                 if(snapshot.exists()) {
                     var productStockSyncAdmin = snapshot.getValue(ProductStockSyncAdminLock::class.java)
                     d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout in")
-                    //todo similarly for here if not null then check if admin lock is true or not, if it is null then automatically it is false
+                    // similarly for here if not null then check if admin lock is true or not, if it is null then automatically it is false
                     if(productStockSyncAdmin != null) {
                         d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout ${Gson().toJson(productStockSyncAdmin)}")
+                        productStockSync.adminLock = productStockSyncAdmin.adminLock
                     } else {
                         productStockSync.adminLock = false
                     }
