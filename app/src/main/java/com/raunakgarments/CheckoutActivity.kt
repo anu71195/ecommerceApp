@@ -422,7 +422,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             .setValue((totalCartCost / 100).toString())
     }
 
-    //    todo admin lock
     private fun populateUserOrdersDatabase(
         userOrderFirebaseUtil: FirebaseUtil,
         productStockSyncFirebaseUtil: FirebaseUtil,
@@ -435,6 +434,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                     .child(userOrderedProduct.id)
                     .setValue(userOrderedProduct)
 
+                // No need to update productstocksyncadmin lock here as it is only for bought ticket whicih can work asynchronously but product admin lock needs to be synchronous
                 productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id + "/boughtTicket")
                 var productStockSyncReferenceKey =
                     productStockSyncFirebaseUtil.mDatabaseReference.push().key
