@@ -203,7 +203,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             (Date().time / 1000 - (300)).toString()
         UserCartSingletonClass.productLockAcquiredTimeStamp =
             productStockSync.timeStamp.toLong()
-        //todo admin lock
         ProductStockSyncHelper().setValueInChild(
             snapshotKeyString,
             productStockSync
