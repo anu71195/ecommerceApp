@@ -105,7 +105,11 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                     "checkoutactivity",
                     "accessDatabaseproductsincreseTimeout ${userOrderedProduct.productStatus}"
                 )
-                productStockSyncValueListener(productStockSyncFirebaseUtil, productStockSyncAdminFirebaseUtil, userOrderedProduct)
+                productStockSyncValueListener(
+                    productStockSyncFirebaseUtil,
+                    productStockSyncAdminFirebaseUtil,
+                    userOrderedProduct
+                )
             }
         }
     }
@@ -119,7 +123,11 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         productStockSyncFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(
             object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    productStockSyncSnapshotNullCheckWithAdminLock(snapshot, productStockSyncAdminFirebaseUtil, userOrderedProduct)
+                    productStockSyncSnapshotNullCheckWithAdminLock(
+                        snapshot,
+                        productStockSyncAdminFirebaseUtil,
+                        userOrderedProduct
+                    )
                 }
 
                 override fun onCancelled(error: DatabaseError) {}
@@ -138,7 +146,12 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
             var snapshotKeyString = snapshot.key.toString()
 
-            productStockSyncNullCheck(productStockSyncAdminFirebaseUtil, userOrderedProduct, productStockSync, snapshotKeyString)
+            productStockSyncNullCheck(
+                productStockSyncAdminFirebaseUtil,
+                userOrderedProduct,
+                productStockSync,
+                snapshotKeyString
+            )
         } else {
             d(
                 "checkoutactivity",
@@ -157,7 +170,12 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             if (productStockSync.locked ==
                 FirebaseAuth.getInstance().uid.toString()
             ) {
-                updateProductStockSyncWithAdminLock(productStockSyncAdminFirebaseUtil, userOrderedProduct, productStockSync, snapshotKeyString)
+                updateProductStockSyncWithAdminLock(
+                    productStockSyncAdminFirebaseUtil,
+                    userOrderedProduct,
+                    productStockSync,
+                    snapshotKeyString
+                )
             }
         }
     }
@@ -169,29 +187,36 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         snapshotKeyString: String
     ) {
         productStockSyncAdminFirebaseUtil.openFbReference("productStockSyncAdminLock")
-        productStockSyncAdminFirebaseUtil.mDatabaseReference.child(userOrderedProduct.id).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout out")
-                //if snapshot does not exists means admin lock is false, if snapshot exists and the admin lock is true then only admin lock is true.
-                if(snapshot.exists()) {
-                    var productStockSyncAdmin = snapshot.getValue(ProductStockSyncAdminLock::class.java)
-                    d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout in")
-                    // similarly for here if not null then check if admin lock is true or not, if it is null then automatically it is false
-                    if(productStockSyncAdmin != null) {
-                        d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout ${Gson().toJson(productStockSyncAdmin)}")
-                        productStockSync.adminLock = productStockSyncAdmin.adminLock
+        productStockSyncAdminFirebaseUtil.mDatabaseReference.child(userOrderedProduct.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout out")
+                    //if snapshot does not exists means admin lock is false, if snapshot exists and the admin lock is true then only admin lock is true.
+                    if (snapshot.exists()) {
+                        var productStockSyncAdmin =
+                            snapshot.getValue(ProductStockSyncAdminLock::class.java)
+                        d("CheckoutActivity", "accessDatabaseProductsIncreaseTimeout in")
+                        // similarly for here if not null then check if admin lock is true or not, if it is null then automatically it is false
+                        if (productStockSyncAdmin != null) {
+                            d(
+                                "CheckoutActivity",
+                                "accessDatabaseProductsIncreaseTimeout ${
+                                    Gson().toJson(productStockSyncAdmin)
+                                }"
+                            )
+                            productStockSync.adminLock = productStockSyncAdmin.adminLock
+                        } else {
+                            productStockSync.adminLock = false
+                        }
                     } else {
                         productStockSync.adminLock = false
                     }
-                } else {
-                    productStockSync.adminLock = false
+                    increaseTimeoutInProductStockSync(productStockSync, snapshotKeyString)
                 }
-                increaseTimeoutInProductStockSync(productStockSync, snapshotKeyString)
-            }
 
-            override fun onCancelled(error: DatabaseError) {}
+                override fun onCancelled(error: DatabaseError) {}
 
-        })
+            })
     }
 
     private fun increaseTimeoutInProductStockSync(
@@ -345,7 +370,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         Handler().postDelayed({ waitAndFinishActivity() }, 3 * 1000)
     }
 
-    //todo admin lock
     private fun populateUserOrderMetadata(
         userOrderFirebaseUtil: FirebaseUtil,
         userOrderPushReferenceKey: String
@@ -395,7 +419,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("totalCost")
-            .setValue((totalCartCost/100).toString())
+            .setValue((totalCartCost / 100).toString())
     }
 
     //    todo admin lock
