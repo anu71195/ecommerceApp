@@ -475,31 +475,12 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                             if (snapshot.exists()) {
                                 var productStockSync =
                                     snapshot.getValue(ProductStockSync::class.java)
+                                var productStockSyncSnapshotKeyString = snapshot.key.toString()
                                 if (productStockSync != null) {
                                     if (productStockSync.locked ==
                                         FirebaseAuth.getInstance().uid.toString()
                                     ) {
-                                        d(
-                                            "checkoutactivity",
-                                            " releaseLockIfTimeIsLeft :- ${productStockSync.toString()}"
-                                        )
-
-                                        productStockSync.locked = "-1"
-
-                                        var totalBoughtItems = 0
-
-                                        for (boughtItems in productStockSync.boughtTicket) {
-                                            totalBoughtItems += boughtItems.value
-                                        }
-                                        productStockSync.stock =
-                                            productStockSync.stock - totalBoughtItems
-                                        productStockSync.boughtTicket = HashMap<String, Int>()
-
-                                        ProductStockSyncHelper().setValueInChild(
-                                            snapshot.key.toString(),
-                                            productStockSync
-                                        )
-
+                                        updateProductStockSyncAndReleaseLock(productStockSync, productStockSyncSnapshotKeyString)
                                     }
                                 }
                             } else {
@@ -515,6 +496,32 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                     })
             }
         }
+    }
+
+    private fun updateProductStockSyncAndReleaseLock(
+        productStockSync: ProductStockSync,
+        productStockSyncSnapshotKeyString: String
+    ) {
+        d(
+            "checkoutactivity",
+            " releaseLockIfTimeIsLeft :- ${productStockSync.toString()}"
+        )
+
+        productStockSync.locked = "-1"
+
+        var totalBoughtItems = 0
+
+        for (boughtItems in productStockSync.boughtTicket) {
+            totalBoughtItems += boughtItems.value
+        }
+        productStockSync.stock =
+            productStockSync.stock - totalBoughtItems
+        productStockSync.boughtTicket = HashMap<String, Int>()
+
+        ProductStockSyncHelper().setValueInChild(
+            productStockSyncSnapshotKeyString,
+            productStockSync
+        )
     }
 
 }
