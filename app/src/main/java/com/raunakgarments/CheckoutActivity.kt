@@ -460,6 +460,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     //    todo admin lock
+    //todo release admin lock if admin is the one who took it.
     private fun releaseLockIfTimeIsLeft() {
         var productStockSyncFirebaseUtil = FirebaseUtil()
         for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
@@ -480,7 +481,10 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                                     if (productStockSync.locked ==
                                         FirebaseAuth.getInstance().uid.toString()
                                     ) {
-                                        updateProductStockSyncAndReleaseLock(productStockSync, productStockSyncSnapshotKeyString)
+                                        updateProductStockSyncAndReleaseLock(
+                                            productStockSync,
+                                            productStockSyncSnapshotKeyString, userOrderedProduct
+                                        )
                                     }
                                 }
                             } else {
@@ -500,7 +504,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     private fun updateProductStockSyncAndReleaseLock(
         productStockSync: ProductStockSync,
-        productStockSyncSnapshotKeyString: String
+        productStockSyncSnapshotKeyString: String,
+        userOrderedProduct: ConfirmationCartProduct
     ) {
         d(
             "checkoutactivity",
@@ -518,10 +523,55 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             productStockSync.stock - totalBoughtItems
         productStockSync.boughtTicket = HashMap<String, Int>()
 
-        ProductStockSyncHelper().setValueInChild(
-            productStockSyncSnapshotKeyString,
-            productStockSync
+        getAdminLockIfNeededAndUpdateProductStockSyncHelper(
+            productStockSync,
+            productStockSyncSnapshotKeyString, userOrderedProduct
         )
+
+
     }
 
+    private fun getAdminLockIfNeededAndUpdateProductStockSyncHelper(
+        productStockSync: ProductStockSync,
+        productStockSyncSnapshotKeyString: String,
+        userOrderedProduct: ConfirmationCartProduct
+    ) {
+
+        var productStockSyncAdminFirebaseUtil = FirebaseUtil()
+
+        productStockSyncAdminFirebaseUtil.openFbReference("productStockSyncAdminLock")
+        productStockSyncAdminFirebaseUtil.mDatabaseReference.child(userOrderedProduct.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    //if snapshot does not exists means admin lock is false, if snapshot exists and the admin lock is true then only admin lock is true.
+                    if (snapshot.exists()) {
+                        var productStockSyncAdmin =
+                            snapshot.getValue(ProductStockSyncAdminLock::class.java)
+                        // similarly for here if not null then check if admin lock is true or not, if it is null then automatically it is false
+                        if (productStockSyncAdmin != null) {
+                            d(
+                                "CheckoutActivity",
+                                "accessDatabaseProductsIncreaseTimeout ${
+                                    Gson().toJson(productStockSyncAdmin)
+                                }"
+                            )
+                            productStockSync.adminLock = productStockSyncAdmin.adminLock
+                        } else {
+                            productStockSync.adminLock = false
+                        }
+                    } else {
+                        productStockSync.adminLock = false
+                    }
+
+                    ProductStockSyncHelper().setValueInChild(
+                        productStockSyncSnapshotKeyString,
+                        productStockSync
+                    )
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
+
+
+    }
 }
