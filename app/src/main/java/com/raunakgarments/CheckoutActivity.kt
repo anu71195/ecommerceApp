@@ -459,8 +459,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         Handler().postDelayed({ releaseLockIfTimeIsLeft() }, 1 * 1000)
     }
 
-    //    todo admin lock
-    //todo release admin lock if admin is the one who took it.
     private fun releaseLockIfTimeIsLeft() {
         var productStockSyncFirebaseUtil = FirebaseUtil()
         for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
