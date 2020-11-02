@@ -97,25 +97,38 @@ class AdminProductsEdit : AppCompatActivity() {
         var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
         productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
 
-        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id).addListenerForSingleValueEvent(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()) {
-                    var productStockSyncAdminLock = snapshot.getValue(ProductStockSyncAdminLock()::class.java)
-                    if(productStockSyncAdminLock != null && productStockSyncAdminLock.adminLock && productStockSyncAdminLock.adminId != FirebaseAuth.getInstance().uid){
-                        showAdminLockNotAvailablePopup(productStockSyncAdminLock)
+        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        var productStockSyncAdminLock =
+                            snapshot.getValue(ProductStockSyncAdminLock()::class.java)
+                        if (productStockSyncAdminLock != null && productStockSyncAdminLock.adminLock && productStockSyncAdminLock.adminId != FirebaseAuth.getInstance().uid) {
+                            showAdminLockNotAvailablePopup(productStockSyncAdminLock)
+                        } else {
+                            setProductSyncAdminLock(
+                                product,
+                                userProfile,
+                                productStockSyncAdminLockFirebaseUtil
+                            )
+                        }
+
                     } else {
-                        setProductSyncAdminLock(product, userProfile,productStockSyncAdminLockFirebaseUtil)
+                        d(
+                            "AdminProductsEdit",
+                            "checkAndSetProductSyncAdminLock-snapshot does not exist"
+                        )
+                        setProductSyncAdminLock(
+                            product,
+                            userProfile,
+                            productStockSyncAdminLockFirebaseUtil
+                        )
                     }
-
-                } else  {
-                    d("AdminProductsEdit", "checkAndSetProductSyncAdminLock-snapshot does not exist")
-                    setProductSyncAdminLock(product, userProfile,productStockSyncAdminLockFirebaseUtil)
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {}
+                override fun onCancelled(error: DatabaseError) {}
 
-        })
+            })
     }
 
 
@@ -149,6 +162,11 @@ class AdminProductsEdit : AppCompatActivity() {
     private fun populateTextFields(product: Product) {
 
         activity_admin_products_edit_content_scrolling_productStockAdmin.isEnabled = false
+
+        activity_admin_products_edit_content_scrolling_UpdateProductAdmin.isEnabled = false
+        activity_admin_products_edit_content_scrolling_UpdateProductAdmin.background =
+            ContextCompat.getDrawable(this, R.drawable.rounded_corners_unselected_red)
+
         activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.isEnabled = false
         activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.background =
             ContextCompat.getDrawable(this, R.drawable.rounded_corners_unselected_red)
