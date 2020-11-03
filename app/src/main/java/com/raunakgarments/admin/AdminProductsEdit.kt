@@ -53,7 +53,51 @@ class AdminProductsEdit : AppCompatActivity() {
         uploadImageButtonClickListener()
         editButtonClickListener(product)
         deleteButtonClickListener()
+        releaseLockButtonClickListener(product)
 
+    }
+
+    private fun releaseLockButtonClickListener(product: Product) {
+        activity_admin_products_edit_content_scrolling_releaseLocks.setOnClickListener {
+            var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
+            productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
+
+            productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            var productStockSyncAdminLock =
+                                snapshot.getValue(ProductStockSyncAdminLock()::class.java)
+                            if (productStockSyncAdminLock != null) {
+                                productStockSyncAdminLock.adminId = ""
+                                productStockSyncAdminLock.adminLock = false
+                                productStockSyncAdminLock.adminName = ""
+                                productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(
+                                    product.id
+                                )
+                                    .setValue(productStockSyncAdminLock)
+                                Handler().postDelayed(
+                                    { checkAndSetReleaseLockEnability(product) },
+                                    1500
+                                )
+
+                            } else {
+                                d(
+                                    "AdminProductsEdit",
+                                    "checkAndSetReleaseLockENability :- product does not exits"
+                                )
+                            }
+                        } else {
+                            d(
+                                "AdminProductsEdit",
+                                "checkAndSetReleaseLockENability :- snapshot does not exits"
+                            )
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {}
+                })
+        }
     }
 
     private fun getLocksButtonClickListener(product: Product) {
@@ -140,7 +184,7 @@ class AdminProductsEdit : AppCompatActivity() {
     }
 
     private fun checkIfAdminLockStillExists(product: Product) {
-        Handler().postDelayed({ifLockStillExistsUnlockProduct(product)}, 5000)
+        Handler().postDelayed({ ifLockStillExistsUnlockProduct(product) }, 5000)
 
     }
 
@@ -148,30 +192,42 @@ class AdminProductsEdit : AppCompatActivity() {
         var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
         productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
 
-        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()) {
-                    var productStockSyncAdminLock =
-                        snapshot.getValue(ProductStockSyncAdminLock()::class.java)
+        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        var productStockSyncAdminLock =
+                            snapshot.getValue(ProductStockSyncAdminLock()::class.java)
 
-                    if(productStockSyncAdminLock != null && productStockSyncAdminLock.adminLock && productStockSyncAdminLock.adminId == FirebaseAuth.getInstance().uid) {
-                        d("AdminProductsEdit", "ifLockStillExistsUnlockProduct :- got lock")
-                        getProductLock()
+                        if (productStockSyncAdminLock != null && productStockSyncAdminLock.adminLock && productStockSyncAdminLock.adminId == FirebaseAuth.getInstance().uid) {
+                            d("AdminProductsEdit", "ifLockStillExistsUnlockProduct :- got lock")
+                            getProductLock(product)
+                        } else {
+                            d(
+                                "AdminProductsEdit",
+                                "ifLockStillExistsUnlockProduct :- Did not get lock"
+                            )
+                        }
                     } else {
-                        d("AdminProductsEdit", "ifLockStillExistsUnlockProduct :- Did not get lock")
+                        d(
+                            "AdminProductsEdit",
+                            "ifLockStillExistsUnlockProduct :- Snapshot does not exist"
+                        )
                     }
-                } else {
-                    d("AdminProductsEdit", "ifLockStillExistsUnlockProduct :- Snapshot does not exist")
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {}
+                override fun onCancelled(error: DatabaseError) {}
 
-        })
+            })
     }
 
-    private fun getProductLock() {
-        d("adminproductsedit", "getproductlock-if you did not get lock don't worry you will get next lock")
+    private fun getProductLock(product: Product) {
+        Handler().postDelayed({ checkAndSetReleaseLockEnability(product) }, 1500)
+
+        d(
+            "adminproductsedit",
+            "getproductlock-if you did not get lock don't worry you will get next lock"
+        )
         //todo add releaselock button from and add productlock button
         //todo get the product lock here
     }
@@ -207,6 +263,12 @@ class AdminProductsEdit : AppCompatActivity() {
 
         activity_admin_products_edit_content_scrolling_productStockAdmin.isEnabled = false
 
+        activity_admin_products_edit_content_scrolling_releaseLocks.isEnabled = false
+        activity_admin_products_edit_content_scrolling_releaseLocks.background =
+            ContextCompat.getDrawable(this, R.drawable.rounded_corners_unselected_red)
+
+        Handler().postDelayed({ checkAndSetReleaseLockEnability(product) }, 1500)
+
         activity_admin_products_edit_content_scrolling_UpdateProductAdmin.isEnabled = false
         activity_admin_products_edit_content_scrolling_UpdateProductAdmin.background =
             ContextCompat.getDrawable(this, R.drawable.rounded_corners_unselected_red)
@@ -241,6 +303,53 @@ class AdminProductsEdit : AppCompatActivity() {
             .into(activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin)
         productId = product.id
         tagArray = product.tagArray
+    }
+
+
+    private fun checkAndSetReleaseLockEnability(product: Product) {
+        var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
+        productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
+
+        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        var productStockSyncAdminLock =
+                            snapshot.getValue(ProductStockSyncAdminLock()::class.java)
+                        if (productStockSyncAdminLock != null && productStockSyncAdminLock.adminLock && productStockSyncAdminLock.adminId == FirebaseAuth.getInstance().uid) {
+                            activity_admin_products_edit_content_scrolling_releaseLocks.isEnabled =
+                                true
+                            activity_admin_products_edit_content_scrolling_releaseLocks.background =
+                                ContextCompat.getDrawable(
+                                    this@AdminProductsEdit,
+                                    R.drawable.button_red_green_color_selector
+                                )
+                        } else {
+                            activity_admin_products_edit_content_scrolling_releaseLocks.isEnabled =
+                                false
+                            activity_admin_products_edit_content_scrolling_releaseLocks.background =
+                                ContextCompat.getDrawable(
+                                    this@AdminProductsEdit,
+                                    R.drawable.rounded_corners_unselected_red
+                                )
+                        }
+                    } else {
+                        activity_admin_products_edit_content_scrolling_releaseLocks.isEnabled =
+                            false
+                        activity_admin_products_edit_content_scrolling_releaseLocks.background =
+                            ContextCompat.getDrawable(
+                                this@AdminProductsEdit,
+                                R.drawable.rounded_corners_unselected_red
+                            )
+                        d(
+                            "AdminProductsEdit",
+                            "checkAndSetReleaseLockENability :- snapshot does not exits"
+                        )
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
     }
 
     private fun uploadImageButtonClickListener() {
