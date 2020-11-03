@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log.d
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -24,6 +26,7 @@ import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.ProductStockSyncAdminLock
 import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_admin_products_edit.*
 import kotlinx.android.synthetic.main.activity_admin_products_edit_content_scrolling.*
 
 class AdminProductsEdit : AppCompatActivity() {
@@ -54,6 +57,9 @@ class AdminProductsEdit : AppCompatActivity() {
     }
 
     private fun getLocksButtonClickListener(product: Product) {
+
+        activity_admin_products_edit_progressBar.visibility = View.VISIBLE
+
         activity_admin_products_edit_content_scrolling_getLocks.setOnClickListener {
 
             var userProfileFirebaseUtil = FirebaseUtil()
@@ -111,6 +117,7 @@ class AdminProductsEdit : AppCompatActivity() {
                                 userProfile,
                                 productStockSyncAdminLockFirebaseUtil
                             )
+                            checkIfAdminLockStillExists(product)
                         }
 
                     } else {
@@ -123,6 +130,7 @@ class AdminProductsEdit : AppCompatActivity() {
                             userProfile,
                             productStockSyncAdminLockFirebaseUtil
                         )
+                        checkIfAdminLockStillExists(product)
                     }
                 }
 
@@ -131,6 +139,40 @@ class AdminProductsEdit : AppCompatActivity() {
             })
     }
 
+    private fun checkIfAdminLockStillExists(product: Product) {
+        Handler().postDelayed({ifLockStillExistsUnlockProduct(product)}, 5000)
+
+    }
+
+    private fun ifLockStillExistsUnlockProduct(product: Product) {
+        var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
+        productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
+
+        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    var productStockSyncAdminLock =
+                        snapshot.getValue(ProductStockSyncAdminLock()::class.java)
+
+                    if(productStockSyncAdminLock != null && productStockSyncAdminLock.adminLock && productStockSyncAdminLock.adminId == FirebaseAuth.getInstance().uid) {
+                        d("AdminProductsEdit", "ifLockStillExistsUnlockProduct :- got lock")
+                        getProductLock()
+                    } else {
+                        d("AdminProductsEdit", "ifLockStillExistsUnlockProduct :- Did not get lock")
+                    }
+                } else {
+                    d("AdminProductsEdit", "ifLockStillExistsUnlockProduct :- Snapshot does not exist")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
+    }
+
+    private fun getProductLock() {
+        //todo get the product lock here
+    }
 
     private fun showAdminLockNotAvailablePopup(productStockSyncAdminLock: ProductStockSyncAdminLock) {
         val builder = AlertDialog.Builder(this)
