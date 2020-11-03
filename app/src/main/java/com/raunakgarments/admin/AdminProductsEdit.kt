@@ -171,6 +171,8 @@ class AdminProductsEdit : AppCompatActivity() {
     }
 
     private fun getProductLock() {
+        d("adminproductsedit", "getproductlock-if you did not get lock don't worry you will get next lock")
+        //todo add releaselock button from and add productlock button
         //todo get the product lock here
     }
 
