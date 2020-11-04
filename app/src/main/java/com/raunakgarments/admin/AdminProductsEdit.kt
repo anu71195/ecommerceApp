@@ -267,6 +267,10 @@ class AdminProductsEdit : AppCompatActivity() {
         activity_admin_products_edit_content_scrolling_releaseLocks.background =
             ContextCompat.getDrawable(this, R.drawable.rounded_corners_unselected_red)
 
+        activity_admin_products_edit_content_scrolling_getProduct.isEnabled = false
+        activity_admin_products_edit_content_scrolling_getProduct.background =
+            ContextCompat.getDrawable(this, R.drawable.rounded_corners_unselected_red)
+
         Handler().postDelayed({ checkAndSetReleaseLockEnability(product) }, 1500)
 
         activity_admin_products_edit_content_scrolling_UpdateProductAdmin.isEnabled = false
@@ -324,10 +328,24 @@ class AdminProductsEdit : AppCompatActivity() {
                                     this@AdminProductsEdit,
                                     R.drawable.button_red_green_color_selector
                                 )
+                            activity_admin_products_edit_content_scrolling_getProduct.isEnabled =
+                                true
+                            activity_admin_products_edit_content_scrolling_getProduct.background =
+                                ContextCompat.getDrawable(
+                                    this@AdminProductsEdit,
+                                    R.drawable.button_red_green_color_selector
+                                )
                         } else {
                             activity_admin_products_edit_content_scrolling_releaseLocks.isEnabled =
                                 false
                             activity_admin_products_edit_content_scrolling_releaseLocks.background =
+                                ContextCompat.getDrawable(
+                                    this@AdminProductsEdit,
+                                    R.drawable.rounded_corners_unselected_red
+                                )
+                            activity_admin_products_edit_content_scrolling_getProduct.isEnabled =
+                                false
+                            activity_admin_products_edit_content_scrolling_getProduct.background =
                                 ContextCompat.getDrawable(
                                     this@AdminProductsEdit,
                                     R.drawable.rounded_corners_unselected_red
@@ -337,6 +355,13 @@ class AdminProductsEdit : AppCompatActivity() {
                         activity_admin_products_edit_content_scrolling_releaseLocks.isEnabled =
                             false
                         activity_admin_products_edit_content_scrolling_releaseLocks.background =
+                            ContextCompat.getDrawable(
+                                this@AdminProductsEdit,
+                                R.drawable.rounded_corners_unselected_red
+                            )
+
+                        activity_admin_products_edit_content_scrolling_getProduct.isEnabled = false
+                        activity_admin_products_edit_content_scrolling_getProduct.background =
                             ContextCompat.getDrawable(
                                 this@AdminProductsEdit,
                                 R.drawable.rounded_corners_unselected_red
