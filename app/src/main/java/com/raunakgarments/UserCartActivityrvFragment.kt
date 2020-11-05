@@ -220,7 +220,7 @@ class UserCartActivityrvFragment() : Fragment() {
                                                             ValueEventListener {
                                                             override fun onDataChange(snapshot: DataSnapshot) {
                                                                 if (snapshot.exists()) {
-                                                                    //todoproductStockSyncAdminLock
+                                                                    //todo productStockSyncAdminLock
                                                                     var productStockSyncAdminLock =
                                                                         snapshot.getValue(
                                                                             ProductStockSyncAdminLock::class.java

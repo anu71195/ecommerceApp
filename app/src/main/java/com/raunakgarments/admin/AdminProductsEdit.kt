@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.R
+import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.ProductStockSyncHelper
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
@@ -28,6 +29,9 @@ import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_admin_products_edit.*
 import kotlinx.android.synthetic.main.activity_admin_products_edit_content_scrolling.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 class AdminProductsEdit : AppCompatActivity() {
 
@@ -54,7 +58,160 @@ class AdminProductsEdit : AppCompatActivity() {
         editButtonClickListener(product)
         deleteButtonClickListener()
         releaseLockButtonClickListener(product)
+        getProductLockClickListener(product)
 
+    }
+
+    private fun getProductLockClickListener(product: Product) {
+        activity_admin_products_edit_content_scrolling_getProduct.setOnClickListener {
+            var productStockSyncFirebaseUtil = FirebaseUtil()
+            productStockSyncFirebaseUtil.openFbReference("productStockSync")
+
+            var productStockSyncAdminFirebaseUtil = FirebaseUtil()
+            productStockSyncAdminFirebaseUtil.openFbReference("productStockSyncAdminLock")
+
+            productStockSyncFirebaseUtil.mDatabaseReference.child(product.id)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            var productStockSync =
+                                snapshot.getValue(ProductStockSync::class.java)
+                            if (productStockSync != null && checkConditionsForLock(productStockSync)) {
+                                //lock accessibile
+
+                                getLockAndPopulateProductStockSyncSnapshot(
+                                    productStockSync,
+                                    snapshot
+                                )
+                            } else {
+                                //lock not accessible
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Lock not available - try again after sometime",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        } else {
+                            d(
+                                "AdminProductsEdit",
+                                "getProductLockListener :- snapshot does not exists"
+                            )
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {}
+
+                })
+        }
+    }
+
+    private fun getLockAndPopulateProductStockSyncSnapshot(
+        productStockSync: ProductStockSync,
+        snapshot: DataSnapshot
+    ) {
+
+        val totalBoughtItems = calculateTotalBoughtItems(productStockSync)
+        val istTime = getIstTime()
+
+        populateProductStockSyncSnapshot(productStockSync, totalBoughtItems, istTime, snapshot)
+    }
+
+    private fun populateProductStockSyncSnapshot(
+        productStockSync: ProductStockSync,
+        totalBoughtItems: Int,
+        istTime: SimpleDateFormat,
+        snapshot: DataSnapshot
+    ) {
+        productStockSync.locked = FirebaseAuth.getInstance().uid.toString()
+        productStockSync.stock = productStockSync.stock - totalBoughtItems
+        productStockSync.boughtTicket = java.util.HashMap<String, Int>()
+        productStockSync.dateStamp = istTime.format(Date())
+        productStockSync.timeStamp = ((Date().time) / 1000).toString()
+        productStockSync.adminLock = true
+
+        if (productStockSync != null) {
+            ProductStockSyncHelper().setValueInChild(
+                snapshot.key.toString(),
+                productStockSync
+            )
+        }
+
+        updateAcquiredTimeStampAndSetTimeDelayCheckLockedUser()
+
+    }
+
+    private fun updateAcquiredTimeStampAndSetTimeDelayCheckLockedUser() {
+        UserCartSingletonClass.productLockAcquiredTimeStamp =
+            (((Date().time) / 1000))
+
+
+        Handler().postDelayed({
+            getProfileAndCheckForLockUser(FirebaseAuth.getInstance().uid.toString())
+        }, 5000)
+
+    }
+
+    private fun getProfileAndCheckForLockUser(userID: String) {
+        checkForLockUser(userID)
+    }
+
+    private fun checkForLockUser(userID: String) {
+        var productStockSyncFirebaseUtil = FirebaseUtil()
+        productStockSyncFirebaseUtil.openFbReference("productStockSync")
+        productStockSyncFirebaseUtil.mDatabaseReference.child(productId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        var productStockSync =
+                            snapshot.getValue(ProductStockSync::class.java)
+                        if (productStockSync != null) {
+                            if (productStockSync.locked == FirebaseAuth.getInstance().uid.toString() && productStockSync.adminLock) {
+                                adminLockRetrievedProcessing()
+                                d("AdminProductsEdit", "checkForLockUser:-product lock is available")
+                            } else {
+                                d("AdminProductsEdit", "checkForLockUser:-product lock is not available")
+                            }
+                        }
+                    } else {
+                        d("AdminProductsEdit", "checkForLockUser:-snapshot does not exist")
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
+    }
+
+    private fun adminLockRetrievedProcessing() {
+
+    }
+
+    //todo show in admin that whether admin lock is there or not
+
+    private fun getIstTime(): SimpleDateFormat {
+        var istTime = SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+        istTime.timeZone = TimeZone.getTimeZone("Asia/Kolkata")
+        return istTime
+    }
+
+    private fun calculateTotalBoughtItems(productStockSync: ProductStockSync): Int {
+        var totalBoughtItems = 0
+        if (productStockSync != null) {
+            for (boughtItems in productStockSync.boughtTicket) {
+                totalBoughtItems += boughtItems.value
+            }
+        }
+        return totalBoughtItems
+    }
+
+    private fun checkConditionsForLock(productStockSync: ProductStockSync): Boolean {
+        return ((productStockSync.locked == "-1" || checkTimeStampStatus(
+            productStockSync.timeStamp
+        ) || productStockSync.locked == FirebaseAuth.getInstance().uid.toString()))
+    }
+
+    // time stamp product stock sync delay = 600 seconds
+    private fun checkTimeStampStatus(timeStamp: String): Boolean {
+        return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
     }
 
     private fun releaseLockButtonClickListener(product: Product) {
