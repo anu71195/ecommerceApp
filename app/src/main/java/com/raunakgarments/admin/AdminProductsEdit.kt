@@ -263,7 +263,31 @@ class AdminProductsEdit : AppCompatActivity() {
                                     productStockSync
                                 )
 
+                                activity_admin_products_edit_content_scrolling_productTitleAdmin.isEnabled = false
 
+                                activity_admin_products_edit_content_scrolling_productPriceAdmin.isEnabled = false
+
+                                activity_admin_products_edit_content_scrolling_productImageLinkAdmin.isEnabled = false
+
+                                activity_admin_products_edit_content_scrolling_productDescriptionAdmin.isEnabled = false
+
+                                activity_admin_products_edit_content_scrolling_uploadImageButtonAdmin.isEnabled = false
+
+                                activity_admin_products_edit_content_scrolling_productStockAdmin.isEnabled = false
+
+                                activity_admin_products_edit_content_scrolling_UpdateProductAdmin.isEnabled = false
+                                activity_admin_products_edit_content_scrolling_UpdateProductAdmin.background =
+                                    ContextCompat.getDrawable(
+                                        this@AdminProductsEdit,
+                                        R.drawable.rounded_corners_unselected_red
+                                    )
+
+                                activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.isEnabled = false
+                                activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.background =
+                                    ContextCompat.getDrawable(
+                                        this@AdminProductsEdit,
+                                        R.drawable.rounded_corners_unselected_red
+                                    )
                             }
                         }
                     } else {
