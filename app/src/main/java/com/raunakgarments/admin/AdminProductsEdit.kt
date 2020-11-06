@@ -341,7 +341,7 @@ class AdminProductsEdit : AppCompatActivity() {
     }
 
     private fun checkIfAdminLockStillExists(product: Product) {
-        Handler().postDelayed({ ifLockStillExistsUnlockProduct(product) }, 5000)
+        Handler().postDelayed({ ifLockStillExistsUnlockProduct(product) }, 3000)
 
     }
 
@@ -457,9 +457,19 @@ class AdminProductsEdit : AppCompatActivity() {
             })
 
         activity_admin_products_edit_content_scrolling_productTitleAdmin.setText(product.title)
+        activity_admin_products_edit_content_scrolling_productTitleAdmin.isEnabled = false
+
         activity_admin_products_edit_content_scrolling_productPriceAdmin.setText(product.price.toString())
+        activity_admin_products_edit_content_scrolling_productPriceAdmin.isEnabled = false
+
         activity_admin_products_edit_content_scrolling_productImageLinkAdmin.setText(product.photoUrl)
+        activity_admin_products_edit_content_scrolling_productImageLinkAdmin.isEnabled = false
+
         activity_admin_products_edit_content_scrolling_productDescriptionAdmin.setText(product.description)
+        activity_admin_products_edit_content_scrolling_productDescriptionAdmin.isEnabled = false
+
+        activity_admin_products_edit_content_scrolling_uploadImageButtonAdmin.isEnabled = false
+
         Picasso.get().load(product.photoUrl)
             .into(activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin)
         productId = product.id
