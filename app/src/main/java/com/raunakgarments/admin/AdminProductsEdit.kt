@@ -183,6 +183,31 @@ class AdminProductsEdit : AppCompatActivity() {
 
     private fun adminLockRetrievedProcessing() {
 
+        activity_admin_products_edit_content_scrolling_productTitleAdmin.isEnabled = true
+
+        activity_admin_products_edit_content_scrolling_productPriceAdmin.isEnabled = true
+
+        activity_admin_products_edit_content_scrolling_productImageLinkAdmin.isEnabled = true
+
+        activity_admin_products_edit_content_scrolling_productDescriptionAdmin.isEnabled = true
+
+        activity_admin_products_edit_content_scrolling_uploadImageButtonAdmin.isEnabled = true
+
+        activity_admin_products_edit_content_scrolling_productStockAdmin.isEnabled = true
+
+        activity_admin_products_edit_content_scrolling_UpdateProductAdmin.isEnabled = true
+        activity_admin_products_edit_content_scrolling_UpdateProductAdmin.background =
+            ContextCompat.getDrawable(
+                this@AdminProductsEdit,
+                R.drawable.button_red_green_color_selector
+            )
+
+        activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.isEnabled = true
+        activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.background =
+            ContextCompat.getDrawable(
+                this@AdminProductsEdit,
+                R.drawable.button_red_green_color_selector
+            )
     }
 
     //todo show in admin that whether admin lock is there or not
@@ -218,6 +243,37 @@ class AdminProductsEdit : AppCompatActivity() {
         activity_admin_products_edit_content_scrolling_releaseLocks.setOnClickListener {
             var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
             productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
+
+            var productStockSyncFirebaseUtil = FirebaseUtil()
+            productStockSyncFirebaseUtil.openFbReference("productStockSync")
+
+            productStockSyncFirebaseUtil.mDatabaseReference.child(product.id).addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(snapshot.exists()) {
+                        var productStockSync =
+                            snapshot.getValue(ProductStockSync::class.java)
+                        if (productStockSync != null) {
+                            if (productStockSync.locked ==
+                                FirebaseAuth.getInstance().uid.toString()
+                            ) {
+                                productStockSync.locked = "-1"
+                                productStockSync.adminLock = false
+                                ProductStockSyncHelper().setValueInChild(
+                                    product.id,
+                                    productStockSync
+                                )
+
+
+                            }
+                        }
+                    } else {
+                        d("AdminProductsEdit","releaseLockButtonClickListener:-snapshot does not exist")
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+
+            })
 
             productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -690,7 +746,7 @@ class AdminProductsEdit : AppCompatActivity() {
 
         var intent = Intent(this, AdminProductActivityNew::class.java)
         intent.putExtra("flow", "updateFlow")
-        this.startActivity(intent)
+//        this.startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
