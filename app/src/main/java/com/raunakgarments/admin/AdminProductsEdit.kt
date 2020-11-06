@@ -252,6 +252,7 @@ class AdminProductsEdit : AppCompatActivity() {
                     if(snapshot.exists()) {
                         var productStockSync =
                             snapshot.getValue(ProductStockSync::class.java)
+                        //todo check if adminlock is set true while tking lock in productstock sync and check if it is true on this line
                         if (productStockSync != null) {
                             if (productStockSync.locked ==
                                 FirebaseAuth.getInstance().uid.toString()
