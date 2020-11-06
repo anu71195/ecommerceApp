@@ -467,6 +467,7 @@ class AdminProductsEdit : AppCompatActivity() {
         )
         //todo add releaselock button from and add productlock button
         //todo get the product lock here
+        //todo show banner in admin and user whether admin lock is there or not
     }
 
     private fun showAdminLockNotAvailablePopup(productStockSyncAdminLock: ProductStockSyncAdminLock) {
