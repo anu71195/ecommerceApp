@@ -475,8 +475,6 @@ class AdminProductsEdit : AppCompatActivity() {
             "adminproductsedit",
             "getproductlock-if you did not get lock don't worry you will get next lock"
         )
-        //todo add releaselock button from and add productlock button
-        //todo get the product lock here
         //todo show banner in admin and user whether admin lock is there or not
     }
 
