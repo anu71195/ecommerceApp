@@ -147,7 +147,7 @@ class AdminProductsEdit : AppCompatActivity() {
 
         Handler().postDelayed({
             getProfileAndCheckForLockUser(FirebaseAuth.getInstance().uid.toString())
-        }, 5000)
+        }, 2000)
 
     }
 
@@ -333,7 +333,7 @@ class AdminProductsEdit : AppCompatActivity() {
                                     .setValue(productStockSyncAdminLock)
                                 Handler().postDelayed(
                                     { checkAndSetReleaseLockEnability(product) },
-                                    1500
+                                    500
                                 )
 
                             } else {
@@ -439,7 +439,7 @@ class AdminProductsEdit : AppCompatActivity() {
     }
 
     private fun checkIfAdminLockStillExists(product: Product) {
-        Handler().postDelayed({ ifLockStillExistsUnlockProduct(product) }, 3000)
+        Handler().postDelayed({ ifLockStillExistsUnlockProduct(product) }, 1500)
 
     }
 
