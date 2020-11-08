@@ -80,7 +80,7 @@ class ProductDetails : AppCompatActivity() {
                 override fun onCancelled(error: DatabaseError) {}
             })
         }
-        //todo let admin take control of locks and release it according to his convenience to manage the stock which is same for offline and online
+
         var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
         productStockSyncAdminLockFirebaseUtil.openFbReference("productStockSyncAdminLock")
 
