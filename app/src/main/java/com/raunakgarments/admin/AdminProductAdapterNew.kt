@@ -18,6 +18,7 @@ import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.R
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
+import com.raunakgarments.model.ProductStockSyncAdminLock
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 import java.util.*
@@ -130,6 +131,9 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
         position: Int,
         product: Product
     ) {
+
+        var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
+        productStockSyncAdminLockFirebaseUtil.openFbReference("productStockSyncAdminLock")
         var productStockSync: ProductStockSync
         productStockSyncFirebaseUtil.mDatabaseReference.child(product.id)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -142,39 +146,56 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
                                 productStockSync
                             )
                         }
-                        if (productStockSync.stock == 0) {
-                            d(
-                                "ProductAdapterNew",
-                                "getProductStocksLocksDetails-Not available${product.id}"
-                            )
-                            holder.image.alpha = 0.5F
-                            holder.notAvailableTv.text = "Not Available"
-                            holder.notAvailableTv.visibility = View.VISIBLE
-                        } else if (!isProductAvailableConditions(productStockSync)) {
-                            d(
-                                "ProductAdapterNew",
-                                "getProductStocksLocksDetails-Coming soon${product.id}"
-                            )
-                            holder.image.alpha = 0.75F
-                            holder.notAvailableTv.text = "Coming Soon"
-                            holder.notAvailableTv.visibility = View.VISIBLE
-                        } else {
-                            d(
-                                "ProductAdapterNew",
-                                "getProductStocksLocksDetails-Available${product.id}"
-                            )
-                            holder.image.alpha = 1F
-                            holder.notAvailableTv.text = ""
-                            holder.notAvailableTv.visibility = View.INVISIBLE
-                        }
+                        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id)
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    if (snapshot.exists()) {
+                                        var productStockSyncAdminLock =
+                                            snapshot.getValue(ProductStockSyncAdminLock()::class.java)
+                                        if (productStockSyncAdminLock != null) {
+                                            productBannerText(
+                                                productStockSync,
+                                                holder,
+                                                product,
+                                                productStockSyncAdminLock
+                                            )
+
+                                        } else {
+                                            productBannerTextWithoutUnderMaintenance(
+                                                productStockSync,
+                                                holder,
+                                                product
+                                            )
+                                            d(
+                                                "AdminProductAdapterNew",
+                                                "getProductStocksLocksDetails :- productStockSyncAdminLock is null"
+                                            )
+                                        }
+                                    } else {
+                                        productBannerTextWithoutUnderMaintenance(
+                                            productStockSync,
+                                            holder,
+                                            product
+                                        )
+                                        d(
+                                            "AdminProductAdapterNew",
+                                            "getProductStocksLocksDetails :- snapshot does not exist"
+                                        )
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {}
+
+                            })
+
                         d(
-                            "ProductAdapterNew",
+                            "AdminProductAdapterNew",
                             "getProductStocksLocksDetails-${Gson().toJson(productStockSync)}"
                         )
                         loadImageAndProgressBarVisibility(holder, position, product)
                     } else {
                         d(
-                            "ProductAdapterNew",
+                            "AdminProductAdapterNew",
                             "getProductStocksLocksDetails-snapshot does not exist"
                         )
                     }
@@ -184,6 +205,79 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
 
             })
 
+    }
+
+    private fun productBannerText(
+        productStockSync: ProductStockSync,
+        holder: DealViewHolder,
+        product: Product,
+        productStockSyncAdminLock: ProductStockSyncAdminLock
+    ) {
+        if (productStockSync.stock == 0) {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Not available${product.id}"
+            )
+            holder.image.alpha = 0.5F
+            holder.notAvailableTv.text = "Not Available"
+            holder.notAvailableTv.visibility = View.VISIBLE
+        } else if (productStockSyncAdminLock.adminLock || productStockSync.adminLock) {
+            d(
+                "AdminProductAdapterNew",
+                "productBannerText-Under Maintenance${product.id}"
+            )
+            holder.image.alpha = 0.5F
+            holder.notAvailableTv.text = "Under Maintenance"
+            holder.notAvailableTv.visibility = View.VISIBLE
+        } else if (!isProductAvailableConditions(productStockSync)) {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Coming soon${product.id}"
+            )
+            holder.image.alpha = 0.75F
+            holder.notAvailableTv.text = "Coming Soon"
+            holder.notAvailableTv.visibility = View.VISIBLE
+        } else {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Available${product.id}"
+            )
+            holder.image.alpha = 1F
+            holder.notAvailableTv.text = ""
+            holder.notAvailableTv.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun productBannerTextWithoutUnderMaintenance(
+        productStockSync: ProductStockSync,
+        holder: DealViewHolder,
+        product: Product
+    ) {
+        if (productStockSync.stock == 0) {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Not available${product.id}"
+            )
+            holder.image.alpha = 0.5F
+            holder.notAvailableTv.text = "Not Available"
+            holder.notAvailableTv.visibility = View.VISIBLE
+        } else if (!isProductAvailableConditions(productStockSync)) {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Coming soon${product.id}"
+            )
+            holder.image.alpha = 0.75F
+            holder.notAvailableTv.text = "Coming Soon"
+            holder.notAvailableTv.visibility = View.VISIBLE
+        } else {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Available${product.id}"
+            )
+            holder.image.alpha = 1F
+            holder.notAvailableTv.text = ""
+            holder.notAvailableTv.visibility = View.INVISIBLE
+        }
     }
 
     private fun isProductAvailableConditions(productStockSync: ProductStockSync): Boolean {
