@@ -128,7 +128,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
         var product = products[position]
         holder.tvTitle.setText(product.title)
         holder.price.text = "\u20b9" + product.price
-        getProductStocksLocksDetails(holder,position, product)
+        getProductStocksLocksDetails(holder, position, product)
         loadImageAndProgressBarVisibility(holder, position, product)
     }
 
@@ -147,22 +147,53 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         productStockSync = snapshot.getValue(ProductStockSync::class.java)!!
-                        holder.itemView.setOnClickListener { rvItemSegue(product, productStockSync) }
+                        holder.itemView.setOnClickListener {
+                            rvItemSegue(
+                                product,
+                                productStockSync
+                            )
+                        }
 
-                        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id).addListenerForSingleValueEvent(object : ValueEventListener {
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                if (snapshot.exists()) {
-                                    var productStockSyncAdminLock =
-                                        snapshot.getValue(ProductStockSyncAdminLock()::class.java)
-                                    productBannerText(productStockSync, holder, product, productStockSyncAdminLock)
-                                } else {
-                                    d("ProductAdapterNew", "getProductStocksLocksDetails :- snapshot does not exist")
+                        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id)
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    if (snapshot.exists()) {
+                                        var productStockSyncAdminLock =
+                                            snapshot.getValue(ProductStockSyncAdminLock()::class.java)
+                                        if (productStockSyncAdminLock != null) {
+                                            productBannerText(
+                                                productStockSync,
+                                                holder,
+                                                product,
+                                                productStockSyncAdminLock
+                                            )
+                                        } else {
+                                            productBannerTextWithoutUnderMaintenance(
+                                                productStockSync,
+                                                holder,
+                                                product
+                                            )
+                                            d(
+                                                "ProductAdapterNew",
+                                                "getProductStocksLocksDetails :- productStockSyncAdminLock is null"
+                                            )
+                                        }
+                                    } else {
+                                        productBannerTextWithoutUnderMaintenance(
+                                            productStockSync,
+                                            holder,
+                                            product
+                                        )
+                                        d(
+                                            "ProductAdapterNew",
+                                            "getProductStocksLocksDetails :- snapshot does not exist"
+                                        )
+                                    }
                                 }
-                            }
 
-                            override fun onCancelled(error: DatabaseError) {}
+                                override fun onCancelled(error: DatabaseError) {}
 
-                        })
+                            })
 
 
                         d(
@@ -182,11 +213,10 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
             })
     }
 
-    private fun productBannerText(
+    private fun productBannerTextWithoutUnderMaintenance(
         productStockSync: ProductStockSync,
         holder: DealViewHolder,
-        product: Product,
-        productStockSyncAdminLock: ProductStockSyncAdminLock?
+        product: Product
     ) {
         if (productStockSync.stock == 0) {
             d(
@@ -195,6 +225,47 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
             )
             holder.image.alpha = 0.5F
             holder.notAvailableTv.text = "Not Available"
+            holder.notAvailableTv.visibility = View.VISIBLE
+        } else if (!isProductAvailableConditions(productStockSync)) {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Coming soon${product.id}"
+            )
+            holder.image.alpha = 0.75F
+            holder.notAvailableTv.text = "Coming Soon"
+            holder.notAvailableTv.visibility = View.VISIBLE
+        } else {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Available${product.id}"
+            )
+            holder.image.alpha = 1F
+            holder.notAvailableTv.text = ""
+            holder.notAvailableTv.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun productBannerText(
+        productStockSync: ProductStockSync,
+        holder: DealViewHolder,
+        product: Product,
+        productStockSyncAdminLock: ProductStockSyncAdminLock
+    ) {
+        if (productStockSync.stock == 0) {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Not available${product.id}"
+            )
+            holder.image.alpha = 0.5F
+            holder.notAvailableTv.text = "Not Available"
+            holder.notAvailableTv.visibility = View.VISIBLE
+        } else if (productStockSyncAdminLock.adminLock) {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Under Maintenance${product.id}"
+            )
+            holder.image.alpha = 0.5F
+            holder.notAvailableTv.text = "Under Maintenance"
             holder.notAvailableTv.visibility = View.VISIBLE
         } else if (!isProductAvailableConditions(productStockSync)) {
             d(
