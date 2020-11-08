@@ -189,6 +189,8 @@ class AdminProductsEdit : AppCompatActivity() {
 
     private fun adminLockRetrievedProcessing() {
 
+        refreshTextFields()
+
         activity_admin_products_edit_content_scrolling_productTitleAdmin.isEnabled = true
 
         activity_admin_products_edit_content_scrolling_productPriceAdmin.isEnabled = true
@@ -214,6 +216,62 @@ class AdminProductsEdit : AppCompatActivity() {
                 this@AdminProductsEdit,
                 R.drawable.button_red_green_color_selector
             )
+    }
+
+    private fun refreshTextFields() {
+        var productId = this.productId
+        var productFirebaseUtil = FirebaseUtil()
+        productFirebaseUtil.openFbReference("products")
+
+        productFirebaseUtil.mDatabaseReference.child(productId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        var product = snapshot.getValue(Product::class.java)
+                        if (product != null) {
+                            activity_admin_products_edit_content_scrolling_productTitleAdmin.setText(product.title)
+
+                            activity_admin_products_edit_content_scrolling_productPriceAdmin.setText(product.price.toString())
+
+                            activity_admin_products_edit_content_scrolling_productImageLinkAdmin.setText(product.photoUrl)
+
+                            activity_admin_products_edit_content_scrolling_productDescriptionAdmin.setText(product.description)
+
+                            Picasso.get().load(product.photoUrl)
+                                .into(activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin)
+                            productId = product.id
+                            tagArray = product.tagArray
+
+                        } else {
+                            d("AdminProductsEdit", "refreshTextFields - product is null")
+                        }
+                    } else {
+                        d("AdminProductsEdit", "refreshTextFields - snapshot does not exist")
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+
+            })
+
+        var productStockFirebaseUtil = FirebaseUtil()
+        productStockFirebaseUtil.openFbReference("productStockSync")
+        productStockFirebaseUtil.mDatabaseReference.child(productId)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var productStock = snapshot.getValue(ProductStockSync::class.java)
+                    if (productStock != null) {
+                        activity_admin_products_edit_content_scrolling_productStockAdmin.setText(
+                            productStock.stock.toString()
+                        )
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
+
+
     }
 
     private fun getIstTime(): SimpleDateFormat {
@@ -504,6 +562,8 @@ class AdminProductsEdit : AppCompatActivity() {
 
     private fun populateTextFields(product: Product) {
 
+        this.productId = product.id
+
         activity_admin_products_edit_content_scrolling_productStockAdmin.isEnabled = false
 
         activity_admin_products_edit_content_scrolling_releaseLocks.isEnabled = false
@@ -523,8 +583,6 @@ class AdminProductsEdit : AppCompatActivity() {
         activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.isEnabled = false
         activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.background =
             ContextCompat.getDrawable(this, R.drawable.rounded_corners_unselected_red)
-
-        //todo refresh the contents in the textfields when enabling them true after getting locks
 
         var productStockFirebaseUtil = FirebaseUtil()
         productStockFirebaseUtil.openFbReference("productStockSync")
