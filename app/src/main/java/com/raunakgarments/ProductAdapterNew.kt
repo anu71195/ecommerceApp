@@ -259,7 +259,7 @@ class ProductAdapterNew : RecyclerView.Adapter<ProductAdapterNew.DealViewHolder>
             holder.image.alpha = 0.5F
             holder.notAvailableTv.text = "Not Available"
             holder.notAvailableTv.visibility = View.VISIBLE
-        } else if (productStockSyncAdminLock.adminLock) {
+        } else if (productStockSyncAdminLock.adminLock || productStockSync.adminLock) {
             d(
                 "ProductAdapterNew",
                 "getProductStocksLocksDetails-Under Maintenance${product.id}"

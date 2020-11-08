@@ -15,6 +15,7 @@ import com.google.gson.Gson
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
+import com.raunakgarments.model.ProductStockSyncAdminLock
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.product_details.*
 import java.util.*
@@ -70,7 +71,7 @@ class ProductDetails : AppCompatActivity() {
                             R.string.productAddedToCartToast,
                             Toast.LENGTH_SHORT
                         )
-                        productAddedToCartToast.setGravity(Gravity.CENTER, 0,0)
+                        productAddedToCartToast.setGravity(Gravity.CENTER, 0, 0)
                         productAddedToCartToast.show()
                     }
                     canProductBeAdded = false
@@ -80,7 +81,49 @@ class ProductDetails : AppCompatActivity() {
             })
         }
         //todo let admin take control of locks and release it according to his convenience to manage the stock which is same for offline and online
-        loadImageAndAvailabilityBanner(product, productStockSync)
+        var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
+        productStockSyncAdminLockFirebaseUtil.openFbReference("productStockSyncAdminLock")
+
+        productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        var productStockSyncAdminLock =
+                            snapshot.getValue(ProductStockSyncAdminLock()::class.java)
+                        if (productStockSyncAdminLock != null) {
+
+                            loadImageAndAvailabilityBanner(
+                                product,
+                                productStockSync,
+                                productStockSyncAdminLock
+                            )
+
+                        } else {
+                            loadImageAndAvailabilityBannerWithoutUnderMaintenance(
+                                product,
+                                productStockSync
+                            )
+                            d(
+                                "ProductDetails",
+                                "onCreate :- productStockSyncAdminLock is null"
+                            )
+                        }
+                    } else {
+                        loadImageAndAvailabilityBannerWithoutUnderMaintenance(
+                            product,
+                            productStockSync
+                        )
+                        d(
+                            "ProductDetails",
+                            "onCreate :- snapshot does not exist"
+                        )
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+
+            })
+
         product_name.text = title
         productPrice.text = "\u20B9" + price
         productDescription.text = description
@@ -95,7 +138,7 @@ class ProductDetails : AppCompatActivity() {
 //        }
     }
 
-    private fun loadImageAndAvailabilityBanner(
+    private fun loadImageAndAvailabilityBannerWithoutUnderMaintenance(
         product: Product,
         productStockSync: ProductStockSync
     ) {
@@ -108,6 +151,52 @@ class ProductDetails : AppCompatActivity() {
             )
             photo.alpha = 0.5F
             product_details_notAvailableTextView.text = "Not Available"
+            product_details_notAvailableTextView.visibility = View.VISIBLE
+        } else if (!isProductAvailableConditions(productStockSync)) {
+            d(
+                "ProductDetails",
+                "loadImageAndAvailabilityBanner-Coming soon${product.id}"
+            )
+            photo.alpha = 0.75F
+            product_details_notAvailableTextView.text = "Coming Soon"
+            product_details_notAvailableTextView.visibility = View.VISIBLE
+        } else {
+            d(
+                "ProductDetails",
+                "loadImageAndAvailabilityBanner-Available${product.id}"
+            )
+            photo.alpha = 1F
+            product_details_notAvailableTextView.text = ""
+            product_details_notAvailableTextView.visibility = View.INVISIBLE
+        }
+        d(
+            "ProductDetails",
+            "loadImageAndAvailabilityBanner-${Gson().toJson(productStockSync)}"
+        )
+    }
+
+    private fun loadImageAndAvailabilityBanner(
+        product: Product,
+        productStockSync: ProductStockSync,
+        productStockSyncAdminLock: ProductStockSyncAdminLock
+    ) {
+        Picasso.get().load(intent.getStringExtra("imageUrl")).into(photo)
+
+        if (productStockSync.stock == 0) {
+            d(
+                "ProductDetails",
+                "loadImageAndAvailabilityBanner-Not available${product.id}"
+            )
+            photo.alpha = 0.5F
+            product_details_notAvailableTextView.text = "Not Available"
+            product_details_notAvailableTextView.visibility = View.VISIBLE
+        } else if (productStockSyncAdminLock.adminLock || productStockSync.adminLock) {
+            d(
+                "ProductDetails",
+                "loadImageAndAvailabilityBanner-Under Maintenance${product.id}"
+            )
+            photo.alpha = 0.5F
+            product_details_notAvailableTextView.text = "Under Maintenance"
             product_details_notAvailableTextView.visibility = View.VISIBLE
         } else if (!isProductAvailableConditions(productStockSync)) {
             d(
