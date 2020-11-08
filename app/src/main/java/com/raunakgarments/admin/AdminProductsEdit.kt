@@ -216,8 +216,6 @@ class AdminProductsEdit : AppCompatActivity() {
             )
     }
 
-    //todo show in admin that whether admin lock is there or not
-
     private fun getIstTime(): SimpleDateFormat {
         var istTime = SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
         istTime.timeZone = TimeZone.getTimeZone("Asia/Kolkata")
@@ -475,7 +473,6 @@ class AdminProductsEdit : AppCompatActivity() {
             "adminproductsedit",
             "getproductlock-if you did not get lock don't worry you will get next lock"
         )
-        //todo show banner in admin and user whether admin lock is there or not
     }
 
     private fun showAdminLockNotAvailablePopup(productStockSyncAdminLock: ProductStockSyncAdminLock) {
@@ -713,7 +710,7 @@ class AdminProductsEdit : AppCompatActivity() {
         } else {
             productStockSyncStock = 0
         }
-//todo admin lock
+
         var productStockFirebaseUtil = FirebaseUtil()
         productStockFirebaseUtil.openFbReference("productStockSync")
         productStockFirebaseUtil.mDatabaseReference.child(product.id)
