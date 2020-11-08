@@ -220,7 +220,7 @@ class UserCartActivityrvFragment() : Fragment() {
                                                             ValueEventListener {
                                                             override fun onDataChange(snapshot: DataSnapshot) {
                                                                 if (snapshot.exists()) {
-                                                                    //todo productStockSyncAdminLock
+
                                                                     var productStockSyncAdminLock =
                                                                         snapshot.getValue(
                                                                             ProductStockSyncAdminLock::class.java
@@ -239,7 +239,10 @@ class UserCartActivityrvFragment() : Fragment() {
                                                                     )
                                                                     if (productStockSyncAdminLock != null && productStockSyncAdminLock.adminLock) {
                                                                         //user will not get the lock, also update productstock sync here if required
-                                                                        adminLockIsTakenValueInsertion(snapshot, lockedProducts)
+                                                                        adminLockIsTakenValueInsertion(
+                                                                            snapshot,
+                                                                            lockedProducts
+                                                                        )
                                                                     } else {
                                                                         // user will get the lock as either productStockSyncAdminLock is not found or productStockSyncAdminLock.adminLock is false
                                                                         getLockAndPopulateProductStockSyncSnapshot(
