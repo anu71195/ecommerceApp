@@ -19,6 +19,7 @@ import com.raunakgarments.R
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.ProductStockSyncAdminLock
+import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 import java.util.*
@@ -149,39 +150,7 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
                         productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id)
                             .addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
-                                    if (snapshot.exists()) {
-                                        var productStockSyncAdminLock =
-                                            snapshot.getValue(ProductStockSyncAdminLock()::class.java)
-                                        if (productStockSyncAdminLock != null) {
-                                            productBannerText(
-                                                productStockSync,
-                                                holder,
-                                                product,
-                                                productStockSyncAdminLock
-                                            )
-
-                                        } else {
-                                            productBannerTextWithoutUnderMaintenance(
-                                                productStockSync,
-                                                holder,
-                                                product
-                                            )
-                                            d(
-                                                "AdminProductAdapterNew",
-                                                "getProductStocksLocksDetails :- productStockSyncAdminLock is null"
-                                            )
-                                        }
-                                    } else {
-                                        productBannerTextWithoutUnderMaintenance(
-                                            productStockSync,
-                                            holder,
-                                            product
-                                        )
-                                        d(
-                                            "AdminProductAdapterNew",
-                                            "getProductStocksLocksDetails :- snapshot does not exist"
-                                        )
-                                    }
+                                    populateProductBannerText(holder, position, product, productStockSync, snapshot)
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {}
@@ -207,6 +176,48 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
 
     }
 
+    private fun populateProductBannerText(
+        holder: DealViewHolder,
+        position: Int,
+        product: Product,
+        productStockSync: ProductStockSync,
+        snapshot: DataSnapshot
+    ) {
+        if (snapshot.exists()) {
+            var productStockSyncAdminLock =
+                snapshot.getValue(ProductStockSyncAdminLock()::class.java)
+            if (productStockSyncAdminLock != null) {
+                productBannerText(
+                    productStockSync,
+                    holder,
+                    product,
+                    productStockSyncAdminLock
+                )
+
+            } else {
+                productBannerTextWithoutUnderMaintenance(
+                    productStockSync,
+                    holder,
+                    product
+                )
+                d(
+                    "AdminProductAdapterNew",
+                    "getProductStocksLocksDetails :- productStockSyncAdminLock is null"
+                )
+            }
+        } else {
+            productBannerTextWithoutUnderMaintenance(
+                productStockSync,
+                holder,
+                product
+            )
+            d(
+                "AdminProductAdapterNew",
+                "getProductStocksLocksDetails :- snapshot does not exist"
+            )
+        }
+    }
+
     private fun productBannerText(
         productStockSync: ProductStockSync,
         holder: DealViewHolder,
@@ -227,16 +238,43 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
                 "productBannerText-Under Maintenance${product.id}"
             )
             holder.image.alpha = 0.5F
-            holder.notAvailableTv.text = "Under Maintenance"
+            holder.notAvailableTv.text = "Under Maintenance \nName = " + productStockSyncAdminLock.adminName
             holder.notAvailableTv.visibility = View.VISIBLE
         } else if (!isProductAvailableConditions(productStockSync)) {
+
             d(
                 "ProductAdapterNew",
                 "getProductStocksLocksDetails-Coming soon${product.id}"
             )
-            holder.image.alpha = 0.75F
-            holder.notAvailableTv.text = "Coming Soon"
-            holder.notAvailableTv.visibility = View.VISIBLE
+
+            var userProfileFirebaseUtil = FirebaseUtil()
+            userProfileFirebaseUtil.openFbReference("userProfile/")
+            userProfileFirebaseUtil.mDatabaseReference.child(productStockSync.locked)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        if(snapshot.exists()) {
+
+                            var userProfile = snapshot.getValue(Profile::class.java)
+
+                            if(userProfile!=null) {
+
+                                holder.image.alpha = 0.75F
+                                holder.notAvailableTv.text =
+                                    "Coming Soon\n" + "name = ${userProfile.userName}"
+                                holder.notAvailableTv.visibility = View.VISIBLE
+                            } else {
+                                d("AdminProductAdapterNew", "productBannerText - userprofile does not exist")
+                            }
+                        } else {
+                            d("AdminProductAdapterNew", "productBannerText - snapshot does not exist")
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {}
+                })
+
         } else {
             d(
                 "ProductAdapterNew",
