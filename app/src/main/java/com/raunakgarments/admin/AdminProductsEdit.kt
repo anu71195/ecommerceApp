@@ -426,6 +426,7 @@ class AdminProductsEdit : AppCompatActivity() {
         }
     }
     //todo show names of the locks admin and user in admin flow
+    //todo show the banners on search options as well
     private fun getLocksButtonClickListener(product: Product) {
 
         activity_admin_products_edit_content_scrolling_getLocks.setOnClickListener {
