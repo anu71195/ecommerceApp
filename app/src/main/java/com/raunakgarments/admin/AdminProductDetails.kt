@@ -15,6 +15,7 @@ import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.ProductStockSyncAdminLock
+import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.product_details.*
 import kotlinx.android.synthetic.main.product_details_admin.*
@@ -51,6 +52,7 @@ class AdminProductDetails : AppCompatActivity() {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
+                        //todo add profile and pass it to loadImageAndAvailabilityBanner
                         var productStockSyncAdminLock =
                             snapshot.getValue(ProductStockSyncAdminLock()::class.java)
                         if (productStockSyncAdminLock != null) {
@@ -120,9 +122,33 @@ class AdminProductDetails : AppCompatActivity() {
                 "AdminProductDetails",
                 "loadImageAndAvailabilityBanner-Coming soon${product.id}"
             )
-            product_details_admin_photo.alpha = 0.75F
-            product_details_admin_notAvailableTextView.text = "Coming Soon"
-            product_details_admin_notAvailableTextView.visibility = View.VISIBLE
+            var userProfileFirebaseUtil = FirebaseUtil()
+            userProfileFirebaseUtil.openFbReference("userProfile/")
+            userProfileFirebaseUtil.mDatabaseReference.child(productStockSync.locked)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        if(snapshot.exists()) {
+
+                            var userProfile = snapshot.getValue(Profile::class.java)
+
+                            if(userProfile!=null) {
+
+                                product_details_admin_photo.alpha = 0.75F
+                                product_details_admin_notAvailableTextView.text = "Coming Soon\n" + "name = ${userProfile.userName}\n id = ${productStockSync.locked}"
+                                product_details_admin_notAvailableTextView.visibility = View.VISIBLE
+
+                            } else {
+                                d("AdminProductDetails", "productBannerText - userprofile does not exist")
+                            }
+                        } else {
+                            d("AdminProductDetails", "productBannerText - snapshot does not exist")
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {}
+                })
         } else {
             d(
                 "AdminProductDetails",
@@ -160,16 +186,40 @@ class AdminProductDetails : AppCompatActivity() {
                 "loadImageAndAvailabilityBanner-Under Maintenance${product.id}"
             )
             product_details_admin_photo.alpha = 0.5F
-            product_details_admin_notAvailableTextView.text = "Under Maintenance"
+            product_details_admin_notAvailableTextView.text = "Under Maintenance \nName = " + productStockSyncAdminLock.adminName + "\nID = " + productStockSyncAdminLock.adminId
             product_details_admin_notAvailableTextView.visibility = View.VISIBLE
         } else if (!isProductAvailableConditions(productStockSync)) {
             d(
                 "AdminProductDetails",
                 "loadImageAndAvailabilityBanner-Coming soon${product.id}"
             )
-            product_details_admin_photo.alpha = 0.75F
-            product_details_admin_notAvailableTextView.text = "Coming Soon"
-            product_details_admin_notAvailableTextView.visibility = View.VISIBLE
+            var userProfileFirebaseUtil = FirebaseUtil()
+            userProfileFirebaseUtil.openFbReference("userProfile/")
+            userProfileFirebaseUtil.mDatabaseReference.child(productStockSync.locked)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        if(snapshot.exists()) {
+
+                            var userProfile = snapshot.getValue(Profile::class.java)
+
+                            if(userProfile!=null) {
+
+                                product_details_admin_photo.alpha = 0.75F
+                                product_details_admin_notAvailableTextView.text = "Coming Soon\n" + "name = ${userProfile.userName}\n id = ${productStockSync.locked}"
+                                product_details_admin_notAvailableTextView.visibility = View.VISIBLE
+
+                            } else {
+                                d("AdminProductDetails", "productBannerText - userprofile does not exist")
+                            }
+                        } else {
+                            d("AdminProductDetails", "productBannerText - snapshot does not exist")
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {}
+                })
         } else {
             d(
                 "AdminProductDetails",

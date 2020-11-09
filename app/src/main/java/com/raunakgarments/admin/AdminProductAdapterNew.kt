@@ -304,9 +304,33 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
                 "ProductAdapterNew",
                 "getProductStocksLocksDetails-Coming soon${product.id}"
             )
-            holder.image.alpha = 0.75F
-            holder.notAvailableTv.text = "Coming Soon"
-            holder.notAvailableTv.visibility = View.VISIBLE
+            var userProfileFirebaseUtil = FirebaseUtil()
+            userProfileFirebaseUtil.openFbReference("userProfile/")
+            userProfileFirebaseUtil.mDatabaseReference.child(productStockSync.locked)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        if(snapshot.exists()) {
+
+                            var userProfile = snapshot.getValue(Profile::class.java)
+
+                            if(userProfile!=null) {
+
+                                holder.image.alpha = 0.75F
+                                holder.notAvailableTv.text =
+                                    "Coming Soon\n" + "name = ${userProfile.userName}"
+                                holder.notAvailableTv.visibility = View.VISIBLE
+                            } else {
+                                d("AdminProductAdapterNew", "productBannerText - userprofile does not exist")
+                            }
+                        } else {
+                            d("AdminProductAdapterNew", "productBannerText - snapshot does not exist")
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {}
+                })
         } else {
             d(
                 "ProductAdapterNew",
