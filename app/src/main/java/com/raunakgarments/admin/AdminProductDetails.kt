@@ -52,7 +52,7 @@ class AdminProductDetails : AppCompatActivity() {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
-                        //todo add profile and pass it to loadImageAndAvailabilityBanner
+
                         var productStockSyncAdminLock =
                             snapshot.getValue(ProductStockSyncAdminLock()::class.java)
                         if (productStockSyncAdminLock != null) {
