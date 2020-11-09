@@ -64,6 +64,9 @@ class AdminProductsEdit : AppCompatActivity() {
 
     private fun getProductLockClickListener(product: Product) {
         activity_admin_products_edit_content_scrolling_getProduct.setOnClickListener {
+
+            activity_admin_products_edit_progressBar.visibility = View.VISIBLE
+
             var productStockSyncFirebaseUtil = FirebaseUtil()
             productStockSyncFirebaseUtil.openFbReference("productStockSync")
 
@@ -90,8 +93,10 @@ class AdminProductsEdit : AppCompatActivity() {
                                     "Lock not available - try again after sometime",
                                     Toast.LENGTH_LONG
                                 ).show()
+                                activity_admin_products_edit_progressBar.visibility = View.GONE
                             }
                         } else {
+                            activity_admin_products_edit_progressBar.visibility = View.GONE
                             d(
                                 "AdminProductsEdit",
                                 "getProductLockListener :- snapshot does not exists"
@@ -172,14 +177,18 @@ class AdminProductsEdit : AppCompatActivity() {
                                     "checkForLockUser:-product lock is available"
                                 )
                             } else {
+                                activity_admin_products_edit_progressBar.visibility = View.GONE
                                 d(
                                     "AdminProductsEdit",
                                     "checkForLockUser:-product lock is not available"
                                 )
                             }
+                        } else {
+                            activity_admin_products_edit_progressBar.visibility = View.GONE
                         }
                     } else {
                         d("AdminProductsEdit", "checkForLockUser:-snapshot does not exist")
+                        activity_admin_products_edit_progressBar.visibility = View.GONE
                     }
                 }
 
@@ -216,6 +225,8 @@ class AdminProductsEdit : AppCompatActivity() {
                 this@AdminProductsEdit,
                 R.drawable.button_red_green_color_selector
             )
+
+        activity_admin_products_edit_progressBar.visibility = View.GONE
     }
 
     private fun refreshTextFields() {
@@ -303,6 +314,9 @@ class AdminProductsEdit : AppCompatActivity() {
 
     private fun releaseLockButtonClickListener(product: Product) {
         activity_admin_products_edit_content_scrolling_releaseLocks.setOnClickListener {
+
+            activity_admin_products_edit_progressBar.visibility = View.VISIBLE
+
             var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
             productStockSyncAdminLockFirebaseUtil.openFbReference(getString(R.string.database_product_stock_sync_admin_lock))
 
@@ -393,6 +407,7 @@ class AdminProductsEdit : AppCompatActivity() {
                                 )
 
                             } else {
+                                activity_admin_products_edit_progressBar.visibility = View.GONE
                                 d(
                                     "AdminProductsEdit",
                                     "checkAndSetReleaseLockENability :- product does not exits"
@@ -410,12 +425,12 @@ class AdminProductsEdit : AppCompatActivity() {
                 })
         }
     }
-
+    //todo show names of the locks admin and user in admin flow
     private fun getLocksButtonClickListener(product: Product) {
 
-        activity_admin_products_edit_progressBar.visibility = View.VISIBLE
-
         activity_admin_products_edit_content_scrolling_getLocks.setOnClickListener {
+
+            activity_admin_products_edit_progressBar.visibility = View.VISIBLE
 
             var userProfileFirebaseUtil = FirebaseUtil()
             userProfileFirebaseUtil.openFbReference("userProfile/")
@@ -431,12 +446,15 @@ class AdminProductsEdit : AppCompatActivity() {
                             )
                             if (userProfile != null) {
                                 checkAndSetProductSyncAdminLock(product, userProfile)
+                            } else {
+                                activity_admin_products_edit_progressBar.visibility = View.GONE
                             }
                         } else {
                             d(
                                 "AdminProductsEdit",
                                 "getLocksButtonClickListener-snapshot does not exist"
                             )
+                            activity_admin_products_edit_progressBar.visibility = View.GONE
                         }
                     }
 
@@ -510,12 +528,14 @@ class AdminProductsEdit : AppCompatActivity() {
                                 "AdminProductsEdit",
                                 "ifLockStillExistsUnlockProduct :- Did not get lock"
                             )
+                            activity_admin_products_edit_progressBar.visibility = View.GONE
                         }
                     } else {
                         d(
                             "AdminProductsEdit",
                             "ifLockStillExistsUnlockProduct :- Snapshot does not exist"
                         )
+                        activity_admin_products_edit_progressBar.visibility = View.GONE
                     }
                 }
 
@@ -543,6 +563,8 @@ class AdminProductsEdit : AppCompatActivity() {
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
+
+        activity_admin_products_edit_progressBar.visibility = View.GONE
     }
 
     private fun setProductSyncAdminLock(
@@ -681,7 +703,10 @@ class AdminProductsEdit : AppCompatActivity() {
                             "AdminProductsEdit",
                             "checkAndSetReleaseLockENability :- snapshot does not exits"
                         )
+
                     }
+
+                    activity_admin_products_edit_progressBar.visibility = View.GONE
                 }
 
                 override fun onCancelled(error: DatabaseError) {}
@@ -701,6 +726,9 @@ class AdminProductsEdit : AppCompatActivity() {
 
     private fun deleteButtonClickListener() {
         activity_admin_products_edit_content_scrolling_DeleteButtonAdmin.setOnClickListener {
+
+            activity_admin_products_edit_progressBar.visibility = View.VISIBLE
+
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Are you sure?")
             builder.setMessage("")
@@ -732,10 +760,17 @@ class AdminProductsEdit : AppCompatActivity() {
             alertDialog.setCancelable(false)
             alertDialog.show()
         }
+
+        Handler().postDelayed({
+            activity_admin_products_edit_progressBar.visibility = View.GONE
+        }, 500)
     }
 
     private fun editButtonClickListener(product: Product) {
         activity_admin_products_edit_content_scrolling_UpdateProductAdmin.setOnClickListener {
+
+            activity_admin_products_edit_progressBar.visibility = View.VISIBLE
+
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Are you sure?")
             builder.setMessage("")
@@ -757,9 +792,14 @@ class AdminProductsEdit : AppCompatActivity() {
             alertDialog.setCancelable(false)
             alertDialog.show()
         }
+
+        activity_admin_products_edit_progressBar.visibility = View.GONE
     }
 
     private fun positiveClickListenerOverPopUpOnUpdateProduct(product: Product) {
+
+        activity_admin_products_edit_progressBar.visibility = View.VISIBLE
+
         var productStockSyncStock = 0
         if (activity_admin_products_edit_content_scrolling_productStockAdmin.text.toString() != "") {
             productStockSyncStock =
@@ -781,6 +821,9 @@ class AdminProductsEdit : AppCompatActivity() {
                             snapshot.key.toString(),
                             productStockSync
                         )
+                        Handler().postDelayed({
+                            activity_admin_products_edit_progressBar.visibility = View.GONE
+                        }, 500)
                     }
                 }
 
@@ -834,6 +877,12 @@ class AdminProductsEdit : AppCompatActivity() {
 
         var intent = Intent(this, AdminProductActivityNew::class.java)
         intent.putExtra("flow", "updateFlow")
+
+        Handler().postDelayed({
+            activity_admin_products_edit_progressBar.visibility = View.GONE
+        }, 1000)
+
+
 //        this.startActivity(intent)
     }
 
@@ -860,4 +909,3 @@ class AdminProductsEdit : AppCompatActivity() {
         }
     }
 }
-//todo handle the progress bar
