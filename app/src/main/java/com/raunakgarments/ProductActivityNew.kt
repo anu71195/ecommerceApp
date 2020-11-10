@@ -53,7 +53,7 @@ class ProductActivityNew : AppCompatActivity() {
                     this.startActivity(intent)
                 }
                 R.id.menu_main_actionSettings -> {
-                    d("Settings", "Settings was pressed")
+                    d("UserSettings", "UserSettings was pressed")
                     var intent = Intent(this, SettingsActivity::class.java)
                     this.startActivity(intent)
                 }
