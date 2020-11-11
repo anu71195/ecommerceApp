@@ -18,6 +18,7 @@ import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.Product
 import com.raunakgarments.model.ProductStockSync
 import com.raunakgarments.model.ProductStockSyncAdminLock
+import com.raunakgarments.model.UserSettings
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 import java.util.*
@@ -54,21 +55,12 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
         var firebaseUtil: FirebaseUtil = FirebaseUtil()
         firebaseUtil.openFbReference(ref)
 
-        for (productId in productIds) {
-            d("ref", "$ref/$productId")
-            firebaseUtil.mDatabaseReference.child(productId)
-                .addValueEventListener(object : ValueEventListener {
-                    override fun onCancelled(error: DatabaseError) {}
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        var product = snapshot.getValue(Product::class.java)
-                        if (product != null) {
-                            d("productname", "${snapshot.value}")
-                            products.add(product)
-                            notifyItemInserted(products.size - 1)
-                        }
-                    }
-                })
-        }
+        var productStockSyncAdminLockFirebaseUtil = FirebaseUtil()
+        productStockSyncAdminLockFirebaseUtil.openFbReference("productStockSyncAdminLock")
+
+
+        checkUserSettingsForProductPopulation(productStockSyncFirebaseUtil, productStockSyncAdminLockFirebaseUtil, firebaseUtil, productIds, ref)
+
 //        childEventListener = object : ChildEventListener {
 //            override fun onCancelled(error: DatabaseError) {}
 //            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
@@ -91,6 +83,124 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
         this.context = context
         d("anurag", "I'm populating ended")
 
+    }
+
+    private fun checkUserSettingsForProductPopulation(
+        productStockSyncFirebaseUtil: FirebaseUtil,
+        productStockSyncAdminLockFirebaseUtil: FirebaseUtil,
+        firebaseUtil: FirebaseUtil,
+        productIds: MutableList<String>,
+        ref: String
+    ) {
+
+        var userSettingsFirebaseUtil = FirebaseUtil()
+        userSettingsFirebaseUtil.openFbReference("userSettings")
+
+        var userSettings = UserSettings()
+
+        userSettingsFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userSettings = if(snapshot.exists()) {
+                    snapshot.getValue(UserSettings::class.java)!!
+                } else {
+                    UserSettings()
+                }
+                populateProducts(productStockSyncFirebaseUtil, productStockSyncAdminLockFirebaseUtil, firebaseUtil, productIds, ref, userSettings)
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
+
+    }
+
+    private fun populateProducts(
+        productStockSyncFirebaseUtil: FirebaseUtil,
+        productStockSyncAdminLockFirebaseUtil: FirebaseUtil,
+        firebaseUtil: FirebaseUtil,
+        productIds: MutableList<String>,
+        ref: String,
+        userSettings: UserSettings
+    ) {
+
+        for (productId in productIds) {
+            //todo put checks here
+            productStockSyncFirebaseUtil.mDatabaseReference.child(productId).addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    var productStockSync = ProductStockSync()
+                    productStockSync = if(snapshot.exists()) {
+                        snapshot.getValue(ProductStockSync::class.java)!!
+                    } else {
+                        ProductStockSync()
+                    }
+
+                    productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(productId)
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                var productStockSyncAdminLock = ProductStockSyncAdminLock()
+
+                                productStockSyncAdminLock = if(snapshot.exists()) {
+                                    snapshot.getValue(ProductStockSyncAdminLock::class.java)!!
+                                } else {
+                                    ProductStockSyncAdminLock()
+                                }
+
+                                addProductToProducts(productStockSync, productStockSyncAdminLock, firebaseUtil, productId, ref, userSettings)
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {}
+                        })
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+
+            })
+        }
+    }
+
+    private fun addProductToProducts(
+        productStockSync: ProductStockSync,
+        productStockSyncAdminLock: ProductStockSyncAdminLock,
+        firebaseUtil: FirebaseUtil,
+        productId: String,
+        ref: String,
+        userSettings: UserSettings
+    ) {
+
+        d("ProductSearcAdapterNew", "addProductToProducts - ${Gson().toJson(productStockSync)}")
+        d("ProductSearcAdapterNew", "addProductToProducts - ${Gson().toJson(productStockSyncAdminLock)}")
+        d("ProductSearcAdapterNew", "addProductToProducts - ${Gson().toJson(userSettings)}")
+        d("ref", "$ref/$productId")
+        firebaseUtil.mDatabaseReference.child(productId)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {}
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var product = snapshot.getValue(Product::class.java)
+                    if (product != null) {
+                        d("productname", "${snapshot.value}")
+                        if(checkConditionsToIncludeProducts(productStockSync, productStockSyncAdminLock, userSettings)) {
+                            products.add(product)
+                            notifyItemInserted(products.size - 1)
+                        }
+                    }
+                }
+            })
+    }
+
+    private fun checkConditionsToIncludeProducts(
+        productStockSync: ProductStockSync,
+        productStockSyncAdminLock: ProductStockSyncAdminLock,
+        userSettings: UserSettings
+    ): Boolean {
+        if (productStockSync.stock == 0 && !userSettings.showUnavailableProducts) {
+            return false
+        } else if ((productStockSyncAdminLock.adminLock || productStockSync.adminLock) && !userSettings.showUnderMaintenanceProducts) {
+            return false
+        } else if (!isProductAvailableConditions(productStockSync) && !userSettings.showComingSoonProducts) {
+            return false
+        }
+        return true
     }
 
     public class DealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
