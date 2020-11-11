@@ -150,7 +150,13 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
                         productStockSyncAdminLockFirebaseUtil.mDatabaseReference.child(product.id)
                             .addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
-                                    populateProductBannerText(holder, position, product, productStockSync, snapshot)
+                                    populateProductBannerText(
+                                        holder,
+                                        position,
+                                        product,
+                                        productStockSync,
+                                        snapshot
+                                    )
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {}
@@ -224,21 +230,14 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
         product: Product,
         productStockSyncAdminLock: ProductStockSyncAdminLock
     ) {
-        if (productStockSync.stock == 0) {
-            d(
-                "ProductAdapterNew",
-                "getProductStocksLocksDetails-Not available${product.id}"
-            )
-            holder.image.alpha = 0.5F
-            holder.notAvailableTv.text = "Not Available"
-            holder.notAvailableTv.visibility = View.VISIBLE
-        } else if (productStockSyncAdminLock.adminLock || productStockSync.adminLock) {
+        if (productStockSyncAdminLock.adminLock || productStockSync.adminLock) {
             d(
                 "AdminProductAdapterNew",
                 "productBannerText-Under Maintenance${product.id}"
             )
             holder.image.alpha = 0.5F
-            holder.notAvailableTv.text = "Under Maintenance \nName = " + productStockSyncAdminLock.adminName
+            holder.notAvailableTv.text =
+                "Under Maintenance \nName = " + productStockSyncAdminLock.adminName
             holder.notAvailableTv.visibility = View.VISIBLE
         } else if (!isProductAvailableConditions(productStockSync)) {
 
@@ -253,21 +252,27 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
 
-                        if(snapshot.exists()) {
+                        if (snapshot.exists()) {
 
                             var userProfile = snapshot.getValue(Profile::class.java)
 
-                            if(userProfile!=null) {
+                            if (userProfile != null) {
 
                                 holder.image.alpha = 0.75F
                                 holder.notAvailableTv.text =
                                     "Coming Soon\n" + "name = ${userProfile.userName}"
                                 holder.notAvailableTv.visibility = View.VISIBLE
                             } else {
-                                d("AdminProductAdapterNew", "productBannerText - userprofile does not exist")
+                                d(
+                                    "AdminProductAdapterNew",
+                                    "productBannerText - userprofile does not exist"
+                                )
                             }
                         } else {
-                            d("AdminProductAdapterNew", "productBannerText - snapshot does not exist")
+                            d(
+                                "AdminProductAdapterNew",
+                                "productBannerText - snapshot does not exist"
+                            )
                         }
 
                     }
@@ -275,7 +280,15 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
                     override fun onCancelled(error: DatabaseError) {}
                 })
 
-        } else {
+        } else if (productStockSync.stock == 0) {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Not available${product.id}"
+            )
+            holder.image.alpha = 0.5F
+            holder.notAvailableTv.text = "Not Available"
+            holder.notAvailableTv.visibility = View.VISIBLE
+        } else  {
             d(
                 "ProductAdapterNew",
                 "getProductStocksLocksDetails-Available${product.id}"
@@ -291,15 +304,7 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
         holder: DealViewHolder,
         product: Product
     ) {
-        if (productStockSync.stock == 0) {
-            d(
-                "ProductAdapterNew",
-                "getProductStocksLocksDetails-Not available${product.id}"
-            )
-            holder.image.alpha = 0.5F
-            holder.notAvailableTv.text = "Not Available"
-            holder.notAvailableTv.visibility = View.VISIBLE
-        } else if (!isProductAvailableConditions(productStockSync)) {
+        if (!isProductAvailableConditions(productStockSync)) {
             d(
                 "ProductAdapterNew",
                 "getProductStocksLocksDetails-Coming soon${product.id}"
@@ -310,27 +315,41 @@ class AdminProductAdapterNew : RecyclerView.Adapter<AdminProductAdapterNew.DealV
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
 
-                        if(snapshot.exists()) {
+                        if (snapshot.exists()) {
 
                             var userProfile = snapshot.getValue(Profile::class.java)
 
-                            if(userProfile!=null) {
+                            if (userProfile != null) {
 
                                 holder.image.alpha = 0.75F
                                 holder.notAvailableTv.text =
                                     "Coming Soon\n" + "name = ${userProfile.userName}"
                                 holder.notAvailableTv.visibility = View.VISIBLE
                             } else {
-                                d("AdminProductAdapterNew", "productBannerText - userprofile does not exist")
+                                d(
+                                    "AdminProductAdapterNew",
+                                    "productBannerText - userprofile does not exist"
+                                )
                             }
                         } else {
-                            d("AdminProductAdapterNew", "productBannerText - snapshot does not exist")
+                            d(
+                                "AdminProductAdapterNew",
+                                "productBannerText - snapshot does not exist"
+                            )
                         }
 
                     }
 
                     override fun onCancelled(error: DatabaseError) {}
                 })
+        } else if (productStockSync.stock == 0) {
+            d(
+                "ProductAdapterNew",
+                "getProductStocksLocksDetails-Not available${product.id}"
+            )
+            holder.image.alpha = 0.5F
+            holder.notAvailableTv.text = "Not Available"
+            holder.notAvailableTv.visibility = View.VISIBLE
         } else {
             d(
                 "ProductAdapterNew",
