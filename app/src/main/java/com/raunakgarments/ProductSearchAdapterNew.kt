@@ -180,10 +180,18 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
                     var product = snapshot.getValue(Product::class.java)
                     if (product != null) {
                         d("productname", "${snapshot.value}")
-                        if(checkConditionsToIncludeProducts(productStockSync, productStockSyncAdminLock, userSettings) && product.id !in productIdList) {
-                            productIdList.add(product.id)
-                            products.add(product)
-                            notifyItemInserted(products.size - 1)
+                        if(checkConditionsToIncludeProducts(productStockSync, productStockSyncAdminLock, userSettings)) {
+                            if(product.id !in productIdList) {
+                                productIdList.add(product.id)
+                                products.add(product)
+                                notifyItemInserted(products.size - 1)
+                            }
+                        } else {
+                            if(product.id in productIdList) {
+                                products.removeAt(productIdList.indexOf(product.id))
+                                productIdList.remove(product.id)
+                                notifyDataSetChanged()
+                            }
                         }
                     }
                 }
