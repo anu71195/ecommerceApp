@@ -27,6 +27,7 @@ import kotlin.collections.ArrayList
 class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.DealViewHolder>() {
 
     var products: MutableList<Product> = ArrayList()
+    var productIdList: MutableList<String> = ArrayList()
     private lateinit var mFirebaseDatebase: FirebaseDatabase
     private lateinit var mDatabaseReference: DatabaseReference
     private lateinit var childEventListener: ChildEventListener
@@ -124,7 +125,7 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
     ) {
 
         for (productId in productIds) {
-            //todo put checks here
+
             productStockSyncFirebaseUtil.mDatabaseReference.child(productId).addValueEventListener(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -179,7 +180,8 @@ class ProductSearchAdapterNew : RecyclerView.Adapter<ProductSearchAdapterNew.Dea
                     var product = snapshot.getValue(Product::class.java)
                     if (product != null) {
                         d("productname", "${snapshot.value}")
-                        if(checkConditionsToIncludeProducts(productStockSync, productStockSyncAdminLock, userSettings)) {
+                        if(checkConditionsToIncludeProducts(productStockSync, productStockSyncAdminLock, userSettings) && product.id !in productIdList) {
+                            productIdList.add(product.id)
                             products.add(product)
                             notifyItemInserted(products.size - 1)
                         }
