@@ -127,7 +127,6 @@ class ProductDetails : AppCompatActivity() {
         product_name.text = title
         productPrice.text = "\u20B9" + price
         productDescription.text = description
-        // todo do same in settings by adding show out of stock and opposite switch
 //        availability.setOnClickListener {
 //            AlertDialog.Builder(this)
 //                .setMessage("Hey $title is in stock!")

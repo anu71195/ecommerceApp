@@ -57,8 +57,6 @@ class SettingsActivity : AppCompatActivity() {
                 override fun onCancelled(error: DatabaseError) {}
 
             })
-
-        //todo if settings snapshot does not exist consider it true
     }
 
     private fun populateSwitchesWithExistingValues(userSettings: UserSettings) {
