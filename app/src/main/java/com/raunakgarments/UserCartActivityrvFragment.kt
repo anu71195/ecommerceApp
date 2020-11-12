@@ -41,8 +41,8 @@ class UserCartActivityrvFragment() : Fragment() {
         }
     }
 
-    enum class errorType {
-        emptyCart, email, phone, pincode, address, ow
+    enum class ErrorType {
+        emptyCart, email, phone, pincode, address, profile, ow
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,10 +137,10 @@ class UserCartActivityrvFragment() : Fragment() {
                         if (productStockSyncHashmap.size > 0) {
                             checkAndValidateUserProfile(profile, emailVerified)
                         } else {
-                            paymentErrorPopup(listOf(errorType.emptyCart))
+                            paymentErrorPopup(listOf(ErrorType.emptyCart))
                         }
                     } else {
-                        paymentErrorPopup(listOf(errorType.emptyCart))
+                        paymentErrorPopup(listOf(ErrorType.emptyCart))
                     }
                 }
 
@@ -152,6 +152,9 @@ class UserCartActivityrvFragment() : Fragment() {
     }
 
     private fun checkAndValidateUserProfile(profile: Profile?, emailVerified: Boolean) {
+
+//        emptyCart, email, phone, pincode, address, profile,  ow
+
         if (profile != null &&
             profile.deliverable &&
             emailVerified &&
@@ -162,7 +165,16 @@ class UserCartActivityrvFragment() : Fragment() {
         ) {
             processBeforeCallingCheckoutActivity(profile, userId)
         } else {
-            paymentErrorPopup(listOf(errorType.ow))//todo add proper string here
+            var errorList: MutableList<ErrorType> = ArrayList()
+
+            if (profile != null) {
+                errorList.add(ErrorType.ow)
+            } else {
+                errorList.add(ErrorType.profile)
+            }
+
+            paymentErrorPopup(errorList)
+            //todo add proper string here
         }
     }
 
@@ -309,7 +321,7 @@ class UserCartActivityrvFragment() : Fragment() {
                         }
                     } else {
                         //This situation should never come ideally
-                        paymentErrorPopup(listOf(errorType.emptyCart))
+                        paymentErrorPopup(listOf(ErrorType.emptyCart))
                     }
                     d("checkout", lockedProducts.toString())
                 }
@@ -550,11 +562,24 @@ class UserCartActivityrvFragment() : Fragment() {
         alertDialog.show()
     }
 
+    private fun paymentErrorPopupProfileNullability(builder: AlertDialog.Builder) {
+        builder.setTitle("Can't Checkout?")
+        builder.setMessage("There seems to be issue with your profile settings. Check under 'profile' menu if it is up-to-date. \nIf issue still persists contact us via 'Contact Us' menu")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        builder.setPositiveButton("OK") { dialogInterface, which ->
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
 
-    private fun paymentErrorPopup(errorTypeValueList: List<errorType>) {
+
+    private fun paymentErrorPopup(errorTypeValueList: List<ErrorType>) {
         val builder = AlertDialog.Builder(requireContext())
-        if (errorTypeValueList.contains(errorType.emptyCart)) {
+        if (errorTypeValueList.contains(ErrorType.emptyCart)) {
             paymentErrorPopupEmptyCart(builder)
+        } else if (errorTypeValueList.contains(ErrorType.profile)) {
+            paymentErrorPopupProfileNullability(builder)
         } else {
             paymentErrorPopupProfile(builder)
         }
