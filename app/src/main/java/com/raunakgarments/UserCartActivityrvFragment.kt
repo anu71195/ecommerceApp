@@ -81,7 +81,6 @@ class UserCartActivityrvFragment() : Fragment() {
         return adapter
     }
 
-    /*todo checkout error popup give exact conditions*/
     /*todo how to mitigate if user is spamming the products and trying to get locks again and again*/
     private fun checkOutButtonClickListener(adapter: UserCartAdapter) {
         fragment_user_cart_activity_checkoutButton.setOnClickListener {
@@ -168,7 +167,22 @@ class UserCartActivityrvFragment() : Fragment() {
             var errorList: MutableList<ErrorType> = ArrayList()
 
             if (profile != null) {
-                errorList.add(ErrorType.ow)
+                if (!profile.deliverable) {
+                    errorList.add(ErrorType.pincode)
+                }
+
+                if (!emailVerified) {
+                    errorList.add(ErrorType.email)
+                }
+
+                if (profile.address.toString() == "" || profile.address == null) {
+                    errorList.add(ErrorType.address)
+                }
+
+                if (FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == "" || FirebaseAuth.getInstance().currentUser?.phoneNumber == null || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == null) {
+                    errorList.add(ErrorType.phone)
+                }
+
             } else {
                 errorList.add(ErrorType.profile)
             }
@@ -540,17 +554,6 @@ class UserCartActivityrvFragment() : Fragment() {
         return ((((Date().time) / 1000) - timeStamp.toLong()) > 600)
     }
 
-    private fun paymentErrorPopupProfile(builder: AlertDialog.Builder) {
-        builder.setTitle("Can't Checkout?")
-        builder.setMessage("Please check if your email and phone Number is verified, pincode is deliverable and address is present from Profile section.")
-        builder.setIcon(android.R.drawable.ic_dialog_alert)
-        builder.setPositiveButton("OK") { dialogInterface, which ->
-        }
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
-    }
-
     private fun paymentErrorPopupEmptyCart(builder: AlertDialog.Builder) {
         builder.setTitle("Can't Checkout?")
         builder.setMessage("Your cart is empty.")
@@ -573,15 +576,55 @@ class UserCartActivityrvFragment() : Fragment() {
         alertDialog.show()
     }
 
+    private fun paymentErrorPopupProfile(
+        builder: AlertDialog.Builder,
+        errorTypeValueList: List<ErrorType>
+    ) {
+        //email, phone, pincode, address
+
+        var profileIssuePopupMessage = createProfileIssuePopupMessage(errorTypeValueList)
+
+        builder.setTitle("Can't Checkout?")
+        builder.setMessage(profileIssuePopupMessage)
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        builder.setPositiveButton("OK") { dialogInterface, which ->
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+    private fun createProfileIssuePopupMessage(errorTypeValueList: List<ErrorType>): String {
+        var message = "You must be facing the following issues: "
+
+        if(errorTypeValueList.contains(ErrorType.phone)) {
+            message += "\n \u2022 Wrong, missing or unverified phone number"
+        }
+
+        if(errorTypeValueList.contains(ErrorType.email)) {
+            message += "\n \u2022 Wrong, missing or unverified email address"
+        }
+
+        if(errorTypeValueList.contains(ErrorType.pincode)) {
+            message += "\n \u2022 Missing pincode or non - deliverable area"
+        }
+
+        if(errorTypeValueList.contains(ErrorType.address)) {
+            message += "\n \u2022 Missing address"
+        }
+
+        return message
+    }
 
     private fun paymentErrorPopup(errorTypeValueList: List<ErrorType>) {
+        //        emptyCart, email, phone, pincode, address, profile,  ow
         val builder = AlertDialog.Builder(requireContext())
         if (errorTypeValueList.contains(ErrorType.emptyCart)) {
             paymentErrorPopupEmptyCart(builder)
         } else if (errorTypeValueList.contains(ErrorType.profile)) {
             paymentErrorPopupProfileNullability(builder)
         } else {
-            paymentErrorPopupProfile(builder)
+            paymentErrorPopupProfile(builder, errorTypeValueList)
         }
     }
 
