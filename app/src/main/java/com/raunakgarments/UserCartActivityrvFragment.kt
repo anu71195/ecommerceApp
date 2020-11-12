@@ -188,7 +188,6 @@ class UserCartActivityrvFragment() : Fragment() {
             }
 
             paymentErrorPopup(errorList)
-            //todo add proper string here
         }
     }
 
