@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
@@ -54,7 +55,75 @@ class ProfileActivity : AppCompatActivity() {
         setEmailVerificationButtonVisibility()
         sendEmailVerificationClickListener()
         attachSendOTPButtonWithSendOTPCode()
+        addressTextChangeListener()
+        phoneNumberTextChangeListener()
 
+    }
+
+    private fun phoneNumberTextChangeListener() {
+        activity_profile_content_scrolling_phoneNumber.doOnTextChanged { text, start, before, count ->
+            d(
+                "ProfileActivity",
+                "phoneNumberTextChangeListener - ${FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()}"
+            )
+            d(
+                "ProfileActivity", "phoneNumberTextChangeListener - ${
+                    (activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
+                            getPhoneNumberCountryCode() +
+                            activity_profile_content_scrolling_phoneNumber.text.toString())
+                }"
+            )
+            d("ProfileActivity", "populatePhoneNumberSubtitle - ${count} ${text}")
+            if ((activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
+                        getPhoneNumberCountryCode() +
+                        activity_profile_content_scrolling_phoneNumber.text.toString()) == FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
+            ) {
+                activity_profile_content_scrolling_phoneNumberSubtitle.text =
+                    "Phone Number is linked."
+                activity_profile_content_scrolling_phoneNumberSubtitle.visibility = View.GONE
+            } else if (count == 0 && text.toString() == "") {
+                activity_profile_content_scrolling_phoneNumberSubtitle.text =
+                    "Phone Number field is empty."
+                activity_profile_content_scrolling_phoneNumberSubtitle.visibility = View.VISIBLE
+            } else {
+                activity_profile_content_scrolling_phoneNumberSubtitle.text =
+                    "Phone Number is not linked. Send OTP to link."
+                activity_profile_content_scrolling_phoneNumberSubtitle.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun populatePhoneNumberSubtitleOnOtpClickListener() {
+        if ((activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
+                    getPhoneNumberCountryCode() +
+                    activity_profile_content_scrolling_phoneNumber.text.toString()) == FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
+        ) {
+            activity_profile_content_scrolling_phoneNumberSubtitle.text =
+                "Phone Number is linked."
+            activity_profile_content_scrolling_phoneNumberSubtitle.visibility = View.GONE
+        } else if(activity_profile_content_scrolling_phoneNumber.text.toString() == "") {
+            activity_profile_content_scrolling_phoneNumberSubtitle.text =
+                "Phone Number field is empty."
+            activity_profile_content_scrolling_phoneNumberSubtitle.visibility = View.VISIBLE
+        }
+        else {
+            activity_profile_content_scrolling_phoneNumberSubtitle.text =
+                "Phone Number is not linked. Send OTP to link."
+            activity_profile_content_scrolling_phoneNumberSubtitle.visibility = View.VISIBLE
+        }
+    }
+
+    private fun addressTextChangeListener() {
+        activity_profile_content_scrolling_address.doOnTextChanged { text, start, before, count ->
+            d("ProfileActivity", "addressTextChangeListener - ${count}")
+            if (count == 0) {
+                activity_profile_content_scrolling_addressSubtitle.visibility = View.VISIBLE
+                d("ProfileActivity", "addressTextChangeListener inside- ${text}")
+            } else {
+                activity_profile_content_scrolling_addressSubtitle.visibility = View.GONE
+                d("ProfileActivity", "addressTextChangeListener another condition- ${text}")
+            }
+        }
     }
 
     private fun unlinkPhoneNumberWithEmailAddress() {
@@ -168,7 +237,6 @@ class ProfileActivity : AppCompatActivity() {
         alertDialogOTP = alertDialog
     }
 
-    /*todo give errors for the fields like phone number is not present or something like that*/
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)
             ?.addOnCompleteListener(this) { task ->
@@ -309,11 +377,11 @@ class ProfileActivity : AppCompatActivity() {
                             var profile = snapshot.getValue(Profile::class.java)
                             if (profile != null &&
                                 (activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
-                                        activity_profile_content_scrolling_phoneNumberCode.text.toString() +
+                                        getPhoneNumberCountryCode() +
                                         activity_profile_content_scrolling_phoneNumber.text.toString()) == FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
                             ) {
                                 profile.areaPhoneCode =
-                                    activity_profile_content_scrolling_phoneNumberCode.text.toString()
+                                    getPhoneNumberCountryCode()
                                 profile.number =
                                     activity_profile_content_scrolling_phoneNumber.text.toString()
                                 isAddressDeliverable(profile)
@@ -323,6 +391,7 @@ class ProfileActivity : AppCompatActivity() {
                         override fun onCancelled(error: DatabaseError) {}
                     })
             }
+            populatePhoneNumberSubtitleOnOtpClickListener()
         }
 
     }
@@ -338,21 +407,21 @@ class ProfileActivity : AppCompatActivity() {
             var profile = Profile(name, number, email, address, pinCode)
             d(
                 (activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
-                        activity_profile_content_scrolling_phoneNumberCode.text.toString() +
+                        getPhoneNumberCountryCode() +
                         activity_profile_content_scrolling_phoneNumber.text.toString()),
                 FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() + "sometextprofile"
             )
             if (FirebaseAuth.getInstance().currentUser?.phoneNumber == null || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == "" || FirebaseAuth.getInstance().currentUser?.phoneNumber.toString() == null) {
                 profile.number = activity_profile_content_scrolling_phoneNumber.text.toString()
                 profile.areaPhoneCode =
-                    activity_profile_content_scrolling_phoneNumberCode.text.toString()
+                    getPhoneNumberCountryCode()
             } else {
                 if ((activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
-                            activity_profile_content_scrolling_phoneNumberCode.text.toString() +
+                            getPhoneNumberCountryCode() +
                             activity_profile_content_scrolling_phoneNumber.text.toString()) == FirebaseAuth.getInstance().currentUser?.phoneNumber.toString()
                 ) {
                     profile.areaPhoneCode =
-                        activity_profile_content_scrolling_phoneNumberCode.text.toString()
+                        getPhoneNumberCountryCode()
                     profile.number =
                         activity_profile_content_scrolling_phoneNumber.text.toString()
                 }
