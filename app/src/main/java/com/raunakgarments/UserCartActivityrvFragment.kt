@@ -559,7 +559,7 @@ class UserCartActivityrvFragment() : Fragment() {
         var checkoutCounterFirebaseUtil = FirebaseUtil()
         checkoutCounterFirebaseUtil.openFbReference("checkOutCounter")
 
-        checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(CheckoutCounter().getTodayDate()).child(productId).addListenerForSingleValueEvent(object : ValueEventListener{
+        checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(CheckoutCounter().getTodayDate(0)).child(productId).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 var checkoutCounter = CheckoutCounter()
@@ -572,7 +572,10 @@ class UserCartActivityrvFragment() : Fragment() {
                 }
 
                 checkoutCounter.count += 1
-                checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(checkoutCounter.getTodayDate()).child(productId).setValue(checkoutCounter)
+                checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(checkoutCounter.getTodayDate(
+                    0
+                )
+                ).child(productId).setValue(checkoutCounter)
             }
 
             override fun onCancelled(error: DatabaseError) {}

@@ -2,7 +2,6 @@ package com.raunakgarments.model
 
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
 
 /*
 *
@@ -17,13 +16,13 @@ public class CheckoutCounter() {
 
     var count = 0
 
-    fun getTodayDate(): String {
+    fun getTodayDate(offset: Int): String {
         var todaysDate = SimpleDateFormat("ddMMMMyyyy")
         todaysDate.timeZone =
             TimeZone.getTimeZone("Asia/Kolkata")
 
         val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_YEAR, 0)
+        calendar.add(Calendar.DAY_OF_YEAR, offset)
 
         return todaysDate.format(calendar.time)
     }
