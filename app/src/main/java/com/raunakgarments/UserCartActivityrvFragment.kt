@@ -22,9 +22,7 @@ import com.google.gson.Gson
 import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.helper.ProductStockSyncHelper
-import com.raunakgarments.model.ProductStockSync
-import com.raunakgarments.model.ProductStockSyncAdminLock
-import com.raunakgarments.model.Profile
+import com.raunakgarments.model.*
 import kotlinx.android.synthetic.main.fragment_user_cart_activity_rv.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -514,6 +512,8 @@ class UserCartActivityrvFragment() : Fragment() {
                                     snapshot.getValue(ProductStockSync::class.java)
                                 if (productStockSync != null) {
                                     if (productStockSync.locked == FirebaseAuth.getInstance().uid.toString()) {
+                                        //todo count as locks got here
+                                        checkAndClearSpammingLimitAndTakeLocks(productId)
                                         lockedProducts[productId] = 1
                                     } else {
                                         /*product lock is not available*/
@@ -546,6 +546,42 @@ class UserCartActivityrvFragment() : Fragment() {
                     override fun onCancelled(error: DatabaseError) {}
                 })
         }
+    }
+
+    private fun checkAndClearSpammingLimitAndTakeLocks(productId: String) {
+        var todaysDate = SimpleDateFormat("ddMMMMyyyy")
+        todaysDate.timeZone =
+            TimeZone.getTimeZone("Asia/Kolkata")
+
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -23)
+
+        var checkoutCounterFirebaseUtil = FirebaseUtil()
+        checkoutCounterFirebaseUtil.openFbReference("checkOutCounter")
+
+        checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(CheckoutCounter().getTodayDate()).child(productId).addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                var checkoutCounter = CheckoutCounter()
+
+                if(snapshot.exists()) {
+                        checkoutCounter = snapshot.getValue(CheckoutCounter::class.java)!!
+                    d("UserCartActivityrvFragment", "checkAndClearSpammingLimitAndTakeLocks - ${checkoutCounter}")
+                } else  {
+                    d("UserCartActivityrvFragment", "checkAndClearSpammingLimitAndTakeLocks - snapshot does not exist")
+                }
+
+                checkoutCounter.count += 1
+                checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(checkoutCounter.getTodayDate()).child(productId).setValue(checkoutCounter)
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
+
+//todo give admin permission for number of days of deletion and number of times user can get locks
+        d("UserCartActivityrvFragment", "checkAndClearSpammingLimitAndTakeLocks - ${todaysDate.format(Date())}")
+        d("UserCartActivityrvFragment", "checkAndClearSpammingLimitAndTakeLocks - ${todaysDate.format(calendar.time)}")
     }
 
     // time stamp product stock sync delay = 600 seconds
