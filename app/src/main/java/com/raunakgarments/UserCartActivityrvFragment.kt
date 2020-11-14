@@ -499,7 +499,46 @@ class UserCartActivityrvFragment() : Fragment() {
         profile: Profile,
         userID: String
     ) {
-        checkForLockUser(lockedProducts, profile, userID)
+        var checkoutCounterFirebaseUtil = FirebaseUtil()
+        checkoutCounterFirebaseUtil.openFbReference("checkOutCounter")
+
+        checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString())
+            .addListenerForSingleValueEvent(
+                object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            var userCheckoutCounter =
+                                snapshot.getValue(UserCheckoutCounter::class.java)
+                            d(
+                                "UserCartActivityrvFragment",
+                                "checkSpamAndValidateUserProfile - ${
+                                    Gson().toJson(userCheckoutCounter)
+                                }"
+                            )
+
+                            if (userCheckoutCounter != null) {
+                                var todaysDate = CheckoutCounter().getTodayDate(0)
+                                var productMap =
+                                    userCheckoutCounter.dateMap[todaysDate]?.productMap as HashMap<String, CheckoutCounter>
+                                d(
+                                    "UserCartActivityrvFragment",
+                                    "checkSpamAndValidateUserProfile - ${Gson().toJson(productMap)}"
+                                )
+                                //todo have to put spam check here
+                                checkForLockUser(lockedProducts, profile, userID)
+
+
+                            } else {
+                                checkForLockUser(lockedProducts, profile, userID)
+                            }
+                        } else {
+                            checkForLockUser(lockedProducts, profile, userID)
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {}
+                })
+
     }
 
     private fun checkForLockUser(
@@ -601,32 +640,48 @@ class UserCartActivityrvFragment() : Fragment() {
         var checkoutCounterFirebaseUtil = FirebaseUtil()
         checkoutCounterFirebaseUtil.openFbReference("checkOutCounter")
 
-        checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child("dateMap").child(CheckoutCounter().getTodayDate(0)).child("productMap").child(productId).addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
+        checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString())
+            .child("dateMap").child(CheckoutCounter().getTodayDate(0)).child("productMap")
+            .child(productId).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
 
-                var checkoutCounter = CheckoutCounter()
+                    var checkoutCounter = CheckoutCounter()
 
-                if(snapshot.exists()) {
+                    if (snapshot.exists()) {
                         checkoutCounter = snapshot.getValue(CheckoutCounter::class.java)!!
-                    d("UserCartActivityrvFragment", "checkAndClearSpammingLimitAndTakeLocks - ${checkoutCounter}")
-                } else  {
-                    d("UserCartActivityrvFragment", "checkAndClearSpammingLimitAndTakeLocks - snapshot does not exist")
+                        d(
+                            "UserCartActivityrvFragment",
+                            "checkAndClearSpammingLimitAndTakeLocks - ${checkoutCounter}"
+                        )
+                    } else {
+                        d(
+                            "UserCartActivityrvFragment",
+                            "checkAndClearSpammingLimitAndTakeLocks - snapshot does not exist"
+                        )
+                    }
+
+                    checkoutCounter.count += 1
+                    checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString())
+                        .child("dateMap").child(
+                            checkoutCounter.getTodayDate(
+                                0
+                            )
+                        ).child("productMap").child(productId).setValue(checkoutCounter)
                 }
 
-                checkoutCounter.count += 1
-                checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child("dateMap").child(checkoutCounter.getTodayDate(
-                    0
-                )
-                ).child("productMap").child(productId).setValue(checkoutCounter)
-            }
+                override fun onCancelled(error: DatabaseError) {}
 
-            override fun onCancelled(error: DatabaseError) {}
-
-        })
+            })
 
 //todo give admin permission for number of days of deletion and number of times user can get locks
-        d("UserCartActivityrvFragment", "checkAndClearSpammingLimitAndTakeLocks - ${todaysDate.format(Date())}")
-        d("UserCartActivityrvFragment", "checkAndClearSpammingLimitAndTakeLocks - ${todaysDate.format(calendar.time)}")
+        d(
+            "UserCartActivityrvFragment",
+            "checkAndClearSpammingLimitAndTakeLocks - ${todaysDate.format(Date())}"
+        )
+        d(
+            "UserCartActivityrvFragment",
+            "checkAndClearSpammingLimitAndTakeLocks - ${todaysDate.format(calendar.time)}"
+        )
 
     }
 
@@ -678,19 +733,19 @@ class UserCartActivityrvFragment() : Fragment() {
     private fun createProfileIssuePopupMessage(errorTypeValueList: List<ErrorType>): String {
         var message = "You must be facing the following issues: "
 
-        if(errorTypeValueList.contains(ErrorType.phone)) {
+        if (errorTypeValueList.contains(ErrorType.phone)) {
             message += "\n \u2022 Wrong, missing or unverified phone number"
         }
 
-        if(errorTypeValueList.contains(ErrorType.email)) {
+        if (errorTypeValueList.contains(ErrorType.email)) {
             message += "\n \u2022 Wrong, missing or unverified email address"
         }
 
-        if(errorTypeValueList.contains(ErrorType.pincode)) {
+        if (errorTypeValueList.contains(ErrorType.pincode)) {
             message += "\n \u2022 Missing pincode or non - deliverable area"
         }
 
-        if(errorTypeValueList.contains(ErrorType.address)) {
+        if (errorTypeValueList.contains(ErrorType.address)) {
             message += "\n \u2022 Missing address"
         }
 
