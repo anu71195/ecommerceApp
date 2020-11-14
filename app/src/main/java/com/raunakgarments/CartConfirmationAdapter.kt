@@ -121,7 +121,13 @@ class CartConfirmationAdapter : RecyclerView.Adapter<CartConfirmationAdapter.Dea
             holder.price.text =
                 "₹" + confirmationCartProductArray[position].price.toString() + " X " + confirmationCartProductArray[position].quantity.toString() + " = ₹" + confirmationCartProductArray[position].totalPrice.toString()
 
-        } else {
+        } else if(confirmationCartProductArray[position].productStatus == -6) {
+            holder.title.text = "This Product is not available as this user is locked because of spam detection.\nPlease try again later or contact us from 'Contact Us' screen."
+            holder.title.textColor = Color.parseColor("#FF0000")
+            holder.quantity.text = ""
+            holder.price.text = ""
+        }
+        else {
             holder.title.text = "This Product is not available.\nPlease try again later or try decreasing the quantity."
             holder.title.textColor = Color.parseColor("#FF0000")
             holder.quantity.text = ""

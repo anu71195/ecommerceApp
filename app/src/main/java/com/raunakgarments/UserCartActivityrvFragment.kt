@@ -569,12 +569,17 @@ class UserCartActivityrvFragment() : Fragment() {
                                         checkAndClearSpammingLimitAndTakeLocks(productId)
                                         //todo put spam counter check here
                                         d("UserCartActivityrvFragment","checkForLockUser - ${productId}    ${Gson().toJson(productMap)} ")
+                                        lockedProducts[productId] = 1
                                         if(productId in productMap) {
+                                            if(productMap[productId]!!.count > 10) {
+                                                //spam detected
+                                                lockedProducts[productId] = -6
+                                            }
                                             d("UserCartActivityrvFragment","checkForLockUser - I'm in")
                                         } else {
                                             d("UserCartActivityrvFragment","checkForLockUser - I'm out")
                                         }
-                                        lockedProducts[productId] = 1
+
                                     } else {
                                         /*product lock is not available*/
                                         lockedProducts[productId] = -3
