@@ -520,8 +520,10 @@ class UserCartActivityrvFragment() : Fragment() {
 
                             if (userCheckoutCounter != null) {
                                 var todaysDate = CheckoutCounter().getTodayDate(0)
-                                productMap =
-                                    userCheckoutCounter.dateMap[todaysDate]?.productMap as HashMap<String, CheckoutCounter>
+                                if(userCheckoutCounter.dateMap[todaysDate]?.productMap != null) {
+                                    productMap =
+                                        userCheckoutCounter.dateMap[todaysDate]?.productMap as HashMap<String, CheckoutCounter>
+                                }
                                 d(
                                     "UserCartActivityrvFragment",
                                     "checkSpamAndValidateUserProfile - ${Gson().toJson(productMap)}"
@@ -566,6 +568,12 @@ class UserCartActivityrvFragment() : Fragment() {
                                         //todo count as locks got here
                                         checkAndClearSpammingLimitAndTakeLocks(productId)
                                         //todo put spam counter check here
+                                        d("UserCartActivityrvFragment","checkForLockUser - ${productId}    ${Gson().toJson(productMap)} ")
+                                        if(productId in productMap) {
+                                            d("UserCartActivityrvFragment","checkForLockUser - I'm in")
+                                        } else {
+                                            d("UserCartActivityrvFragment","checkForLockUser - I'm out")
+                                        }
                                         lockedProducts[productId] = 1
                                     } else {
                                         /*product lock is not available*/
