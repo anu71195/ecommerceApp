@@ -29,7 +29,8 @@ class AdminFunctionsActivity : AppCompatActivity() {
         }
 
         Activity_admin_functions_content_scrolling_edit_SpamCounterSettingsButton.setOnClickListener {
-
+            var intent = Intent(this, AdminSpamSettingsActivity::class.java)
+            this.startActivity(intent)
         }
     }
 

@@ -135,6 +135,7 @@
     <string name="sync_product_stock_with_products_decommissioned">Sync Product Stock with Products (Decommissioned)</string>
     <string name="download_and_re_upload_product_stock_sync">Download and re-upload Product Stock Sync</string>
     <string name="database_product_stock_sync_admin_lock">productStockSyncAdminLock</string>
+    <string name="title_activity_admin_spam_settings">ScrollingActivity</string>
 
     productStockSyncAdminLock
 </resources>

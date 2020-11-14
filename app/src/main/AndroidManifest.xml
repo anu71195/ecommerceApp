@@ -12,10 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".admin.AdminUserOrderDetailsActivity"
-            android:parentActivityName=".admin.AdminUserOrdersActivity"
-            android:label="@string/title_activity_admin_user_order_details"
+            android:name=".admin.AdminSpamSettingsActivity"
+            android:label="@string/title_activity_admin_spam_settings"
+            android:parentActivityName=".admin.AdminFunctionsActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".admin.AdminUserOrderDetailsActivity"
+            android:label="@string/title_activity_admin_user_order_details"
+            android:parentActivityName=".admin.AdminUserOrdersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".admin.AdminUserOrdersActivity"
             android:label="@string/title_activity_admin_user_order"
