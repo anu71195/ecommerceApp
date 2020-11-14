@@ -11,22 +11,30 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-       <Button
-           android:layout_width="match_parent"
-           android:id="@+id/Activity_admin_functions_content_scrolling_edit_contactUsButton"
-           android:layout_height="wrap_content"
-           android:text="Contact Details"
-           android:padding="16dp"
-           app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
+            android:id="@+id/Activity_admin_functions_content_scrolling_edit_contactUsButton"
             android:layout_width="match_parent"
-            android:id="@+id/Activity_admin_functions_content_scrolling_edit_insertPinCodeButton"
             android:layout_height="wrap_content"
-            android:text="Pin Codes"
             android:padding="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/Activity_admin_functions_content_scrolling_edit_contactUsButton"
-            />
+            android:text="Contact Details"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/Activity_admin_functions_content_scrolling_edit_insertPinCodeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Pin Codes"
+            app:layout_constraintTop_toBottomOf="@+id/Activity_admin_functions_content_scrolling_edit_contactUsButton" />
+
+        <Button
+            android:id="@+id/Activity_admin_functions_content_scrolling_edit_SpamCounterSettingsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Spam Settings"
+            app:layout_constraintTop_toBottomOf="@+id/Activity_admin_functions_content_scrolling_edit_insertPinCodeButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
