@@ -12,6 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/activity_admin_spam_settings_content_scrolling_attemptNumbersTitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:text="Lock Limit = "
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/activity_admin_spam_settings_content_scrolling_attemptNumbersText"
             android:layout_width="match_parent"
@@ -19,7 +30,18 @@
             android:hint="Lock Limit"
             android:inputType="number"
             android:padding="16dp"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_spam_settings_content_scrolling_attemptNumbersTitleText" />
+
+        <TextView
+            android:id="@+id/activity_admin_spam_settings_content_scrolling_deletionDaysTitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:text="Numbers of days lock spam data availability = "
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_spam_settings_content_scrolling_attemptNumbersText" />
 
         <EditText
             android:id="@+id/activity_admin_spam_settings_content_scrolling_deletionDaysText"
@@ -28,7 +50,7 @@
             android:hint="Numbers of days lock spam data availability"
             android:inputType="number"
             android:padding="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/activity_admin_spam_settings_content_scrolling_attemptNumbersText" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_spam_settings_content_scrolling_deletionDaysTitleText" />
 
         <Button
             android:id="@+id/activity_admin_spam_settings_content_scrolling_updateSpamSettingsButton"
