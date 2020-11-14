@@ -132,7 +132,8 @@ class UserCartActivityrvFragment() : Fragment() {
                             "checkconditionsforcheckout ${productStockSyncHashmap.size}, ${productStockSyncHashmap}"
                         )
                         if (productStockSyncHashmap.size > 0) {
-                            checkAndValidateUserProfile(profile, emailVerified)
+                            checkSpamAndValidateUserProfile(profile, emailVerified)
+
                         } else {
                             paymentErrorPopup(listOf(ErrorType.emptyCart))
                         }
@@ -146,6 +147,10 @@ class UserCartActivityrvFragment() : Fragment() {
 
 
         }
+    }
+
+    private fun checkSpamAndValidateUserProfile(profile: Profile?, emailVerified: Boolean) {
+        checkAndValidateUserProfile(profile, emailVerified)
     }
 
     private fun checkAndValidateUserProfile(profile: Profile?, emailVerified: Boolean) {
@@ -559,7 +564,7 @@ class UserCartActivityrvFragment() : Fragment() {
         var checkoutCounterFirebaseUtil = FirebaseUtil()
         checkoutCounterFirebaseUtil.openFbReference("checkOutCounter")
 
-        checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(CheckoutCounter().getTodayDate(0)).child(productId).addListenerForSingleValueEvent(object : ValueEventListener{
+        checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child("dateMap").child(CheckoutCounter().getTodayDate(0)).child("productMap").child(productId).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 var checkoutCounter = CheckoutCounter()
@@ -572,10 +577,10 @@ class UserCartActivityrvFragment() : Fragment() {
                 }
 
                 checkoutCounter.count += 1
-                checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(checkoutCounter.getTodayDate(
+                checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child("dateMap").child(checkoutCounter.getTodayDate(
                     0
                 )
-                ).child(productId).setValue(checkoutCounter)
+                ).child("productMap").child(productId).setValue(checkoutCounter)
             }
 
             override fun onCancelled(error: DatabaseError) {}
@@ -585,6 +590,7 @@ class UserCartActivityrvFragment() : Fragment() {
 //todo give admin permission for number of days of deletion and number of times user can get locks
         d("UserCartActivityrvFragment", "checkAndClearSpammingLimitAndTakeLocks - ${todaysDate.format(Date())}")
         d("UserCartActivityrvFragment", "checkAndClearSpammingLimitAndTakeLocks - ${todaysDate.format(calendar.time)}")
+
     }
 
     // time stamp product stock sync delay = 600 seconds
