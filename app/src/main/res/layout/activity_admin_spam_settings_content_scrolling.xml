@@ -12,14 +12,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        <EditText
+            android:id="@+id/activity_admin_spam_settings_content_scrolling_attemptNumbersText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lock Limit"
+            android:inputType="number"
+            android:padding="16dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/activity_admin_spam_settings_content_scrolling_deletionDaysText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Numbers of days lock spam data availability"
+            android:inputType="number"
+            android:padding="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_spam_settings_content_scrolling_attemptNumbersText" />
+
+        <Button
+            android:id="@+id/activity_admin_spam_settings_content_scrolling_updateSpamSettingsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Update Spam Settings"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_spam_settings_content_scrolling_deletionDaysText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
