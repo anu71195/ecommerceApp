@@ -502,6 +502,8 @@ class UserCartActivityrvFragment() : Fragment() {
         var checkoutCounterFirebaseUtil = FirebaseUtil()
         checkoutCounterFirebaseUtil.openFbReference("checkOutCounter")
 
+        var productMap: HashMap<String, CheckoutCounter> = HashMap<String, CheckoutCounter>()
+
         checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString())
             .addListenerForSingleValueEvent(
                 object : ValueEventListener {
@@ -518,21 +520,19 @@ class UserCartActivityrvFragment() : Fragment() {
 
                             if (userCheckoutCounter != null) {
                                 var todaysDate = CheckoutCounter().getTodayDate(0)
-                                var productMap =
+                                productMap =
                                     userCheckoutCounter.dateMap[todaysDate]?.productMap as HashMap<String, CheckoutCounter>
                                 d(
                                     "UserCartActivityrvFragment",
                                     "checkSpamAndValidateUserProfile - ${Gson().toJson(productMap)}"
                                 )
-                                //todo have to put spam check here
-                                checkForLockUser(lockedProducts, profile, userID)
 
-
+                                checkForLockUser(lockedProducts, profile, userID, productMap)
                             } else {
-                                checkForLockUser(lockedProducts, profile, userID)
+                                checkForLockUser(lockedProducts, profile, userID, productMap)
                             }
                         } else {
-                            checkForLockUser(lockedProducts, profile, userID)
+                            checkForLockUser(lockedProducts, profile, userID, productMap)
                         }
                     }
 
@@ -541,10 +541,12 @@ class UserCartActivityrvFragment() : Fragment() {
 
     }
 
+    //todo have to put spam check here
     private fun checkForLockUser(
         lockedProducts: HashMap<String, Int>,
         profile: Profile,
-        userID: String
+        userID: String,
+        productMap: HashMap<String, CheckoutCounter>
     ) {
         d("checkout", lockedProducts.toString())
         var productCounter = 0
