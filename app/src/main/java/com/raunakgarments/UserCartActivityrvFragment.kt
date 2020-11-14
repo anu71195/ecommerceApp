@@ -26,6 +26,7 @@ import com.raunakgarments.model.*
 import kotlinx.android.synthetic.main.fragment_user_cart_activity_rv.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 class UserCartActivityrvFragment() : Fragment() {
 
@@ -132,7 +133,7 @@ class UserCartActivityrvFragment() : Fragment() {
                             "checkconditionsforcheckout ${productStockSyncHashmap.size}, ${productStockSyncHashmap}"
                         )
                         if (productStockSyncHashmap.size > 0) {
-                            checkSpamAndValidateUserProfile(profile, emailVerified)
+                            checkAndValidateUserProfile(profile, emailVerified)
 
                         } else {
                             paymentErrorPopup(listOf(ErrorType.emptyCart))
@@ -147,10 +148,6 @@ class UserCartActivityrvFragment() : Fragment() {
 
 
         }
-    }
-
-    private fun checkSpamAndValidateUserProfile(profile: Profile?, emailVerified: Boolean) {
-        checkAndValidateUserProfile(profile, emailVerified)
     }
 
     private fun checkAndValidateUserProfile(profile: Profile?, emailVerified: Boolean) {
@@ -447,7 +444,7 @@ class UserCartActivityrvFragment() : Fragment() {
             (((Date().time) / 1000) - productStockSyncHashmap.size)
         if (productStockSyncHashmap.size == lockedProducts.size) {
             Handler().postDelayed({
-                checkForLockUser(
+                checkforSpamAndLockUser(
                     lockedProducts, profile, userID
                 )
             }, 5000)
@@ -497,6 +494,14 @@ class UserCartActivityrvFragment() : Fragment() {
         }
     }
 
+    private fun checkforSpamAndLockUser(
+        lockedProducts: HashMap<String, Int>,
+        profile: Profile,
+        userID: String
+    ) {
+        checkForLockUser(lockedProducts, profile, userID)
+    }
+
     private fun checkForLockUser(
         lockedProducts: HashMap<String, Int>,
         profile: Profile,
@@ -519,6 +524,7 @@ class UserCartActivityrvFragment() : Fragment() {
                                     if (productStockSync.locked == FirebaseAuth.getInstance().uid.toString()) {
                                         //todo count as locks got here
                                         checkAndClearSpammingLimitAndTakeLocks(productId)
+                                        //todo put spam counter check here
                                         lockedProducts[productId] = 1
                                     } else {
                                         /*product lock is not available*/
@@ -552,6 +558,37 @@ class UserCartActivityrvFragment() : Fragment() {
                 })
         }
     }
+//
+//    private fun checkUserCartForSpam(lockedProducts: HashMap<String, Int>, productId: String) {
+//
+//        var checkoutCounterFirebaseUtil = FirebaseUtil()
+//        checkoutCounterFirebaseUtil.openFbReference("checkOutCounter")
+//
+//        checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if(snapshot.exists()) {
+//                    var userCheckoutCounter = snapshot.getValue(UserCheckoutCounter::class.java)
+//                    d("UserCartActivityrvFragment", "checkSpamAndValidateUserProfile - ${Gson().toJson(userCheckoutCounter)}")
+//
+//                    if(userCheckoutCounter != null) {
+//                        var todaysDate = CheckoutCounter().getTodayDate(0)
+//                        var productMap = userCheckoutCounter.dateMap[todaysDate]?.productMap as HashMap<String,CheckoutCounter>
+//                        d("UserCartActivityrvFragment", "checkSpamAndValidateUserProfile - ${Gson().toJson(productMap)}")
+//
+//                        checkProductSpamFromCartAndValidateUserProfile(profile, emailVerified, productMap)
+//
+//                    } else {
+//                        checkAndValidateUserProfile(profile, emailVerified)
+//                    }
+//                } else  {
+//                    checkAndValidateUserProfile(profile, emailVerified)
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {}
+//
+//        })
+//    }
 
     private fun checkAndClearSpammingLimitAndTakeLocks(productId: String) {
         var todaysDate = SimpleDateFormat("ddMMMMyyyy")
