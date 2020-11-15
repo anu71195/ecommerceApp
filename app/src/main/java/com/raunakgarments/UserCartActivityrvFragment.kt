@@ -529,18 +529,27 @@ class UserCartActivityrvFragment() : Fragment() {
                                     "checkSpamAndValidateUserProfile - ${Gson().toJson(productMap)}"
                                 )
 
-                                checkForLockUser(lockedProducts, profile, userID, productMap)
+                                getSpamSettingsAndCheckForLockUser(lockedProducts, profile, userID, productMap)
                             } else {
-                                checkForLockUser(lockedProducts, profile, userID, productMap)
+                                getSpamSettingsAndCheckForLockUser(lockedProducts, profile, userID, productMap)
                             }
                         } else {
-                            checkForLockUser(lockedProducts, profile, userID, productMap)
+                            getSpamSettingsAndCheckForLockUser(lockedProducts, profile, userID, productMap)
                         }
                     }
 
                     override fun onCancelled(error: DatabaseError) {}
                 })
 
+    }
+
+    private fun getSpamSettingsAndCheckForLockUser(
+        lockedProducts: HashMap<String, Int>,
+        profile: Profile,
+        userID: String,
+        productMap: HashMap<String, CheckoutCounter>
+    ) {
+        checkForLockUser(lockedProducts, profile, userID, productMap)
     }
 
     //todo have to put spam check here
