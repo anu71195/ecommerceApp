@@ -520,7 +520,7 @@ class UserCartActivityrvFragment() : Fragment() {
 
                             if (userCheckoutCounter != null) {
                                 var todaysDate = CheckoutCounter().getTodayDate(0)
-                                if(userCheckoutCounter.dateMap[todaysDate]?.productMap != null) {
+                                if (userCheckoutCounter.dateMap[todaysDate]?.productMap != null) {
                                     productMap =
                                         userCheckoutCounter.dateMap[todaysDate]?.productMap as HashMap<String, CheckoutCounter>
                                 }
@@ -529,12 +529,27 @@ class UserCartActivityrvFragment() : Fragment() {
                                     "checkSpamAndValidateUserProfile - ${Gson().toJson(productMap)}"
                                 )
 
-                                getSpamSettingsAndCheckForLockUser(lockedProducts, profile, userID, productMap)
+                                getSpamSettingsAndCheckForLockUser(
+                                    lockedProducts,
+                                    profile,
+                                    userID,
+                                    productMap
+                                )
                             } else {
-                                getSpamSettingsAndCheckForLockUser(lockedProducts, profile, userID, productMap)
+                                getSpamSettingsAndCheckForLockUser(
+                                    lockedProducts,
+                                    profile,
+                                    userID,
+                                    productMap
+                                )
                             }
                         } else {
-                            getSpamSettingsAndCheckForLockUser(lockedProducts, profile, userID, productMap)
+                            getSpamSettingsAndCheckForLockUser(
+                                lockedProducts,
+                                profile,
+                                userID,
+                                productMap
+                            )
                         }
                     }
 
@@ -549,7 +564,35 @@ class UserCartActivityrvFragment() : Fragment() {
         userID: String,
         productMap: HashMap<String, CheckoutCounter>
     ) {
-        checkForLockUser(lockedProducts, profile, userID, productMap)
+        //todo get spam settings here
+
+        var spamSettingsFirebaseUtil = FirebaseUtil()
+        spamSettingsFirebaseUtil.openFbReference("spamSettings")
+
+        spamSettingsFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var spamSettings = SpamSettings()
+                if (snapshot.exists()) {
+                    spamSettings = snapshot.getValue(SpamSettings::class.java)!!
+                } else {
+                    d(
+                        "UserCartActivityrvFragment",
+                        "getSpamSEttingsAndCheckForLockUser - snapshot does not exist"
+                    )
+                }
+                d(
+                    "UserCartActivityrvFragment",
+                    "getSpamSEttingsAndCheckForLockUser - ${Gson().toJson(spamSettings)}"
+                )
+                checkForLockUser(lockedProducts, profile, userID, productMap, spamSettings)
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
+
+
     }
 
     //todo have to put spam check here
@@ -557,7 +600,8 @@ class UserCartActivityrvFragment() : Fragment() {
         lockedProducts: HashMap<String, Int>,
         profile: Profile,
         userID: String,
-        productMap: HashMap<String, CheckoutCounter>
+        productMap: HashMap<String, CheckoutCounter>,
+        spamSettings: SpamSettings
     ) {
         d("checkout", lockedProducts.toString())
         var productCounter = 0
@@ -577,16 +621,31 @@ class UserCartActivityrvFragment() : Fragment() {
                                         //todo count as locks got here
                                         checkAndClearSpammingLimitAndTakeLocks(productId)
                                         //todo put spam counter check here
-                                        d("UserCartActivityrvFragment","checkForLockUser - ${productId}    ${Gson().toJson(productMap)} ")
+                                        d(
+                                            "UserCartActivityrvFragment",
+                                            "checkForLockUser - ${productId}    ${
+                                                Gson().toJson(productMap)
+                                            } "
+                                        )
                                         lockedProducts[productId] = 1
-                                        if(productId in productMap) {
-                                            if(productMap[productId]!!.count > 10) {
-                                                //spam detected
-                                                lockedProducts[productId] = -6
-                                            }
-                                            d("UserCartActivityrvFragment","checkForLockUser - I'm in")
+                                        if (spamSettings.lockLimit == 0) {
+                                            lockedProducts[productId] = -6
                                         } else {
-                                            d("UserCartActivityrvFragment","checkForLockUser - I'm out")
+                                            if (productId in productMap) {
+                                                if (productMap[productId]!!.count >= spamSettings.lockLimit) {
+                                                    //spam detected
+                                                    lockedProducts[productId] = -6
+                                                }
+                                                d(
+                                                    "UserCartActivityrvFragment",
+                                                    "checkForLockUser - I'm in"
+                                                )
+                                            } else {
+                                                d(
+                                                    "UserCartActivityrvFragment",
+                                                    "checkForLockUser - I'm out"
+                                                )
+                                            }
                                         }
 
                                     } else {
