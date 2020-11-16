@@ -575,7 +575,7 @@ class UserCartActivityrvFragment() : Fragment() {
                 var spamSettings = SpamSettings()
                 if (snapshot.exists()) {
                     spamSettings = snapshot.getValue(SpamSettings::class.java)!!
-                    deleteOldDatesData(spamSettings)
+                    deleteOldDatesDataWithTimer(spamSettings)
                 } else {
                     d(
                         "UserCartActivityrvFragment",
@@ -594,6 +594,12 @@ class UserCartActivityrvFragment() : Fragment() {
         })
 
 
+    }
+
+    private fun deleteOldDatesDataWithTimer(spamSettings: SpamSettings) {
+        Handler().postDelayed({
+            deleteOldDatesData(spamSettings)
+        }, 1000)
     }
 
     private fun deleteOldDatesData(spamSettings: SpamSettings) {
@@ -633,9 +639,13 @@ class UserCartActivityrvFragment() : Fragment() {
                                 for (dateString in dateDeletionList) {
                                     userCheckoutCounter.dateMap.remove(dateString)
                                 }
-                                printTagMsgDeleteOldDatesData2(userCheckoutCounter, dateDeletionList)
+                                printTagMsgDeleteOldDatesData2(
+                                    userCheckoutCounter,
+                                    dateDeletionList
+                                )
 
-                                checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).setValue(userCheckoutCounter)
+                                checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString())
+                                    .setValue(userCheckoutCounter)
                             }
                         } else {
                             d(
@@ -649,19 +659,19 @@ class UserCartActivityrvFragment() : Fragment() {
                 })
     }
 
-private fun printTagMsgDeleteOldDatesData2(
-    userCheckoutCounter: UserCheckoutCounter,
-    dateDeletionList: MutableList<String>
-) {
-    d(
-        "UserCartActivityrvFragment",
-        "deleteOldDatesData - ${Gson().toJson(userCheckoutCounter.dateMap)}"
-    )
-    d(
-        "UserCartActivityrvFragment",
-        "deleteOldDatesData - ${dateDeletionList}"
-    )
-}
+    private fun printTagMsgDeleteOldDatesData2(
+        userCheckoutCounter: UserCheckoutCounter,
+        dateDeletionList: MutableList<String>
+    ) {
+        d(
+            "UserCartActivityrvFragment",
+            "deleteOldDatesData - ${Gson().toJson(userCheckoutCounter.dateMap)}"
+        )
+        d(
+            "UserCartActivityrvFragment",
+            "deleteOldDatesData - ${dateDeletionList}"
+        )
+    }
 
 
     private fun printTagMsgDeleteOldDatesData1(
@@ -791,30 +801,44 @@ private fun printTagMsgDeleteOldDatesData2(
         var productStockSyncFirebaseUtil = FirebaseUtil()
         productStockSyncFirebaseUtil.openFbReference("productStockSync")
 
-        productStockSyncFirebaseUtil.mDatabaseReference.child(productId).addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()) {
-                    var productStockSync =
-                        snapshot.getValue(ProductStockSync::class.java)
-                    if(productStockSync != null) {
-                            if(productStockSync.locked == FirebaseAuth.getInstance().uid.toString() && (( productStockSync.timeStamp.toLong() + 600 - ((Date().time) / 1000)) > 120)) {
-                                d("UserCartActivityrvFragment", "releaseLockSpamUserIfLocked - lock can be release ${((((Date().time) / 1000) - productStockSync.timeStamp.toLong()))}")
+        productStockSyncFirebaseUtil.mDatabaseReference.child(productId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        var productStockSync =
+                            snapshot.getValue(ProductStockSync::class.java)
+                        if (productStockSync != null) {
+                            if (productStockSync.locked == FirebaseAuth.getInstance().uid.toString() && ((productStockSync.timeStamp.toLong() + 600 - ((Date().time) / 1000)) > 120)) {
+                                d(
+                                    "UserCartActivityrvFragment",
+                                    "releaseLockSpamUserIfLocked - lock can be release ${((((Date().time) / 1000) - productStockSync.timeStamp.toLong()))}"
+                                )
                                 productStockSync.locked = "-1"
-                                productStockSyncFirebaseUtil.mDatabaseReference.child(productId).setValue(productStockSync)
+                                productStockSyncFirebaseUtil.mDatabaseReference.child(productId)
+                                    .setValue(productStockSync)
                             } else {
-                                d("UserCartActivityrvFragment", "releaseLockSpamUserIfLocked - lock cant be release ${((((Date().time) / 1000) - productStockSync.timeStamp.toLong()))}")
+                                d(
+                                    "UserCartActivityrvFragment",
+                                    "releaseLockSpamUserIfLocked - lock cant be release ${((((Date().time) / 1000) - productStockSync.timeStamp.toLong()))}"
+                                )
                             }
+                        } else {
+                            d(
+                                "UserCartActivityrvFragment",
+                                "releaseLockSpamUserIfLocked - productStockSync is null"
+                            )
+                        }
                     } else {
-                        d("UserCartActivityrvFragment", "releaseLockSpamUserIfLocked - productStockSync is null")
+                        d(
+                            "UserCartActivityrvFragment",
+                            "releaseLockSpamUserIfLocked - snapshot does not exist"
+                        )
                     }
-                } else {
-                    d("UserCartActivityrvFragment", "releaseLockSpamUserIfLocked - snapshot does not exist")
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {}
+                override fun onCancelled(error: DatabaseError) {}
 
-        })
+            })
 
     }
 
