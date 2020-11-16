@@ -620,25 +620,8 @@ class UserCartActivityrvFragment() : Fragment() {
                                 var dateDeletionList: MutableList<String> = ArrayList()
 
                                 for (date in userCheckoutCounter.dateMap) {
+                                    printTagMsgDeleteOldDatesData1(date, todaysDate, dateFormat)
 
-                                    d(
-                                        "UserCartActivityrvFragment",
-                                        "deleteOldDatesData - ${date.key}"
-                                    )
-                                    d(
-                                        "UserCartActivityrvFragment",
-                                        "deleteOldDatesData - ${date.value}"
-                                    )
-                                    d(
-                                        "UserCartActivityrvFragment",
-                                        "deleteOldDatesData - ${
-                                            getDateDifference(
-                                                todaysDate,
-                                                date.key,
-                                                dateFormat
-                                            )
-                                        }"
-                                    )
                                     if (getDateDifference(
                                             todaysDate,
                                             date.key,
@@ -651,19 +634,13 @@ class UserCartActivityrvFragment() : Fragment() {
                                         "UserCartActivityrvFragment",
                                         "deleteOldDatesData - ${Gson().toJson(userCheckoutCounter.dateMap)}"
                                     )
-                                    for (dateString in dateDeletionList) {
-                                        userCheckoutCounter.dateMap.remove(dateString)
-                                    }
-                                    d(
-                                        "UserCartActivityrvFragment",
-                                        "deleteOldDatesData - ${Gson().toJson(userCheckoutCounter.dateMap)}"
-                                    )
+
                                     //todo gets are gathering need to delete them
                                 }
-                                d(
-                                    "UserCartActivityrvFragment",
-                                    "deleteOldDatesData - ${dateDeletionList}"
-                                )
+                                for (dateString in dateDeletionList) {
+                                    userCheckoutCounter.dateMap.remove(dateString)
+                                }
+                                printTagMsgDeleteOldDatesData2(userCheckoutCounter, dateDeletionList)
                             }
                         } else {
                             d(
@@ -675,6 +652,46 @@ class UserCartActivityrvFragment() : Fragment() {
 
                     override fun onCancelled(error: DatabaseError) {}
                 })
+    }
+
+private fun printTagMsgDeleteOldDatesData2(
+    userCheckoutCounter: UserCheckoutCounter,
+    dateDeletionList: MutableList<String>
+) {
+    d(
+        "UserCartActivityrvFragment",
+        "deleteOldDatesData - ${Gson().toJson(userCheckoutCounter.dateMap)}"
+    )
+    d(
+        "UserCartActivityrvFragment",
+        "deleteOldDatesData - ${dateDeletionList}"
+    )
+}
+
+
+    private fun printTagMsgDeleteOldDatesData1(
+        date: MutableMap.MutableEntry<String, UserCheckoutCounterProduct>,
+        todaysDate: String,
+        dateFormat: SimpleDateFormat
+    ) {
+        d(
+            "UserCartActivityrvFragment",
+            "deleteOldDatesData - ${date.key}"
+        )
+        d(
+            "UserCartActivityrvFragment",
+            "deleteOldDatesData - ${date.value}"
+        )
+        d(
+            "UserCartActivityrvFragment",
+            "deleteOldDatesData - ${
+                getDateDifference(
+                    todaysDate,
+                    date.key,
+                    dateFormat
+                )
+            }"
+        )
     }
 
     private fun getDateDifference(
@@ -774,37 +791,6 @@ class UserCartActivityrvFragment() : Fragment() {
                 })
         }
     }
-//
-//    private fun checkUserCartForSpam(lockedProducts: HashMap<String, Int>, productId: String) {
-//
-//        var checkoutCounterFirebaseUtil = FirebaseUtil()
-//        checkoutCounterFirebaseUtil.openFbReference("checkOutCounter")
-//
-//        checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if(snapshot.exists()) {
-//                    var userCheckoutCounter = snapshot.getValue(UserCheckoutCounter::class.java)
-//                    d("UserCartActivityrvFragment", "checkSpamAndValidateUserProfile - ${Gson().toJson(userCheckoutCounter)}")
-//
-//                    if(userCheckoutCounter != null) {
-//                        var todaysDate = CheckoutCounter().getTodayDate(0)
-//                        var productMap = userCheckoutCounter.dateMap[todaysDate]?.productMap as HashMap<String,CheckoutCounter>
-//                        d("UserCartActivityrvFragment", "checkSpamAndValidateUserProfile - ${Gson().toJson(productMap)}")
-//
-//                        checkProductSpamFromCartAndValidateUserProfile(profile, emailVerified, productMap)
-//
-//                    } else {
-//                        checkAndValidateUserProfile(profile, emailVerified)
-//                    }
-//                } else  {
-//                    checkAndValidateUserProfile(profile, emailVerified)
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {}
-//
-//        })
-//    }
 
     private fun checkAndClearSpammingLimitAndTakeLocks(productId: String) {
         var todaysDate = SimpleDateFormat("ddMMMMyyyy")
