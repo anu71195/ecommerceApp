@@ -799,6 +799,8 @@ private fun printTagMsgDeleteOldDatesData2(
                     if(productStockSync != null) {
                             if(productStockSync.locked == FirebaseAuth.getInstance().uid.toString() && (( productStockSync.timeStamp.toLong() + 600 - ((Date().time) / 1000)) > 120)) {
                                 d("UserCartActivityrvFragment", "releaseLockSpamUserIfLocked - lock can be release ${((((Date().time) / 1000) - productStockSync.timeStamp.toLong()))}")
+                                productStockSync.locked = "-1"
+                                productStockSyncFirebaseUtil.mDatabaseReference.child(productId).setValue(productStockSync)
                             } else {
                                 d("UserCartActivityrvFragment", "releaseLockSpamUserIfLocked - lock cant be release ${((((Date().time) / 1000) - productStockSync.timeStamp.toLong()))}")
                             }
