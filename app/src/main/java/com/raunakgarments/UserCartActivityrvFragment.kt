@@ -647,6 +647,17 @@ class UserCartActivityrvFragment() : Fragment() {
                                     ) {
                                         dateDeletionList.add(date.key)
                                     }
+                                    d(
+                                        "UserCartActivityrvFragment",
+                                        "deleteOldDatesData - ${Gson().toJson(userCheckoutCounter.dateMap)}"
+                                    )
+                                    for (dateString in dateDeletionList) {
+                                        userCheckoutCounter.dateMap.remove(dateString)
+                                    }
+                                    d(
+                                        "UserCartActivityrvFragment",
+                                        "deleteOldDatesData - ${Gson().toJson(userCheckoutCounter.dateMap)}"
+                                    )
                                     //todo gets are gathering need to delete them
                                 }
                                 d(
@@ -655,7 +666,10 @@ class UserCartActivityrvFragment() : Fragment() {
                                 )
                             }
                         } else {
-                            d("UserCartActivityrvFragment", "deleteOldDatesDate - snapshot does not exist")
+                            d(
+                                "UserCartActivityrvFragment",
+                                "deleteOldDatesDate - snapshot does not exist"
+                            )
                         }
                     }
 
