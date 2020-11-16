@@ -2,6 +2,7 @@ package com.raunakgarments.admin
 
 import android.os.Bundle
 import android.util.Log.d
+import android.widget.Toast
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -61,6 +62,12 @@ class AdminSpamSettingsActivity : AppCompatActivity() {
 
             spamSettings.lockLimit = activity_admin_spam_settings_content_scrolling_attemptNumbersText.text.toString().toInt()
             spamSettings.daysDataAvailability = activity_admin_spam_settings_content_scrolling_deletionDaysText.text.toString().toInt()
+
+            if(spamSettings.daysDataAvailability < 2) {
+                spamSettings.daysDataAvailability = 2
+                activity_admin_spam_settings_content_scrolling_deletionDaysText.setText("2")
+                Toast.makeText(this, "Min Value should be 2 for time difference contengency", Toast.LENGTH_LONG).show()
+            }
 
             spamSettingsFirebaseUtil.mDatabaseReference.setValue(spamSettings)
 
