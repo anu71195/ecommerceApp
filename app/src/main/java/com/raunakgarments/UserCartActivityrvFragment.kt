@@ -26,7 +26,9 @@ import com.raunakgarments.model.*
 import kotlinx.android.synthetic.main.fragment_user_cart_activity_rv.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
+import kotlin.math.abs
 
 class UserCartActivityrvFragment() : Fragment() {
 
@@ -575,6 +577,7 @@ class UserCartActivityrvFragment() : Fragment() {
                 var spamSettings = SpamSettings()
                 if (snapshot.exists()) {
                     spamSettings = snapshot.getValue(SpamSettings::class.java)!!
+                    deleteOldDatesData(spamSettings)
                 } else {
                     d(
                         "UserCartActivityrvFragment",
@@ -594,6 +597,83 @@ class UserCartActivityrvFragment() : Fragment() {
 
 
     }
+
+    private fun deleteOldDatesData(spamSettings: SpamSettings) {
+        var checkoutCounterFirebaseUtil = FirebaseUtil()
+        checkoutCounterFirebaseUtil.openFbReference("checkOutCounter")
+
+        var productMap: HashMap<String, CheckoutCounter> = HashMap<String, CheckoutCounter>()
+
+        checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString())
+            .addListenerForSingleValueEvent(
+                object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            var userCheckoutCounter =
+                                snapshot.getValue(UserCheckoutCounter::class.java)
+                            if (userCheckoutCounter != null) {
+                                var todaysDate = CheckoutCounter().getTodayDate(0)
+
+                                //todo date difference
+
+                                var dateFormat = SimpleDateFormat("ddMMMMyyyy")
+                                var dateDeletionList: MutableList<String> = ArrayList()
+
+                                for (date in userCheckoutCounter.dateMap) {
+
+                                    d(
+                                        "UserCartActivityrvFragment",
+                                        "deleteOldDatesData - ${date.key}"
+                                    )
+                                    d(
+                                        "UserCartActivityrvFragment",
+                                        "deleteOldDatesData - ${date.value}"
+                                    )
+                                    d(
+                                        "UserCartActivityrvFragment",
+                                        "deleteOldDatesData - ${
+                                            getDateDifference(
+                                                todaysDate,
+                                                date.key,
+                                                dateFormat
+                                            )
+                                        }"
+                                    )
+                                    if (getDateDifference(
+                                            todaysDate,
+                                            date.key,
+                                            dateFormat
+                                        ) >= spamSettings.daysDataAvailability
+                                    ) {
+                                        dateDeletionList.add(date.key)
+                                    }
+                                    //todo gets are gathering need to delete them
+                                }
+                                d(
+                                    "UserCartActivityrvFragment",
+                                    "deleteOldDatesData - ${dateDeletionList}"
+                                )
+                            }
+                        } else {
+                            d("UserCartActivityrvFragment", "deleteOldDatesDate - snapshot does not exist")
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {}
+                })
+    }
+
+    private fun getDateDifference(
+        dateString1: String,
+        dateString2: String,
+        dateFormat: SimpleDateFormat
+    ): Long {
+        var date1 = dateFormat.parse(dateString1)
+        var date2 = dateFormat.parse(dateString2)
+
+        return ((abs(date1.time - date2.time)) / (24 * 60 * 60 * 1000))
+    }
+
 
     //todo have to put spam check here
     private fun checkForLockUser(
