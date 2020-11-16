@@ -796,7 +796,6 @@ class UserCartActivityrvFragment() : Fragment() {
     }
 
     private fun releaseLockSpamUserIfLocked(productId: String) {
-        //todo release lock
 
         var productStockSyncFirebaseUtil = FirebaseUtil()
         productStockSyncFirebaseUtil.openFbReference("productStockSync")
