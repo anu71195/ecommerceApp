@@ -602,8 +602,6 @@ class UserCartActivityrvFragment() : Fragment() {
         var checkoutCounterFirebaseUtil = FirebaseUtil()
         checkoutCounterFirebaseUtil.openFbReference("checkOutCounter")
 
-        var productMap: HashMap<String, CheckoutCounter> = HashMap<String, CheckoutCounter>()
-
         checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString())
             .addListenerForSingleValueEvent(
                 object : ValueEventListener {
@@ -641,6 +639,8 @@ class UserCartActivityrvFragment() : Fragment() {
                                     userCheckoutCounter.dateMap.remove(dateString)
                                 }
                                 printTagMsgDeleteOldDatesData2(userCheckoutCounter, dateDeletionList)
+
+                                checkoutCounterFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).setValue(userCheckoutCounter)
                             }
                         } else {
                             d(
