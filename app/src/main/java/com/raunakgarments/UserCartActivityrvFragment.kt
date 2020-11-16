@@ -732,13 +732,13 @@ private fun printTagMsgDeleteOldDatesData2(
                                         lockedProducts[productId] = 1
                                         if (spamSettings.lockLimit == 0) {
                                             lockedProducts[productId] = -6
-                                            releaseLockSpamUserIfLocked()
+                                            releaseLockSpamUserIfLocked(productId)
                                         } else {
                                             if (productId in productMap) {
                                                 if (productMap[productId]!!.count >= spamSettings.lockLimit) {
                                                     //spam detected
                                                     lockedProducts[productId] = -6
-                                                    releaseLockSpamUserIfLocked()
+                                                    releaseLockSpamUserIfLocked(productId)
                                                 }
                                                 d(
                                                     "UserCartActivityrvFragment",
@@ -785,8 +785,35 @@ private fun printTagMsgDeleteOldDatesData2(
         }
     }
 
-    private fun releaseLockSpamUserIfLocked() {
+    private fun releaseLockSpamUserIfLocked(productId: String) {
         //todo release lock
+
+        var productStockSyncFirebaseUtil = FirebaseUtil()
+        productStockSyncFirebaseUtil.openFbReference("productStockSync")
+
+        productStockSyncFirebaseUtil.mDatabaseReference.child(productId).addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    var productStockSync =
+                        snapshot.getValue(ProductStockSync::class.java)
+                    if(productStockSync != null) {
+                            if(productStockSync.locked == FirebaseAuth.getInstance().uid.toString() && (( productStockSync.timeStamp.toLong() + 600 - ((Date().time) / 1000)) > 120)) {
+                                d("UserCartActivityrvFragment", "releaseLockSpamUserIfLocked - lock can be release ${((((Date().time) / 1000) - productStockSync.timeStamp.toLong()))}")
+                            } else {
+                                d("UserCartActivityrvFragment", "releaseLockSpamUserIfLocked - lock cant be release ${((((Date().time) / 1000) - productStockSync.timeStamp.toLong()))}")
+                            }
+                    } else {
+                        d("UserCartActivityrvFragment", "releaseLockSpamUserIfLocked - productStockSync is null")
+                    }
+                } else {
+                    d("UserCartActivityrvFragment", "releaseLockSpamUserIfLocked - snapshot does not exist")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
+
     }
 
     private fun checkAndClearSpammingLimitAndTakeLocks(productId: String) {
