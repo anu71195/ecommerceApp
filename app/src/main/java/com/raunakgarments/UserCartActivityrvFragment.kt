@@ -82,7 +82,6 @@ class UserCartActivityrvFragment() : Fragment() {
         return adapter
     }
 
-    /*todo how to mitigate if user is spamming the products and trying to get locks again and again*/
     private fun checkOutButtonClickListener(adapter: UserCartAdapter) {
         fragment_user_cart_activity_checkoutButton.setOnClickListener {
             d("UserCartActivityrvFragment", "checkOutButtonClickListener - checkoutbutton clicked")
@@ -566,7 +565,6 @@ class UserCartActivityrvFragment() : Fragment() {
         userID: String,
         productMap: HashMap<String, CheckoutCounter>
     ) {
-        //todo get spam settings here
 
         var spamSettingsFirebaseUtil = FirebaseUtil()
         spamSettingsFirebaseUtil.openFbReference("spamSettings")
@@ -612,8 +610,6 @@ class UserCartActivityrvFragment() : Fragment() {
                             if (userCheckoutCounter != null) {
                                 var todaysDate = CheckoutCounter().getTodayDate(0)
 
-                                //todo date difference
-
                                 var dateFormat = SimpleDateFormat("ddMMMMyyyy")
                                 var dateDeletionList: MutableList<String> = ArrayList()
 
@@ -633,7 +629,6 @@ class UserCartActivityrvFragment() : Fragment() {
                                         "deleteOldDatesData - ${Gson().toJson(userCheckoutCounter.dateMap)}"
                                     )
 
-                                    //todo gets are gathering need to delete them
                                 }
                                 for (dateString in dateDeletionList) {
                                     userCheckoutCounter.dateMap.remove(dateString)
@@ -705,8 +700,6 @@ private fun printTagMsgDeleteOldDatesData2(
         return ((abs(date1.time - date2.time)) / (24 * 60 * 60 * 1000))
     }
 
-
-    //todo have to put spam check here
     private fun checkForLockUser(
         lockedProducts: HashMap<String, Int>,
         profile: Profile,
@@ -729,9 +722,7 @@ private fun printTagMsgDeleteOldDatesData2(
                                     snapshot.getValue(ProductStockSync::class.java)
                                 if (productStockSync != null) {
                                     if (productStockSync.locked == FirebaseAuth.getInstance().uid.toString()) {
-                                        //todo count as locks got here
                                         checkAndClearSpammingLimitAndTakeLocks(productId)
-                                        //todo put spam counter check here
                                         d(
                                             "UserCartActivityrvFragment",
                                             "checkForLockUser - ${productId}    ${
@@ -741,11 +732,13 @@ private fun printTagMsgDeleteOldDatesData2(
                                         lockedProducts[productId] = 1
                                         if (spamSettings.lockLimit == 0) {
                                             lockedProducts[productId] = -6
+                                            releaseLockSpamUserIfLocked()
                                         } else {
                                             if (productId in productMap) {
                                                 if (productMap[productId]!!.count >= spamSettings.lockLimit) {
                                                     //spam detected
                                                     lockedProducts[productId] = -6
+                                                    releaseLockSpamUserIfLocked()
                                                 }
                                                 d(
                                                     "UserCartActivityrvFragment",
@@ -792,6 +785,10 @@ private fun printTagMsgDeleteOldDatesData2(
         }
     }
 
+    private fun releaseLockSpamUserIfLocked() {
+        //todo release lock
+    }
+
     private fun checkAndClearSpammingLimitAndTakeLocks(productId: String) {
         var todaysDate = SimpleDateFormat("ddMMMMyyyy")
         todaysDate.timeZone =
@@ -836,7 +833,6 @@ private fun printTagMsgDeleteOldDatesData2(
 
             })
 
-//todo give admin permission for number of days of deletion and number of times user can get locks
         d(
             "UserCartActivityrvFragment",
             "checkAndClearSpammingLimitAndTakeLocks - ${todaysDate.format(Date())}"
