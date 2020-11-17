@@ -141,16 +141,6 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                         Picasso.get().load(url).into(uploadedImagePreviewAdmin)
                     }
                 }
-
-
-//                ref.putFile(imageUri).addOnSuccessListener {
-//                    ref.downloadUrl.addOnSuccessListener {
-//                        var url = it.toString()
-//                        d("image url", url)
-//                        productImageLinkAdmin.setText(url)
-//                        Picasso.get().load(url).into(uploadedImagePreviewAdmin)
-//                    }
-//                }
             }
         }
     }
