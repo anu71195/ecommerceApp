@@ -2,14 +2,10 @@ package com.raunakgarments.admin
 
 import android.app.Activity
 import android.content.Intent
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
-import android.os.FileUtils
-import android.provider.MediaStore
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.room.util.FileUtil
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.raunakgarments.R
@@ -28,6 +23,7 @@ import com.raunakgarments.model.ProductStockSync
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_admin.*
 import java.io.ByteArrayOutputStream
+import java.io.File
 
 
 class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
@@ -111,22 +107,25 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 FirebaseUtil().mStorageRef.child("productImages/${imageUri?.lastPathSegment}")
             if (imageUri != null) {
 
+                val options = BitmapFactory.Options()
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeStream(
+                    context.contentResolver.openInputStream(imageUri),
+                    null,
+                    options)
+                d("AdminFragment", "onActivityResult height - ${options.outHeight}")
+                d("AdminFragment", "onActivityResult width - ${options.outWidth}")
 
-//                val path = getRealPathFromURI(Uri.parse(imageUri.getPath()))
-//                d("AdminFragment", "onActivityResult - ${path
-//                }")
-//                val exif = ExifInterface(path)
-//                val rotation = exif.getAttributeInt(
-//                    ExifInterface.TAG_ORIENTATION,
-//                    ExifInterface.ORIENTATION_NORMAL
-//                )
+
 
                 val imageStream = context.contentResolver.openInputStream(
                     imageUri
                 )
-                val bitmap = BitmapFactory.decodeStream(imageStream)
+                var bitmap = BitmapFactory.decodeStream(imageStream)
+                bitmap = Bitmap.createScaledBitmap(bitmap, options.outWidth/10, options.outHeight/10, false)
                 val baos = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos)
+
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
                 val data = baos.toByteArray()
                 var uploadTask = ref.putBytes(data)
                 uploadTask.addOnFailureListener {
@@ -145,16 +144,6 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
         }
     }
 
-    fun getRealPathFromURI(uri: Uri): String? {
-        val cursor: Cursor? = context.contentResolver.query(uri, null, null, null, null)
-
-        cursor?.moveToFirst()
-
-        val idx = cursor!!.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-        val realPath = cursor.getString(idx)
-
-        return realPath
-    }
 
     private fun saveDeal() {
         var tagFirebaseUtil = FirebaseUtil()
