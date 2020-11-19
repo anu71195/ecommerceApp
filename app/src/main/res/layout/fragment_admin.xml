@@ -82,6 +82,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/productImageLinkAdmin" />
 
+    <TextView
+        android:id="@+id/fragment_admin_warning_image_upload_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Make sure to use default Photo Gallery to choose image."
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="@+id/productImageLinkAdmin"
+        app:layout_constraintRight_toRightOf="@+id/uploadImageButtonAdmin"
+        app:layout_constraintTop_toBottomOf="@id/uploadImageButtonAdmin" />
+
     <EditText
         android:id="@+id/productDescriptionAdmin"
         android:layout_width="362dp"
@@ -90,7 +100,7 @@
         android:hint="Product Description"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImageLinkAdmin" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_admin_warning_image_upload_textView" />
 
     <Button
         android:id="@+id/submitButtonAdmin"
