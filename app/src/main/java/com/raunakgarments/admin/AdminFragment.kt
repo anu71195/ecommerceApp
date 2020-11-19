@@ -120,10 +120,11 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                     imageUri
                 )
                 var bitmap = BitmapFactory.decodeStream(imageStream)
-                bitmap = Bitmap.createScaledBitmap(bitmap, options.outWidth/10, options.outHeight/10, false)
+                val imageWidth = 360
+                bitmap = Bitmap.createScaledBitmap(bitmap, imageWidth, options.outHeight/(options.outWidth/imageWidth), false)
                 val baos = ByteArrayOutputStream()
 
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos)
                 val data = baos.toByteArray()
                 var uploadTask = ref.putBytes(data)
                 uploadTask.addOnFailureListener {
