@@ -2,10 +2,13 @@ package com.raunakgarments.admin
 
 import android.app.Activity
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -107,12 +110,20 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 FirebaseUtil().mStorageRef.child("productImages/${imageUri?.lastPathSegment}")
             if (imageUri != null) {
 
+                d("AdminFragment", "onActivityResult height - $imageUri")
+                d("AdminFragment", "onActivityResult height - ${getRealPathFromURI(imageUri)}")
+                d("AdminFragment", "onActivityResult height - ${File(getRealPathFromURI(imageUri)).exists()}")
+
+//todo
+//                ExifInterface(getRealPathFromURI(imageUri))
+
                 val options = BitmapFactory.Options()
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeStream(
                     context.contentResolver.openInputStream(imageUri),
                     null,
-                    options)
+                    options
+                )
                 d("AdminFragment", "onActivityResult height - ${options.outHeight}")
                 d("AdminFragment", "onActivityResult width - ${options.outWidth}")
 
@@ -121,7 +132,12 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 )
                 var bitmap = BitmapFactory.decodeStream(imageStream)
                 val imageWidth = 360
-                bitmap = Bitmap.createScaledBitmap(bitmap, imageWidth, options.outHeight/(options.outWidth/imageWidth), false)
+                bitmap = Bitmap.createScaledBitmap(
+                    bitmap,
+                    imageWidth,
+                    options.outHeight / (options.outWidth / imageWidth),
+                    false
+                )
                 val baos = ByteArrayOutputStream()
 
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos)
@@ -141,6 +157,13 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 }
             }
         }
+    }
+
+    fun getRealPathFromURI(uri: Uri?): String? {
+        val cursor: Cursor = context.contentResolver.query(uri!!, null, null, null, null)!!
+        cursor.moveToFirst()
+        val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+        return cursor.getString(idx)
     }
 
 
