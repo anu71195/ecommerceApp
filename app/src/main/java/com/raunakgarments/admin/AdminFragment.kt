@@ -116,8 +116,6 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 d("AdminFragment", "onActivityResult height - ${options.outHeight}")
                 d("AdminFragment", "onActivityResult width - ${options.outWidth}")
 
-
-
                 val imageStream = context.contentResolver.openInputStream(
                     imageUri
                 )
