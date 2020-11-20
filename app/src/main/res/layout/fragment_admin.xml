@@ -86,7 +86,7 @@
         android:id="@+id/fragment_admin_warning_image_upload_textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Make sure to use default Photo Gallery to choose image."
+        android:text="use Photo Gallery or Google Photos to choose image."
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="@+id/productImageLinkAdmin"
         app:layout_constraintRight_toRightOf="@+id/uploadImageButtonAdmin"
