@@ -2,12 +2,12 @@ package com.raunakgarments.admin
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -17,7 +17,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -125,7 +124,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 )
 
 //todo
-//                ExifInterface(getRealPathFromURI(imageUri))
+                d("AdminFragment", "onActivityResult height - ${getOrientation(context,imageUri)}")
 
                 val options = BitmapFactory.Options()
                 options.inJustDecodeBounds = true;
@@ -167,6 +166,20 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 }
             }
         }
+    }
+
+    private fun getOrientation(context: Context, photoUri: Uri): Int {
+        var cursor: Cursor? = context.getContentResolver()
+            .query(photoUri, arrayOf(MediaStore.Images.ImageColumns.ORIENTATION), null, null, null)
+        if (cursor!!.count != 1) {
+            cursor.close()
+            return -1
+        }
+        cursor.moveToFirst()
+        val orientation = cursor.getInt(0)
+        cursor.close()
+        cursor = null
+        return orientation
     }
 
     private fun checkPermissions() {
