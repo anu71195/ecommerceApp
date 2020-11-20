@@ -119,7 +119,10 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
 
                 d("AdminFragment", "onActivityResult height - $imageUri")
                 d("AdminFragment", "onActivityResult height - ${getRealPathFromURI(imageUri)}")
-                d("AdminFragment", "onActivityResult height - ${File(getRealPathFromURI(imageUri)).exists()}")
+                d(
+                    "AdminFragment",
+                    "onActivityResult height - ${File(getRealPathFromURI(imageUri)).exists()}"
+                )
 
 //todo
 //                ExifInterface(getRealPathFromURI(imageUri))
@@ -168,45 +171,64 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
 
     private fun checkPermissions() {
 
-        if(ContextCompat.checkSelfPermission(context,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             Toast.makeText(context, "You have already granted the permission", Toast.LENGTH_LONG)
             d("AdminFragment", "checkPermissions - permission already granted")
         } else {
             d("AdminFragment", "checkPermissions - permission already not granted")
-                requestStoragePermission()
+            requestStoragePermission()
 
         }
     }
 
-private fun requestStoragePermission() {
-    if(ActivityCompat.shouldShowRequestPermissionRationale(context, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-        d("AdminFragment", "requestStoragePermission - showing popup")
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Permission needed")
-        builder.setMessage("This permission is needed because of this and that")
-        builder.setIcon(android.R.drawable.ic_dialog_alert)
-        builder.setPositiveButton("OK") { dialogInterface, which ->
-            ActivityCompat.requestPermissions(context,arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), STORAGE_PERMISSION_CODE)
+    private fun requestStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                context,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+        ) {
+            d("AdminFragment", "requestStoragePermission - showing popup")
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Permission needed")
+            builder.setMessage("This permission is needed because of this and that")
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+            builder.setPositiveButton("OK") { dialogInterface, which ->
+                ActivityCompat.requestPermissions(
+                    context,
+                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                    STORAGE_PERMISSION_CODE
+                )
+            }
+            builder.setNegativeButton("cancel") { dialogInterface, which ->
+                dialogInterface.dismiss()
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+        } else {
+            d("AdminFragment", "requestStoragePermission - not showing popup")
+            ActivityCompat.requestPermissions(
+                context,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                STORAGE_PERMISSION_CODE
+            )
         }
-        builder.setNegativeButton("cancel") { dialogInterface, which ->
-            dialogInterface.dismiss()
-        }
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
-    } else {
-        d("AdminFragment", "requestStoragePermission - not showing popup")
-        ActivityCompat.requestPermissions(context,arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), STORAGE_PERMISSION_CODE)
     }
-}
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
         when (requestCode) {
             STORAGE_PERMISSION_CODE -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() &&
-                            grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                ) {
                     // Permission is granted. Continue the action or workflow
                     // in your app.
                     Toast.makeText(context, "Permission Granted", Toast.LENGTH_SHORT)
