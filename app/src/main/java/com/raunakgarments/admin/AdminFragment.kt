@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -117,14 +118,22 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
             if (imageUri != null) {
 
                 d("AdminFragment", "onActivityResult height - $imageUri")
-                d("AdminFragment", "onActivityResult height - ${getRealPathFromURI(imageUri)}")
-                d(
-                    "AdminFragment",
-                    "onActivityResult height - ${File(getRealPathFromURI(imageUri)).exists()}"
-                )
 
 //todo
-                d("AdminFragment", "onActivityResult height - ${getOrientation(context,imageUri)}")
+                var imageOrientation = 0
+                try {
+                    if(File(getRealPathFromURI(imageUri)).exists()) {
+                        imageOrientation = getOrientation(context, imageUri)
+                    } else {
+                        d(
+                            "AdminFragment",
+                            "onActivityResult orientation - imageuri does not exist}"
+                        )
+                    }
+                } catch (e: Exception) {
+                    d("AdminFragment", "onActivityResult orientation - GetRealpath error}")
+                }
+                d("AdminFragment", "onActivityResult orientation - ${imageOrientation}")
 
                 val options = BitmapFactory.Options()
                 options.inJustDecodeBounds = true;
@@ -140,7 +149,15 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                     imageUri
                 )
                 var bitmap = BitmapFactory.decodeStream(imageStream)
-                val imageWidth = 360
+
+                if(imageOrientation != 0 ) {
+                    var matrix = Matrix()
+                    matrix.postRotate(imageOrientation.toFloat())
+                    bitmap =
+                        Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+                }
+
+                val imageWidth = 720
                 bitmap = Bitmap.createScaledBitmap(
                     bitmap,
                     imageWidth,
