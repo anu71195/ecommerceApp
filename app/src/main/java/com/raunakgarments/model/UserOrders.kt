@@ -13,5 +13,6 @@ class UserOrders {
     var dateStampRaw: Date = Date()
     var dayStamp = ""
     var totalCost = ""
+    var userOrderProfile = Profile()
 }
 
