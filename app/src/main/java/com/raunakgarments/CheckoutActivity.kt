@@ -31,6 +31,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     var razorPayButtonClicked = false
     var isRazorPayOpen = false
     var totalCartCost = 0.0
+    var userProfileCv = Profile()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -259,6 +260,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     var profile = snapshot.getValue(Profile::class.java)
                     if (profile != null) {
+                        userProfileCv = profile
                         profile.orderNumber = profile.orderNumber + 1
                         firebaseUtil.mDatabaseReference.child(userID).setValue(profile)
                         startPayment(profile, userID)
@@ -354,7 +356,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
         d("CheckoutActivity", "onPaymentSucess - got reference key")
 
-        //todo
         if (userOrderPushReferenceKey != null) {
             populateUserOrdersDatabase(
                 userOrderFirebaseUtil,
@@ -423,10 +424,9 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             .child("totalCost")
             .setValue((totalCartCost / 100).toString())
 
-        //todo
-//        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
-//            .child("userOrderProfile")
-//            .setValue((totalCartCost / 100).toString())
+        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+            .child("userOrderProfile")
+            .setValue(userProfileCv)
 
         d("CheckoutActivity", "populateUserOrderMetadata - populated user order metadata")
     }
@@ -446,8 +446,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                     .child("orders")
                     .child(userOrderedProduct.id)
                     .setValue(userOrderedProduct)
-
-                //todo
 
                 // No need to update productstocksyncadmin lock here as it is only for bought ticket whicih can work asynchronously but product admin lock needs to be synchronous
                 productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id + "/boughtTicket")
