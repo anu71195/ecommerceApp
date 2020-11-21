@@ -61,7 +61,7 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
         var view = inflater.inflate(
             R.layout.fragment_admin, container, false
         )
-        /*todo image compression*/
+
         var uploadImageButton: Button =
             view.findViewById<Button>(R.id.uploadImageButtonAdmin)
         uploadImageButton.setOnClickListener {
@@ -119,7 +119,6 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
 
                 d("AdminFragment", "onActivityResult height - $imageUri")
 
-//todo
                 var imageOrientation = 0
                 try {
                     if(File(getRealPathFromURI(imageUri)).exists()) {
