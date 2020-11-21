@@ -4,8 +4,7 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class UserOrders {
-    //todo change confirmationCartproduct
-    var orders: HashMap<String, ConfirmationCartProduct> = HashMap<String, ConfirmationCartProduct>()
+    var orders: HashMap<String, UserOrderProduct> = HashMap<String, UserOrderProduct>()
     var orderStatus = ""
     var deliveryStatus = ""
     var dateStamp = ""
