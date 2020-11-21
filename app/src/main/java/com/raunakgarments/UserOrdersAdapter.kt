@@ -13,8 +13,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.helper.FirebaseUtil
+import com.raunakgarments.model.Profile
 import com.raunakgarments.model.UserOrders
 
 class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHolder>() {
@@ -35,7 +37,8 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
                     d("UserOrdersAdapter", "populate-${Gson().toJson(userOrders)}")
                     if (userOrders != null) {
                         if(userOrders.userOrderProfile.pinCode == "") {
-                            getAndUpdateUserProfile(userOrders)
+                            addOrderToListAndNotify(userOrders)
+                            getAndUpdateUserProfile(userOrders,userOrdersList.size)
                         } else {
                             addOrderToListAndNotify(userOrders)
                         }
@@ -55,9 +58,35 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
         })
     }
 
-    private fun getAndUpdateUserProfile(userOrders: UserOrders) {
-        // update profile in userorders here
-        addOrderToListAndNotify(userOrders)
+    private fun getAndUpdateUserProfile(userOrders: UserOrders, userOrdersListIndex: Int) {
+
+        var userProfileFirebaseUtil = FirebaseUtil()
+        userProfileFirebaseUtil.openFbReference("userProfile")
+        userProfileFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    d("UserOrdersAdapter", "getAndUpdateUserProfile - snapshot exists")
+                    var userProfile = snapshot.getValue(Profile::class.java)
+                    if(userProfile != null) {
+                        userOrders.userOrderProfile = userProfile
+                        // todo  update profile in userorders here
+                        editOrderToListAndNotify(userOrders, userOrdersListIndex)
+                    } else  {
+                        d("UserOrdersAdapter", "getAndUpdateUserProfile - userProfile is null")
+                    }
+                } else {
+                    d("UserOrdersAdapter", "getAndUpdateUserProfile - snapshot does not exist")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
+    }
+
+    private fun editOrderToListAndNotify(userOrders: UserOrders, userOrdersListIndex: Int) {
+        userOrdersList[userOrdersListIndex] = userOrders
+        notifyDataSetChanged()
     }
 
     private fun addOrderToListAndNotify(userOrders: UserOrders) {
