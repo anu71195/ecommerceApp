@@ -11,4 +11,19 @@ open class ConfirmationCartProduct() {
     var productStatus = 0
     var tagArray: HashMap<String, Int> = HashMap<String, Int>()
 
+    fun copyAsUserOrderProduct(confirmationCartProduct: ConfirmationCartProduct): UserOrderProduct {
+        var userOrderedProduct = UserOrderProduct()
+        userOrderedProduct.id = confirmationCartProduct.id
+        userOrderedProduct.title = confirmationCartProduct.title
+        userOrderedProduct.price = confirmationCartProduct.price
+        userOrderedProduct.photoUrl = confirmationCartProduct.photoUrl
+        userOrderedProduct.description = confirmationCartProduct.description
+        userOrderedProduct.quantity = confirmationCartProduct.quantity
+        userOrderedProduct.totalPrice = confirmationCartProduct.totalPrice
+        userOrderedProduct.productStatus = confirmationCartProduct.productStatus
+        userOrderedProduct.tagArray = confirmationCartProduct.tagArray
+
+        return userOrderedProduct
+    }
+
 }
