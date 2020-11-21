@@ -144,6 +144,8 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 )
                 d("AdminFragment", "onActivityResult height - ${options.outHeight}")
                 d("AdminFragment", "onActivityResult width - ${options.outWidth}")
+                var imageOriginalHeight = options.outHeight
+                var imageOriginalWidth = options.outWidth
 
                 val imageStream = context.contentResolver.openInputStream(
                     imageUri
@@ -155,13 +157,16 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                     matrix.postRotate(imageOrientation.toFloat())
                     bitmap =
                         Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+
+                    imageOriginalWidth = bitmap.width
+                    imageOriginalHeight = bitmap.height
                 }
 
                 val imageWidth = 720
                 bitmap = Bitmap.createScaledBitmap(
                     bitmap,
                     imageWidth,
-                    options.outHeight / (options.outWidth / imageWidth),
+                    imageOriginalHeight / (imageOriginalWidth / imageWidth),
                     false
                 )
                 val baos = ByteArrayOutputStream()
