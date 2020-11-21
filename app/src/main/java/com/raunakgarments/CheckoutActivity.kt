@@ -17,10 +17,7 @@ import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.helper.ProductStockSyncHelper
-import com.raunakgarments.model.ConfirmationCartProduct
-import com.raunakgarments.model.ProductStockSync
-import com.raunakgarments.model.ProductStockSyncAdminLock
-import com.raunakgarments.model.Profile
+import com.raunakgarments.model.*
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
 import kotlinx.android.synthetic.main.activity_checkout.*
@@ -344,6 +341,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     override fun onPaymentSuccess(p0: String?) {
+        d("CheckoutActivity", "onPaymentSucess - payment success")
         isRazorPayOpen = false
         activity_checkout_progressBar.visibility = View.VISIBLE
         activity_checkout_progressBarText.visibility = View.VISIBLE
@@ -353,6 +351,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         userOrderFirebaseUtil.openFbReference(getString(R.string.database_userOrders) + "/" + FirebaseAuth.getInstance().uid)
 
         val userOrderPushReferenceKey = userOrderFirebaseUtil.mDatabaseReference.push().key
+
+        d("CheckoutActivity", "onPaymentSucess - got reference key")
 
         //todo
         if (userOrderPushReferenceKey != null) {
@@ -368,6 +368,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         var userCartFirebaseUtil = FirebaseUtil()
         userCartFirebaseUtil.openFbReference("userCart/" + FirebaseAuth.getInstance().uid)
         userCartFirebaseUtil.mDatabaseReference.removeValue()
+        d("CheckoutActivity", "onPaymentSuccess - Emptied cart")
         Handler().postDelayed({ waitAndFinishActivity() }, 3 * 1000)
     }
 
@@ -426,6 +427,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 //        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
 //            .child("userOrderProfile")
 //            .setValue((totalCartCost / 100).toString())
+
+        d("CheckoutActivity", "populateUserOrderMetadata - populated user order metadata")
     }
 
     private fun populateUserOrdersDatabase(
@@ -433,21 +436,18 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         productStockSyncFirebaseUtil: FirebaseUtil,
         userOrderPushReferenceKey: String
     ) {
-        for (userOrderedProduct in UserCartSingletonClass.confirmationCartProductArray) {
+        for (confirmationCartProduct in UserCartSingletonClass.confirmationCartProductArray) {
+
+            var userOrderedProduct = confirmationCartProduct.copyAsUserOrderProduct(confirmationCartProduct) //as UserOrderProduct
             if (userOrderedProduct.productStatus == 1) {
+                userOrderedProduct.deliveryStatus = "Payment Done"
+                userOrderedProduct.orderStatus = "Payment Done"
                 userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
                     .child("orders")
                     .child(userOrderedProduct.id)
                     .setValue(userOrderedProduct)
 
                 //todo
-//                userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
-//                    .child("orderStatus")
-//                    .setValue("Payment Done")
-//
-//                userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
-//                    .child("deliveryStatus")
-//                    .setValue("Payment Done")
 
                 // No need to update productstocksyncadmin lock here as it is only for bought ticket whicih can work asynchronously but product admin lock needs to be synchronous
                 productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id + "/boughtTicket")
@@ -461,10 +461,13 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
             }
         }
+
+        d("CheckoutActivity", "populateUserOrdersDatabase - populated user order database")
     }
 
     private fun waitAndFinishActivity() {
 
+        d("CheckoutActivity", "waitAndFinishActivity - Finishing activity")
         activity_checkout_progressBar.visibility = View.GONE
         activity_checkout_progressBarText.visibility = View.GONE
         finish()
@@ -482,6 +485,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                 480 - (Date().time / 1000) + UserCartSingletonClass.productLockAcquiredTimeStamp
             d("checkoutactivity", "${timeLeft}")
             if (timeLeft > 0 && userOrderedProduct.productStatus == 1) {
+                d("CheckoutActivity", "releaseLockIfTimeIsLeft - Releasing lock as time is left")
                 productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id)
                 productStockSyncFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(
                     object : ValueEventListener {
