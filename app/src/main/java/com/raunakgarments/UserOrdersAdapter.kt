@@ -38,7 +38,7 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
                     if (userOrders != null) {
                         if(userOrders.userOrderProfile.pinCode == "") {
                             addOrderToListAndNotify(userOrders)
-                            getAndUpdateUserProfile(userOrders,userOrdersList.size)
+                            getAndUpdateUserProfile(userOrders,userOrdersList.size, snapshot.key!!)
                         } else {
                             addOrderToListAndNotify(userOrders)
                         }
@@ -58,7 +58,13 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
         })
     }
 
-    private fun getAndUpdateUserProfile(userOrders: UserOrders, userOrdersListIndex: Int) {
+    private fun getAndUpdateUserProfile(
+        userOrders: UserOrders,
+        userOrdersListIndex: Int,
+        orderId: String
+    ) {
+        var userOrderFirebaseUtil = FirebaseUtil()
+        userOrderFirebaseUtil.openFbReference("userOrders" + "/" + FirebaseAuth.getInstance().uid)
 
         var userProfileFirebaseUtil = FirebaseUtil()
         userProfileFirebaseUtil.openFbReference("userProfile")
@@ -69,7 +75,7 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
                     var userProfile = snapshot.getValue(Profile::class.java)
                     if(userProfile != null) {
                         userOrders.userOrderProfile = userProfile
-                        // todo  update profile in userorders here
+                        userOrderFirebaseUtil.mDatabaseReference.child(orderId).setValue(userOrders)
                         editOrderToListAndNotify(userOrders, userOrdersListIndex)
                     } else  {
                         d("UserOrdersAdapter", "getAndUpdateUserProfile - userProfile is null")
