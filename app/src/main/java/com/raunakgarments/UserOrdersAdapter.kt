@@ -34,8 +34,11 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
                     var userOrders = snapshot.getValue(UserOrders::class.java)
                     d("UserOrdersAdapter", "populate-${Gson().toJson(userOrders)}")
                     if (userOrders != null) {
-                        userOrdersList.add(userOrders)
-                        notifyItemInserted(userOrdersList.size - 1)
+                        if(userOrders.userOrderProfile.pinCode == "") {
+                            getAndUpdateUserProfile(userOrders)
+                        } else {
+                            addOrderToListAndNotify(userOrders)
+                        }
                     } else {
                         d("UserOrdersAdapter", "populate-userOrders is null")
                     }
@@ -50,6 +53,16 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
             override fun onCancelled(error: DatabaseError) {}
 
         })
+    }
+
+    private fun getAndUpdateUserProfile(userOrders: UserOrders) {
+        // update profile in userorders here
+        addOrderToListAndNotify(userOrders)
+    }
+
+    private fun addOrderToListAndNotify(userOrders: UserOrders) {
+        userOrdersList.add(userOrders)
+        notifyItemInserted(userOrdersList.size - 1)
     }
 
     class UserOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
