@@ -1,10 +1,16 @@
 package com.raunakgarments.admin
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.provider.MediaStore
 import android.util.Log.d
 import android.view.View
 import android.widget.Button
@@ -29,6 +35,9 @@ import com.raunakgarments.model.Profile
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_admin_products_edit.*
 import kotlinx.android.synthetic.main.activity_admin_products_edit_content_scrolling.*
+import kotlinx.android.synthetic.main.fragment_admin.*
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -893,19 +902,98 @@ class AdminProductsEdit : AppCompatActivity() {
             val ref =
                 FirebaseUtil().mStorageRef.child("productImages/${imageUri?.lastPathSegment}")
             if (imageUri != null) {
-                ref.putFile(imageUri).addOnSuccessListener {
+
+                d("AdminFragment", "onActivityResult height - $imageUri")
+
+                var imageOrientation = 0
+                try {
+                    if(File(getRealPathFromURI(imageUri)).exists()) {
+                        imageOrientation = getOrientation(this, imageUri)
+                    } else {
+                        d(
+                            "AdminFragment",
+                            "onActivityResult orientation - imageuri does not exist}"
+                        )
+                    }
+                } catch (e: Exception) {
+                    d("AdminFragment", "onActivityResult orientation - GetRealpath error}")
+                }
+                d("AdminFragment", "onActivityResult orientation - ${imageOrientation}")
+
+                val options = BitmapFactory.Options()
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeStream(
+                    this.contentResolver.openInputStream(imageUri),
+                    null,
+                    options
+                )
+                d("AdminFragment", "onActivityResult height - ${options.outHeight}")
+                d("AdminFragment", "onActivityResult width - ${options.outWidth}")
+                var imageOriginalHeight = options.outHeight
+                var imageOriginalWidth = options.outWidth
+
+                val imageStream = this.contentResolver.openInputStream(
+                    imageUri
+                )
+                var bitmap = BitmapFactory.decodeStream(imageStream)
+
+                if(imageOrientation != 0 ) {
+                    var matrix = Matrix()
+                    matrix.postRotate(imageOrientation.toFloat())
+                    bitmap =
+                        Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+
+                    imageOriginalWidth = bitmap.width
+                    imageOriginalHeight = bitmap.height
+                }
+
+                val imageWidth = 720
+                bitmap = Bitmap.createScaledBitmap(
+                    bitmap,
+                    imageWidth,
+                    imageOriginalHeight / (imageOriginalWidth / imageWidth),
+                    false
+                )
+                val baos = ByteArrayOutputStream()
+
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos)
+                val data = baos.toByteArray()
+                var uploadTask = ref.putBytes(data)
+
+                uploadTask.addOnFailureListener {
+                    // Handle unsuccessful uploads
+                }.addOnSuccessListener { taskSnapshot ->
+                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                    // ...
                     ref.downloadUrl.addOnSuccessListener {
                         var url = it.toString()
                         d("image url", url)
-                        activity_admin_products_edit_content_scrolling_productImageLinkAdmin.setText(
-                            url
-                        )
-                        Picasso.get().load(url).into(
-                            activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin
-                        )
+                        activity_admin_products_edit_content_scrolling_productImageLinkAdmin.setText(url)
+                        Picasso.get().load(url).into(activity_admin_products_edit_content_scrolling_uploadedImagePreviewAdmin)
                     }
                 }
             }
         }
+    }
+
+    private fun getOrientation(context: Context, photoUri: Uri): Int {
+        var cursor: Cursor? = context.getContentResolver()
+            .query(photoUri, arrayOf(MediaStore.Images.ImageColumns.ORIENTATION), null, null, null)
+        if (cursor!!.count != 1) {
+            cursor.close()
+            return -1
+        }
+        cursor.moveToFirst()
+        val orientation = cursor.getInt(0)
+        cursor.close()
+        cursor = null
+        return orientation
+    }
+
+    fun getRealPathFromURI(uri: Uri?): String? {
+        val cursor: Cursor = this.contentResolver.query(uri!!, null, null, null, null)!!
+        cursor.moveToFirst()
+        val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+        return cursor.getString(idx)
     }
 }
