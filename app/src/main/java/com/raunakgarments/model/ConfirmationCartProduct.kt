@@ -1,6 +1,6 @@
 package com.raunakgarments.model
 
-class ConfirmationCartProduct() {
+open class ConfirmationCartProduct() {
     public var id = ""
     var title: String = ""
     var price = 0.0
