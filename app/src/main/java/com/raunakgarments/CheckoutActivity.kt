@@ -354,6 +354,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
         val userOrderPushReferenceKey = userOrderFirebaseUtil.mDatabaseReference.push().key
 
+        //todo
         if (userOrderPushReferenceKey != null) {
             populateUserOrdersDatabase(
                 userOrderFirebaseUtil,
@@ -420,6 +421,11 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("totalCost")
             .setValue((totalCartCost / 100).toString())
+
+        //todo
+//        userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+//            .child("userOrderProfile")
+//            .setValue((totalCartCost / 100).toString())
     }
 
     private fun populateUserOrdersDatabase(
@@ -433,6 +439,15 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
                     .child("orders")
                     .child(userOrderedProduct.id)
                     .setValue(userOrderedProduct)
+
+                //todo
+//                userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+//                    .child("orderStatus")
+//                    .setValue("Payment Done")
+//
+//                userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
+//                    .child("deliveryStatus")
+//                    .setValue("Payment Done")
 
                 // No need to update productstocksyncadmin lock here as it is only for bought ticket whicih can work asynchronously but product admin lock needs to be synchronous
                 productStockSyncFirebaseUtil.openFbReference("productStockSync/" + userOrderedProduct.id + "/boughtTicket")
