@@ -36,6 +36,12 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
                     var userOrders = snapshot.getValue(UserOrders::class.java)
                     d("UserOrdersAdapter", "populate-${Gson().toJson(userOrders)}")
                     if (userOrders != null) {
+
+                        if(userOrders.id == "") {
+                            userOrders.id = snapshot.key!!
+                            userOrderFirebaseUtil.mDatabaseReference.child(userOrders.id).child("id").setValue(userOrders.id)
+                        }
+
                         if(userOrders.userOrderProfile.pinCode == "") {
                             addOrderToListAndNotify(userOrders)
                             getAndUpdateUserProfile(userOrders,userOrdersList.size, snapshot.key!!)
