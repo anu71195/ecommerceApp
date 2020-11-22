@@ -97,9 +97,6 @@ class UserOrderDetailsAdapter :
         holder.deliveryStatusTv.text = "Delivery Status = " + productList[position].deliveryStatus
         holder.orderStatusTv.text = "Order Status = " + productList[position].orderStatus
 
-
-
-        //todo create these for each item in order
         if (productList[position].deliveryStatus == "Delivered") {
             holder.deliveryStatusTv.setTextColor(Color.parseColor("#008000"))
         }
