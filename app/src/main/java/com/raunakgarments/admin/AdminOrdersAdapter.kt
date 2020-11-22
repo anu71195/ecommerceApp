@@ -11,10 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.R
+import com.raunakgarments.global.AdminOrderSingletonClass
 import com.raunakgarments.helper.FirebaseUtil
+import com.raunakgarments.model.Profile
 import com.raunakgarments.model.UserOrderProfile
+import com.raunakgarments.model.UserOrders
 
 class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderViewHolder>() {
 
@@ -35,8 +39,36 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
                     d("AdminOrdersAdapter", "populate-${snapshot.value}")
                     var userOrderProfile = UserOrderProfile()
                     userOrderProfile.id = snapshot.key.toString()
-                    userOrderProfileList.add(userOrderProfile)
-                    notifyItemInserted(userOrderProfileList.size - 1)
+                    userOrderProfile.userOrderList = snapshot.value as HashMap<String, UserOrders>
+                    d("AdminOrdersAdapter", "populate-userOrderProfile - ${Gson().toJson(userOrderProfile)}")
+
+                    var userProfileFirebaseUtil = FirebaseUtil()
+                    userProfileFirebaseUtil.openFbReference("userProfile")
+
+                    snapshot.key?.let {
+                        userProfileFirebaseUtil.mDatabaseReference.child(it).addListenerForSingleValueEvent(object: ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if(snapshot.exists()) {
+                                    var userProfile = snapshot.getValue(Profile::class.java)
+                                    if(userProfile != null) {
+                                        userOrderProfile.userCurrentProfile = userProfile
+                                    }
+                                } else {
+                                    d("AdminOrdersAdapter", "populate - snapshot does not exist")
+                                }
+                                d("AdminOrdersAdapter", "populate-userOrderProfile - ${Gson().toJson(userOrderProfile)}")
+                                userOrderProfileList.add(userOrderProfile)
+                                notifyItemInserted(userOrderProfileList.size - 1)
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {}
+
+                        })
+                    }
+
+
+
+
                 } else {
                     d("AdminOrdersAdapter", "populate-snapshot does not exist")
                 }
@@ -76,7 +108,8 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
         holder.titleButton.setOnClickListener {
             d("AdminOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
             var intent = Intent(adminOrdersActivity, AdminUserOrdersActivity::class.java)
-            intent.putExtra("userOrderProfile", Gson().toJson(userOrderProfileList[position]))
+            AdminOrderSingletonClass.userOrderProfile = userOrderProfileList[position]
+//            intent.putExtra("userOrderProfile", Gson().toJson(userOrderProfileList[position]))
             adminOrdersActivity.startActivity(intent)
         }
     }
