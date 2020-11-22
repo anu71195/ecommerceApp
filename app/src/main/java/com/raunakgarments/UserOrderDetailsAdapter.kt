@@ -12,8 +12,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.ConfirmationCartProduct
+import com.raunakgarments.model.UserOrderProduct
 import com.raunakgarments.model.UserOrders
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.textColor
@@ -23,7 +26,7 @@ class UserOrderDetailsAdapter :
 
     private lateinit var activityIntent: Intent
     private lateinit var userOrders: UserOrders
-    var productList: MutableList<ConfirmationCartProduct> = ArrayList()
+    var productList: MutableList<UserOrderProduct> = ArrayList()
     private lateinit var userOrderDetailsActivity: UserOrderDetailsActivity
 
     fun populate(intent: Intent, userOrderDetailsActivity: UserOrderDetailsActivity) {
@@ -73,20 +76,34 @@ class UserOrderDetailsAdapter :
         holder: UserOrderDetailsViewHolder,
         position: Int
     ) {
+        var userOrderFirebaseUtil = FirebaseUtil()
+        userOrderFirebaseUtil.openFbReference("userOrders" + "/" + FirebaseAuth.getInstance().uid)
+
+        if (productList[position].deliveryStatus == "") {
+            productList[position].deliveryStatus = userOrders.deliveryStatus
+            userOrderFirebaseUtil.mDatabaseReference.child(userOrders.id).child("orders").child(productList[position].id).child("deliveryStatus").setValue(userOrders.deliveryStatus)
+        }
+
+        if (productList[position].orderStatus == "") {
+            productList[position].orderStatus = userOrders.orderStatus
+            userOrderFirebaseUtil.mDatabaseReference.child(userOrders.id).child("orders").child(productList[position].id).child("orderStatus").setValue(userOrders.orderStatus)
+        }
+
         holder.productTitleTv.text = productList[position].title
         Picasso.get().load(productList[position].photoUrl).into(holder.productImageIv)
         holder.productImageIv.layoutParams.width = getScreenWidth() / 3
         holder.totalPriceTv.text =
             "₹" + productList[position].price.toString() + " X " + productList[position].quantity + " = ₹" + productList[position].totalPrice
-        holder.deliveryStatusTv.text = "Delivery Status = " + userOrders.deliveryStatus
-        holder.orderStatusTv.text = "Order Status = " + userOrders.orderStatus
+        holder.deliveryStatusTv.text = "Delivery Status = " + productList[position].deliveryStatus
+        holder.orderStatusTv.text = "Order Status = " + productList[position].orderStatus
+
 
 
         //todo create these for each item in order
-        if (userOrders.deliveryStatus == "Delivered") {
+        if (productList[position].deliveryStatus == "Delivered") {
             holder.deliveryStatusTv.setTextColor(Color.parseColor("#008000"))
         }
-        if (userOrders.orderStatus == "Payment Done") {
+        if (productList[position].orderStatus == "Payment Done") {
             holder.orderStatusTv.setTextColor(Color.parseColor("#008000"))
         }
     }
