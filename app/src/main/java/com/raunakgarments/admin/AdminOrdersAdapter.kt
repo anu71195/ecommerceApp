@@ -104,8 +104,8 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
     }
 
     override fun onBindViewHolder(holder: AdminOrderViewHolder, position: Int) {
-        holder.titleButton.text = userOrderProfileList[position].id
-        holder.informationTextView.text = "random words"
+        holder.titleButton.text = userOrderProfileList[position].userCurrentProfile.userName + " -> " +userOrderProfileList[position].id
+        holder.informationTextView.text = getUserProfileShortText(userOrderProfileList, position)
 
         informationTextViewOnClickListener(holder, position)
         titleButtonOnClickListener(holder, position)
@@ -114,14 +114,42 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
     private fun informationTextViewOnClickListener(holder: AdminOrderViewHolder, position: Int) {
         holder.informationTextView.setOnClickListener {
             if (!holder.showDetailsOnInformationTextView) {
-                //todo
-                holder.informationTextView.text = "false"
+                holder.informationTextView.text = getUserProfileText(userOrderProfileList,position)
                 holder.showDetailsOnInformationTextView = true
             } else {
-                holder.informationTextView.text = "true"
+                holder.informationTextView.text = getUserProfileShortText(userOrderProfileList, position)
                 holder.showDetailsOnInformationTextView = false
             }
         }
+    }
+
+    private fun getUserProfileText(
+        userOrderProfileList: MutableList<UserOrderProfile>,
+        position: Int
+    ): String {
+        var detailedText = ""
+        detailedText += "PROFILE\n"
+        detailedText += "Id = ${userOrderProfileList[position].id} \n\n"
+        detailedText += "Name = ${userOrderProfileList[position].userCurrentProfile.userName} \n\n"
+        detailedText += "Address = ${userOrderProfileList[position].userCurrentProfile.address} \n\n"
+        detailedText += "Email = ${userOrderProfileList[position].userCurrentProfile.email} \n\n"
+        detailedText += "Number = +${userOrderProfileList[position].userCurrentProfile.areaPhoneCode + " " + userOrderProfileList[position].userCurrentProfile.number } \n\n"
+        detailedText += "Pincode = ${userOrderProfileList[position].userCurrentProfile.pinCode}"
+
+        return detailedText
+    }
+
+    private fun getUserProfileShortText(
+        userOrderProfileList: MutableList<UserOrderProfile>,
+        position: Int
+    ): String {
+        var shortText = ""
+
+        shortText += "Email = ${userOrderProfileList[position].userCurrentProfile.email} \n\n"
+        shortText += "Number = +${userOrderProfileList[position].userCurrentProfile.areaPhoneCode + " " + userOrderProfileList[position].userCurrentProfile.number } \n\n"
+        shortText += "Pincode = ${userOrderProfileList[position].userCurrentProfile.pinCode}"
+
+        return shortText
     }
 
     private fun titleButtonOnClickListener(holder: AdminOrderViewHolder, position: Int) {
