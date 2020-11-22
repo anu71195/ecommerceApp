@@ -151,8 +151,6 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
         }
     }
 
-    //todo division
-
     private fun getDetailedText(userOrdersList: MutableList<UserOrders>, position: Int): CharSequence? {
         var detailedText = "SUMMARY \nTotal Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus + "\n" + "Order Status = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size +"\n\n\n"
         detailedText += "ORDERS\n"
@@ -168,11 +166,25 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
     }
 
     private fun getOrderText(userOrdersList: MutableList<UserOrders>, position: Int): String {
+
+        var userOrderFirebaseUtil = FirebaseUtil()
+        userOrderFirebaseUtil.openFbReference("userOrders" + "/" + FirebaseAuth.getInstance().uid)
+
         var orderText = ""
 
         for (orderedProduct in userOrdersList[position].orders) {
             orderText += "${orderedProduct.value.title}\n"
             orderText += "₹" + orderedProduct.value.price.toString() + " X " + orderedProduct.value.quantity + " = ₹" + orderedProduct.value.totalPrice + "\n"
+            if(orderedProduct.value.deliveryStatus == "") {
+                orderedProduct.value.deliveryStatus = userOrdersList[position].deliveryStatus
+                userOrderFirebaseUtil.mDatabaseReference.child(userOrdersList[position].id).child("orders").child(orderedProduct.value.id).child("deliveryStatus").setValue(userOrdersList[position].deliveryStatus)
+            }
+
+            if(orderedProduct.value.orderStatus == "") {
+                orderedProduct.value.orderStatus = userOrdersList[position].orderStatus
+                userOrderFirebaseUtil.mDatabaseReference.child(userOrdersList[position].id).child("orders").child(orderedProduct.value.id).child("orderStatus").setValue(userOrdersList[position].orderStatus)
+            }
+
             orderText += "Delivery Status = ${orderedProduct.value.deliveryStatus}\n"
             orderText += "Order Status = ${orderedProduct.value.orderStatus}\n\n"
         }
