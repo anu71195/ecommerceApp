@@ -4,6 +4,7 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class UserOrders {
+    var id = ""
     var orders: HashMap<String, UserOrderProduct> = HashMap<String, UserOrderProduct>()
     var orderStatus = ""
     var deliveryStatus = ""
