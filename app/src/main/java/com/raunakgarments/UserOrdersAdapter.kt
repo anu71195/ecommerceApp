@@ -159,7 +159,7 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
         detailedText += "Name = ${userOrdersList[position].userOrderProfile.userName} \n\n"
         detailedText += "Address = ${userOrdersList[position].userOrderProfile.address} \n\n"
         detailedText += "Email = ${userOrdersList[position].userOrderProfile.email} \n\n"
-        detailedText += "Number = +${userOrdersList[position].userOrderProfile.areaPhoneCode + " " + userOrdersList[position].userOrderProfile.number } \n"
+        detailedText += "Number = +${userOrdersList[position].userOrderProfile.areaPhoneCode + " " + userOrdersList[position].userOrderProfile.number } \n\n"
         detailedText += "Pincode = ${userOrdersList[position].userOrderProfile.pinCode}"
 
         return detailedText
