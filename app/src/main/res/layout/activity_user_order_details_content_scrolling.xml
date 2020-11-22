@@ -13,16 +13,29 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/activity_user_order_details_content_scrolling_OrdersTotalCost"
+            android:id="@+id/activity_user_order_details_content_scrolling_OrdersSummaryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#008000"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
+            android:text="SUMMARY"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/activity_user_order_details_content_scrolling_OrdersTotalCost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#008000"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersSummaryTitle" />
 
         <TextView
             android:id="@+id/activity_user_order_details_content_scrolling_OrdersTotalItems"
