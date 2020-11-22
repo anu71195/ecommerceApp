@@ -74,12 +74,87 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersOrderStatus" />
 
+        <TextView
+            android:id="@+id/activity_user_order_details_content_scrolling_OrdersProfileTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#32CD32"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:text="PROFILE"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersDeliveryStatus" />
+
+        <TextView
+            android:id="@+id/activity_user_order_details_content_scrolling_OrdersUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#32CD32"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersProfileTitle" />
+
+        <TextView
+            android:id="@+id/activity_user_order_details_content_scrolling_OrdersUserAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#32CD32"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersUserName" />
+
+        <TextView
+            android:id="@+id/activity_user_order_details_content_scrolling_OrdersUserEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#32CD32"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersUserAddress" />
+
+        <TextView
+            android:id="@+id/activity_user_order_details_content_scrolling_OrdersUserPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#32CD32"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersUserEmail" />
+
+        <TextView
+            android:id="@+id/activity_user_order_details_content_scrolling_OrdersUserPincode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#32CD32"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersUserPhoneNumber" />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activity_user_order_details_content_scrolling_OrdersRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersDeliveryStatus" />
+            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersUserPincode" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
