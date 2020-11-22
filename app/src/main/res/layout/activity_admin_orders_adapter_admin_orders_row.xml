@@ -12,11 +12,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/activity_admin_orders_adapter_admin_orders_row_textViewInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_admin_orders_adapter_admin_orders_row_Button" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="8dp"
         android:background="#d3d3d3"
-        app:layout_constraintTop_toBottomOf="@id/activity_admin_orders_adapter_admin_orders_row_Button"/>
+        app:layout_constraintTop_toBottomOf="@id/activity_admin_orders_adapter_admin_orders_row_textViewInformation"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -86,6 +87,9 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
     class AdminOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var titleButton: Button =
             itemView.findViewById(R.id.activity_admin_orders_adapter_admin_orders_row_Button)
+        var informationTextView: TextView =
+            itemView.findViewById(R.id.activity_admin_orders_adapter_admin_orders_row_textViewInformation)
+        var showDetailsOnInformationTextView = false
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminOrderViewHolder {
@@ -101,7 +105,23 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
 
     override fun onBindViewHolder(holder: AdminOrderViewHolder, position: Int) {
         holder.titleButton.text = userOrderProfileList[position].id
+        holder.informationTextView.text = "random words"
+
+        informationTextViewOnClickListener(holder, position)
         titleButtonOnClickListener(holder, position)
+    }
+
+    private fun informationTextViewOnClickListener(holder: AdminOrderViewHolder, position: Int) {
+        holder.informationTextView.setOnClickListener {
+            if (!holder.showDetailsOnInformationTextView) {
+                //todo
+                holder.informationTextView.text = "false"
+                holder.showDetailsOnInformationTextView = true
+            } else {
+                holder.informationTextView.text = "true"
+                holder.showDetailsOnInformationTextView = false
+            }
+        }
     }
 
     private fun titleButtonOnClickListener(holder: AdminOrderViewHolder, position: Int) {
