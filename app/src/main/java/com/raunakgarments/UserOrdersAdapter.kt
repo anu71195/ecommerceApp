@@ -141,8 +141,7 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
 
         holder.informationTextView.setOnClickListener {
             if (!holder.showDetailsOnInformationTextView) {
-                holder.informationTextView.text =
-                    "Total Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus + "\n" + "Order Status = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size
+                holder.informationTextView.text = getDetailedText(userOrdersList, position)
                 holder.showDetailsOnInformationTextView = true
             } else {
                 holder.informationTextView.text =
@@ -151,6 +150,36 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
             }
         }
     }
+
+    //todo division
+
+    private fun getDetailedText(userOrdersList: MutableList<UserOrders>, position: Int): CharSequence? {
+        var detailedText = "SUMMARY \nTotal Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus + "\n" + "Order Status = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size +"\n\n\n"
+        detailedText += "ORDERS\n"
+        detailedText += getOrderText(userOrdersList, position)
+        detailedText += "PROFILE\n"
+        detailedText += "Name = ${userOrdersList[position].userOrderProfile.userName} \n\n"
+        detailedText += "Address = ${userOrdersList[position].userOrderProfile.address} \n\n"
+        detailedText += "Email = ${userOrdersList[position].userOrderProfile.email} \n\n"
+        detailedText += "Number = +${userOrdersList[position].userOrderProfile.areaPhoneCode + " " + userOrdersList[position].userOrderProfile.number } \n"
+        detailedText += "Pincode = ${userOrdersList[position].userOrderProfile.pinCode}"
+
+        return detailedText
+    }
+
+    private fun getOrderText(userOrdersList: MutableList<UserOrders>, position: Int): String {
+        var orderText = ""
+
+        for (orderedProduct in userOrdersList[position].orders) {
+            orderText += "${orderedProduct.value.title}\n"
+            orderText += "₹" + orderedProduct.value.price.toString() + " X " + orderedProduct.value.quantity + " = ₹" + orderedProduct.value.totalPrice + "\n"
+            orderText += "Delivery Status = ${orderedProduct.value.deliveryStatus}\n"
+            orderText += "Order Status = ${orderedProduct.value.orderStatus}\n\n"
+        }
+        orderText += "\n"
+        return orderText
+    }
+
 
     override fun getItemCount(): Int {
         return userOrdersList.size
