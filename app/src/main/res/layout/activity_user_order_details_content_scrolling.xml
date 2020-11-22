@@ -148,13 +148,26 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersUserPhoneNumber" />
 
+        <TextView
+            android:id="@+id/activity_user_order_details_content_scrolling_OrdersOrdersTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:text="ORDERS"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersUserPincode" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activity_user_order_details_content_scrolling_OrdersRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersUserPincode" />
+            app:layout_constraintTop_toBottomOf="@id/activity_user_order_details_content_scrolling_OrdersOrdersTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
