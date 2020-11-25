@@ -56,13 +56,27 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
     private fun orderOrderStatusButtonClickListener() {
         activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setOnClickListener {
-            //todo
-//            if(activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text ==)
+            d("AdminUserOrderDetailsActivity", "orderOrderStatusButtonClickListener :- order status button clicked")
+            if(activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)}") {
+                d("AdminUserOrderDetailsActivity", "orderOrderStatusButtonClickListener :- order status button clicked payment done")
+                activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.refunded)}"
+                activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(OrderStatusObject.getOrderColor(OrderStatusObject.orderStatus.refunded))
+            } else if (activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.refunded)}") {
+                activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)}"
+                activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(OrderStatusObject.getOrderColor(OrderStatusObject.orderStatus.paymentPending))
+            } else if(activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)}") {
+                activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)}"
+                activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(OrderStatusObject.getOrderColor(OrderStatusObject.orderStatus.paymentDone))
+            }
         }
+        d("AdminUserOrderDetailsActivity", "orderOrderStatusButtonClickListener :- order status button clicked end")
     }
 
     private fun orderDeliveryStatusButtonClickListener() {
-        //todo
+        //todo change in this.userOrders
+        //todo change in userorderprofilesingletonclass
+        // todo change in adminordersingletonclass
+        //todo update in database and datasetchanged function call
         activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setOnClickListener {  }
     }
 

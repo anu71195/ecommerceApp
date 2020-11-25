@@ -1,5 +1,7 @@
 package com.raunakgarments.global
 
+import android.graphics.Color
+
 
 object OrderStatusObject {
     enum class orderStatus {
@@ -7,6 +9,17 @@ object OrderStatusObject {
     }
     enum class deliveryStatus {
         paymentDone, delivered, returned
+    }
+
+    fun getOrderColor(ordered: orderStatus): Int {
+        if(ordered == orderStatus.paymentDone) {
+            return Color.parseColor("#008000")
+        } else if(ordered == orderStatus.refunded) {
+            return Color.parseColor("#FF0000")
+        } else if(ordered == orderStatus.paymentPending) {
+            return Color.parseColor("#000000")
+        }
+        return Color.parseColor("#000000")
     }
 
     fun getOrderString(ordered: orderStatus): String {
