@@ -64,7 +64,7 @@
             app:layout_constraintTop_toBottomOf="@+id/activity_admin_user_order_details_content_scrolling_OrdersTotalCost" />
 
 
-        <TextView
+        <Button
             android:id="@+id/activity_admin_user_order_details_content_scrolling_OrdersOrderStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_admin_user_order_details_content_scrolling_OrdersTotalItems" />
 
-        <TextView
+        <Button
             android:id="@+id/activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
