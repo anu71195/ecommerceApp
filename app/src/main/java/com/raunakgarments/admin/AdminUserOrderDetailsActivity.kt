@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.Gson
 import com.raunakgarments.R
+import com.raunakgarments.global.OrderStatusObject
 import com.raunakgarments.model.UserOrders
 import kotlinx.android.synthetic.main.activity_admin_user_order_details_content_scrolling.*
-import kotlinx.android.synthetic.main.activity_user_order_details_content_scrolling.*
 
 class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
@@ -23,6 +23,10 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
+
+        orderOrderStatusButtonClickListener()
+        orderDeliveryStatusButtonClickListener()
+
         this.userOrders =
             Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
         activity_admin_user_order_details_content_scrolling_OrdersTotalCost.text = "Total Cost = ₹" + this.userOrders.totalCost
@@ -30,12 +34,12 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${this.userOrders.deliveryStatus}"
         activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${this.userOrders.orderStatus}"
 
-        if(this.userOrders.deliveryStatus == "Delivered") {
+        if(this.userOrders.deliveryStatus == OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.delivered)) {
             activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setBackgroundColor(
                 Color.parseColor("#008000"))
         }
 
-        if (this.userOrders.orderStatus == "Payment Done") {
+        if (this.userOrders.orderStatus == OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)) {
             activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(Color.parseColor("#008000"))
         }
 
@@ -48,6 +52,18 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
         d("AdminUserOrderDetailsActivity", "onCreate-${Gson().toJson(userOrders)}")
         initializeAdminUserOrdersRecyclerViewAdapter()
+    }
+
+    private fun orderOrderStatusButtonClickListener() {
+        activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setOnClickListener {
+            //todo
+//            if(activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text ==)
+        }
+    }
+
+    private fun orderDeliveryStatusButtonClickListener() {
+        //todo
+        activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setOnClickListener {  }
     }
 
     private fun initializeAdminUserOrdersRecyclerViewAdapter() {
