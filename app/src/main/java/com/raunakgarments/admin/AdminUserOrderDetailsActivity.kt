@@ -73,7 +73,7 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
     }
 
     private fun orderDeliveryStatusButtonClickListener() {
-        //todo change in this.userOrders
+        //todo change in this.userOrders both adapter and on this screen
         //todo change in userorderprofilesingletonclass
         // todo change in adminordersingletonclass
         //todo update in database and datasetchanged function call
