@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log.d
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.room.FtsOptions
 import com.google.gson.Gson
 import com.raunakgarments.R
 import com.raunakgarments.global.OrderStatusObject
@@ -37,14 +38,9 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${OrderStatusObject.getOrderStringFromString(this.userOrders.deliveryStatus)}"
         activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${OrderStatusObject.getDeliveryStringFromString(this.userOrders.orderStatus)}"
 
-        if(this.userOrders.deliveryStatus == OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.delivered)) {
-            activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setBackgroundColor(
-                Color.parseColor("#008000"))
-        }
 
-        if (this.userOrders.orderStatus == OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)) {
-            activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(Color.parseColor("#008000"))
-        }
+        activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setBackgroundColor(OrderStatusObject.getDeliveryColorFromString(this.userOrders.deliveryStatus))
+        activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(OrderStatusObject.getOrderColorFromString(this.userOrders.orderStatus))
 
         activity_admin_user_order_details_content_scrolling_OrdersUserName.text = "Name = ${this.userOrders.userOrderProfile.userName}\n"
         activity_admin_user_order_details_content_scrolling_OrdersUserAddress.text = "Address = ${this.userOrders.userOrderProfile.address}\n"
