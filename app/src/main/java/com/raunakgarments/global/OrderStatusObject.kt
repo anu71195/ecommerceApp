@@ -11,6 +11,30 @@ object OrderStatusObject {
         paymentDone, delivered, returned, cancelled, error
     }
 
+    fun getOrderStringFromString(orderString: String): String {
+        if(getOrderEnumStatus(orderString) == orderStatus.paymentDone) {
+            return getOrderString(orderStatus.paymentDone)
+        } else if(getOrderEnumStatus(orderString) == orderStatus.refunded) {
+            return getOrderString(orderStatus.refunded)
+        } else if(getOrderEnumStatus(orderString) == orderStatus.paymentPending)  {
+            return getOrderString(orderStatus.paymentPending)
+        }
+        return getOrderString(orderStatus.error)
+    }
+
+    fun getDeliveryStringFromString(deliveryString: String): String {
+        if(getDeliveryEnumStatus(deliveryString) == deliveryStatus.paymentDone) {
+            return getDeliveryString(deliveryStatus.paymentDone)
+        } else if(getDeliveryEnumStatus(deliveryString) == deliveryStatus.delivered) {
+            return getDeliveryString(deliveryStatus.delivered)
+        } else if(getDeliveryEnumStatus(deliveryString) == deliveryStatus.returned)  {
+            return getDeliveryString(deliveryStatus.returned)
+        } else if(getDeliveryEnumStatus(deliveryString) == deliveryStatus.cancelled) {
+            return getDeliveryString(deliveryStatus.cancelled)
+        }
+        return getDeliveryString(deliveryStatus.error)
+    }
+
     fun getOrderEnumStatus(orderString: String): orderStatus {
         if(orderString == getOrderString(orderStatus.paymentDone)) {
             return orderStatus.paymentDone

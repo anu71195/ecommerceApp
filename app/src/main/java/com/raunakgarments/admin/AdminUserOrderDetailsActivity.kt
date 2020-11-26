@@ -27,12 +27,14 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         orderOrderStatusButtonClickListener()
         orderDeliveryStatusButtonClickListener()
 
+        //todo get enum from them and rest of theplaces find them
+
         this.userOrders =
             Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
         activity_admin_user_order_details_content_scrolling_OrdersTotalCost.text = "Total Cost = ₹" + this.userOrders.totalCost
         activity_admin_user_order_details_content_scrolling_OrdersTotalItems.text = "Total Items = ${this.userOrders.orders.size}"
-        activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${this.userOrders.deliveryStatus}"
-        activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${this.userOrders.orderStatus}"
+        activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${OrderStatusObject.getOrderStringFromString(this.userOrders.deliveryStatus)}"
+        activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${OrderStatusObject.getDeliveryStringFromString(this.userOrders.orderStatus)}"
 
         if(this.userOrders.deliveryStatus == OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.delivered)) {
             activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setBackgroundColor(
