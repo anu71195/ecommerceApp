@@ -13,6 +13,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
+import com.raunakgarments.global.OrderStatusObject
 import com.raunakgarments.global.UserCartSingletonClass
 import com.raunakgarments.helper.CostFormatterHelper
 import com.raunakgarments.helper.FirebaseUtil
@@ -381,14 +382,14 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("id")
             .setValue(userOrderPushReferenceKey)
-//todo user OrderStatusObject here
+
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("orderStatus")
-            .setValue("Payment Done")
+            .setValue(OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone))
 
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("deliveryStatus")
-            .setValue("Payment Done")
+            .setValue(OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone))
 
         var istTime =
             SimpleDateFormat("MMMM dd, yyyy HH:mm:ss a")
@@ -445,8 +446,8 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
             var userOrderedProduct = confirmationCartProduct.copyAsUserOrderProduct(confirmationCartProduct) //as UserOrderProduct
             if (userOrderedProduct.productStatus == 1) {
-                userOrderedProduct.deliveryStatus = "Payment Done"
-                userOrderedProduct.orderStatus = "Payment Done"
+                userOrderedProduct.deliveryStatus = OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)
+                userOrderedProduct.orderStatus = OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)
                 userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
                     .child("orders")
                     .child(userOrderedProduct.id)
