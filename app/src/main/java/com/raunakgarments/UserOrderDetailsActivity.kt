@@ -28,6 +28,7 @@ class UserOrderDetailsActivity : AppCompatActivity() {
         activity_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${this.userOrders.deliveryStatus}"
         activity_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${this.userOrders.orderStatus}"
 
+        //todo like admin flow
         if(this.userOrders.deliveryStatus == "Delivered") {
             activity_user_order_details_content_scrolling_OrdersDeliveryStatus.setBackgroundColor(Color.parseColor("#008000"))
         }

@@ -100,6 +100,7 @@ class UserOrderDetailsAdapter :
         if (productList[position].deliveryStatus == "Delivered") {
             holder.deliveryStatusTv.setTextColor(Color.parseColor("#008000"))
         }
+        //todo user order status object
         if (productList[position].orderStatus == "Payment Done") {
             holder.orderStatusTv.setTextColor(Color.parseColor("#008000"))
         }

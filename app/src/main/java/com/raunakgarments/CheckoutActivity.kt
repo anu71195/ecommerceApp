@@ -381,7 +381,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("id")
             .setValue(userOrderPushReferenceKey)
-
+//todo user OrderStatusObject here
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("orderStatus")
             .setValue("Payment Done")
