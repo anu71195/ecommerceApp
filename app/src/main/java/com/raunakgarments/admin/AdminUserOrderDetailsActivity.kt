@@ -28,6 +28,7 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         orderDeliveryStatusButtonClickListener()
 
         //todo get enum from them and rest of theplaces find them
+        //todo not changing if error
 
         this.userOrders =
             Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
