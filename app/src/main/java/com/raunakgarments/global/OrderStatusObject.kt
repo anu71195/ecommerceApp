@@ -5,10 +5,34 @@ import android.graphics.Color
 
 object OrderStatusObject {
     enum class orderStatus {
-        paymentDone, refunded, paymentPending
+        paymentDone, refunded, paymentPending, error
     }
     enum class deliveryStatus {
-        paymentDone, delivered, returned, cancelled
+        paymentDone, delivered, returned, cancelled, error
+    }
+
+    fun getOrderEnumStatus(orderString: String): orderStatus {
+        if(orderString == getOrderString(orderStatus.paymentDone)) {
+            return orderStatus.paymentDone
+        } else if(orderString == getOrderString(orderStatus.refunded)) {
+            return orderStatus.refunded
+        } else if(orderString == getOrderString(orderStatus.paymentPending)) {
+            return orderStatus.paymentPending
+        }
+        return orderStatus.error
+    }
+
+    fun getDeliveryEnumStatus(deliveryString: String): deliveryStatus {
+        if(deliveryString == getDeliveryString(deliveryStatus.paymentDone)) {
+            return deliveryStatus.paymentDone
+        } else if(deliveryString == getDeliveryString(deliveryStatus.delivered)) {
+            return deliveryStatus.delivered
+        } else if(deliveryString == getDeliveryString(deliveryStatus.returned)) {
+            return deliveryStatus.returned
+        } else if(deliveryString == getDeliveryString(deliveryStatus.cancelled)) {
+            return deliveryStatus.cancelled
+        }
+        return deliveryStatus.error
     }
 
     fun getOrderColor(ordered: orderStatus): Int {
@@ -17,9 +41,9 @@ object OrderStatusObject {
         } else if(ordered == orderStatus.refunded) {
             return Color.parseColor("#000000")
         } else if(ordered == orderStatus.paymentPending) {
-            return Color.parseColor("#FF0000")
+            return Color.parseColor("#A10000")
         }
-        return Color.parseColor("#000000")
+        return Color.parseColor("#FF0000")
     }
 
     fun getDeliveryColor(delivered: deliveryStatus): Int {
@@ -30,9 +54,9 @@ object OrderStatusObject {
         } else if(delivered == deliveryStatus.returned) {
             return Color.parseColor("#000000")
         } else if(delivered == deliveryStatus.cancelled) {
-            return Color.parseColor("#FF0000")
+            return Color.parseColor("#A10000")
         }
-        return Color.parseColor("#000000")
+        return Color.parseColor("#FF0000")
     }
 
     fun getOrderString(ordered: orderStatus): String {
