@@ -5,12 +5,12 @@ import android.util.Log.d
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.raunakgarments.R
 import com.raunakgarments.global.AdminOrderSingletonClass
 import com.raunakgarments.global.OrderStatusObject
 import com.raunakgarments.helper.FirebaseUtil
+import com.raunakgarments.model.UserOrderProduct
 import com.raunakgarments.model.UserOrders
 import kotlinx.android.synthetic.main.activity_admin_user_order_details_content_scrolling.*
 
@@ -43,9 +43,6 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
     fun loadRefreshData(userOrders: UserOrders) {
 
-        d("AdminUserOrderDetailsActivity", "loadRefreshData - ${userOrders.deliveryStatus}")
-        d("AdminUserOrderDetailsActivity", "loadRefreshData - ${userOrders.orderStatus}")
-
         activity_admin_user_order_details_content_scrolling_OrdersTotalCost.text = "Total Cost = ₹" + userOrders.totalCost
         activity_admin_user_order_details_content_scrolling_OrdersTotalItems.text = "Total Items = ${userOrders.orders.size}"
         activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${OrderStatusObject.getDeliveryStringFromString(userOrders.deliveryStatus)}"
@@ -62,8 +59,12 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
     }
 
+    //todo synchronise it with adapter and vice versa
     private fun updateButtonClickListener() {
         activity_admin_user_order_details_content_scrolling_updateButton.setOnClickListener {
+
+            AdminOrderSingletonClass.userOrders.orders = getUpdatedUserOrders(AdminOrderSingletonClass.userOrders.orders)
+
             AdminOrderSingletonClass.userOrders.deliveryStatus = getDeliveryStatusString()
             AdminOrderSingletonClass.userOrders.orderStatus = getOrderStatusString()
 
@@ -72,6 +73,24 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
             userOrderFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(AdminOrderSingletonClass.userOrders.id).setValue(AdminOrderSingletonClass.userOrders)
         }
+    }
+
+    private fun getUpdatedUserOrders(orders: HashMap<String, UserOrderProduct>): HashMap<String, UserOrderProduct> {
+        for (orderedProduct in orders) {
+            d("AdminUserOrderDetailsActivity", "getUpdatedUserOrders - ${orderedProduct.key}")
+            d("AdminUserOrderDetailsActivity", "getUpdatedUserOrders - ${Gson().toJson(orderedProduct.value)}")
+
+            if(orders[orderedProduct.key]!!.deliveryStatus == AdminOrderSingletonClass.userOrders.deliveryStatus) {
+                orders[orderedProduct.key]!!.deliveryStatus = getDeliveryStatusString()
+            }
+
+            if(orders[orderedProduct.key]!!.orderStatus == AdminOrderSingletonClass.userOrders.orderStatus) {
+                orders[orderedProduct.key]!!.orderStatus = getOrderStatusString()
+            }
+        }
+
+
+        return orders
     }
 
     private fun getOrderStatusString(): String {
