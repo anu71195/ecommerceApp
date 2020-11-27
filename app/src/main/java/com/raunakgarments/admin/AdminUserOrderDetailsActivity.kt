@@ -1,20 +1,20 @@
 package com.raunakgarments.admin
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log.d
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.room.FtsOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.raunakgarments.R
+import com.raunakgarments.global.AdminOrderSingletonClass
 import com.raunakgarments.global.OrderStatusObject
+import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.UserOrders
 import kotlinx.android.synthetic.main.activity_admin_user_order_details_content_scrolling.*
 
 class AdminUserOrderDetailsActivity : AppCompatActivity() {
-
-    private lateinit var userOrders: UserOrders
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,30 +27,76 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
         orderOrderStatusButtonClickListener()
         orderDeliveryStatusButtonClickListener()
+        updateButtonClickListener()
+
 
         //todo get enum from them and rest of theplaces find them
         //todo not changing if error
 
-        this.userOrders =
+        AdminOrderSingletonClass.userOrders =
             Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
-        activity_admin_user_order_details_content_scrolling_OrdersTotalCost.text = "Total Cost = ₹" + this.userOrders.totalCost
-        activity_admin_user_order_details_content_scrolling_OrdersTotalItems.text = "Total Items = ${this.userOrders.orders.size}"
-        activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${OrderStatusObject.getOrderStringFromString(this.userOrders.deliveryStatus)}"
-        activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${OrderStatusObject.getDeliveryStringFromString(this.userOrders.orderStatus)}"
 
+        loadRefreshData(AdminOrderSingletonClass.userOrders)
 
-        activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setBackgroundColor(OrderStatusObject.getDeliveryColorFromString(this.userOrders.deliveryStatus))
-        activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(OrderStatusObject.getOrderColorFromString(this.userOrders.orderStatus))
-
-        activity_admin_user_order_details_content_scrolling_OrdersUserName.text = "Name = ${this.userOrders.userOrderProfile.userName}\n"
-        activity_admin_user_order_details_content_scrolling_OrdersUserAddress.text = "Address = ${this.userOrders.userOrderProfile.address}\n"
-        activity_admin_user_order_details_content_scrolling_OrdersUserEmail.text = "Email = ${this.userOrders.userOrderProfile.email}\n"
-        activity_admin_user_order_details_content_scrolling_OrdersUserPhoneNumber.text = "Number = +${this.userOrders.userOrderProfile.areaPhoneCode + " " + this.userOrders.userOrderProfile.number}\n"
-        activity_admin_user_order_details_content_scrolling_OrdersUserPincode.text = "Pincode = ${this.userOrders.userOrderProfile.pinCode}"
-
-
-        d("AdminUserOrderDetailsActivity", "onCreate-${Gson().toJson(userOrders)}")
         initializeAdminUserOrdersRecyclerViewAdapter()
+    }
+
+    fun loadRefreshData(userOrders: UserOrders) {
+
+        d("AdminUserOrderDetailsActivity", "loadRefreshData - ${userOrders.deliveryStatus}")
+        d("AdminUserOrderDetailsActivity", "loadRefreshData - ${userOrders.orderStatus}")
+
+        activity_admin_user_order_details_content_scrolling_OrdersTotalCost.text = "Total Cost = ₹" + userOrders.totalCost
+        activity_admin_user_order_details_content_scrolling_OrdersTotalItems.text = "Total Items = ${userOrders.orders.size}"
+        activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${OrderStatusObject.getDeliveryStringFromString(userOrders.deliveryStatus)}"
+        activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${OrderStatusObject.getOrderStringFromString(userOrders.orderStatus)}"
+
+        activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setBackgroundColor(OrderStatusObject.getDeliveryColorFromString(userOrders.deliveryStatus))
+        activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(OrderStatusObject.getOrderColorFromString(userOrders.orderStatus))
+
+        activity_admin_user_order_details_content_scrolling_OrdersUserName.text = "Name = ${userOrders.userOrderProfile.userName}\n"
+        activity_admin_user_order_details_content_scrolling_OrdersUserAddress.text = "Address = ${userOrders.userOrderProfile.address}\n"
+        activity_admin_user_order_details_content_scrolling_OrdersUserEmail.text = "Email = ${userOrders.userOrderProfile.email}\n"
+        activity_admin_user_order_details_content_scrolling_OrdersUserPhoneNumber.text = "Number = +${userOrders.userOrderProfile.areaPhoneCode + " " + userOrders.userOrderProfile.number}\n"
+        activity_admin_user_order_details_content_scrolling_OrdersUserPincode.text = "Pincode = ${userOrders.userOrderProfile.pinCode}"
+
+    }
+
+    private fun updateButtonClickListener() {
+        activity_admin_user_order_details_content_scrolling_updateButton.setOnClickListener {
+            AdminOrderSingletonClass.userOrders.deliveryStatus = getDeliveryStatusString()
+            AdminOrderSingletonClass.userOrders.orderStatus = getOrderStatusString()
+
+            var userOrderFirebaseUtil = FirebaseUtil()
+            userOrderFirebaseUtil.openFbReference("userOrders")
+
+            userOrderFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(AdminOrderSingletonClass.userOrders.id).setValue(AdminOrderSingletonClass.userOrders)
+        }
+    }
+
+    private fun getOrderStatusString(): String {
+        if(activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)}") {
+           return OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)
+        } else if (activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.refunded)}") {
+           return OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.refunded)
+        } else if(activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)}") {
+           return OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)
+        }
+        return OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.error)
+    }
+
+    private fun getDeliveryStatusString(): String {
+        if(activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)}") {
+                return OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)
+        } else if (activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.delivered)}") {
+            return OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.delivered)
+        } else if(activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.cancelled)}") {
+            return OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.cancelled)
+        } else if(activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.returned)}") {
+            return OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.returned)
+        }
+        return OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.error)
+
     }
 
     private fun orderOrderStatusButtonClickListener() {
@@ -64,6 +110,9 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
                 activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)}"
                 activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(OrderStatusObject.getOrderColor(OrderStatusObject.orderStatus.paymentPending))
             } else if(activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)}") {
+                activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)}"
+                activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(OrderStatusObject.getOrderColor(OrderStatusObject.orderStatus.paymentDone))
+            } else if(activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.error)}") {
                 activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)}"
                 activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(OrderStatusObject.getOrderColor(OrderStatusObject.orderStatus.paymentDone))
             }
@@ -89,6 +138,9 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
                 activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.returned)}"
                 activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setBackgroundColor(OrderStatusObject.getDeliveryColor(OrderStatusObject.deliveryStatus.returned))
             } else if(activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.returned)}") {
+                activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)}"
+                activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setBackgroundColor(OrderStatusObject.getDeliveryColor(OrderStatusObject.deliveryStatus.paymentDone))
+            } else if(activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.error)}") {
                 activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)}"
                 activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setBackgroundColor(OrderStatusObject.getDeliveryColor(OrderStatusObject.deliveryStatus.paymentDone))
             }
