@@ -27,6 +27,10 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white_24)
         }
 
+        AdminOrderSingletonClass.userOrders =
+            Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
+
+        populateOrderDeliveryStatusSingletonList(AdminOrderSingletonClass.userOrders.orders)
         orderOrderStatusButtonClickListener()
         orderDeliveryStatusButtonClickListener()
         updateButtonClickListener()
@@ -36,12 +40,23 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         //todo get enum from them and rest of theplaces find them
         //todo not changing if error
 
-        AdminOrderSingletonClass.userOrders =
-            Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
+
 
         loadRefreshData(AdminOrderSingletonClass.userOrders)
-
         initializeAdminUserOrdersRecyclerViewAdapter()
+    }
+
+    private fun populateOrderDeliveryStatusSingletonList(orders: HashMap<String, UserOrderProduct>) {
+        AdminOrderSingletonClass.orderStatusList = ArrayList()
+        AdminOrderSingletonClass.deliveryStatusList = ArrayList()
+        d("AdminUserOrderDetailsActivity", "populateOrderDeliveryStatusSingletonList :- ${Gson().toJson(orders)}")
+        for (orderedProduct in orders) {
+
+            AdminOrderSingletonClass.orderStatusList.add(OrderStatusObject.getOrderEnumStatus(orderedProduct.value.orderStatus))
+            AdminOrderSingletonClass.deliveryStatusList.add(OrderStatusObject.getDeliveryEnumStatus(orderedProduct.value.deliveryStatus))
+        }
+        d("AdminUserOrderDetailsActivity", "populateOrderDeliveryStatusSingletonList :- ${AdminOrderSingletonClass.orderStatusList.count()} -> ${AdminOrderSingletonClass.orderStatusList}")
+        d("AdminUserOrderDetailsActivity", "populateOrderDeliveryStatusSingletonList :- ${AdminOrderSingletonClass.deliveryStatusList.count()} -> ${AdminOrderSingletonClass.deliveryStatusList}")
     }
 
     fun loadRefreshData(userOrders: UserOrders) {
