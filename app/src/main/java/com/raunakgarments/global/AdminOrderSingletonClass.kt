@@ -13,6 +13,6 @@ object AdminOrderSingletonClass {
 
     var userOrders = UserOrders()
 
-    var orderStatusList: MutableList<OrderStatusObject.orderStatus> = ArrayList()
-    var deliveryStatusList: MutableList<OrderStatusObject.deliveryStatus> = ArrayList()
+    var orderStatusList: MutableList<Pair<String,OrderStatusObject.orderStatus>> = ArrayList()
+    var deliveryStatusList: MutableList<Pair<String,OrderStatusObject.deliveryStatus>> = ArrayList()
 }

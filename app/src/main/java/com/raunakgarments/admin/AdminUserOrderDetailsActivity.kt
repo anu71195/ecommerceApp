@@ -34,7 +34,7 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         orderOrderStatusButtonClickListener()
         orderDeliveryStatusButtonClickListener()
         updateButtonClickListener()
-        updateAllButtonClickListener()
+        synchronizeButtonClickListener()
 
 
         //todo get enum from them and rest of theplaces find them
@@ -47,14 +47,16 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
     }
 
     private fun populateOrderDeliveryStatusSingletonList(orders: HashMap<String, UserOrderProduct>) {
-        AdminOrderSingletonClass.orderStatusList = ArrayList()
-        AdminOrderSingletonClass.deliveryStatusList = ArrayList()
+        var orderStatusList: MutableList<Pair<String, OrderStatusObject.orderStatus>> = ArrayList()
+        var deliveryStatusList: MutableList<Pair<String, OrderStatusObject.deliveryStatus>> = ArrayList()
         d("AdminUserOrderDetailsActivity", "populateOrderDeliveryStatusSingletonList :- ${Gson().toJson(orders)}")
         for (orderedProduct in orders) {
 
-            AdminOrderSingletonClass.orderStatusList.add(OrderStatusObject.getOrderEnumStatus(orderedProduct.value.orderStatus))
-            AdminOrderSingletonClass.deliveryStatusList.add(OrderStatusObject.getDeliveryEnumStatus(orderedProduct.value.deliveryStatus))
+            orderStatusList.add(Pair(orderedProduct.value.id , OrderStatusObject.getOrderEnumStatus(orderedProduct.value.orderStatus)))
+            deliveryStatusList.add(Pair(orderedProduct.value.id, OrderStatusObject.getDeliveryEnumStatus(orderedProduct.value.deliveryStatus)))
         }
+        AdminOrderSingletonClass.orderStatusList = orderStatusList
+        AdminOrderSingletonClass.deliveryStatusList = deliveryStatusList
         d("AdminUserOrderDetailsActivity", "populateOrderDeliveryStatusSingletonList :- ${AdminOrderSingletonClass.orderStatusList.count()} -> ${AdminOrderSingletonClass.orderStatusList}")
         d("AdminUserOrderDetailsActivity", "populateOrderDeliveryStatusSingletonList :- ${AdminOrderSingletonClass.deliveryStatusList.count()} -> ${AdminOrderSingletonClass.deliveryStatusList}")
     }
@@ -81,6 +83,15 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
     private fun updateButtonClickListener() {
         activity_admin_user_order_details_content_scrolling_updateButton.setOnClickListener {
 
+
+            for(orderStatusPair in AdminOrderSingletonClass.orderStatusList) {
+                AdminOrderSingletonClass.userOrders.orders[orderStatusPair.first]?.orderStatus = OrderStatusObject.getOrderString(orderStatusPair.second)
+            }
+
+            for(deliveryStatusPair in AdminOrderSingletonClass.deliveryStatusList) {
+                AdminOrderSingletonClass.userOrders.orders[deliveryStatusPair.first]?.deliveryStatus = OrderStatusObject.getDeliveryString(deliveryStatusPair.second)
+            }
+
             AdminOrderSingletonClass.userOrders.deliveryStatus = getDeliveryStatusString()
             AdminOrderSingletonClass.userOrders.orderStatus = getOrderStatusString()
 
@@ -91,8 +102,17 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         }
 
     }
-    private fun updateAllButtonClickListener() {
+    private fun synchronizeButtonClickListener() {
         activity_admin_user_order_details_content_scrolling_SynchronizeButton.setOnClickListener {
+
+            for(orderStatusPair in AdminOrderSingletonClass.orderStatusList) {
+                AdminOrderSingletonClass.userOrders.orders[orderStatusPair.first]?.orderStatus = getOrderStatusString()
+            }
+
+            for(deliveryStatusPair in AdminOrderSingletonClass.deliveryStatusList) {
+                AdminOrderSingletonClass.userOrders.orders[deliveryStatusPair.first]?.deliveryStatus = getDeliveryStatusString()
+            }
+
 
             AdminOrderSingletonClass.userOrders.orders = getUpdatedUserOrders(AdminOrderSingletonClass.userOrders.orders)
 
