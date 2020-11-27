@@ -14,10 +14,12 @@ import com.google.gson.Gson
 import com.raunakgarments.R
 import com.raunakgarments.UserOrderDetailsActivity
 import com.raunakgarments.global.AdminOrderSingletonClass
+import com.raunakgarments.global.OrderStatusObject
 import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.UserOrderProduct
 import com.raunakgarments.model.UserOrders
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_admin_user_order_details_content_scrolling.*
 
 class AdminUserOrderDetailsAdapter : RecyclerView.Adapter<AdminUserOrderDetailsAdapter.AdminUserOrderDetailsViewHolder>() {
 
@@ -76,12 +78,11 @@ class AdminUserOrderDetailsAdapter : RecyclerView.Adapter<AdminUserOrderDetailsA
 
 
         //todo create these for each item in order
-        if (AdminOrderSingletonClass.userOrders.deliveryStatus == "Delivered") {
-            holder.deliveryStatusTv.setTextColor(Color.parseColor("#008000"))
-        }
-        if (AdminOrderSingletonClass.userOrders.orderStatus == "Payment Done") {
-            holder.orderStatusTv.setTextColor(Color.parseColor("#008000"))
-        }
+        holder.deliveryStatusTv.setTextColor(
+            OrderStatusObject.getDeliveryColorFromString(productList[position].deliveryStatus))
+        holder.orderStatusTv.setTextColor(
+            OrderStatusObject.getOrderColorFromString(productList[position].orderStatus))
+
     }
 
     private fun getScreenWidth(): Int {
