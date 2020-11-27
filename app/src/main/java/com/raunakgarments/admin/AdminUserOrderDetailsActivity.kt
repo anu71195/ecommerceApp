@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_admin_user_order_details_content_
 
 class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
+    var adminUserOrderDetailsAdapter = AdminUserOrderDetailsAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_user_order_details)
@@ -62,10 +64,20 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
     //todo synchronise it with adapter and vice versa
     private fun updateButtonClickListener() {
+        activity_admin_user_order_details_content_scrolling_updateButton.setOnClickListener {
+
+            AdminOrderSingletonClass.userOrders.deliveryStatus = getDeliveryStatusString()
+            AdminOrderSingletonClass.userOrders.orderStatus = getOrderStatusString()
+
+            var userOrderFirebaseUtil = FirebaseUtil()
+            userOrderFirebaseUtil.openFbReference("userOrders")
+
+            userOrderFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(AdminOrderSingletonClass.userOrders.id).setValue(AdminOrderSingletonClass.userOrders)
+        }
 
     }
     private fun updateAllButtonClickListener() {
-        activity_admin_user_order_details_content_scrolling_updateAllButton.setOnClickListener {
+        activity_admin_user_order_details_content_scrolling_SynchronizeButton.setOnClickListener {
 
             AdminOrderSingletonClass.userOrders.orders = getUpdatedUserOrders(AdminOrderSingletonClass.userOrders.orders)
 
@@ -76,6 +88,7 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
             userOrderFirebaseUtil.openFbReference("userOrders")
 
             userOrderFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(AdminOrderSingletonClass.userOrders.id).setValue(AdminOrderSingletonClass.userOrders)
+            adminUserOrderDetailsAdapter.notifyDataSetChanged()
         }
     }
 
@@ -94,18 +107,18 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
     private fun getOrderStatusString(): String {
         if(activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)}") {
-           return OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)
+            return OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)
         } else if (activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.refunded)}") {
-           return OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.refunded)
+            return OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.refunded)
         } else if(activity_admin_user_order_details_content_scrolling_OrdersOrderStatus.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)}") {
-           return OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)
+            return OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)
         }
         return OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.error)
     }
 
     private fun getDeliveryStatusString(): String {
         if(activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)}") {
-                return OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)
+            return OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)
         } else if (activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.delivered)}") {
             return OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.delivered)
         } else if(activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.cancelled)}") {
@@ -166,7 +179,7 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
     }
 
     private fun initializeAdminUserOrdersRecyclerViewAdapter() {
-        val adminUserOrderDetailsAdapter =
+        adminUserOrderDetailsAdapter =
             AdminUserOrderDetailsAdapter()
         val productsLayoutManager = GridLayoutManager(this, 1)
 //        productsLayoutManager.reverseLayout = true
@@ -174,4 +187,6 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         activity_admin_user_order_details_content_scrolling_OrdersRecyclerView.adapter = adminUserOrderDetailsAdapter
         activity_admin_user_order_details_content_scrolling_OrdersRecyclerView.layoutManager = productsLayoutManager
     }
+
+
 }

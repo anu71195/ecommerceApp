@@ -13,29 +13,28 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.raunakgarments.R
 import com.raunakgarments.UserOrderDetailsActivity
+import com.raunakgarments.global.AdminOrderSingletonClass
 import com.raunakgarments.model.ConfirmationCartProduct
+import com.raunakgarments.model.UserOrderProduct
 import com.raunakgarments.model.UserOrders
 import com.squareup.picasso.Picasso
 
 class AdminUserOrderDetailsAdapter : RecyclerView.Adapter<AdminUserOrderDetailsAdapter.AdminUserOrderDetailsViewHolder>() {
 
     private lateinit var activityIntent: Intent
-    private lateinit var userOrders: UserOrders
-    var productList: MutableList<ConfirmationCartProduct> = ArrayList()
+    var productList: MutableList<UserOrderProduct> = ArrayList()
     private lateinit var adminUserOrderDetailsActivity: AdminUserOrderDetailsActivity
 
     fun populate(intent: Intent, userOrderDetailsActivity: AdminUserOrderDetailsActivity) {
         this.activityIntent = intent
         this.adminUserOrderDetailsActivity = userOrderDetailsActivity
 
-        this.userOrders =
-            Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
-        for (orderedProduct in userOrders.orders) {
+        for (orderedProduct in AdminOrderSingletonClass.userOrders.orders) {
             productList.add(orderedProduct.value)
         }
         Log.d(
             "UserOrderDetailsAdapter",
-            "populate-${Gson().toJson(userOrders)}"
+            "populate-${Gson().toJson(AdminOrderSingletonClass.userOrders)}"
         )
         Log.d(
             "UserOrderDetailsAdapter",
@@ -72,15 +71,15 @@ class AdminUserOrderDetailsAdapter : RecyclerView.Adapter<AdminUserOrderDetailsA
         holder.productImageIv.layoutParams.width = getScreenWidth() / 3
         holder.totalPriceTv.text =
             "₹" + productList[position].price.toString() + " X " + productList[position].quantity + " = ₹" + productList[position].totalPrice
-        holder.deliveryStatusTv.text = "Delivery Status = " + userOrders.deliveryStatus
-        holder.orderStatusTv.text = "Order Status = " + userOrders.orderStatus
+        holder.deliveryStatusTv.text = "Delivery Status = " + productList[position].deliveryStatus
+        holder.orderStatusTv.text = "Order Status = " + productList[position].orderStatus
 
 
         //todo create these for each item in order
-        if (userOrders.deliveryStatus == "Delivered") {
+        if (AdminOrderSingletonClass.userOrders.deliveryStatus == "Delivered") {
             holder.deliveryStatusTv.setTextColor(Color.parseColor("#008000"))
         }
-        if (userOrders.orderStatus == "Payment Done") {
+        if (AdminOrderSingletonClass.userOrders.orderStatus == "Payment Done") {
             holder.orderStatusTv.setTextColor(Color.parseColor("#008000"))
         }
     }
