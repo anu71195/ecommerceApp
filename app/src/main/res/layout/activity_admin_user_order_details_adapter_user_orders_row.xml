@@ -45,7 +45,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/activity_admin_user_order_details_adapter_user_orders_row_productTitleTextView" />
 
             <TextView
-                android:id="@+id/activity_admin_user_order_details_adapter_user_orders_row_productDeliveryStatusTextView"
+                android:id="@+id/activity_admin_user_order_details_adapter_user_orders_row_productOrderStatusTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -53,12 +53,12 @@
                 app:layout_constraintTop_toBottomOf="@id/activity_admin_user_order_details_adapter_user_orders_row_productTotalPriceTextView" />
 
             <TextView
-                android:id="@+id/activity_admin_user_order_details_adapter_user_orders_row_productOrderStatusTextView"
+                android:id="@+id/activity_admin_user_order_details_adapter_user_orders_row_productDeliveryStatusTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/activity_admin_user_order_details_adapter_user_orders_row_productDeliveryStatusTextView" />
+                app:layout_constraintTop_toBottomOf="@id/activity_admin_user_order_details_adapter_user_orders_row_productOrderStatusTextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
