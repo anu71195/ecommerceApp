@@ -1,7 +1,6 @@
 package com.raunakgarments.admin
 
 import android.content.Intent
-import android.graphics.Color
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,12 +11,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.raunakgarments.R
-import com.raunakgarments.UserOrderDetailsActivity
 import com.raunakgarments.global.AdminOrderSingletonClass
 import com.raunakgarments.global.OrderStatusObject
-import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.UserOrderProduct
-import com.raunakgarments.model.UserOrders
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_admin_user_order_details_content_scrolling.*
 
@@ -76,15 +72,63 @@ class AdminUserOrderDetailsAdapter : RecyclerView.Adapter<AdminUserOrderDetailsA
         holder.deliveryStatusTv.text = "Delivery Status = " + productList[position].deliveryStatus
         holder.orderStatusTv.text = "Order Status = " + productList[position].orderStatus
 
-
         //todo create these for each item in order
         holder.deliveryStatusTv.setTextColor(
             OrderStatusObject.getDeliveryColorFromString(productList[position].deliveryStatus))
         holder.orderStatusTv.setTextColor(
             OrderStatusObject.getOrderColorFromString(productList[position].orderStatus))
 
+        orderOrderStatusButtonClickListener(holder)
+        orderDeliveryStatusButtonClickListener(holder)
+
     }
 
+    private fun orderOrderStatusButtonClickListener(holder: AdminUserOrderDetailsViewHolder) {
+        holder.orderStatusTv.setOnClickListener {
+            if(holder.orderStatusTv.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)}") {
+                Log.d(
+                    "AdminUserOrderDetailsActivity",
+                    "orderOrderStatusButtonClickListener :- order status button clicked payment done"
+                )
+                holder.orderStatusTv.text = "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.refunded)}"
+                holder.orderStatusTv.setTextColor(OrderStatusObject.getOrderColor(OrderStatusObject.orderStatus.refunded))
+            } else if (holder.orderStatusTv.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.refunded)}") {
+                holder.orderStatusTv.text = "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)}"
+                holder.orderStatusTv.setTextColor(OrderStatusObject.getOrderColor(OrderStatusObject.orderStatus.paymentPending))
+            } else if(holder.orderStatusTv.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)}") {
+                holder.orderStatusTv.text = "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)}"
+                holder.orderStatusTv.setTextColor(OrderStatusObject.getOrderColor(OrderStatusObject.orderStatus.paymentDone))
+            } else if(holder.orderStatusTv.text.toString() == "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.error)}") {
+                holder.orderStatusTv.text = "Order Status = ${OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)}"
+                holder.orderStatusTv.setTextColor(OrderStatusObject.getOrderColor(OrderStatusObject.orderStatus.paymentDone))
+            }
+        }
+    }
+
+    private fun orderDeliveryStatusButtonClickListener(holder: AdminUserOrderDetailsViewHolder) {
+        holder.deliveryStatusTv.setOnClickListener {
+            if(holder.deliveryStatusTv.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)}") {
+                Log.d(
+                    "AdminUserOrderDetailsActivity",
+                    "orderOrderStatusButtonClickListener :- order status button clicked payment done"
+                )
+                holder.deliveryStatusTv.text = "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.delivered)}"
+                holder.deliveryStatusTv.setTextColor(OrderStatusObject.getDeliveryColor(OrderStatusObject.deliveryStatus.delivered))
+            } else if (holder.deliveryStatusTv.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.delivered)}") {
+                holder.deliveryStatusTv.text = "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.cancelled)}"
+                holder.deliveryStatusTv.setTextColor(OrderStatusObject.getDeliveryColor(OrderStatusObject.deliveryStatus.cancelled))
+            } else if(holder.deliveryStatusTv.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.cancelled)}") {
+                holder.deliveryStatusTv.text = "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.returned)}"
+                holder.deliveryStatusTv.setTextColor(OrderStatusObject.getDeliveryColor(OrderStatusObject.deliveryStatus.returned))
+            } else if(holder.deliveryStatusTv.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.returned)}") {
+                holder.deliveryStatusTv.text = "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)}"
+                holder.deliveryStatusTv.setTextColor(OrderStatusObject.getDeliveryColor(OrderStatusObject.deliveryStatus.paymentDone))
+            } else if(holder.deliveryStatusTv.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.error)}") {
+                holder.deliveryStatusTv.text = "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)}"
+                holder.deliveryStatusTv.setTextColor(OrderStatusObject.getDeliveryColor(OrderStatusObject.deliveryStatus.paymentDone))
+            }
+        }
+    }
     private fun getScreenWidth(): Int {
         val displayMetrics = DisplayMetrics()
         adminUserOrderDetailsActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
