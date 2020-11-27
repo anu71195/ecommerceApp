@@ -69,8 +69,8 @@ class AdminUserOrderDetailsAdapter : RecyclerView.Adapter<AdminUserOrderDetailsA
         holder.productImageIv.layoutParams.width = getScreenWidth() / 3
         holder.totalPriceTv.text =
             "₹" + productList[position].price.toString() + " X " + productList[position].quantity + " = ₹" + productList[position].totalPrice
-        holder.deliveryStatusTv.text = "Delivery Status = " + productList[position].deliveryStatus
-        holder.orderStatusTv.text = "Order Status = " + productList[position].orderStatus
+        holder.deliveryStatusTv.text = "Delivery Status = " + OrderStatusObject.getDeliveryStringFromString(productList[position].deliveryStatus)
+        holder.orderStatusTv.text = "Order Status = " + OrderStatusObject.getOrderStringFromString(productList[position].orderStatus)
 
         //todo create these for each item in order
         holder.deliveryStatusTv.setTextColor(
