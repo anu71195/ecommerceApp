@@ -46,7 +46,7 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         initializeAdminUserOrdersRecyclerViewAdapter()
     }
 
-    private fun populateOrderDeliveryStatusSingletonList(orders: HashMap<String, UserOrderProduct>) {
+    fun populateOrderDeliveryStatusSingletonList(orders: HashMap<String, UserOrderProduct>) {
         var orderStatusList: MutableList<Pair<String, OrderStatusObject.orderStatus>> = ArrayList()
         var deliveryStatusList: MutableList<Pair<String, OrderStatusObject.deliveryStatus>> = ArrayList()
         d("AdminUserOrderDetailsActivity", "populateOrderDeliveryStatusSingletonList :- ${Gson().toJson(orders)}")
