@@ -28,6 +28,7 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         orderOrderStatusButtonClickListener()
         orderDeliveryStatusButtonClickListener()
         updateButtonClickListener()
+        updateAllButtonClickListener()
 
 
         //todo get enum from them and rest of theplaces find them
@@ -61,7 +62,10 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
     //todo synchronise it with adapter and vice versa
     private fun updateButtonClickListener() {
-        activity_admin_user_order_details_content_scrolling_updateButton.setOnClickListener {
+
+    }
+    private fun updateAllButtonClickListener() {
+        activity_admin_user_order_details_content_scrolling_updateAllButton.setOnClickListener {
 
             AdminOrderSingletonClass.userOrders.orders = getUpdatedUserOrders(AdminOrderSingletonClass.userOrders.orders)
 
@@ -80,13 +84,8 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
             d("AdminUserOrderDetailsActivity", "getUpdatedUserOrders - ${orderedProduct.key}")
             d("AdminUserOrderDetailsActivity", "getUpdatedUserOrders - ${Gson().toJson(orderedProduct.value)}")
 
-            if(orders[orderedProduct.key]!!.deliveryStatus == AdminOrderSingletonClass.userOrders.deliveryStatus) {
-                orders[orderedProduct.key]!!.deliveryStatus = getDeliveryStatusString()
-            }
-
-            if(orders[orderedProduct.key]!!.orderStatus == AdminOrderSingletonClass.userOrders.orderStatus) {
-                orders[orderedProduct.key]!!.orderStatus = getOrderStatusString()
-            }
+            orders[orderedProduct.key]!!.deliveryStatus = getDeliveryStatusString()
+            orders[orderedProduct.key]!!.orderStatus = getOrderStatusString()
         }
 
 
