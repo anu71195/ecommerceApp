@@ -9,6 +9,7 @@ import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.raunakgarments.R
+import com.raunakgarments.global.AdminOrderSingletonClass
 import kotlinx.android.synthetic.main.activity_admin_orders_content_scrolling.*
 
 class AdminOrdersActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ class AdminOrdersActivity : AppCompatActivity() {
     private fun setSpinnerDropDown() {
         val spinner =
             findViewById<Spinner>(R.id.activity_admin_orders_content_scrolling_OrderListTypeSpinner)
-        val items = arrayOf("Choose List Type", "500g", "1kg", "2kg", "Clean")
+        val items = AdminOrderSingletonClass.getItemList()
         val adapter = ArrayAdapter<String>(
             this,
             android.R.layout.simple_spinner_dropdown_item,
