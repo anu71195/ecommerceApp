@@ -46,16 +46,21 @@ class AdminOrdersActivity : AppCompatActivity() {
                 arg3: Long
             ) {
                 // Do what you want
-                val items = spinner.selectedItem.toString()
-                if (items == "500g") {
-                    d("AdminOrderActivity", "setSpinnerDropDown :- this is 500g of weight...")
-                    initializeUserOrdersRecyclerViewAdapter()
-                } else if (items == "1kg") {
-                    d("AdminOrderActivity", "setSpinnerDropDown :- this is 1kg of weight...")
-                } else if (items == "2kg") {
-                    d("AdminOrderActivity", "setSpinnerDropDown :- this is 2kg of weight...")
-                } else if (items == "Clean") {
-                    cleanAdapter()
+                when(spinner.selectedItem.toString()) {
+                    AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.title) -> {
+                        d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
+                    }
+                    AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.customer) -> {
+                        d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
+                        initializeUserOrdersRecyclerViewAdapter()
+                    }
+                    AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.clean) -> {
+                        d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
+                        cleanAdapter()
+                    }
+                    AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.error) -> {
+                        d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
+                    }
                 }
             }
 
