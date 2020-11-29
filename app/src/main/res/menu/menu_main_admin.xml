@@ -38,7 +38,7 @@
             android:id="@+id/menu_main_admin_actionOrders"
             android:icon="@drawable/ic_baseline_ballot_24"
             android:orderInCategory="100"
-            android:title="Orders (under progress)"
+            android:title="Orders"
             app:showAsAction="never" />
 
         <item

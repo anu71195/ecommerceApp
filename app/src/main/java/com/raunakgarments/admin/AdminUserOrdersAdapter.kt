@@ -17,7 +17,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.R
 import com.raunakgarments.global.AdminOrderSingletonClass
-import com.raunakgarments.global.UserOrderProfileSingletonClass
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.Profile
 import com.raunakgarments.model.UserOrderProfile
