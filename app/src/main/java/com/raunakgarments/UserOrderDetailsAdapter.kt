@@ -14,6 +14,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import com.raunakgarments.global.AdminOrderSingletonClass
+import com.raunakgarments.global.OrderStatusObject
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.ConfirmationCartProduct
 import com.raunakgarments.model.UserOrderProduct
@@ -71,22 +73,22 @@ class UserOrderDetailsAdapter :
         return UserOrderDetailsViewHolder(itemView)
     }
 
-
+//todo
     override fun onBindViewHolder(
         holder: UserOrderDetailsViewHolder,
         position: Int
     ) {
         var userOrderFirebaseUtil = FirebaseUtil()
         userOrderFirebaseUtil.openFbReference("userOrders" + "/" + FirebaseAuth.getInstance().uid)
-
+//todo test this situation
         if (productList[position].deliveryStatus == "") {
-            productList[position].deliveryStatus = userOrders.deliveryStatus
-            userOrderFirebaseUtil.mDatabaseReference.child(userOrders.id).child("orders").child(productList[position].id).child("deliveryStatus").setValue(userOrders.deliveryStatus)
+            productList[position].deliveryStatus = OrderStatusObject.getOrderStringFromString(userOrders.deliveryStatus)
+            userOrderFirebaseUtil.mDatabaseReference.child(userOrders.id).child("orders").child(productList[position].id).child("deliveryStatus").setValue(OrderStatusObject.getOrderStringFromString(userOrders.deliveryStatus))
         }
 
         if (productList[position].orderStatus == "") {
-            productList[position].orderStatus = userOrders.orderStatus
-            userOrderFirebaseUtil.mDatabaseReference.child(userOrders.id).child("orders").child(productList[position].id).child("orderStatus").setValue(userOrders.orderStatus)
+            productList[position].orderStatus = OrderStatusObject.getDeliveryStringFromString(userOrders.orderStatus)
+            userOrderFirebaseUtil.mDatabaseReference.child(userOrders.id).child("orders").child(productList[position].id).child("orderStatus").setValue(OrderStatusObject.getDeliveryStringFromString(userOrders.orderStatus))
         }
 
         holder.productTitleTv.text = productList[position].title
@@ -94,16 +96,13 @@ class UserOrderDetailsAdapter :
         holder.productImageIv.layoutParams.width = getScreenWidth() / 3
         holder.totalPriceTv.text =
             "₹" + productList[position].price.toString() + " X " + productList[position].quantity + " = ₹" + productList[position].totalPrice
-        holder.deliveryStatusTv.text = "Delivery Status = " + productList[position].deliveryStatus
-        holder.orderStatusTv.text = "Order Status = " + productList[position].orderStatus
+        holder.deliveryStatusTv.text = "Delivery Status = " + OrderStatusObject.getDeliveryStringFromString(productList[position].deliveryStatus)
+        holder.orderStatusTv.text = "Order Status = " + OrderStatusObject.getOrderStringFromString(productList[position].orderStatus)
 
-        if (productList[position].deliveryStatus == "Delivered") {
-            holder.deliveryStatusTv.setTextColor(Color.parseColor("#008000"))
-        }
-        //todo user order status object
-        if (productList[position].orderStatus == "Payment Done") {
-            holder.orderStatusTv.setTextColor(Color.parseColor("#008000"))
-        }
+
+        holder.deliveryStatusTv.setTextColor(OrderStatusObject.getDeliveryColorFromString(productList[position].deliveryStatus))
+        holder.orderStatusTv.setTextColor(OrderStatusObject.getOrderColorFromString(productList[position].orderStatus))
+
     }
 
     private fun getScreenWidth(): Int {
