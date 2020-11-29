@@ -52,7 +52,11 @@ class AdminOrdersActivity : AppCompatActivity() {
                     }
                     AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.customer) -> {
                         d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
-                        initializeUserOrdersRecyclerViewAdapter()
+                        initializeUserOrdersRecyclerViewByCustomerAdapter()
+                    }
+                    AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.dates) -> {
+                        d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
+                        initializeUserOrdersrecyclerViewByDatesAdapter()
                     }
                     AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.clean) -> {
                         d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
@@ -73,7 +77,16 @@ class AdminOrdersActivity : AppCompatActivity() {
         activity_admin_orders_content_scrolling_OrdersRecyclerView.adapter = adminOrdersAdapter
     }
 
-    private fun initializeUserOrdersRecyclerViewAdapter() {
+    private fun initializeUserOrdersrecyclerViewByDatesAdapter() {
+        val adminOrdersAdapter = AdminOrdersAdapterByDates()
+        val productsLayoutManager = GridLayoutManager(this, 1)
+        adminOrdersAdapter.populate(getString(R.string.database_userOrders), this)
+        activity_admin_orders_content_scrolling_OrdersRecyclerView.adapter = adminOrdersAdapter
+        activity_admin_orders_content_scrolling_OrdersRecyclerView.layoutManager =
+            productsLayoutManager
+    }
+
+    private fun initializeUserOrdersRecyclerViewByCustomerAdapter() {
         val adminOrdersAdapter = AdminOrdersAdapter()
         val productsLayoutManager = GridLayoutManager(this, 1)
         adminOrdersAdapter.populate(getString(R.string.database_userOrders), this)
