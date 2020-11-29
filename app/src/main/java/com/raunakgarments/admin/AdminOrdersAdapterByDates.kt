@@ -17,10 +17,11 @@ import com.raunakgarments.R
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.UserOrderAddresses
 import com.raunakgarments.model.UserOrderProfile
+import com.raunakgarments.model.UserOrders
 
 //todo
 class AdminOrdersAdapterByDates : RecyclerView.Adapter<AdminOrdersAdapterByDates.AdminOrderViewHolder>() {
-    var userOrderProfileList: MutableList<UserOrderProfile> = ArrayList()
+    var userOrdersList: MutableList<UserOrders> = ArrayList()
     private lateinit var adminOrdersActivity: Activity
 
     fun populate(userOrdersRef: String, adminOrdersActivity: AdminOrdersActivity) {
@@ -44,8 +45,13 @@ class AdminOrdersAdapterByDates : RecyclerView.Adapter<AdminOrdersAdapterByDates
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if(snapshot.exists()){
                                 //todo
-                                d("AdminOrdersAdapterByDates", "populate -> ${snapshot.key}}")
-                                d("AdminOrdersAdapterByDates", "populate -> ${snapshot.value}}")
+                                var userOrders = snapshot.getValue(UserOrders::class.java)
+                                if (userOrders != null) {
+                                    userOrdersList.add(userOrders)
+                                    userOrdersList.sortBy { it.timeStamp }
+                                    notifyItemInserted(userOrdersList.size - 1)
+                                }
+                                d("AdminOrdersAdapterByDates", "populate -> ${Gson().toJson(userOrders)}}")
                             } else {
                                 d("AdminOrdersAdapterByDates", "populate -> snapshot does not exist}")
 
@@ -84,10 +90,10 @@ class AdminOrdersAdapterByDates : RecyclerView.Adapter<AdminOrdersAdapterByDates
     }
 
     override fun onBindViewHolder(holder: AdminOrderViewHolder, position: Int) {
-        holder.titleButton.text = "${position}"
+        holder.titleButton.text = "${userOrdersList[position].id}    ${userOrdersList[position].userOrderProfile.userName}"
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return userOrdersList.size
     }
 }
