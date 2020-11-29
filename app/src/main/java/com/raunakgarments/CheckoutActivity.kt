@@ -422,9 +422,10 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             .child("fullDateStampRaw")
             .setValue(istTime.format(Date()))
 
+        val timestamp = ((Date().time) / 1000).toString()
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("timeStamp")
-            .setValue(((Date().time) / 1000).toString())
+            .setValue(timestamp)
 
         userOrderFirebaseUtil.mDatabaseReference.child(userOrderPushReferenceKey)
             .child("totalCost")
@@ -434,7 +435,16 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             .child("userOrderProfile")
             .setValue(userProfileCv)
 
+        storeOrderAddressInUserOrderAddresses(getString(R.string.database_userOrders) + "**"+FirebaseAuth.getInstance().uid.toString() +"**" +userOrderPushReferenceKey, timestamp)
+
         d("CheckoutActivity", "populateUserOrderMetadata - populated user order metadata")
+    }
+
+    private fun storeOrderAddressInUserOrderAddresses(orderAddress: String, timestamp: String) {
+        var userOrderAddressesFirebaseUtil = FirebaseUtil()
+        userOrderAddressesFirebaseUtil.openFbReference("userOrderAddresses")
+
+        userOrderAddressesFirebaseUtil.mDatabaseReference.child(orderAddress).setValue(timestamp)
     }
 
     private fun populateUserOrdersDatabase(
