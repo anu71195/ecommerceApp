@@ -71,6 +71,7 @@ class AdminUserOrdersAdapter :
                         } else {
                             addOrderToListAndNotify(userOrders)
                         }
+                        checkIfAddressExistAndPushIfNot(userOrders, userOrderProfile.id)
                     } else {
                         d("UserOrdersAdapter", "populate-userOrders is null")
                     }
@@ -88,6 +89,28 @@ class AdminUserOrdersAdapter :
 
 
     }
+
+    private fun checkIfAddressExistAndPushIfNot(userOrders: UserOrders, userOrderProfileId: String) {
+
+        var orderAddress = "userOrders**$userOrderProfileId**${userOrders.id}"
+        var userOrderAddressesFirebaseUtil = FirebaseUtil()
+        userOrderAddressesFirebaseUtil.openFbReference("userOrderAddresses")
+
+        userOrderAddressesFirebaseUtil.mDatabaseReference.child(orderAddress).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                d("AdminUserOrdersAdapter", "checkIfAddressExistAndPushIfNot -> ${userOrderProfileId}   ${userOrders.id}  ${orderAddress}")
+                if(snapshot.exists()) {
+                    d("AdminUserOrdersAdapter", "checkIfAddressExistAndPushIfNot -> snapshot exists")
+                } else {
+                    d("AdminUserOrdersAdapter", "checkIfAddressExistAndPushIfNot -> snapshot does not exist")
+                    userOrderAddressesFirebaseUtil.mDatabaseReference.child(orderAddress).setValue(userOrders.timeStamp)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
 
     private fun getAndUpdateUserProfile(
         userOrders: UserOrders,
