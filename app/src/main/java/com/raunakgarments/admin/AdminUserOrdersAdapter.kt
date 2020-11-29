@@ -77,7 +77,7 @@ class AdminUserOrdersAdapter :
                     }
                 } else {
                     d("UserOrdersAdapter", "populate-snapshot does not exist")
-                }//todo see if childchanged also works for order details activity change
+                }
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}

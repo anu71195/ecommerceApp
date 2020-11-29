@@ -73,14 +73,12 @@ class UserOrderDetailsAdapter :
         return UserOrderDetailsViewHolder(itemView)
     }
 
-//todo
     override fun onBindViewHolder(
         holder: UserOrderDetailsViewHolder,
         position: Int
     ) {
         var userOrderFirebaseUtil = FirebaseUtil()
         userOrderFirebaseUtil.openFbReference("userOrders" + "/" + FirebaseAuth.getInstance().uid)
-//todo test this situation
         if (productList[position].deliveryStatus == "") {
             productList[position].deliveryStatus = OrderStatusObject.getOrderStringFromString(userOrders.deliveryStatus)
             userOrderFirebaseUtil.mDatabaseReference.child(userOrders.id).child("orders").child(productList[position].id).child("deliveryStatus").setValue(OrderStatusObject.getOrderStringFromString(userOrders.deliveryStatus))

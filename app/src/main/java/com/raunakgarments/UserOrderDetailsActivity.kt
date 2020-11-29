@@ -29,7 +29,6 @@ class UserOrderDetailsActivity : AppCompatActivity() {
         activity_user_order_details_content_scrolling_OrdersDeliveryStatus.text = "Delivery Status = ${OrderStatusObject.getDeliveryStringFromString(userOrders.deliveryStatus)}"
         activity_user_order_details_content_scrolling_OrdersOrderStatus.text = "Order Status = ${OrderStatusObject.getOrderStringFromString(userOrders.orderStatus)}"
 
-        //todo like admin flow
         activity_user_order_details_content_scrolling_OrdersDeliveryStatus.setBackgroundColor(OrderStatusObject.getDeliveryColorFromString(userOrders.deliveryStatus))
         activity_user_order_details_content_scrolling_OrdersOrderStatus.setBackgroundColor(OrderStatusObject.getOrderColorFromString(userOrders.orderStatus))
 

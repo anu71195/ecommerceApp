@@ -36,12 +36,6 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         updateButtonClickListener()
         synchronizeButtonClickListener()
 
-
-        //todo get enum from them and rest of theplaces find them
-        //todo not changing if error
-
-
-
         loadRefreshData(AdminOrderSingletonClass.userOrders)
         initializeAdminUserOrdersRecyclerViewAdapter()
     }
@@ -79,7 +73,6 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
     }
 
-    //todo synchronise it with adapter and vice versa
     private fun updateButtonClickListener() {
         activity_admin_user_order_details_content_scrolling_updateButton.setOnClickListener {
 
@@ -187,10 +180,6 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
     }
 
     private fun orderDeliveryStatusButtonClickListener() {
-        //todo change in this.userOrders both adapter and on this screen
-        //todo change in userorderprofilesingletonclass
-        // todo change in adminordersingletonclass
-        //todo update in database and datasetchanged function call
         activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.setOnClickListener {
             d("AdminUserOrderDetailsActivity", "orderOrderStatusButtonClickListener :- order status button clicked")
             if(activity_admin_user_order_details_content_scrolling_OrdersDeliveryStatus.text.toString() == "Delivery Status = ${OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)}") {

@@ -76,7 +76,6 @@ class AdminUserOrderDetailsAdapter : RecyclerView.Adapter<AdminUserOrderDetailsA
         holder.deliveryStatusTv.text = "Delivery Status = " + OrderStatusObject.getDeliveryStringFromString(productList[position].deliveryStatus)
         holder.orderStatusTv.text = "Order Status = " + OrderStatusObject.getOrderStringFromString(productList[position].orderStatus)
 
-        //todo create these for each item in order
         holder.deliveryStatusTv.setTextColor(
             OrderStatusObject.getDeliveryColorFromString(productList[position].deliveryStatus))
         holder.orderStatusTv.setTextColor(
