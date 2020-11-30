@@ -181,7 +181,7 @@ class AdminOrdersActivity : AppCompatActivity() {
             if(autoLoadingCheck) {
                 initializeUserOrdersrecyclerViewFilterAdapter()
                 setCheckBoxesClickEnability(false)
-                Handler().postDelayed({setCheckBoxesClickEnability(true)}, 1000)
+                Handler().postDelayed({setCheckBoxesClickEnability(true)}, 100)
             }
         }
     }

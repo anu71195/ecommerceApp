@@ -2,9 +2,11 @@ package com.raunakgarments.admin
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.FragmentTransaction
 import com.raunakgarments.ProductActivityNew
 import com.raunakgarments.R
 import com.raunakgarments.developerActivities.DeveloperAdminActivity
@@ -20,7 +22,9 @@ class AdminProductActivityNew : AppCompatActivity() {
         var flow = intent.getStringExtra("flow")
 
         if (flow == "startFlow") {
-            transaction.replace(R.id.product_main_fragment_admin, AdminFragment(this)).commit()
+
+            callAdminFragment(transaction)
+
         } else if (flow == "deleteFlow") {
             transaction.replace(R.id.product_main_fragment_admin, AdminProductFragmentNew(this))
                 .commit()
@@ -75,6 +79,15 @@ class AdminProductActivityNew : AppCompatActivity() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
+        }
+    }
+
+    private fun callAdminFragment(transaction: FragmentTransaction) {
+        try {
+            transaction.replace(R.id.product_main_fragment_admin, AdminFragment(this)).commit()
+        } catch(e: Error) {
+            Handler().postDelayed({callAdminFragment(transaction)},1000)
+
         }
     }
 
