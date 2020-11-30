@@ -52,6 +52,7 @@ class Authentication {
                                     profile.email = mFirebaseAuth.currentUser?.email.toString()
                                     profile.userName =
                                         mFirebaseAuth.currentUser?.displayName.toString()
+                                    profile.id =  mFirebaseAuth.uid.toString()
                                     firebaseUtil.mDatabaseReference.child(userId).setValue(profile)
                                 }
                             }

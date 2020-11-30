@@ -9,6 +9,7 @@ class Profile {
     var orderNumber = 1
     var areaPhoneCode = "91"
     var deliverable = false
+    var id = ""
 
     constructor() {}
     constructor(userName: String, number: String, email: String, address: String, pinCode: String) {
