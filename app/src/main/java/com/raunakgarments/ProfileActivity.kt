@@ -405,6 +405,7 @@ class ProfileActivity : AppCompatActivity() {
             var address: String = activity_profile_content_scrolling_address.text.toString()
             var pinCode: String = activity_profile_content_scrolling_pincode.text.toString()
             var profile = Profile(name, number, email, address, pinCode)
+            profile.id = FirebaseAuth.getInstance().uid.toString()
             d(
                 (activity_profile_content_scrolling_phoneNumberPlusSign.text.toString() +
                         getPhoneNumberCountryCode() +
