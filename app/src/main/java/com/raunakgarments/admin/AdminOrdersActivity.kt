@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.raunakgarments.R
 import com.raunakgarments.global.AdminOrderSingletonClass
+import com.raunakgarments.global.OrderStatusObject
 import kotlinx.android.synthetic.main.activity_admin_orders_content_scrolling.*
 
 class AdminOrdersActivity : AppCompatActivity() {
@@ -84,7 +85,21 @@ class AdminOrdersActivity : AppCompatActivity() {
 
     private fun initializeUserOrdersrecyclerViewStatusFilterAdapter() {
         activity_admin_orders_content_scrolling_StatusFilterOptions.visibility = View.VISIBLE
+        populateCheckboxText()
         initializeUserOrdersrecyclerViewByDatesAdapter()
+    }
+
+    private fun populateCheckboxText() {
+        activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone.text = OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentDone)
+        activity_admin_orders_content_scrolling_OrderStatusFilterRefunded.text = OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.refunded)
+        activity_admin_orders_content_scrolling_OrderStatusFilterPaymentPending.text = OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.paymentPending)
+        activity_admin_orders_content_scrolling_OrderStatusFilterError.text = OrderStatusObject.getOrderString(OrderStatusObject.orderStatus.error)
+
+        activity_admin_orders_content_scrolling_DeliveryStatusFilterPaymentDone.text = OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.paymentDone)
+        activity_admin_orders_content_scrolling_DeliveryStatusFilterDelivered.text = OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.delivered)
+        activity_admin_orders_content_scrolling_DeliveryStatusFilterReturned.text = OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.returned)
+        activity_admin_orders_content_scrolling_DeliveryStatusFilterCancelled.text = OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.cancelled)
+        activity_admin_orders_content_scrolling_DeliveryStatusFilterError.text = OrderStatusObject.getDeliveryString(OrderStatusObject.deliveryStatus.error)
     }
 
     private fun initializeUserOrdersrecyclerViewByDatesAdapter() {
