@@ -93,10 +93,10 @@ class AdminOrdersActivity : AppCompatActivity() {
 
     private fun checkBoxClickListeners() {
 
-        handleCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone, OrderStatusObject.orderStatus.paymentDone)
-        handleCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterRefunded, OrderStatusObject.orderStatus.refunded)
-        handleCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentPending, OrderStatusObject.orderStatus.paymentPending)
-        handleCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterError, OrderStatusObject.orderStatus.error)
+        handleOrderStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone, OrderStatusObject.orderStatus.paymentDone)
+        handleOrderStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterRefunded, OrderStatusObject.orderStatus.refunded)
+        handleOrderStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentPending, OrderStatusObject.orderStatus.paymentPending)
+        handleOrderStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterError, OrderStatusObject.orderStatus.error)
 
         handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone, OrderStatusObject.orderStatus.paymentDone)
         handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterRefunded, OrderStatusObject.orderStatus.refunded)
@@ -104,7 +104,7 @@ class AdminOrdersActivity : AppCompatActivity() {
         handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterError, OrderStatusObject.orderStatus.error)
     }
 
-    private fun handleCheckboxCheckAtInitialization(
+    private fun handleOrderStatusCheckboxCheckAtInitialization(
         checkBoxView: CheckBox,
         orderStatus: OrderStatusObject.orderStatus
     ) {
