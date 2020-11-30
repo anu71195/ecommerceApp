@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -52,6 +53,10 @@ class AdminOrdersAdapter : RecyclerView.Adapter<AdminOrdersAdapter.AdminOrderVie
                                 if(snapshot.exists()) {
                                     var userProfile = snapshot.getValue(Profile::class.java)
                                     if(userProfile != null) {
+                                        if(userProfile.id == "") {
+                                            userProfile.id = it
+                                            userProfileFirebaseUtil.mDatabaseReference.child(it).setValue(userProfile)
+                                        }
                                         userOrderProfile.userCurrentProfile = userProfile
                                     }
                                 } else {
