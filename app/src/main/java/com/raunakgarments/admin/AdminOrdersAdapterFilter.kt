@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.R
+import com.raunakgarments.global.AdminOrderSingletonClass
+import com.raunakgarments.global.OrderStatusObject
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.UserOrderAddresses
 import com.raunakgarments.model.UserOrders
@@ -26,6 +28,8 @@ class AdminOrdersAdapterFilter : RecyclerView.Adapter<AdminOrdersAdapterFilter.A
 
     fun populate(userOrdersRef: String, adminOrdersActivity: AdminOrdersActivity) {
         this.adminOrdersActivity = adminOrdersActivity
+        userOrdersList = ArrayList()
+
         var userOrderAddressesFirebaseUtil = FirebaseUtil()
         userOrderAddressesFirebaseUtil.openFbReference("userOrderAddresses")
 
@@ -51,7 +55,7 @@ class AdminOrdersAdapterFilter : RecyclerView.Adapter<AdminOrdersAdapterFilter.A
                             if(snapshot.exists()){
                                 var userOrders = snapshot.getValue(UserOrders::class.java)
                                 if (userOrders != null) {
-                                    userOrdersList.add(userOrders)
+                                    checkFilterAndAddUserOrders(userOrders)
                                     userOrdersList.sortBy { it.timeStamp }
                                     notifyItemInserted(userOrdersList.size - 1)
                                 }
@@ -84,6 +88,13 @@ class AdminOrdersAdapterFilter : RecyclerView.Adapter<AdminOrdersAdapterFilter.A
         })
     }
 
+    private fun checkFilterAndAddUserOrders(userOrders: UserOrders) {
+        if(OrderStatusObject.getOrderEnumStatus(userOrders.orderStatus) in AdminOrderSingletonClass.orderStatusCheckboxSelection || OrderStatusObject.getDeliveryEnumStatus(userOrders.deliveryStatus) in AdminOrderSingletonClass.deliveryStatusCheckboxSelection) {
+            userOrdersList.add(userOrders)
+        }
+    }
+
+
     class AdminOrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
         var titleButton: Button =
             itemView.findViewById(R.id.activity_admin_orders_adapter_filter_admin_orders_row_Button)
@@ -94,7 +105,6 @@ class AdminOrdersAdapterFilter : RecyclerView.Adapter<AdminOrdersAdapterFilter.A
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminOrderViewHolder {
-        //todo
         var itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.activity_admin_orders_adapter_filter_admin_orders_row, parent, false)
         return AdminOrderViewHolder(itemView)
