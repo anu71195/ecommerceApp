@@ -202,6 +202,20 @@ class AdminUserOrdersAdapter :
     }
 
     private fun getDetailedText(userOrdersList: MutableList<UserOrders>, position: Int): CharSequence? {
+
+        d("AdminUserOrdersAdapter", "getDetailedText -> ${userOrdersList[position].userOrderProfile.id}")
+        if(userOrdersList[position].userOrderProfile.id == "") {
+            d("AdminUserOrdersAdapter", "getDetailedText -> updating -> ${userOrdersList[position].userOrderProfile.id}")
+            userOrdersList[position].userOrderProfile.id = AdminOrderSingletonClass.userOrderProfile.id
+
+            var userOrderProfileFirebaseUtil = FirebaseUtil()
+            userOrderProfileFirebaseUtil.openFbReference("userOrders/"+AdminOrderSingletonClass.userOrderProfile.id+"/"+userOrdersList[position].id+"/userOrderProfile")
+
+            userOrderProfileFirebaseUtil.mDatabaseReference.setValue(userOrdersList[position].userOrderProfile)
+        }
+
+        d("AdminUserOrdersAdapter", "getDetailedText -> ${userOrdersList[position].userOrderProfile.id}")
+
         var detailedText = "SUMMARY \nTotal Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus + "\n" + "Order Status = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size +"\n\n\n"
         detailedText += "ORDERS\n"
         detailedText += getOrderText(userOrdersList, position)
