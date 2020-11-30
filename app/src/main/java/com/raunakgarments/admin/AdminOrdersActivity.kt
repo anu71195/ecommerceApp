@@ -87,11 +87,19 @@ class AdminOrdersActivity : AppCompatActivity() {
     private fun initializeUserOrdersrecyclerViewStatusFilterAdapter() {
         activity_admin_orders_content_scrolling_StatusFilterOptions.visibility = View.VISIBLE
         populateCheckboxText()
-        val adminOrdersAdapter = initializeUserOrdersrecyclerViewFilterAdapter()
-        checkBoxClickListeners(adminOrdersAdapter)
+        filterButtonClickListener()
+        checkBoxClickListeners()
+        initializeUserOrdersrecyclerViewFilterAdapter()
     }
 
-    private fun initializeUserOrdersrecyclerViewFilterAdapter(): AdminOrdersAdapterFilter {
+    private fun filterButtonClickListener() {
+        activity_admin_orders_content_scrolling_FilterButton.setOnClickListener {
+            initializeUserOrdersrecyclerViewFilterAdapter()
+        }
+    }
+
+    private fun initializeUserOrdersrecyclerViewFilterAdapter() {
+        cleanAdapter()
         val adminOrdersAdapter = AdminOrdersAdapterFilter()
         val productsLayoutManager = GridLayoutManager(this, 1)
         productsLayoutManager.reverseLayout = true
@@ -99,31 +107,27 @@ class AdminOrdersActivity : AppCompatActivity() {
         activity_admin_orders_content_scrolling_OrdersRecyclerView.adapter = adminOrdersAdapter
         activity_admin_orders_content_scrolling_OrdersRecyclerView.layoutManager =
             productsLayoutManager
-        return adminOrdersAdapter
     }
 
-    private fun checkBoxClickListeners(adminOrdersAdapter: AdminOrdersAdapterFilter) {
+    private fun checkBoxClickListeners() {
 
         handleOrderStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone, OrderStatusObject.orderStatus.paymentDone)
         handleOrderStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterRefunded, OrderStatusObject.orderStatus.refunded)
         handleOrderStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentPending, OrderStatusObject.orderStatus.paymentPending)
         handleOrderStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterError, OrderStatusObject.orderStatus.error)
 
-        handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone, OrderStatusObject.orderStatus.paymentDone, adminOrdersAdapter)
+        handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone, OrderStatusObject.orderStatus.paymentDone)
         handleOrderStatusCheckBoxSelection(
             activity_admin_orders_content_scrolling_OrderStatusFilterRefunded,
-            OrderStatusObject.orderStatus.refunded,
-            adminOrdersAdapter
+            OrderStatusObject.orderStatus.refunded
         )
         handleOrderStatusCheckBoxSelection(
             activity_admin_orders_content_scrolling_OrderStatusFilterPaymentPending,
-            OrderStatusObject.orderStatus.paymentPending,
-            adminOrdersAdapter
+            OrderStatusObject.orderStatus.paymentPending
         )
         handleOrderStatusCheckBoxSelection(
             activity_admin_orders_content_scrolling_OrderStatusFilterError,
-            OrderStatusObject.orderStatus.error,
-            adminOrdersAdapter
+            OrderStatusObject.orderStatus.error
         )
 
         handleDeliveryStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_DeliveryStatusFilterPaymentDone, OrderStatusObject.deliveryStatus.paymentDone)
@@ -132,26 +136,22 @@ class AdminOrdersActivity : AppCompatActivity() {
         handleDeliveryStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_DeliveryStatusFilterCancelled, OrderStatusObject.deliveryStatus.cancelled)
         handleDeliveryStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_DeliveryStatusFilterError, OrderStatusObject.deliveryStatus.error)
 
-        handleDeliveryStatusCheckBoxSelection(activity_admin_orders_content_scrolling_DeliveryStatusFilterPaymentDone, OrderStatusObject.deliveryStatus.paymentDone, adminOrdersAdapter)
+        handleDeliveryStatusCheckBoxSelection(activity_admin_orders_content_scrolling_DeliveryStatusFilterPaymentDone, OrderStatusObject.deliveryStatus.paymentDone)
         handleDeliveryStatusCheckBoxSelection(
             activity_admin_orders_content_scrolling_DeliveryStatusFilterDelivered,
-            OrderStatusObject.deliveryStatus.delivered,
-            adminOrdersAdapter
+            OrderStatusObject.deliveryStatus.delivered
         )
         handleDeliveryStatusCheckBoxSelection(
             activity_admin_orders_content_scrolling_DeliveryStatusFilterReturned,
-            OrderStatusObject.deliveryStatus.returned,
-            adminOrdersAdapter
+            OrderStatusObject.deliveryStatus.returned
         )
         handleDeliveryStatusCheckBoxSelection(
             activity_admin_orders_content_scrolling_DeliveryStatusFilterCancelled,
-            OrderStatusObject.deliveryStatus.cancelled,
-            adminOrdersAdapter
+            OrderStatusObject.deliveryStatus.cancelled
         )
         handleDeliveryStatusCheckBoxSelection(
             activity_admin_orders_content_scrolling_DeliveryStatusFilterError,
-            OrderStatusObject.deliveryStatus.error,
-            adminOrdersAdapter
+            OrderStatusObject.deliveryStatus.error
         )
     }
 
@@ -166,9 +166,7 @@ class AdminOrdersActivity : AppCompatActivity() {
 
     private fun handleDeliveryStatusCheckBoxSelection(
         checkBoxView: CheckBox,
-        deliveryStatus: OrderStatusObject.deliveryStatus,
-        adminOrdersAdapter: AdminOrdersAdapterFilter
-    ) {
+        deliveryStatus: OrderStatusObject.deliveryStatus) {
         checkBoxView.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked) {
                 AdminOrderSingletonClass.deliveryStatusCheckboxSelection.add(deliveryStatus)
@@ -191,9 +189,7 @@ class AdminOrdersActivity : AppCompatActivity() {
 
     private fun handleOrderStatusCheckBoxSelection(
         checkBoxView: CheckBox,
-        orderStatus: OrderStatusObject.orderStatus,
-        adminOrdersAdapter: AdminOrdersAdapterFilter
-    ) {
+        orderStatus: OrderStatusObject.orderStatus) {
         checkBoxView.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked) {
                 AdminOrderSingletonClass.orderStatusCheckboxSelection.add(orderStatus)
@@ -218,6 +214,7 @@ class AdminOrdersActivity : AppCompatActivity() {
     }
 
     private fun initializeUserOrdersrecyclerViewByDatesAdapter() {
+        cleanAdapter()
         val adminOrdersAdapter = AdminOrdersAdapterByDates()
         val productsLayoutManager = GridLayoutManager(this, 1)
         productsLayoutManager.reverseLayout = true
@@ -228,6 +225,7 @@ class AdminOrdersActivity : AppCompatActivity() {
     }
 
     private fun initializeUserOrdersRecyclerViewByCustomerAdapter() {
+        cleanAdapter()
         val adminOrdersAdapter = AdminOrdersAdapter()
         val productsLayoutManager = GridLayoutManager(this, 1)
         adminOrdersAdapter.populate(getString(R.string.database_userOrders), this)

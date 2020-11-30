@@ -38,8 +38,8 @@
                     android:id="@+id/activity_admin_orders_content_scrolling_StatusFilterOrderStatusTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:text="Order Status"
+                    android:textStyle="bold"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <CheckBox
@@ -70,8 +70,8 @@
                     android:id="@+id/activity_admin_orders_content_scrolling_StatusFilterDeliveryStatusTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Delivery Status"
                     android:textStyle="bold"
-                    android:text="Order Status"
                     app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_OrderStatusFilterError" />
 
                 <CheckBox
@@ -103,6 +103,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_DeliveryStatusFilterCancelled" />
+
+                <Button
+                    android:id="@+id/activity_admin_orders_content_scrolling_FilterButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="FILTER"
+                    android:textAlignment="center"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_DeliveryStatusFilterError" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
 
