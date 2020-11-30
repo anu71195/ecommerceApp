@@ -5,6 +5,7 @@ import android.util.Log.d
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -86,7 +87,44 @@ class AdminOrdersActivity : AppCompatActivity() {
     private fun initializeUserOrdersrecyclerViewStatusFilterAdapter() {
         activity_admin_orders_content_scrolling_StatusFilterOptions.visibility = View.VISIBLE
         populateCheckboxText()
+        checkBoxClickListeners()
         initializeUserOrdersrecyclerViewByDatesAdapter()
+    }
+
+    private fun checkBoxClickListeners() {
+
+        handleCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone, OrderStatusObject.orderStatus.paymentDone)
+        handleCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterRefunded, OrderStatusObject.orderStatus.refunded)
+        handleCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentPending, OrderStatusObject.orderStatus.paymentPending)
+        handleCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_OrderStatusFilterError, OrderStatusObject.orderStatus.error)
+
+        handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone, OrderStatusObject.orderStatus.paymentDone)
+        handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterRefunded, OrderStatusObject.orderStatus.refunded)
+        handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentPending, OrderStatusObject.orderStatus.paymentPending)
+        handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterError, OrderStatusObject.orderStatus.error)
+    }
+
+    private fun handleCheckboxCheckAtInitialization(
+        checkBoxView: CheckBox,
+        orderStatus: OrderStatusObject.orderStatus
+    ) {
+        if(orderStatus in AdminOrderSingletonClass.orderStatusCheckboxSelection) {
+            checkBoxView.isChecked = true
+        }
+    }
+
+    private fun handleOrderStatusCheckBoxSelection(
+        checkBoxView: CheckBox,
+        orderStatus: OrderStatusObject.orderStatus
+    ) {
+        checkBoxView.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked) {
+                AdminOrderSingletonClass.orderStatusCheckboxSelection.add(orderStatus)
+            } else {
+                AdminOrderSingletonClass.orderStatusCheckboxSelection.remove(orderStatus)
+            }
+            d("AdminOrdersActivity", "handleOrderStatusCheckBoxSelection -> ${AdminOrderSingletonClass.orderStatusCheckboxSelection}")
+        }
     }
 
     private fun populateCheckboxText() {

@@ -20,6 +20,9 @@ object AdminOrderSingletonClass {
         title, customer, time, statusFilter, clean, error
     }
 
+    var orderStatusCheckboxSelection: MutableList<OrderStatusObject.orderStatus> = ArrayList()
+    var deliveryStatusCheckboxSelection: MutableList<OrderStatusObject.deliveryStatus> = ArrayList()
+
     fun getItemList(): MutableList<String> {
         var itemList: MutableList<String> = ArrayList()
         itemList.add(getOrderEnumerationTypeString(OrderEnumerationType.title))
