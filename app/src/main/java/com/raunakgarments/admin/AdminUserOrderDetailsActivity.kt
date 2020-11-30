@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log.d
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.raunakgarments.R
 import com.raunakgarments.global.AdminOrderSingletonClass
@@ -33,8 +32,8 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         populateOrderDeliveryStatusSingletonList(AdminOrderSingletonClass.userOrders.orders)
         orderOrderStatusButtonClickListener()
         orderDeliveryStatusButtonClickListener()
-        updateButtonClickListener()
-        synchronizeButtonClickListener()
+        updateButtonClickListener(AdminOrderSingletonClass.userOrders)
+        synchronizeButtonClickListener(AdminOrderSingletonClass.userOrders)
 
         loadRefreshData(AdminOrderSingletonClass.userOrders)
         initializeAdminUserOrdersRecyclerViewAdapter()
@@ -73,7 +72,7 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
 
     }
 
-    private fun updateButtonClickListener() {
+    private fun updateButtonClickListener(userOrders: UserOrders) {
         activity_admin_user_order_details_content_scrolling_updateButton.setOnClickListener {
 
 
@@ -91,11 +90,11 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
             var userOrderFirebaseUtil = FirebaseUtil()
             userOrderFirebaseUtil.openFbReference("userOrders")
 
-            userOrderFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(AdminOrderSingletonClass.userOrders.id).setValue(AdminOrderSingletonClass.userOrders)
+            userOrderFirebaseUtil.mDatabaseReference.child(userOrders.userOrderProfile.id).child(AdminOrderSingletonClass.userOrders.id).setValue(AdminOrderSingletonClass.userOrders)
         }
 
     }
-    private fun synchronizeButtonClickListener() {
+    private fun synchronizeButtonClickListener(userOrders: UserOrders) {
         activity_admin_user_order_details_content_scrolling_SynchronizeButton.setOnClickListener {
 
             for(orderStatusPair in AdminOrderSingletonClass.orderStatusList) {
@@ -115,7 +114,7 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
             var userOrderFirebaseUtil = FirebaseUtil()
             userOrderFirebaseUtil.openFbReference("userOrders")
 
-            userOrderFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).child(AdminOrderSingletonClass.userOrders.id).setValue(AdminOrderSingletonClass.userOrders)
+            userOrderFirebaseUtil.mDatabaseReference.child(userOrders.userOrderProfile.id).child(AdminOrderSingletonClass.userOrders.id).setValue(AdminOrderSingletonClass.userOrders)
             adminUserOrderDetailsAdapter.notifyDataSetChanged()
         }
     }
