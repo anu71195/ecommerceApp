@@ -27,12 +27,83 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_OrderListTypeSpinner" >
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_OrderListTypeSpinner">
 
-            <CheckBox
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="asdf"/>
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/activity_admin_orders_content_scrolling_StatusFilterOrderStatusTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Order Status"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <CheckBox
+                    android:id="@+id/activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_StatusFilterOrderStatusTextView" />
+
+                <CheckBox
+                    android:id="@+id/activity_admin_orders_content_scrolling_OrderStatusFilterRefunded"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone" />
+
+                <CheckBox
+                    android:id="@+id/activity_admin_orders_content_scrolling_OrderStatusFilterPaymentPending"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_OrderStatusFilterRefunded" />
+
+                <CheckBox
+                    android:id="@+id/activity_admin_orders_content_scrolling_OrderStatusFilterError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_OrderStatusFilterPaymentPending" />
+
+                <TextView
+                    android:id="@+id/activity_admin_orders_content_scrolling_StatusFilterDeliveryStatusTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Order Status"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_OrderStatusFilterError" />
+
+                <CheckBox
+                    android:id="@+id/activity_admin_orders_content_scrolling_DeliveryStatusFilterPaymentDone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_StatusFilterDeliveryStatusTextView" />
+
+                <CheckBox
+                    android:id="@+id/activity_admin_orders_content_scrolling_DeliveryStatusFilterDelivered"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_DeliveryStatusFilterPaymentDone" />
+
+                <CheckBox
+                    android:id="@+id/activity_admin_orders_content_scrolling_DeliveryStatusFilterReturned"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_DeliveryStatusFilterDelivered" />
+
+                <CheckBox
+                    android:id="@+id/activity_admin_orders_content_scrolling_DeliveryStatusFilterCancelled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_DeliveryStatusFilterReturned" />
+
+                <CheckBox
+                    android:id="@+id/activity_admin_orders_content_scrolling_DeliveryStatusFilterError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_DeliveryStatusFilterCancelled" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
