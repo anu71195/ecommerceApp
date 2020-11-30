@@ -46,6 +46,7 @@ class AdminOrdersActivity : AppCompatActivity() {
                 arg3: Long
             ) {
                 // Do what you want
+                activity_admin_orders_content_scrolling_StatusFilterOptions.visibility = View.GONE
                 when(spinner.selectedItem.toString()) {
                     AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.title) -> {
                         d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
@@ -57,6 +58,10 @@ class AdminOrdersActivity : AppCompatActivity() {
                     AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.time) -> {
                         d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
                         initializeUserOrdersrecyclerViewByDatesAdapter()
+                    }
+                    AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.statusFilter) -> {
+                        d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
+                        initializeUserOrdersrecyclerViewStatusFilterAdapter()
                     }
                     AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.clean) -> {
                         d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
@@ -75,6 +80,11 @@ class AdminOrdersActivity : AppCompatActivity() {
     private fun cleanAdapter() {
         val adminOrdersAdapter = AdminOrdersAdapter()
         activity_admin_orders_content_scrolling_OrdersRecyclerView.adapter = adminOrdersAdapter
+    }
+
+    private fun initializeUserOrdersrecyclerViewStatusFilterAdapter() {
+        activity_admin_orders_content_scrolling_StatusFilterOptions.visibility = View.VISIBLE
+        initializeUserOrdersrecyclerViewByDatesAdapter()
     }
 
     private fun initializeUserOrdersrecyclerViewByDatesAdapter() {

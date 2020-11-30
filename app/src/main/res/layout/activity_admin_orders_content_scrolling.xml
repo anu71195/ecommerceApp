@@ -22,12 +22,25 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <FrameLayout
+            android:id="@+id/activity_admin_orders_content_scrolling_StatusFilterOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_OrderListTypeSpinner" >
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="asdf"/>
+        </FrameLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activity_admin_orders_content_scrolling_OrdersRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_OrderListTypeSpinner" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_StatusFilterOptions" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
