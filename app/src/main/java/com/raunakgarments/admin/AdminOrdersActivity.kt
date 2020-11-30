@@ -88,7 +88,17 @@ class AdminOrdersActivity : AppCompatActivity() {
         activity_admin_orders_content_scrolling_StatusFilterOptions.visibility = View.VISIBLE
         populateCheckboxText()
         checkBoxClickListeners()
-        initializeUserOrdersrecyclerViewByDatesAdapter()
+        initializeUserOrdersrecyclerViewFilterAdapter()
+    }
+
+    private fun initializeUserOrdersrecyclerViewFilterAdapter() {
+        val adminOrdersAdapter = AdminOrdersAdapterFilter()
+        val productsLayoutManager = GridLayoutManager(this, 1)
+        productsLayoutManager.reverseLayout = true
+        adminOrdersAdapter.populate(getString(R.string.database_userOrders), this)
+        activity_admin_orders_content_scrolling_OrdersRecyclerView.adapter = adminOrdersAdapter
+        activity_admin_orders_content_scrolling_OrdersRecyclerView.layoutManager =
+            productsLayoutManager
     }
 
     private fun checkBoxClickListeners() {
