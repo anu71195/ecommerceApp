@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.util.Log.d
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.raunakgarments.R
 import com.raunakgarments.global.AdminOrderSingletonClass
@@ -29,6 +32,25 @@ class AdminUserOrderDetailsActivity : AppCompatActivity() {
         AdminOrderSingletonClass.userOrders =
             Gson().fromJson<UserOrders>(intent.getStringExtra("userOrders"), UserOrders::class.java)
 
+        var userOrderFirebaseUtil = FirebaseUtil()
+        userOrderFirebaseUtil.openFbReference("userOrders/" + AdminOrderSingletonClass.userOrders.userOrderProfile.id + "/"+AdminOrderSingletonClass.userOrders.id)
+        userOrderFirebaseUtil.mDatabaseReference.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    AdminOrderSingletonClass.userOrders = snapshot.getValue(UserOrders::class.java)!!
+                } else {
+                    d("AdminUserOrderDetailsActivity", "onCreate -> snapshot does not exist")
+                }
+                fetchDatabaseAndLoad()
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
+
+    }
+
+    private fun fetchDatabaseAndLoad() {
         populateOrderDeliveryStatusSingletonList(AdminOrderSingletonClass.userOrders.orders)
         orderOrderStatusButtonClickListener()
         orderDeliveryStatusButtonClickListener()
