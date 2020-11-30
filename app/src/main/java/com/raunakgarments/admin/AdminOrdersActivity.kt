@@ -54,7 +54,7 @@ class AdminOrdersActivity : AppCompatActivity() {
                         d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
                         initializeUserOrdersRecyclerViewByCustomerAdapter()
                     }
-                    AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.dates) -> {
+                    AdminOrderSingletonClass.getOrderEnumerationTypeString(AdminOrderSingletonClass.OrderEnumerationType.time) -> {
                         d("AdminOrdersActivity", "AdminOrderSingletonClass -> ${spinner.selectedItem.toString()} is selected")
                         initializeUserOrdersrecyclerViewByDatesAdapter()
                     }
