@@ -1,6 +1,7 @@
 package com.raunakgarments.admin
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log.d
 import android.view.View
 import android.widget.AdapterView
@@ -13,6 +14,7 @@ import com.raunakgarments.R
 import com.raunakgarments.global.AdminOrderSingletonClass
 import com.raunakgarments.global.OrderStatusObject
 import kotlinx.android.synthetic.main.activity_admin_orders_content_scrolling.*
+import kotlinx.android.synthetic.main.activity_settings_content_scrolling.*
 
 class AdminOrdersActivity : AppCompatActivity() {
 
@@ -178,10 +180,11 @@ class AdminOrdersActivity : AppCompatActivity() {
             d("AdminOrdersActivity", "handleOrderStatusCheckBoxSelection -> ${AdminOrderSingletonClass.deliveryStatusCheckboxSelection}")
             if(autoLoadingCheck) {
                 initializeUserOrdersrecyclerViewFilterAdapter()
+                setCheckBoxesClickEnability(false)
+                Handler().postDelayed({setCheckBoxesClickEnability(true)}, 1000)
             }
         }
     }
-
 
     private fun handleOrderStatusCheckboxCheckAtInitialization(
         checkBoxView: CheckBox,
@@ -204,8 +207,25 @@ class AdminOrdersActivity : AppCompatActivity() {
             d("AdminOrdersActivity", "handleOrderStatusCheckBoxSelection -> ${AdminOrderSingletonClass.orderStatusCheckboxSelection}")
             if(autoLoadingCheck) {
                 initializeUserOrdersrecyclerViewFilterAdapter()
+                setCheckBoxesClickEnability(false)
+                Handler().postDelayed({setCheckBoxesClickEnability(true)}, 1000)
             }
         }
+    }
+
+    private fun setCheckBoxesClickEnability(clickable: Boolean) {
+
+        activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone.isClickable = clickable
+        activity_admin_orders_content_scrolling_OrderStatusFilterRefunded.isClickable = clickable
+        activity_admin_orders_content_scrolling_OrderStatusFilterPaymentPending.isClickable = clickable
+        activity_admin_orders_content_scrolling_OrderStatusFilterError.isClickable = clickable
+
+        activity_admin_orders_content_scrolling_DeliveryStatusFilterPaymentDone.isClickable = clickable
+        activity_admin_orders_content_scrolling_DeliveryStatusFilterDelivered.isClickable = clickable
+        activity_admin_orders_content_scrolling_DeliveryStatusFilterReturned.isClickable = clickable
+        activity_admin_orders_content_scrolling_DeliveryStatusFilterCancelled.isClickable = clickable
+        activity_admin_orders_content_scrolling_DeliveryStatusFilterError.isClickable = clickable
+
     }
 
     private fun checkAutoPopulateAndPopulateIfNeeded() {
