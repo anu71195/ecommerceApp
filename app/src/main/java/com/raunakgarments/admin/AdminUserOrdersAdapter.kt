@@ -170,6 +170,7 @@ class AdminUserOrdersAdapter :
     }
 
     override fun onBindViewHolder(holder: AdminUserOrderViewHolder, position: Int) {
+        checkAndUpdateUserOrderProfileForId(userOrdersList, position)
         holder.titleButton.text = userOrdersList[position].dateStamp
         holder.informationTextView.text =
             "Total Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus + "\n" + "Order Status = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size
@@ -181,6 +182,7 @@ class AdminUserOrdersAdapter :
 
         holder.titleButton.setOnClickListener {
             d("AdminUserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
+            checkAndUpdateUserOrderProfileForId(userOrdersList, position)
             var intent = Intent(adminUserOrdersActivity, AdminUserOrderDetailsActivity::class.java)
             intent.putExtra("userOrders", Gson().toJson(userOrdersList[position]))
             adminUserOrdersActivity.startActivity(intent)
@@ -203,18 +205,7 @@ class AdminUserOrdersAdapter :
 
     private fun getDetailedText(userOrdersList: MutableList<UserOrders>, position: Int): CharSequence? {
 
-        d("AdminUserOrdersAdapter", "getDetailedText -> ${userOrdersList[position].userOrderProfile.id}")
-        if(userOrdersList[position].userOrderProfile.id == "") {
-            d("AdminUserOrdersAdapter", "getDetailedText -> updating -> ${userOrdersList[position].userOrderProfile.id}")
-            userOrdersList[position].userOrderProfile.id = AdminOrderSingletonClass.userOrderProfile.id
-
-            var userOrderProfileFirebaseUtil = FirebaseUtil()
-            userOrderProfileFirebaseUtil.openFbReference("userOrders/"+AdminOrderSingletonClass.userOrderProfile.id+"/"+userOrdersList[position].id+"/userOrderProfile")
-
-            userOrderProfileFirebaseUtil.mDatabaseReference.setValue(userOrdersList[position].userOrderProfile)
-        }
-
-        d("AdminUserOrdersAdapter", "getDetailedText -> ${userOrdersList[position].userOrderProfile.id}")
+        checkAndUpdateUserOrderProfileForId(userOrdersList, position)
 
         var detailedText = "SUMMARY \nTotal Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus + "\n" + "Order Status = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size +"\n\n\n"
         detailedText += "ORDERS\n"
@@ -227,6 +218,21 @@ class AdminUserOrdersAdapter :
         detailedText += "Pincode = ${userOrdersList[position].userOrderProfile.pinCode}"
 
         return detailedText
+    }
+
+    private fun checkAndUpdateUserOrderProfileForId(userOrdersList: MutableList<UserOrders>, position: Int) {
+        d("AdminUserOrdersAdapter", "getDetailedText -> ${userOrdersList[position].userOrderProfile.id}")
+        if(userOrdersList[position].userOrderProfile.id == "") {
+            d("AdminUserOrdersAdapter", "getDetailedText -> updating -> ${userOrdersList[position].userOrderProfile.id}")
+            userOrdersList[position].userOrderProfile.id = AdminOrderSingletonClass.userOrderProfile.id
+
+            var userOrderProfileFirebaseUtil = FirebaseUtil()
+            userOrderProfileFirebaseUtil.openFbReference("userOrders/"+AdminOrderSingletonClass.userOrderProfile.id+"/"+userOrdersList[position].id+"/userOrderProfile")
+
+            userOrderProfileFirebaseUtil.mDatabaseReference.setValue(userOrdersList[position].userOrderProfile)
+        }
+
+        d("AdminUserOrdersAdapter", "getDetailedText -> ${userOrdersList[position].userOrderProfile.id}")
     }
 
     private fun getOrderText(userOrdersList: MutableList<UserOrders>, position: Int): String {
