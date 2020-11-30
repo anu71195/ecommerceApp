@@ -17,7 +17,7 @@ object AdminOrderSingletonClass {
     var deliveryStatusList: MutableList<Pair<String,OrderStatusObject.deliveryStatus>> = ArrayList()
 
     enum class OrderEnumerationType {
-        title, customer, time, clean, error
+        title, customer, time, statusFilter, clean, error
     }
 
     fun getItemList(): MutableList<String> {
@@ -25,6 +25,7 @@ object AdminOrderSingletonClass {
         itemList.add(getOrderEnumerationTypeString(OrderEnumerationType.title))
         itemList.add(getOrderEnumerationTypeString(OrderEnumerationType.customer))
         itemList.add(getOrderEnumerationTypeString(OrderEnumerationType.time))
+        itemList.add(getOrderEnumerationTypeString(OrderEnumerationType.statusFilter))
         itemList.add(getOrderEnumerationTypeString(OrderEnumerationType.clean))
 
         return itemList
@@ -35,6 +36,7 @@ object AdminOrderSingletonClass {
             OrderEnumerationType.title -> {return "Choose Enumeration Type"}
             OrderEnumerationType.customer -> {return "By Customer"}
             OrderEnumerationType.time -> {return "By Time"}
+            OrderEnumerationType.statusFilter -> {return "Status Filter"}
             OrderEnumerationType.clean -> {return "Clean"}
             else -> {return "error"}
         }
