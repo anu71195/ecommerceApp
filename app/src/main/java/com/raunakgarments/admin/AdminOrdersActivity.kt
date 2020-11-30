@@ -102,7 +102,43 @@ class AdminOrdersActivity : AppCompatActivity() {
         handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterRefunded, OrderStatusObject.orderStatus.refunded)
         handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterPaymentPending, OrderStatusObject.orderStatus.paymentPending)
         handleOrderStatusCheckBoxSelection(activity_admin_orders_content_scrolling_OrderStatusFilterError, OrderStatusObject.orderStatus.error)
+
+        handleDeliveryStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_DeliveryStatusFilterPaymentDone, OrderStatusObject.deliveryStatus.paymentDone)
+        handleDeliveryStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_DeliveryStatusFilterDelivered, OrderStatusObject.deliveryStatus.delivered)
+        handleDeliveryStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_DeliveryStatusFilterReturned, OrderStatusObject.deliveryStatus.returned)
+        handleDeliveryStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_DeliveryStatusFilterCancelled, OrderStatusObject.deliveryStatus.cancelled)
+        handleDeliveryStatusCheckboxCheckAtInitialization(activity_admin_orders_content_scrolling_DeliveryStatusFilterError, OrderStatusObject.deliveryStatus.error)
+
+        handleDeliveryStatusCheckBoxSelection(activity_admin_orders_content_scrolling_DeliveryStatusFilterPaymentDone, OrderStatusObject.deliveryStatus.paymentDone)
+        handleDeliveryStatusCheckBoxSelection(activity_admin_orders_content_scrolling_DeliveryStatusFilterDelivered, OrderStatusObject.deliveryStatus.delivered)
+        handleDeliveryStatusCheckBoxSelection(activity_admin_orders_content_scrolling_DeliveryStatusFilterReturned, OrderStatusObject.deliveryStatus.returned)
+        handleDeliveryStatusCheckBoxSelection(activity_admin_orders_content_scrolling_DeliveryStatusFilterCancelled, OrderStatusObject.deliveryStatus.cancelled)
+        handleDeliveryStatusCheckBoxSelection(activity_admin_orders_content_scrolling_DeliveryStatusFilterError, OrderStatusObject.deliveryStatus.error)
     }
+
+    private fun handleDeliveryStatusCheckboxCheckAtInitialization(
+        checkBoxView: CheckBox,
+        deliveryStatus: OrderStatusObject.deliveryStatus
+    ) {
+        if(deliveryStatus in AdminOrderSingletonClass.deliveryStatusCheckboxSelection) {
+            checkBoxView.isChecked = true
+        }
+    }
+
+    private fun handleDeliveryStatusCheckBoxSelection(
+        checkBoxView: CheckBox,
+        deliveryStatus: OrderStatusObject.deliveryStatus
+    ) {
+        checkBoxView.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked) {
+                AdminOrderSingletonClass.deliveryStatusCheckboxSelection.add(deliveryStatus)
+            } else {
+                AdminOrderSingletonClass.deliveryStatusCheckboxSelection.remove(deliveryStatus)
+            }
+            d("AdminOrdersActivity", "handleOrderStatusCheckBoxSelection -> ${AdminOrderSingletonClass.deliveryStatusCheckboxSelection}")
+        }
+    }
+
 
     private fun handleOrderStatusCheckboxCheckAtInitialization(
         checkBoxView: CheckBox,
