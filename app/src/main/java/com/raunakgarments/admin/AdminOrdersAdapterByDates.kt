@@ -20,7 +20,6 @@ import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.UserOrderAddresses
 import com.raunakgarments.model.UserOrders
 
-//todo
 class AdminOrdersAdapterByDates : RecyclerView.Adapter<AdminOrdersAdapterByDates.AdminOrderViewHolder>() {
     var userOrdersList: MutableList<UserOrders> = ArrayList()
     private lateinit var adminOrdersActivity: Activity
@@ -45,7 +44,6 @@ class AdminOrdersAdapterByDates : RecyclerView.Adapter<AdminOrdersAdapterByDates
                     userOrderFirebaseUtil.mDatabaseReference.addListenerForSingleValueEvent(object: ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if(snapshot.exists()){
-                                //todo
                                 var userOrders = snapshot.getValue(UserOrders::class.java)
                                 if (userOrders != null) {
                                     userOrdersList.add(userOrders)
@@ -91,7 +89,7 @@ class AdminOrdersAdapterByDates : RecyclerView.Adapter<AdminOrdersAdapterByDates
     }
 
     override fun onBindViewHolder(holder: AdminOrderViewHolder, position: Int) {
-        holder.titleButton.text = userOrdersList[position].dateStamp
+        holder.titleButton.text = userOrdersList[position].userOrderProfile.userName +" -> " + userOrdersList[position].userOrderProfile.id + "\n" + userOrdersList[position].dateStamp + " -> " +userOrdersList[position].timeStamp
         holder.informationTextView.text =
             "Total Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus + "\n" + "Order Status = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size
         titleButtonOnClickListener(holder, position)

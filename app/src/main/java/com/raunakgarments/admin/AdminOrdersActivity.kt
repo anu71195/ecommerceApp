@@ -80,6 +80,7 @@ class AdminOrdersActivity : AppCompatActivity() {
     private fun initializeUserOrdersrecyclerViewByDatesAdapter() {
         val adminOrdersAdapter = AdminOrdersAdapterByDates()
         val productsLayoutManager = GridLayoutManager(this, 1)
+        productsLayoutManager.reverseLayout = true
         adminOrdersAdapter.populate(getString(R.string.database_userOrders), this)
         activity_admin_orders_content_scrolling_OrdersRecyclerView.adapter = adminOrdersAdapter
         activity_admin_orders_content_scrolling_OrdersRecyclerView.layoutManager =
