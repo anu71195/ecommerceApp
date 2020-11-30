@@ -1,6 +1,7 @@
 package com.raunakgarments.admin
 
 import android.app.Activity
+import android.content.Intent
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,6 @@ import com.google.gson.Gson
 import com.raunakgarments.R
 import com.raunakgarments.helper.FirebaseUtil
 import com.raunakgarments.model.UserOrderAddresses
-import com.raunakgarments.model.UserOrderProfile
 import com.raunakgarments.model.UserOrders
 
 //todo
@@ -91,6 +91,19 @@ class AdminOrdersAdapterByDates : RecyclerView.Adapter<AdminOrdersAdapterByDates
 
     override fun onBindViewHolder(holder: AdminOrderViewHolder, position: Int) {
         holder.titleButton.text = "${userOrdersList[position].id}    ${userOrdersList[position].userOrderProfile.userName}"
+
+        titleButtonOnClickListener(holder, position)
+
+    }
+//todo update delivery and order status if empty
+    private fun titleButtonOnClickListener(holder: AdminOrderViewHolder, position: Int) {
+
+        holder.titleButton.setOnClickListener {
+            d("AdminUserOrdersAdapter", "titleButtonOnClickListener - titlebutton clicked")
+            var intent = Intent(adminOrdersActivity, AdminUserOrderDetailsActivity::class.java)
+            intent.putExtra("userOrders", Gson().toJson(userOrdersList[position]))
+            adminOrdersActivity.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
