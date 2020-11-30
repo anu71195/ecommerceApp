@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_admin_orders_content_scrolling.*
 
 class AdminOrdersActivity : AppCompatActivity() {
 
+    var autoLoadingCheck = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_orders)
@@ -89,6 +90,7 @@ class AdminOrdersActivity : AppCompatActivity() {
         populateCheckboxText()
         filterButtonClickListener()
         checkBoxClickListeners()
+        checkAutoPopulateAndPopulateIfNeeded()
         initializeUserOrdersrecyclerViewFilterAdapter()
     }
 
@@ -174,6 +176,9 @@ class AdminOrdersActivity : AppCompatActivity() {
                 AdminOrderSingletonClass.deliveryStatusCheckboxSelection.remove(deliveryStatus)
             }
             d("AdminOrdersActivity", "handleOrderStatusCheckBoxSelection -> ${AdminOrderSingletonClass.deliveryStatusCheckboxSelection}")
+            if(autoLoadingCheck) {
+                initializeUserOrdersrecyclerViewFilterAdapter()
+            }
         }
     }
 
@@ -197,6 +202,20 @@ class AdminOrdersActivity : AppCompatActivity() {
                 AdminOrderSingletonClass.orderStatusCheckboxSelection.remove(orderStatus)
             }
             d("AdminOrdersActivity", "handleOrderStatusCheckBoxSelection -> ${AdminOrderSingletonClass.orderStatusCheckboxSelection}")
+            if(autoLoadingCheck) {
+                initializeUserOrdersrecyclerViewFilterAdapter()
+            }
+        }
+    }
+
+    private fun checkAutoPopulateAndPopulateIfNeeded() {
+        activity_admin_orders_content_scrolling_AutoLoading.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked) {
+                autoLoadingCheck = true
+                initializeUserOrdersrecyclerViewFilterAdapter()
+            } else {
+                autoLoadingCheck = false
+            }
         }
     }
 

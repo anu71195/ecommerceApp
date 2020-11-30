@@ -34,13 +34,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <Switch
+                    android:id="@+id/activity_admin_orders_content_scrolling_AutoLoading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text = "Auto Load"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
                 <TextView
                     android:id="@+id/activity_admin_orders_content_scrolling_StatusFilterOrderStatusTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Order Status"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_admin_orders_content_scrolling_AutoLoading" />
 
                 <CheckBox
                     android:id="@+id/activity_admin_orders_content_scrolling_OrderStatusFilterPaymentDone"
