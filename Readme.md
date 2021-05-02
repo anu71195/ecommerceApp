@@ -16,10 +16,10 @@ Client flow without interruption
 
 Client flow for profile and interruptions  
 
-Client Flow for Settings
+Client Flow for Settings  
 ![](images/settingsFlow/settingsOff.PNG)
 ![](images/settingsFlow/settingsOn.PNG)
 ![](images/settingsFlow/settingsOnResult.PNG)
 
-Client Flow for Contact Us Screen
+Client Flow for Contact Us Screen  
 ![](images/contactUsFlow/contactUs.PNG)
