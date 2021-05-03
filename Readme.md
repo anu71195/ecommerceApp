@@ -32,6 +32,24 @@ Client Flow for Settings
 ![](images/settingsFlow/settingsOff.PNG)
 ![](images/settingsFlow/settingsOn.PNG)
 ![](images/settingsFlow/settingsOnResult.PNG)
+![](images/settingsFlow/settingsOnHome1.PNG)
+![](images/settingsFlow/addUnderMaintenanceProduct.PNG)
+![](images/settingsFlow/settingsOnHome2.PNG)
+![](images/settingsFlow/addNotAvailableProduct.PNG)
+![](images/settingsFlow/settingsOnHome3.PNG)
+![](images/settingsFlow/addAvailableProduct.PNG)
+![](images/settingsFlow/cart1.PNG)
+![](images/settingsFlow/cart2.PNG)
+![](images/settingsFlow/cart3.PNG)
+![](images/settingsFlow/cart4.PNG)
+![](images/settingsFlow/confirmOrder1.PNG)
+![](images/settingsFlow/confirmOrder2.PNG)
+![](images/settingsFlow/confirmOrder3.PNG)
+![](images/settingsFlow/confirmOrder4.PNG)
+![](images/settingsFlow/payment.PNG)
+![](images/settingsFlow/paymentGateway.PNG)
+
+Client error flor for Settings
 
 Client Flow for Contact Us Screen  
 ![](images/contactUsFlow/contactUs.PNG)
