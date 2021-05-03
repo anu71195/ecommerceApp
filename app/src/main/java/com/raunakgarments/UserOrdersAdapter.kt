@@ -33,6 +33,7 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
         userOrderFirebaseUtil.mDatabaseReference.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 if (snapshot.exists()) {
+                    d("UserOrdersAdapter", "my snapshot-${snapshot}")
                     var userOrders = snapshot.getValue(UserOrders::class.java)
                     d("UserOrdersAdapter", "populate-${Gson().toJson(userOrders)}")
                     if (userOrders != null) {
