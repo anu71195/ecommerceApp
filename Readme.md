@@ -82,6 +82,20 @@ Admin Navigation Flow
 ![adminNavigationFlow/adminNavigationInside](images/adminNavigationFlow/adminNavigationInside.PNG)
 
 Add Product Flow  
+![addProductFlow/addProduct](images/addProductFlow/addProduct.PNG)
+
+![addProductFlow/allProducts](images/addProductFlow/allProducts.PNG)
+![addProductFlow/allProductsEnd](images/addProductFlow/allProductsEnd.PNG)
+![addProductFlow/backToAddProduct](images/addProductFlow/backToAddProduct.PNG)
+![addProductFlow/partiallyFilledAddProduct](images/addProductFlow/partiallyFilledAddProduct.PNG)
+![addProductFlow/selectImage](images/addProductFlow/selectImage.PNG)
+![addProductFlow/imageAdded](images/addProductFlow/imageAdded.PNG)
+![addProductFlow/productAdded](images/addProductFlow/productAdded.PNG)
+![addProductFlow/newProductInAdmin1](images/addProductFlow/newProductInAdmin1.PNG)
+![addProductFlow/newProductInAdmin2](images/addProductFlow/newProductInAdmin2.PNG)
+![addProductFlow/searchAdmin](images/addProductFlow/searchAdmin.PNG)
+![addProductFlow/newProductUser1](images/addProductFlow/newProductUser1.PNG)
+![addProductFlow/newProductUser2](images/addProductFlow/newProductUser2.PNG)
 Edit Product Flow  
 Orders Flow
 Function Flow
