@@ -14,7 +14,7 @@ Client flow without interruption
 ![normalFlow/payment](images/normalFlow/payment.PNG)
 ![normalFlow/paymentgateway](images/normalFlow/paymentgateway.PNG)
 
-Empty Cart Flow
+Empty Cart Flow  
 ![emptyCartFlow/emptyCart](images/emptyCartFlow/emptyCart.PNG)
 ![emptyCartFlow/emptyCartPopup](images/emptyCartFlow/emptyCartPopup.PNG)
 
