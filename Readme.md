@@ -76,7 +76,12 @@ Client Flow for Contact Us Screen
 
 ADMIN FLOW
 
+Admin Navigation Flow
+![adminNavigationFlow/adminNavigation](images/adminNavigationFlow/adminNavigation.PNG)
+![adminNavigationFlow/addProduct](images/adminNavigationFlow/addProduct.PNG)
+![adminNavigationFlow/adminNavigationInside](images/adminNavigationFlow/adminNavigationInside.PNG)
+
 Developer Flow  
-![developerFlow/contactUs](images/developerFlow/developerFlow.PNG)
+![developerFlow/developerFlow](images/developerFlow/developerFlow.PNG)
 ![developerFlow/developerPopupClickedNo](images/developerFlow/developerPopupClickedNo.PNG)
 ![developerFlow/developerPopupClickedYes](images/developerFlow/developerPopupClickedYes.PNG)
