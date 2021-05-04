@@ -73,3 +73,10 @@ Client Flow for Settings
 
 Client Flow for Contact Us Screen  
 ![contactUsFlow/contactUs](images/contactUsFlow/contactUs.PNG)
+
+ADMIN FLOW
+
+Developer Flow  
+![developerFlow/contactUs](images/developerFlow/developerFlow.PNG)
+![developerFlow/developerPopupClickedNo](images/developerFlow/developerPopupClickedNo.PNG)
+![developerFlow/developerPopupClickedYes](images/developerFlow/developerPopupClickedYes.PNG)
