@@ -14,6 +14,23 @@ Client flow without interruption
 ![normalFlow/payment](images/normalFlow/payment.PNG)
 ![normalFlow/paymentgateway](images/normalFlow/paymentgateway.PNG)
 
+User Order Flow
+![userOrdersFlow/home](images/userOrdersFlow/home.PNG)
+![userOrdersFlow/product1](images/userOrdersFlow/product1.PNG)
+![userOrdersFlow/product2](images/userOrdersFlow/product2.PNG)
+![userOrdersFlow/cart1](images/userOrdersFlow/cart1.PNG)
+![userOrdersFlow/cart2](images/userOrdersFlow/cart2.PNG)
+![userOrdersFlow/cart3](images/userOrdersFlow/cart3.PNG)
+![userOrdersFlow/confirm1](images/userOrdersFlow/confirm1.PNG)
+![userOrdersFlow/confirm2](images/userOrdersFlow/confirm2.PNG)
+![userOrdersFlow/payment](images/userOrdersFlow/payment.PNG)
+![userOrdersFlow/paymentGateway](images/userOrdersFlow/paymentGateway.PNG)
+![userOrdersFlow/successfulPayment](images/userOrdersFlow/successfulPayment.PNG)
+![userOrdersFlow/myOrders](images/userOrdersFlow/myOrders.PNG)
+![userOrdersFlow/myOrdersClick1](images/userOrdersFlow/myOrdersClick1.PNG)
+![userOrdersFlow/myOrdersClick2](images/userOrdersFlow/myOrdersClick2.PNG)
+![userOrdersFlow/orderSummary](images/userOrdersFlow/orderSummary.PNG)
+
 Empty Cart Flow  
 ![emptyCartFlow/emptyCart](images/emptyCartFlow/emptyCart.PNG)
 ![emptyCartFlow/emptyCartPopup](images/emptyCartFlow/emptyCartPopup.PNG)
