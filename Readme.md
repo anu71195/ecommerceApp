@@ -1,7 +1,7 @@
 Raunak Garment's ecommerce app for shopping.
 
 The default copyright laws apply, meaning that the repository owner (anu71195) retain all rights to the source code and no one may reproduce, distribute, or create derivative works from your work.
-Client flow without interruption
+Client flow without interruption  
 ![normalFlow/loginScreen](images/normalFlow/loginScreen.PNG)
 ![normalFlow/home](images/normalFlow/home.PNG)
 ![normalFlow/logout](images/normalFlow/logout.PNG)
@@ -14,7 +14,7 @@ Client flow without interruption
 ![normalFlow/payment](images/normalFlow/payment.PNG)
 ![normalFlow/paymentgateway](images/normalFlow/paymentgateway.PNG)
 
-User Order Flow
+User Order Flow  
 ![userOrdersFlow/home](images/userOrdersFlow/home.PNG)
 ![userOrdersFlow/product1](images/userOrdersFlow/product1.PNG)
 ![userOrdersFlow/product2](images/userOrdersFlow/product2.PNG)
