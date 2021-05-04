@@ -76,14 +76,13 @@ Client Flow for Contact Us Screen
 
 ADMIN FLOW
 
-Admin Navigation Flow
+Admin Navigation Flow  
 ![adminNavigationFlow/adminNavigation](images/adminNavigationFlow/adminNavigation.PNG)
 ![adminNavigationFlow/addProduct](images/adminNavigationFlow/addProduct.PNG)
 ![adminNavigationFlow/adminNavigationInside](images/adminNavigationFlow/adminNavigationInside.PNG)
 
 Add Product Flow  
 ![addProductFlow/addProduct](images/addProductFlow/addProduct.PNG)
-
 ![addProductFlow/allProducts](images/addProductFlow/allProducts.PNG)
 ![addProductFlow/allProductsEnd](images/addProductFlow/allProductsEnd.PNG)
 ![addProductFlow/backToAddProduct](images/addProductFlow/backToAddProduct.PNG)
@@ -97,6 +96,20 @@ Add Product Flow
 ![addProductFlow/newProductUser1](images/addProductFlow/newProductUser1.PNG)
 ![addProductFlow/newProductUser2](images/addProductFlow/newProductUser2.PNG)
 Edit Product Flow  
+
+Delete Product Flow  
+![deleteProductFlow/searchProduct](images/deleteProductFlow/searchProduct.PNG)
+![deleteProductFlow/productMagnified](images/deleteProductFlow/productMagnified.PNG)
+![deleteProductFlow/editClicked](images/deleteProductFlow/editClicked.PNG)
+![deleteProductFlow/getLocksClicked](images/deleteProductFlow/getLocksClicked.PNG)
+![deleteProductFlow/getProductClicked](images/deleteProductFlow/getProductClicked.PNG)
+![deleteProductFlow/deleteProductClicked](images/deleteProductFlow/deleteProductClicked.PNG)
+![deleteProductFlow/clickedNo](images/deleteProductFlow/clickedNo.PNG)
+![deleteProductFlow/clickedYes](images/deleteProductFlow/clickedYes.PNG)
+![deleteProductFlow/deletedAdmin1](images/deleteProductFlow/deletedAdmin1.PNG)
+![deleteProductFlow/deletedAdmin2](images/deleteProductFlow/deletedAdmin2.PNG)
+![deleteProductFlow/deletedUser1](images/deleteProductFlow/deletedUser1.PNG)
+
 Orders Flow
 Function Flow
 
