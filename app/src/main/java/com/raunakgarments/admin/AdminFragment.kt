@@ -33,6 +33,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_admin.*
 import java.io.ByteArrayOutputStream
 import java.io.File
+import kotlin.math.ceil
 
 
 class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
@@ -162,10 +163,12 @@ class AdminFragment(productActivityNew: AdminProductActivityNew) : Fragment() {
                 }
 
                 val imageWidth = 720
+                val imageHeight = (imageOriginalHeight * 1.0) / ((imageOriginalWidth * 1.0) / (imageWidth * 1.0))
+                d("AdminFragment", "onActivityResult :- ${imageOriginalWidth} ${imageWidth} ${imageOriginalWidth / imageWidth}")
                 bitmap = Bitmap.createScaledBitmap(
                     bitmap,
                     imageWidth,
-                    imageOriginalHeight / (imageOriginalWidth / imageWidth),
+                    ceil(imageHeight).toInt(),
                     false
                 )
                 val baos = ByteArrayOutputStream()
