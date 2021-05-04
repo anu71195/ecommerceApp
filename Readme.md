@@ -81,6 +81,11 @@ Admin Navigation Flow
 ![adminNavigationFlow/addProduct](images/adminNavigationFlow/addProduct.PNG)
 ![adminNavigationFlow/adminNavigationInside](images/adminNavigationFlow/adminNavigationInside.PNG)
 
+Add Product Flow  
+Edit Product Flow  
+Orders Flow
+Function Flow
+
 Developer Flow  
 ![developerFlow/developerFlow](images/developerFlow/developerFlow.PNG)
 ![developerFlow/developerPopupClickedNo](images/developerFlow/developerPopupClickedNo.PNG)
