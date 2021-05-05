@@ -4,7 +4,6 @@
 
 ### Client flow without interruptions  
  
-<img src="https://github.com/anu71195/images/normalFlow/loginScreen.PNG" width="48">
 <img src="images/normalFlow/loginScreen.PNG" width="48"> 
 ![normalFlow/loginScreen](images/normalFlow/loginScreen.PNG)
 ![normalFlow/home](images/normalFlow/home.PNG)
