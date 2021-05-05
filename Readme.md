@@ -503,23 +503,82 @@
  </table>
 
 ### Orders flow  
-![orderflow/orderHome](images/orderflow/orderHome.PNG)
-![orderflow/orderTypeDropDown](images/orderflow/orderTypeDropDown.PNG)
-![orderflow/ordersByCustomer](images/orderflow/ordersByCustomer.PNG)
-![orderflow/withinOrdersByCustomer](images/orderflow/withinOrdersByCustomer.PNG)
-![orderflow/orderByTime](images/orderflow/orderByTime.PNG)
-![orderflow/orderByStatusFilter](images/orderflow/orderByStatusFilter.PNG)
-![orderflow/statusFilterSelection1](images/orderflow/statusFilterSelection1.PNG)
-![orderflow/statusFilterSelection2](images/orderflow/statusFilterSelection2.PNG)
-![orderflow/autoLoadFunctionality](images/orderflow/autoLoadFunctionality.PNG)
-![orderflow/clean](images/orderflow/clean.PNG)
-![orderflow/orderSummary1](images/orderflow/orderSummary1.PNG)
-![orderflow/orderSummary2](images/orderflow/orderSummary2.PNG)
-![orderflow/changedIndividualStatus](images/orderflow/changedIndividualStatus.PNG)
-![orderflow/changedOrderStatus1](images/orderflow/changedOrderStatus1.PNG)
-![orderflow/changedOrderStatus2](images/orderflow/changedOrderStatus2.PNG)
-![orderflow/userOrderList](images/orderflow/userOrderList.PNG)
-![orderflow/updatedOrderList](images/orderflow/updatedOrderList.PNG)
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/orderflow/orderHome.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/orderTypeDropDown.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/ordersByCustomer.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/orderflow/withinOrdersByCustomer.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/orderByTime.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/orderByStatusFilter.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/orderflow/statusFilterSelection1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/statusFilterSelection2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/autoLoadFunctionality.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/orderflow/clean.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/orderSummary1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/orderSummary2.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/orderflow/changedIndividualStatus.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/changedOrderStatus1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/changedOrderStatus2.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/orderflow/userOrderList.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/updatedOrderList.PNG" width="240"></td>
+   </tr>
+ </table>
  
 ### Functions flow  
 ![functionsFlow/functions](images/functionsFlow/functions.PNG)
