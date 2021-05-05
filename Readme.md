@@ -150,12 +150,32 @@
  </table>
 
 ### Profile fields error flow  
-![errorProfileFlow/profileNew](images/errorProfileFlow/profileNew.PNG)
-![errorProfileFlow/profileCheckoutError](images/errorProfileFlow/profileCheckoutError.PNG)
-![errorProfileFlow/profileNewAddress](images/errorProfileFlow/profileNewAddress.PNG)
-![errorProfileFlow/profileCheckoutNotAddressError](images/errorProfileFlow/profileCheckoutNotAddressError.PNG)
-![errorProfileFlow/profileNewPinCode](images/errorProfileFlow/profileNewPinCode.PNG)
-![errorProfileFlow/profileCheckoutNotPinCodeError](images/errorProfileFlow/profileCheckoutNotPinCodeError.PNG)
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/errorProfileFlow/profileNew.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/errorProfileFlow/profileCheckoutError.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/errorProfileFlow/profileNewAddress.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/errorProfileFlow/profileCheckoutNotAddressError.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/errorProfileFlow/profileNewPinCode.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/errorProfileFlow/profileCheckoutNotPinCodeError.PNG" width="240"></td>
+   </tr>
+ </table>
 
 ### Client flow for settings  
 ![settingsFlow/settingsOff](images/settingsFlow/settingsOff.PNG)
