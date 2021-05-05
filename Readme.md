@@ -283,9 +283,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Navigation bar on user flow to acess admin flow</td>
+        <td>Add product screen</td>
+        <td>Navigation bar on admin flow</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/adminNavigationFlow/adminNavigation.PNG" width="240"></td>
