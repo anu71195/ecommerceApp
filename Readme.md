@@ -507,9 +507,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Admin orders Screen with nothing selected</td>
+        <td>Drop down to sort the orders list</td>
+        <td>Selected By Customer</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/orderHome.PNG" width="240"></td>
@@ -520,9 +520,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Clicking on one of the customer shows all the orders of that user</td>
+        <td>Selected by time on admin orders screen</td>
+        <td>Selected status filter</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/withinOrdersByCustomer.PNG" width="240"></td>
@@ -533,9 +533,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Selected multiple options to sort and clicked filter 1</td>
+        <td>Selected multiple options to sort and clicked filter 2</td>
+        <td>Auto load option selected removes the work of clicking on filter but increases gateway calls</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/statusFilterSelection1.PNG" width="240"></td>
@@ -546,9 +546,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Selected clean on admin orders screen</td>
+        <td>Selected one of the orders from any of the previous flows 1</td>
+        <td>Selected one of the orders from any of the previous flows 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/clean.PNG" width="240"></td>
@@ -559,9 +559,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Changed status of individual product by tapping order/deliver status beside the product</td>
+        <td>Changed status of entire order by tapping order/deliver status on the top and clicking on synchronize</td>
+        <td>Changed status of entire order by tapping order/deliver status on the topn</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/changedIndividualStatus.PNG" width="240"></td>
@@ -572,12 +572,12 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
+        <td>Click on synchronize to reflect on individual product</td>
+        <td>Change is reflected in orders list</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/ordersFlow/userOrderList.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/ordersFlow/updatedOrderList.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/userOrderList.PNG" width="240"></td>
    </tr>
  </table>
  
