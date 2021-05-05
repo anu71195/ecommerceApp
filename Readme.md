@@ -132,8 +132,38 @@ Delete Product Flow
 ![deleteProductFlow/deletedAdmin2](images/deleteProductFlow/deletedAdmin2.PNG)
 ![deleteProductFlow/deletedUser1](images/deleteProductFlow/deletedUser1.PNG)
 
-Orders Flow
-Function Flow
+Orders Flow  
+Function Flow  
+![functionsFlow/functions](images/functionsFlow/functions.PNG)
+![functionsFlow/contactDetails](images/functionsFlow/contactDetails.PNG)
+![functionsFlow/contactUsUser](images/functionsFlow/contactUsUser.PNG)
+![functionsFlow/editContactUs](images/functionsFlow/editContactUs.PNG)
+![functionsFlow/updatedContactUsUser](images/functionsFlow/updatedContactUsUser.PNG)
+![functionsFlow/editPinCode](images/functionsFlow/editPinCode.PNG)
+![functionsFlow/workingPincode](images/functionsFlow/workingPincode.PNG)
+![functionsFlow/pinCodeChanged](images/functionsFlow/pinCodeChanged.PNG)
+![functionsFlow/editPincodeAdd1](images/functionsFlow/editPincodeAdd1.PNG)
+![functionsFlow/editPincodeAdd2](images/functionsFlow/editPincodeAdd2.PNG)
+![functionsFlow/workingPincode2](images/functionsFlow/workingPincode2.PNG)
+![functionsFlow/revertPincode](images/functionsFlow/revertPincode.PNG)
+![functionsFlow/revertPincodePopup](images/functionsFlow/revertPincodePopup.PNG)
+![functionsFlow/removedPincode](images/functionsFlow/removedPincode.PNG)
+![functionsFlow/removePinCodeError](images/functionsFlow/removePinCodeError.PNG)
+![functionsFlow/workingPinCodeUpdated](images/functionsFlow/workingPinCodeUpdated.PNG)
+![functionsFlow/spamSettings1](images/functionsFlow/spamSettings1.PNG)
+![functionsFlow/spamSettingsEdited](images/functionsFlow/spamSettingsEdited.PNG)
+![functionsFlow/cart1](images/functionsFlow/cart1.PNG)
+![functionsFlow/cart2](images/functionsFlow/cart2.PNG)
+![functionsFlow/cart3](images/functionsFlow/cart3.PNG)
+![functionsFlow/confirmOrder1](images/functionsFlow/confirmOrder1.PNG)
+![functionsFlow/confirmOrder2](images/functionsFlow/confirmOrder2.PNG)
+![functionsFlow/confirmOrder3](images/functionsFlow/confirmOrder3.PNG)
+![functionsFlow/spamSettingsUpdated](images/functionsFlow/spamSettingsUpdated.PNG)
+![functionsFlow/cart4](images/functionsFlow/cart4.PNG)
+![functionsFlow/cart5](images/functionsFlow/cart5.PNG)
+![functionsFlow/confirmOrder4](images/functionsFlow/confirmOrder4.PNG)
+![functionsFlow/confirmOrder5](images/functionsFlow/confirmOrder5.PNG)
+
 
 Developer Flow  
 ![developerFlow/developerFlow](images/developerFlow/developerFlow.PNG)
