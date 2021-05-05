@@ -589,9 +589,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Functions screen</td>
+        <td>Edit contact us details screen</td>
+        <td>Contact us screen for user</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/functions.PNG" width="240"></td>
@@ -602,9 +602,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Changed contact us details and clicked on update contact details</td>
+        <td>Change reflected on contact us screen for user</td>
+        <td>Edit pincode Screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/editContactUs.PNG" width="240"></td>
@@ -615,9 +615,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>User profile screen with valid pincode</td>
+        <td>Changed to invalid pincode</td>
+        <td>Inserted that invalid pincode from edit pincode screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/workingPincode.PNG" width="240"></td>
@@ -628,9 +628,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>New added pincode is displayed in the below list</td>
+        <td>New added pincode is reflected as valid in the user profile</td>
+        <td>Edit pincode screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/editPincodeAdd2.PNG" width="240"></td>
@@ -641,9 +641,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Clicked on minus sign in front of the pincode added to delete it and confirmation popup is shown</td>
+        <td>Clicking on yes deleted the pincode</td>
+        <td>Deleted pincode is now regarded as invalid</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/revertPincodePopup.PNG" width="240"></td>
@@ -654,9 +654,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Changing to valid pincode makes the profile complete again</td>
+        <td>Spam settings screen</td>
+        <td>Changed lock limit from 20 to 2 tells how many times user can place order of same product in single day</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/workingPinCodeUpdated.PNG" width="240"></td>
@@ -667,9 +667,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Cart 1</td>
+        <td>Cart 2</td>
+        <td>Cart 3</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/cart1.PNG" width="240"></td>
@@ -680,9 +680,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Confirm order with product which has been ordered large number of times shown as spam detected</td>
+        <td>Confirm order 1</td>
+        <td>Confirm order 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/confirmOrder1.PNG" width="240"></td>
@@ -693,9 +693,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Changed spam settings back to 20</td>
+        <td>Checkout 1</td>
+        <td>Checkout 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/spamSettingsUpdated.PNG" width="240"></td>
@@ -706,8 +706,8 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
+        <td>Limit is increased so not products are not shown under spam 1</td>
+        <td>Limit is increased so not products are not shown under spam 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/confirmOrder4.PNG" width="240"></td>
