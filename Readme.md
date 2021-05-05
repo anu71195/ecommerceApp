@@ -11,9 +11,9 @@
         <td>Present day in purple and selected day in pink</td>
    </tr>
    <tr>
-        <td><img align="center" src="images/normalFlow/loginScreen.PNG" width="240"></td>
-        <td><img align="center" src="images/normalFlow/home.PNG" width="240"></td>
-        <td><img align="center" src="images/normalFlow/logout.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/loginScreen.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/home.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/logout.PNG" width="240"></td>
    </tr>
  </table>
 
