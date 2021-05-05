@@ -178,25 +178,94 @@
  </table>
 
 ### Client flow for settings  
-![settingsFlow/settingsOff](images/settingsFlow/settingsOff.PNG)
-![settingsFlow/settingsOn](images/settingsFlow/settingsOn.PNG)
-![settingsFlow/settingsOnResult](images/settingsFlow/settingsOnResult.PNG)
-![settingsFlow/settingsOnHome1](images/settingsFlow/settingsOnHome1.PNG)
-![settingsFlow/addUnderMaintenanceProduct](images/settingsFlow/addUnderMaintenanceProduct.PNG)
-![settingsFlow/settingsOnHome2](images/settingsFlow/settingsOnHome2.PNG)
-![settingsFlow/addNotAvailableProduct](images/settingsFlow/addNotAvailableProduct.PNG)
-![settingsFlow/settingsOnHome3](images/settingsFlow/settingsOnHome3.PNG)
-![settingsFlow/addAvailableProduct](images/settingsFlow/addAvailableProduct.PNG)
-![settingsFlow/cart1](images/settingsFlow/cart1.PNG)
-![settingsFlow/cart2](images/settingsFlow/cart2.PNG)
-![settingsFlow/cart3](images/settingsFlow/cart3.PNG)
-![settingsFlow/cart4](images/settingsFlow/cart4.PNG)
-![settingsFlow/confirmOrder1](images/settingsFlow/confirmOrder1.PNG)
-![settingsFlow/confirmOrder2](images/settingsFlow/confirmOrder2.PNG)
-![settingsFlow/confirmOrder3](images/settingsFlow/confirmOrder3.PNG)
-![settingsFlow/confirmOrder4](images/settingsFlow/confirmOrder4.PNG)
-![settingsFlow/payment](images/settingsFlow/payment.PNG)
-![settingsFlow/paymentGateway](images/settingsFlow/paymentGateway.PNG)
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/settingsFlow/settingsOff.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/settingsFlow/settingsOn.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/settingsFlow/settingsOnResult.PNG" width="240"></td>
+   </tr>
+ </table>
+ 
+ <table>
+    <tr>
+         <td>Click on product from home screen</td>
+         <td>Cart Screen</td>
+         <td>Confirm Screen</td>
+    </tr>
+    <tr>
+         <td><img style="text-align: center;" src="images/settingsFlow/settingsOnHome1.PNG" width="240"></td>
+         <td><img style="text-align: center;" src="images/settingsFlow/addUnderMaintenanceProduct.PNG" width="240"></td>
+         <td><img style="text-align: center;" src="images/settingsFlow/settingsOnHome2.PNG" width="240"></td>
+    </tr>
+  </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/settingsFlow/addNotAvailableProduct.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/settingsFlow/settingsOnHome3.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/settingsFlow/addAvailableProduct.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/settingsFlow/cart1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/settingsFlow/cart2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/settingsFlow/cart3.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/settingsFlow/cart4.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/settingsFlow/confirmOrder1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/settingsFlow/confirmOrder2.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/settingsFlow/confirmOrder3.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/settingsFlow/confirmOrder4.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/settingsFlow/payment.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/settingsFlow/paymentGateway.PNG" width="240"></td>
+   </tr>
+ </table>
+ 
 
 ### Client flow for contact us screen  
 <table>
