@@ -20,7 +20,7 @@
  <table>
    <tr>
         <td>Switch account popup on logout</td>
-        <td>Navigation bar</td>
+        <td>Navigation bar by clicking on stack structure on top left</td>
         <td>Search product</td>
    </tr>
    <tr>
@@ -32,7 +32,7 @@
 
 <table>
    <tr>
-        <td>Click on product from item list</td>
+        <td>Click on product from home screen</td>
         <td>Cart Screen</td>
         <td>Confirm Screen</td>
    </tr>
