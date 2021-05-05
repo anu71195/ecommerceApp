@@ -366,7 +366,7 @@
         <td>Confirm Screen</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/editFlow/editFlow.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/home.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/editFlow/product.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/editFlow/editScreen1.PNG" width="240"></td>
    </tr>
