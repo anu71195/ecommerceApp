@@ -6,9 +6,9 @@
  
  <table>
    <tr>
-        <td>First Screen Page</td>
-        <td>Holiday Mention</td>
-        <td>Present day in purple and selected day in pink</td>
+        <td>Login Screen</td>
+        <td>Home Screen</td>
+        <td>Logout Option</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/normalFlow/loginScreen.PNG" width="240"></td>
