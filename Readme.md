@@ -581,6 +581,20 @@
  </table>
  
 ### Functions flow  
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/orderflow/changedIndividualStatus.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/changedOrderStatus1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/orderflow/changedOrderStatus2.PNG" width="240"></td>
+   </tr>
+ </table>
+ 
+
 ![functionsFlow/functions](images/functionsFlow/functions.PNG)
 ![functionsFlow/contactDetails](images/functionsFlow/contactDetails.PNG)
 ![functionsFlow/contactUsUser](images/functionsFlow/contactUsUser.PNG)
@@ -612,6 +626,17 @@
 ![functionsFlow/confirmOrder5](images/functionsFlow/confirmOrder5.PNG)
   
 ### Developer flow  
-![developerFlow/developerFlow](images/developerFlow/developerFlow.PNG)
-![developerFlow/developerPopupClickedNo](images/developerFlow/developerPopupClickedNo.PNG)
-![developerFlow/developerPopupClickedYes](images/developerFlow/developerPopupClickedYes.PNG)
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/developerFlow/developerFlow.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/developerFlow/developerPopupClickedNo.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/developerFlow/developerPopupClickedYes.PNG" width="240"></td>
+   </tr>
+ </table>
+ 
