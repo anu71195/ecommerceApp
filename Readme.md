@@ -181,9 +181,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Settings screen all options off (default screen)</td>
+        <td>Settings screen all options on</td>
+        <td>Home screen with all options on settings on i.e. it shows items which can't be bought now</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/settingsOff.PNG" width="240"></td>
@@ -194,9 +194,9 @@
  
  <table>
     <tr>
-         <td>Click on product from home screen</td>
-         <td>Cart Screen</td>
-         <td>Confirm Screen</td>
+         <td>Home screen with all options on settings on 2</td>
+         <td>Product under Maintenance added to cart</td>
+         <td>Home screen with all options on settings on 3</td>
     </tr>
     <tr>
          <td><img style="text-align: center;" src="images/settingsFlow/settingsOnHome1.PNG" width="240"></td>
@@ -207,9 +207,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Product not available added to cart</td>
+        <td>Home screen with all options on settings on 4</td>
+        <td>Available product added to cart</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/addNotAvailableProduct.PNG" width="240"></td>
@@ -220,9 +220,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Cart 1</td>
+        <td>Cart 2</td>
+        <td>Cart 3</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/cart1.PNG" width="240"></td>
@@ -233,9 +233,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Cart 4</td>
+        <td>Confirm order 1 with underMaintenace product can't be bought</td>
+        <td>Confirm order 2 with non available product can't be bought</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/cart4.PNG" width="240"></td>
@@ -246,9 +246,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Confirm order 3</td>
+        <td>Confirm order 4</td>
+        <td>Pay with razorpay screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/confirmOrder3.PNG" width="240"></td>
@@ -259,7 +259,7 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
+        <td>Razorpay API window</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/paymentGateway.PNG" width="240"></td>
