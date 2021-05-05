@@ -199,7 +199,14 @@
 ![settingsFlow/paymentGateway](images/settingsFlow/paymentGateway.PNG)
 
 ### Client flow for contact us screen  
-![contactUsFlow/contactUs](images/contactUsFlow/contactUs.PNG)
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/contactUsFlow/contactUs.PNG" width="240"></td>
+   </tr>
+ </table>
 
 ## Admin flows  
 
