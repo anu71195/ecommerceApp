@@ -318,7 +318,7 @@
    <tr>
         <td><img style="text-align: center;width:30%;" src="images/addProductFlow/backToAddProduct.PNG" width="240"></td>
         <td><img style="text-align: center;width:30%;" src="images/addProductFlow/partiallyFilledAddProduct.PNG" width="240"></td>
-        <td><img style="text-align: centerwidth:30%;;" src="images/addProductFlow/selectImage.PNG" width="240"></td>
+        <td><img style="text-align: center;width:30%;" src="images/addProductFlow/selectImage.PNG" width="240"></td>
    </tr>
  </table>
 
