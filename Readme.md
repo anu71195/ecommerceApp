@@ -715,9 +715,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Developer screen access confirmation popup</td>
+        <td>Clicking no on popup from previous screen</td>
+        <td>Developer Screen by clicking yes on popup</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/developerFlow/developerFlow.PNG" width="240"></td>
