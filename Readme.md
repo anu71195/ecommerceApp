@@ -311,9 +311,9 @@
 
 <table>
    <tr>
-        <td>Empty add product screen</td>
-        <td>Partially filled fields in add product screen</td>
-        <td>Window displayed on click of upload image button and selecting the shown image</td>
+        <td>Empty add product screen                                                        </td>
+        <td>Partially filled fields in add product screen                                   </td>
+        <td>Window displayed on click of upload image button and selecting the shown image  </td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/addProductFlow/backToAddProduct.PNG" width="240"></td>
