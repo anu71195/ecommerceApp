@@ -298,9 +298,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Add product screen</td>
+        <td>Admin home screen 1</td>
+        <td>Admin home screen 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/addProductFlow/addProduct.PNG" width="240"></td>
@@ -311,9 +311,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Empty add product screen</td>
+        <td>Partially filled fields in add product screen</td>
+        <td>Window displayed on click of upload image button and selecting the shown image</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/addProductFlow/backToAddProduct.PNG" width="240"></td>
@@ -324,9 +324,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Image uploaded to firebase and url is created as shown and image is displayed below</td>
+        <td>Clicking on add product, product is added and screen is reset to empty fields</td>
+        <td>Admin home screen with new added product</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/addProductFlow/imageAdded.PNG" width="240"></td>
@@ -337,9 +337,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Clicking on new added product from admin home screen</td>
+        <td>Searching the new added product in admin home screen</td>
+        <td>Searching the new added product in user home screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/addProductFlow/newProductInAdmin2.PNG" width="240"></td>
@@ -350,7 +350,7 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
+        <td>Clicking on new added product from user home screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/addProductFlow/newProductUser2.PNG" width="240"></td>
