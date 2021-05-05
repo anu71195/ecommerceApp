@@ -361,9 +361,9 @@
 
 <table>
    <tr>
-        <td>Admin home screen 1</td>
+        <td>Admin home screen</td>
         <td>Clicking on a product from admin home screen</td>
-        <td>Product edit screen 1</td>
+        <td>Product edit screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/home.PNG" width="240"></td>
@@ -401,7 +401,7 @@
 
 <table>
    <tr>
-        <td>Admin home screen 2</td>
+        <td>Admin home screen with updated product name</td>
         <td>Clicking on the updated product from admin home screen</td>
         <td>searched for updated product in user flow</td>
    </tr>
@@ -414,7 +414,7 @@
 
 <table>
    <tr>
-        <td>Product edit screen 2 with stocks set to 0</td>
+        <td>Product edit screen with stocks set to 0</td>
         <td>Searched on admin home screen with updated product with 0 stock as not available</td>
         <td>Searched on user home screen with updated product with 0 stock as not available</td>
    </tr>
@@ -427,7 +427,7 @@
 
 <table>
    <tr>
-        <td>Product edit screen 3</td>
+        <td>Product edit screen to change image</td>
         <td>Window displayed on click of upload image button and then selected it</td>
         <td>New image uploaded and url generated is displayed and image is displayed below 1</td>
    </tr>
