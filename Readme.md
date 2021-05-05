@@ -6,9 +6,9 @@
  
  <table>
    <tr>
-        <td>Login Screen</td>
-        <td>Home Screen</td>
-        <td>Logout Option</td>
+        <td>Login screen</td>
+        <td>Home screen</td>
+        <td>Logout option</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/normalFlow/loginScreen.PNG" width="240"></td>
@@ -17,15 +17,43 @@
    </tr>
  </table>
 
+ <table>
+   <tr>
+        <td>Switch account popup on logout</td>
+        <td>Navigation bar</td>
+        <td>Search product</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/normalFlow/logoutPopup.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/NavigationBar.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/search.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from item list</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/normalFlow/productMagnified.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/cart.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/cartConfirm.PNG" width="240"></td>
+   </tr>
+ </table>
  
-![normalFlow/logoutPopup](images/normalFlow/logoutPopup.PNG)
-![normalFlow/NavigationBar](images/normalFlow/NavigationBar.PNG)
-![normalFlow/search](images/normalFlow/search.PNG)
-![normalFlow/productMagnified](images/normalFlow/productMagnified.PNG)
-![normalFlow/cart](images/normalFlow/cart.PNG)
-![normalFlow/cartConfirm](images/normalFlow/cartConfirm.PNG)
-![normalFlow/payment](images/normalFlow/payment.PNG)
-![normalFlow/paymentgateway](images/normalFlow/paymentgateway.PNG)
+ <table>
+    <tr>
+         <td>Pay with razorpay screen</td>
+         <td>Razorpay API window</td>
+    </tr>
+    <tr>
+         <td><img style="text-align: center;" src="images/normalFlow/payment.PNG" width="240"></td>
+         <td><img style="text-align: center;" src="images/normalFlow/paymentgateway.PNG" width="240"></td>
+    </tr>
+  </table> 
+
 
 ### User order flow  
 ![userOrdersFlow/home](images/userOrdersFlow/home.PNG)
