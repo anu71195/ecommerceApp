@@ -512,9 +512,9 @@
         <td>Confirm Screen</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/orderflow/orderHome.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/orderTypeDropDown.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/ordersByCustomer.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/orderHome.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/orderTypeDropDown.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/ordersByCustomer.PNG" width="240"></td>
    </tr>
  </table>
 
@@ -525,9 +525,9 @@
         <td>Confirm Screen</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/orderflow/withinOrdersByCustomer.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/orderByTime.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/orderByStatusFilter.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/withinOrdersByCustomer.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/orderByTime.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/orderByStatusFilter.PNG" width="240"></td>
    </tr>
  </table>
 
@@ -538,9 +538,9 @@
         <td>Confirm Screen</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/orderflow/statusFilterSelection1.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/statusFilterSelection2.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/autoLoadFunctionality.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/statusFilterSelection1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/statusFilterSelection2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/autoLoadFunctionality.PNG" width="240"></td>
    </tr>
  </table>
 
@@ -551,9 +551,9 @@
         <td>Confirm Screen</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/orderflow/clean.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/orderSummary1.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/orderSummary2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/clean.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/orderSummary1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/orderSummary2.PNG" width="240"></td>
    </tr>
  </table>
 
@@ -564,9 +564,9 @@
         <td>Confirm Screen</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/orderflow/changedIndividualStatus.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/changedOrderStatus1.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/changedOrderStatus2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/changedIndividualStatus.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/changedOrderStatus1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/changedOrderStatus2.PNG" width="240"></td>
    </tr>
  </table>
 
@@ -576,8 +576,8 @@
         <td>Cart Screen</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/orderflow/userOrderList.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/updatedOrderList.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/userOrderList.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/updatedOrderList.PNG" width="240"></td>
    </tr>
  </table>
  
