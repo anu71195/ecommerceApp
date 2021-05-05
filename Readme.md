@@ -137,8 +137,17 @@
  </table>
   
 ### Profile fields  
-![workingProfileFlow/profileFields](images/workingProfileFlow/profileFields.PNG)
-![workingProfileFlow/profileComplete](images/workingProfileFlow/profileComplete.PNG)
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/workingProfileFlow/profileFields.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/workingProfileFlow/profileComplete.PNG" width="240"></td>
+   </tr>
+ </table>
 
 ### Profile fields error flow  
 ![errorProfileFlow/profileNew](images/errorProfileFlow/profileNew.PNG)
