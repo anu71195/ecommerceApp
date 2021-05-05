@@ -455,9 +455,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Searched for the product to be deleted</td>
+        <td>Clicked on the product from the previous screen and then clicked edit product button</td>
+        <td>Clicked get locks</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/deleteProductFlow/searchProduct.PNG" width="240"></td>
@@ -468,9 +468,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Clicked get product</td>
+        <td>Clicked on delete product</td>
+        <td>Delete confirmation popup is displayed on click of delete product form previous screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/deleteProductFlow/getLocksClicked.PNG" width="240"></td>
@@ -481,9 +481,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Clicked no, nothing happens</td>
+        <td>Clicked yes, product is deleted and journey is resumed to admin home screen</td>
+        <td>Deleted product could not be found in the product list</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/deleteProductFlow/clickedNo.PNG" width="240"></td>
@@ -494,8 +494,8 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
+        <td>Searched for the deleted product but is missing in admin flow</td>
+        <td>Searched for the deleted product but is missing in user flow</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/deleteProductFlow/deletedAdmin2.PNG" width="240"></td>
