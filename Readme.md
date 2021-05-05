@@ -270,7 +270,7 @@
 ### Client flow for contact us screen  
 <table>
    <tr>
-        <td>Click on product from home screen</td>
+        <td>Contact us screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/contactUsFlow/contactUs.PNG" width="240"></td>
