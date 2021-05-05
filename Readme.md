@@ -4,9 +4,10 @@
 
 ### Client flow without interruptions  
  
-<img src="images/normalFlow/loginScreen.PNG" width="120"> 
-![normalFlow/loginScreen](images/normalFlow/loginScreen.PNG)
-![normalFlow/home](images/normalFlow/home.PNG)
+<img src="images/normalFlow/loginScreen.PNG" width="150">
+<img src="images/normalFlow/home.PNG" width="150">
+ 
+
 ![normalFlow/logout](images/normalFlow/logout.PNG)
 ![normalFlow/logoutPopup](images/normalFlow/logoutPopup.PNG)
 ![normalFlow/NavigationBar](images/normalFlow/NavigationBar.PNG)
