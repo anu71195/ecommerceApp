@@ -56,21 +56,72 @@
 
 
 ### User order flow  
-![userOrdersFlow/home](images/userOrdersFlow/home.PNG)
-![userOrdersFlow/product1](images/userOrdersFlow/product1.PNG)
-![userOrdersFlow/product2](images/userOrdersFlow/product2.PNG)
-![userOrdersFlow/cart1](images/userOrdersFlow/cart1.PNG)
-![userOrdersFlow/cart2](images/userOrdersFlow/cart2.PNG)
-![userOrdersFlow/cart3](images/userOrdersFlow/cart3.PNG)
-![userOrdersFlow/confirm1](images/userOrdersFlow/confirm1.PNG)
-![userOrdersFlow/confirm2](images/userOrdersFlow/confirm2.PNG)
-![userOrdersFlow/payment](images/userOrdersFlow/payment.PNG)
-![userOrdersFlow/paymentGateway](images/userOrdersFlow/paymentGateway.PNG)
-![userOrdersFlow/successfulPayment](images/userOrdersFlow/successfulPayment.PNG)
-![userOrdersFlow/myOrders](images/userOrdersFlow/myOrders.PNG)
-![userOrdersFlow/myOrdersClick1](images/userOrdersFlow/myOrdersClick1.PNG)
-![userOrdersFlow/myOrdersClick2](images/userOrdersFlow/myOrdersClick2.PNG)
-![userOrdersFlow/orderSummary](images/userOrdersFlow/orderSummary.PNG)
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/home.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/product1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/product2.PNG" width="240"></td>
+   </tr>
+ </table>
+ 
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/cart1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/cart2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/cart3.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/confirm1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/confirm2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/payment.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/paymentGateway.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/successfulPayment.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/myOrders.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/myOrdersClick1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/myOrdersClick2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/userOrdersFlow/orderSummary.PNG" width="240"></td>
+   </tr>
+ </table>
 
 ###  Empty cart flow  
 ![emptyCartFlow/emptyCart](images/emptyCartFlow/emptyCart.PNG)
