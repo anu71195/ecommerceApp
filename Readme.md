@@ -4,11 +4,20 @@
 
 ### Client flow without interruptions  
  
-<img src="images/normalFlow/loginScreen.PNG" width="150">
-<img src="images/normalFlow/home.PNG" width="150">
- 
+ <table>
+   <tr>
+        <td>First Screen Page</td>
+        <td>Holiday Mention</td>
+        <td>Present day in purple and selected day in pink</td>
+   </tr>
+   <tr>
+        <td><img src="images/normalFlow/loginScreen.PNG" width="200"></td>
+        <td><img src="images/normalFlow/home.PNG" width="200"></td>
+        <td><img src="images/normalFlow/logout.PNG" width="200"></td>
+   </tr>
+ </table>
 
-![normalFlow/logout](images/normalFlow/logout.PNG)
+ 
 ![normalFlow/logoutPopup](images/normalFlow/logoutPopup.PNG)
 ![normalFlow/NavigationBar](images/normalFlow/NavigationBar.PNG)
 ![normalFlow/search](images/normalFlow/search.PNG)
