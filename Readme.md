@@ -140,8 +140,8 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
+        <td>Profile screen to show the fields</td>
+        <td>Profile screen with all fields complete and validated</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/workingProfileFlow/profileFields.PNG" width="240"></td>
