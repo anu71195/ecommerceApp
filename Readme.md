@@ -1,7 +1,8 @@
-Raunak Garment's ecommerce app for shopping.
+# Raunak Garment's ecommerce app for shopping.
 
-The default copyright laws apply, meaning that the repository owner (anu71195) retain all rights to the source code and no one may reproduce, distribute, or create derivative works from your work.
-Client flow without interruption  
+## CLIENT FLOWS
+
+### CLIENT FLOW WITHOUT INTERRUPTIONS  
 ![normalFlow/loginScreen](images/normalFlow/loginScreen.PNG)
 ![normalFlow/home](images/normalFlow/home.PNG)
 ![normalFlow/logout](images/normalFlow/logout.PNG)
@@ -14,7 +15,7 @@ Client flow without interruption
 ![normalFlow/payment](images/normalFlow/payment.PNG)
 ![normalFlow/paymentgateway](images/normalFlow/paymentgateway.PNG)
 
-User Order Flow  
+USER ORDER FLOW 
 ![userOrdersFlow/home](images/userOrdersFlow/home.PNG)
 ![userOrdersFlow/product1](images/userOrdersFlow/product1.PNG)
 ![userOrdersFlow/product2](images/userOrdersFlow/product2.PNG)
@@ -31,17 +32,17 @@ User Order Flow
 ![userOrdersFlow/myOrdersClick2](images/userOrdersFlow/myOrdersClick2.PNG)
 ![userOrdersFlow/orderSummary](images/userOrdersFlow/orderSummary.PNG)
 
-Empty Cart Flow  
+EMPTY CART FLOW
 ![emptyCartFlow/emptyCart](images/emptyCartFlow/emptyCart.PNG)
 ![emptyCartFlow/emptyCartPopup](images/emptyCartFlow/emptyCartPopup.PNG)
 
 Client flow for profile and interruptions  
 
-Profile Fields and Flow  
+PROFILE FIELDS
 ![workingProfileFlow/profileFields](images/workingProfileFlow/profileFields.PNG)
 ![workingProfileFlow/profileComplete](images/workingProfileFlow/profileComplete.PNG)
 
-Profile Fields Error Flow  
+PROFILE FIELDS ERROR FLOW
 ![errorProfileFlow/profileNew](images/errorProfileFlow/profileNew.PNG)
 ![errorProfileFlow/profileCheckoutError](images/errorProfileFlow/profileCheckoutError.PNG)
 ![errorProfileFlow/profileNewAddress](images/errorProfileFlow/profileNewAddress.PNG)
@@ -50,7 +51,7 @@ Profile Fields Error Flow
 ![errorProfileFlow/profileCheckoutNotPinCodeError](images/errorProfileFlow/profileCheckoutNotPinCodeError.PNG)
 
 
-Client Flow for Settings  
+CLIENT FLOW FOR SETTINGS
 ![settingsFlow/settingsOff](images/settingsFlow/settingsOff.PNG)
 ![settingsFlow/settingsOn](images/settingsFlow/settingsOn.PNG)
 ![settingsFlow/settingsOnResult](images/settingsFlow/settingsOnResult.PNG)
@@ -71,17 +72,17 @@ Client Flow for Settings
 ![settingsFlow/payment](images/settingsFlow/payment.PNG)
 ![settingsFlow/paymentGateway](images/settingsFlow/paymentGateway.PNG)
 
-Client Flow for Contact Us Screen  
+CLIENT FLOW FOR CONTACT US SCREEN
 ![contactUsFlow/contactUs](images/contactUsFlow/contactUs.PNG)
 
-ADMIN FLOW
+# ADMIN FLOW
 
-Admin Navigation Flow  
+ADMIN NAVIGATION FLOW
 ![adminNavigationFlow/adminNavigation](images/adminNavigationFlow/adminNavigation.PNG)
 ![adminNavigationFlow/addProduct](images/adminNavigationFlow/addProduct.PNG)
 ![adminNavigationFlow/adminNavigationInside](images/adminNavigationFlow/adminNavigationInside.PNG)
 
-Add Product Flow  
+ADD PRODUCT FLOW
 ![addProductFlow/addProduct](images/addProductFlow/addProduct.PNG)
 ![addProductFlow/allProducts](images/addProductFlow/allProducts.PNG)
 ![addProductFlow/allProductsEnd](images/addProductFlow/allProductsEnd.PNG)
@@ -96,7 +97,7 @@ Add Product Flow
 ![addProductFlow/newProductUser1](images/addProductFlow/newProductUser1.PNG)
 ![addProductFlow/newProductUser2](images/addProductFlow/newProductUser2.PNG) 
 
-Edit Product Flow  
+EDIT PRODUCT FLOW
 ![editFlow/home](images/editFlow/home.PNG)
 ![editFlow/product](images/editFlow/product.PNG)
 ![editFlow/editScreen1](images/editFlow/editScreen1.PNG)
@@ -119,7 +120,7 @@ Edit Product Flow
 ![editFlow/changedImageAdmin](images/editFlow/changedImageAdmin.PNG)
 ![editFlow/changedImageUser](images/editFlow/changedImageUser.PNG)
 
-Delete Product Flow  
+DELETE PRODUCT FLOW
 ![deleteProductFlow/searchProduct](images/deleteProductFlow/searchProduct.PNG)
 ![deleteProductFlow/productMagnified](images/deleteProductFlow/productMagnified.PNG)
 ![deleteProductFlow/editClicked](images/deleteProductFlow/editClicked.PNG)
@@ -132,7 +133,7 @@ Delete Product Flow
 ![deleteProductFlow/deletedAdmin2](images/deleteProductFlow/deletedAdmin2.PNG)
 ![deleteProductFlow/deletedUser1](images/deleteProductFlow/deletedUser1.PNG)
 
-Orders Flow  
+ORDERS FLOW  
 ![orderflow/orderHome](images/orderflow/orderHome.PNG)
 ![orderflow/orderTypeDropDown](images/orderflow/orderTypeDropDown.PNG)
 ![orderflow/ordersByCustomer](images/orderflow/ordersByCustomer.PNG)
@@ -152,7 +153,7 @@ Orders Flow
 ![orderflow/updatedOrderList](images/orderflow/updatedOrderList.PNG)
 
 
-Function Flow  
+FUNCTION FLOW 
 ![functionsFlow/functions](images/functionsFlow/functions.PNG)
 ![functionsFlow/contactDetails](images/functionsFlow/contactDetails.PNG)
 ![functionsFlow/contactUsUser](images/functionsFlow/contactUsUser.PNG)
@@ -184,7 +185,7 @@ Function Flow
 ![functionsFlow/confirmOrder5](images/functionsFlow/confirmOrder5.PNG)
 
 
-Developer Flow  
+DEVELOPER FLOW  
 ![developerFlow/developerFlow](images/developerFlow/developerFlow.PNG)
 ![developerFlow/developerPopupClickedNo](images/developerFlow/developerPopupClickedNo.PNG)
 ![developerFlow/developerPopupClickedYes](images/developerFlow/developerPopupClickedYes.PNG)
