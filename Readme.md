@@ -316,9 +316,9 @@
         <td>Window displayed on click of upload image button and selecting the shown image</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;width:30%;" src="images/addProductFlow/backToAddProduct.PNG" width="240"></td>
-        <td><img style="text-align: center;width:30%;" src="images/addProductFlow/partiallyFilledAddProduct.PNG" width="240"></td>
-        <td><img style="text-align: center;width:30%;" src="images/addProductFlow/selectImage.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/addProductFlow/backToAddProduct.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/addProductFlow/partiallyFilledAddProduct.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/addProductFlow/selectImage.PNG" width="240"></td>
    </tr>
  </table>
 
