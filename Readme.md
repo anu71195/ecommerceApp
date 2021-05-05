@@ -358,27 +358,98 @@
  </table>
 
 ### Edit product flow  
-![editFlow/home](images/editFlow/home.PNG)
-![editFlow/product](images/editFlow/product.PNG)
-![editFlow/editScreen1](images/editFlow/editScreen1.PNG)
-![editFlow/getLocks](images/editFlow/getLocks.PNG)
-![editFlow/getProduct](images/editFlow/getProduct.PNG)
-![editFlow/changedItems](images/editFlow/changedItems.PNG)
-![editFlow/confirmationPopup](images/editFlow/confirmationPopup.PNG)
-![editFlow/updatedProduct](images/editFlow/updatedProduct.PNG)
-![editFlow/releaseLocks](images/editFlow/releaseLocks.PNG)
-![editFlow/changedProductInAdmin](images/editFlow/changedProductInAdmin.PNG)
-![editFlow/changedProduct](images/editFlow/changedProduct.PNG)
-![editFlow/changedProductInUser](images/editFlow/changedProductInUser.PNG)
-![editFlow/editScreen2](images/editFlow/editScreen2.PNG)
-![editFlow/notAvailableProductAdmin](images/editFlow/notAvailableProductAdmin.PNG)
-![editFlow/notAvailableProductUser](images/editFlow/notAvailableProductUser.PNG)
-![editFlow/editScreen3](images/editFlow/editScreen3.PNG)
-![editFlow/imageToBeUploaded](images/editFlow/imageToBeUploaded.PNG)
-![editFlow/editScreen4](images/editFlow/editScreen4.PNG)
-![editFlow/editScreen5](images/editFlow/editScreen5.PNG)
-![editFlow/changedImageAdmin](images/editFlow/changedImageAdmin.PNG)
-![editFlow/changedImageUser](images/editFlow/changedImageUser.PNG)
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/editFlow/editFlow.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/product.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/editScreen1.PNG" width="240"></td>
+   </tr>
+ </table>
+ 
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/editFlow/getLocks.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/getProduct.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/changedItems.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/editFlow/confirmationPopup.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/updatedProduct.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/releaseLocks.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/editFlow/changedProductInAdmin.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/changedProduct.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/changedProductInUser.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/editFlow/editScreen2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/notAvailableProductAdmin.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/notAvailableProductUser.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/editFlow/editScreen3.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/imageToBeUploaded.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/editScreen4.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/editFlow/editScreen5.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/changedImageAdmin.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/editFlow/changedImageUser.PNG" width="240"></td>
+   </tr>
+ </table>
 
 ### Delete product flow  
 ![deleteProductFlow/searchProduct](images/deleteProductFlow/searchProduct.PNG)
