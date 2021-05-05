@@ -33,8 +33,8 @@
 <table>
    <tr>
         <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Cart screen</td>
+        <td>Confirm screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/normalFlow/productMagnified.PNG" width="240"></td>
@@ -59,9 +59,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Home screen</td>
+        <td>Product 1</td>
+        <td>Product 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/userOrdersFlow/home.PNG" width="240"></td>
@@ -73,9 +73,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Cart 1</td>
+        <td>Cart 2</td>
+        <td>Cart 3</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/userOrdersFlow/cart1.PNG" width="240"></td>
@@ -86,9 +86,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Confirm order 1</td>
+        <td>Confirm order 2</td>
+        <td>Pay with razorpay screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/userOrdersFlow/confirm1.PNG" width="240"></td>
@@ -99,9 +99,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Razorpay API window</td>
+        <td>Pay with razorpay screen after successful payment</td>
+        <td>Orders' list screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/userOrdersFlow/paymentGateway.PNG" width="240"></td>
@@ -112,9 +112,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Orders' list screen on click of description of one of the orders</td>
+        <td>Orders' list screen on again click of description of one of the orders</td>
+        <td>Order summary screen after clicking on button with date on previous screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/userOrdersFlow/myOrdersClick1.PNG" width="240"></td>
