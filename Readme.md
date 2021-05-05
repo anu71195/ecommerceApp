@@ -548,7 +548,7 @@
    <tr>
         <td>Selected clean on admin orders screen</td>
         <td>Selected the top product</td>
-        <td>Selected one of the orders from any of the previous flows 1</td>
+        <td>Order Summary 1</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/clean.PNG" width="240"></td>
@@ -559,7 +559,7 @@
 
 <table>
    <tr>
-        <td>Selected one of the orders from any of the previous flows 2</td>
+        <td>Order Summary 2</td>
         <td>Changed status of individual product by tapping order/deliver status beside the product</td>
         <td>Changed status of entire order by tapping order/deliver status on the top and clicking on synchronize</td>
         
