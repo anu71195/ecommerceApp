@@ -133,6 +133,25 @@ Delete Product Flow
 ![deleteProductFlow/deletedUser1](images/deleteProductFlow/deletedUser1.PNG)
 
 Orders Flow  
+![orderflow/orderHome](images/orderflow/orderHome.PNG)
+![orderflow/orderTypeDropDown](images/orderflow/orderTypeDropDown.PNG)
+![orderflow/ordersByCustomer](images/orderflow/ordersByCustomer.PNG)
+![orderflow/withinOrdersByCustomer](images/orderflow/withinOrdersByCustomer.PNG)
+![orderflow/orderByTime](images/orderflow/orderByTime.PNG)
+![orderflow/orderByStatusFilter](images/orderflow/orderByStatusFilter.PNG)
+![orderflow/statusFilterSelection1](images/orderflow/statusFilterSelection1.PNG)
+![orderflow/statusFilterSelection2](images/orderflow/statusFilterSelection2.PNG)
+![orderflow/autoLoadFunctionality](images/orderflow/autoLoadFunctionality.PNG)
+![orderflow/clean](images/orderflow/clean.PNG)
+![orderflow/orderSummary1](images/orderflow/orderSummary1.PNG)
+![orderflow/orderSummary2](images/orderflow/orderSummary2.PNG)
+![orderflow/changedIndividualStatus](images/orderflow/changedIndividualStatus.PNG)
+![orderflow/changedOrderStatus1](images/orderflow/changedOrderStatus1.PNG)
+![orderflow/changedOrderStatus2](images/orderflow/changedOrderStatus2.PNG)
+![orderflow/userOrderList](images/orderflow/userOrderList.PNG)
+![orderflow/updatedOrderList](images/orderflow/updatedOrderList.PNG)
+
+
 Function Flow  
 ![functionsFlow/functions](images/functionsFlow/functions.PNG)
 ![functionsFlow/contactDetails](images/functionsFlow/contactDetails.PNG)
