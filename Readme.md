@@ -280,24 +280,82 @@
 ## Admin flows  
 
 ### Admin navigation flow  
-![adminNavigationFlow/adminNavigation](images/adminNavigationFlow/adminNavigation.PNG)
-![adminNavigationFlow/addProduct](images/adminNavigationFlow/addProduct.PNG)
-![adminNavigationFlow/adminNavigationInside](images/adminNavigationFlow/adminNavigationInside.PNG)
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/adminNavigationFlow/adminNavigation.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/adminNavigationFlow/addProduct.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/adminNavigationFlow/adminNavigationInside.PNG" width="240"></td>
+   </tr>
+ </table>
 
 ### Add product flow  
-![addProductFlow/addProduct](images/addProductFlow/addProduct.PNG)
-![addProductFlow/allProducts](images/addProductFlow/allProducts.PNG)
-![addProductFlow/allProductsEnd](images/addProductFlow/allProductsEnd.PNG)
-![addProductFlow/backToAddProduct](images/addProductFlow/backToAddProduct.PNG)
-![addProductFlow/partiallyFilledAddProduct](images/addProductFlow/partiallyFilledAddProduct.PNG)
-![addProductFlow/selectImage](images/addProductFlow/selectImage.PNG)
-![addProductFlow/imageAdded](images/addProductFlow/imageAdded.PNG)
-![addProductFlow/productAdded](images/addProductFlow/productAdded.PNG)
-![addProductFlow/newProductInAdmin1](images/addProductFlow/newProductInAdmin1.PNG)
-![addProductFlow/newProductInAdmin2](images/addProductFlow/newProductInAdmin2.PNG)
-![addProductFlow/searchAdmin](images/addProductFlow/searchAdmin.PNG)
-![addProductFlow/newProductUser1](images/addProductFlow/newProductUser1.PNG)
-![addProductFlow/newProductUser2](images/addProductFlow/newProductUser2.PNG) 
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/addProductFlow/addProduct.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/addProductFlow/allProducts.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/addProductFlow/allProductsEnd.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/addProductFlow/backToAddProduct.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/addProductFlow/partiallyFilledAddProduct.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/addProductFlow/selectImage.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/addProductFlow/imageAdded.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/addProductFlow/productAdded.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/addProductFlow/newProductInAdmin1.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/addProductFlow/newProductInAdmin2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/addProductFlow/searchAdmin.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/addProductFlow/newProductUser1.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/addProductFlow/newProductUser2.PNG" width="240"></td>
+   </tr>
+ </table>
 
 ### Edit product flow  
 ![editFlow/home](images/editFlow/home.PNG)
