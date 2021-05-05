@@ -388,7 +388,7 @@
 
 <table>
    <tr>
-        <td>Product edit screen 2</td>
+        <td>Change confirmation popup on click of update product</td>
         <td>Clicking yes saved the description</td>
         <td>Clicked on release locks</td>
    </tr>
@@ -414,9 +414,9 @@
 
 <table>
    <tr>
-        <td>Product edit screen 3</td>
-        <td>Searched on admin home screen 2 with updated product with 0 stock as not available 1</td>
-        <td>Searched on user home screen 2 with updated product with 0 stock as not available 1</td>
+        <td>Product edit screen 2 with stocks set to 0</td>
+        <td>Searched on admin home screen with updated product with 0 stock as not available</td>
+        <td>Searched on user home screen with updated product with 0 stock as not available</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/editScreen2.PNG" width="240"></td>
@@ -427,7 +427,7 @@
 
 <table>
    <tr>
-        <td>Product edit screen 4</td>
+        <td>Product edit screen 3</td>
         <td>Window displayed on click of upload image button and then selected it</td>
         <td>New image uploaded and url generated is displayed and image is displayed below 1</td>
    </tr>
@@ -441,8 +441,8 @@
 <table>
    <tr>
         <td>New image uploaded and url generated is displayed and image is displayed below 2</td>
-        <td>Searched on admin home screen 2 with updated product with 0 stock as not available 2</td>
-        <td>Searched on user home screen 2 with updated product with 0 stock as not available 2</td>
+        <td>Searched on admin home screen with updated product with updated image</td>
+        <td>Searched on user home screen with updated product with with updated image</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/editScreen5.PNG" width="240"></td>
