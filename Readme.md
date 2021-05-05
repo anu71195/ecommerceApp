@@ -153,9 +153,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Profile Screen opened for first time</td>
+        <td>Trying to checkout with profile shown in previous screen</td>
+        <td>Profile screen with updated address</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/errorProfileFlow/profileNew.PNG" width="240"></td>
@@ -166,9 +166,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Trying to checkout with profile shown in previous screen i.e. with address updated</td>
+        <td>Profile screen with updated pincode as well</td>
+        <td>Trying to checkout with profile shown in previous screen i.e. with pincode updated as well</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/errorProfileFlow/profileCheckoutNotAddressError.PNG" width="240"></td>
