@@ -361,9 +361,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Admin home screen 1</td>
+        <td>Clicking on a product from admin home screen</td>
+        <td>Product edit screen 1</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/home.PNG" width="240"></td>
@@ -375,9 +375,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Clicked on get locks</td>
+        <td>Clicked on get product</td>
+        <td>Changed product description and name</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/getLocks.PNG" width="240"></td>
@@ -388,9 +388,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Product edit screen 2</td>
+        <td>Clicking yes saved the description</td>
+        <td>Clicked on release locks</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/confirmationPopup.PNG" width="240"></td>
@@ -401,9 +401,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Admin home screen 2</td>
+        <td>Clicking on the updated product from admin home screen</td>
+        <td>searched for updated product in user flow</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/changedProductInAdmin.PNG" width="240"></td>
@@ -414,9 +414,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Product edit screen 3</td>
+        <td>Searched on admin home screen 2 with updated product with 0 stock as not available 1</td>
+        <td>Searched on user home screen 2 with updated product with 0 stock as not available 1</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/editScreen2.PNG" width="240"></td>
@@ -427,9 +427,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>Product edit screen 4</td>
+        <td>Window displayed on click of upload image button and then selected it</td>
+        <td>New image uploaded and url generated is displayed and image is displayed below 1</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/editScreen3.PNG" width="240"></td>
@@ -440,9 +440,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
-        <td>Confirm Screen</td>
+        <td>New image uploaded and url generated is displayed and image is displayed below 2</td>
+        <td>Searched on admin home screen 2 with updated product with 0 stock as not available 2</td>
+        <td>Searched on user home screen 2 with updated product with 0 stock as not available 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/editScreen5.PNG" width="240"></td>
