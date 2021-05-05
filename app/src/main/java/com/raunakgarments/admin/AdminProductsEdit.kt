@@ -41,6 +41,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.math.ceil
 
 class AdminProductsEdit : AppCompatActivity() {
 
@@ -948,10 +949,11 @@ class AdminProductsEdit : AppCompatActivity() {
                 }
 
                 val imageWidth = 720
+                val imageHeight = (imageOriginalHeight * 1.0) / ((imageOriginalWidth * 1.0) / (imageWidth * 1.0))
                 bitmap = Bitmap.createScaledBitmap(
                     bitmap,
                     imageWidth,
-                    imageOriginalHeight / (imageOriginalWidth / imageWidth),
+                    ceil(imageHeight).toInt(),
                     false
                 )
                 val baos = ByteArrayOutputStream()
