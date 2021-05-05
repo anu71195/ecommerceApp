@@ -33,24 +33,31 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
         userOrderFirebaseUtil.mDatabaseReference.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 if (snapshot.exists()) {
-                    d("UserOrdersAdapter", "my snapshot-${snapshot}")
-                    var userOrders = snapshot.getValue(UserOrders::class.java)
-                    d("UserOrdersAdapter", "populate-${Gson().toJson(userOrders)}")
-                    if (userOrders != null) {
+                    if (snapshot.key.toString() != "id" && snapshot.key.toString() != "userOrderProfile") {
+                        d("UserOrdersAdapter", "my snapshot-${snapshot}")
+                        var userOrders = snapshot.getValue(UserOrders::class.java)
+                        d("UserOrdersAdapter", "populate-${Gson().toJson(userOrders)}")
+                        if (userOrders != null) {
 
-                        if(userOrders.id == "") {
-                            userOrders.id = snapshot.key!!
-                            userOrderFirebaseUtil.mDatabaseReference.child(userOrders.id).child("id").setValue(userOrders.id)
-                        }
+                            if (userOrders.id == "") {
+                                userOrders.id = snapshot.key!!
+                                userOrderFirebaseUtil.mDatabaseReference.child(userOrders.id)
+                                    .child("id").setValue(userOrders.id)
+                            }
 
-                        if(userOrders.userOrderProfile.pinCode == "") {
-                            addOrderToListAndNotify(userOrders)
-                            getAndUpdateUserProfile(userOrders,userOrdersList.size, snapshot.key!!)
+                            if (userOrders.userOrderProfile.pinCode == "") {
+                                addOrderToListAndNotify(userOrders)
+                                getAndUpdateUserProfile(
+                                    userOrders,
+                                    userOrdersList.size,
+                                    snapshot.key!!
+                                )
+                            } else {
+                                addOrderToListAndNotify(userOrders)
+                            }
                         } else {
-                            addOrderToListAndNotify(userOrders)
+                            d("UserOrdersAdapter", "populate-userOrders is null")
                         }
-                    } else {
-                        d("UserOrdersAdapter", "populate-userOrders is null")
                     }
                 } else {
                     d("UserOrdersAdapter", "populate-snapshot does not exist")
@@ -75,26 +82,28 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
 
         var userProfileFirebaseUtil = FirebaseUtil()
         userProfileFirebaseUtil.openFbReference("userProfile")
-        userProfileFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString()).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()) {
-                    d("UserOrdersAdapter", "getAndUpdateUserProfile - snapshot exists")
-                    var userProfile = snapshot.getValue(Profile::class.java)
-                    if(userProfile != null) {
-                        userOrders.userOrderProfile = userProfile
-                        userOrderFirebaseUtil.mDatabaseReference.child(orderId).setValue(userOrders)
-                        editOrderToListAndNotify(userOrders, userOrdersListIndex)
-                    } else  {
-                        d("UserOrdersAdapter", "getAndUpdateUserProfile - userProfile is null")
+        userProfileFirebaseUtil.mDatabaseReference.child(FirebaseAuth.getInstance().uid.toString())
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        d("UserOrdersAdapter", "getAndUpdateUserProfile - snapshot exists")
+                        var userProfile = snapshot.getValue(Profile::class.java)
+                        if (userProfile != null) {
+                            userOrders.userOrderProfile = userProfile
+                            userOrderFirebaseUtil.mDatabaseReference.child(orderId)
+                                .setValue(userOrders)
+                            editOrderToListAndNotify(userOrders, userOrdersListIndex)
+                        } else {
+                            d("UserOrdersAdapter", "getAndUpdateUserProfile - userProfile is null")
+                        }
+                    } else {
+                        d("UserOrdersAdapter", "getAndUpdateUserProfile - snapshot does not exist")
                     }
-                } else {
-                    d("UserOrdersAdapter", "getAndUpdateUserProfile - snapshot does not exist")
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {}
+                override fun onCancelled(error: DatabaseError) {}
 
-        })
+            })
     }
 
     private fun editOrderToListAndNotify(userOrders: UserOrders, userOrdersListIndex: Int) {
@@ -152,15 +161,19 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
         }
     }
 
-    private fun getDetailedText(userOrdersList: MutableList<UserOrders>, position: Int): CharSequence? {
-        var detailedText = "SUMMARY \nTotal Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus + "\n" + "Order Status = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size +"\n\n\n"
+    private fun getDetailedText(
+        userOrdersList: MutableList<UserOrders>,
+        position: Int
+    ): CharSequence? {
+        var detailedText =
+            "SUMMARY \nTotal Cost = \u20B9" + userOrdersList[position].totalCost + "\n" + "Delivery Status = " + userOrdersList[position].deliveryStatus + "\n" + "Order Status = " + userOrdersList[position].orderStatus + "\n" + "Total Items = " + userOrdersList[position].orders.size + "\n\n\n"
         detailedText += "ORDERS\n"
         detailedText += getOrderText(userOrdersList, position)
         detailedText += "PROFILE\n"
         detailedText += "Name = ${userOrdersList[position].userOrderProfile.userName} \n\n"
         detailedText += "Address = ${userOrdersList[position].userOrderProfile.address} \n\n"
         detailedText += "Email = ${userOrdersList[position].userOrderProfile.email} \n\n"
-        detailedText += "Number = +${userOrdersList[position].userOrderProfile.areaPhoneCode + " " + userOrdersList[position].userOrderProfile.number } \n\n"
+        detailedText += "Number = +${userOrdersList[position].userOrderProfile.areaPhoneCode + " " + userOrdersList[position].userOrderProfile.number} \n\n"
         detailedText += "Pincode = ${userOrdersList[position].userOrderProfile.pinCode}"
 
         return detailedText
@@ -176,14 +189,18 @@ class UserOrdersAdapter : RecyclerView.Adapter<UserOrdersAdapter.UserOrderViewHo
         for (orderedProduct in userOrdersList[position].orders) {
             orderText += "${orderedProduct.value.title}\n"
             orderText += "₹" + orderedProduct.value.price.toString() + " X " + orderedProduct.value.quantity + " = ₹" + orderedProduct.value.totalPrice + "\n"
-            if(orderedProduct.value.deliveryStatus == "") {
+            if (orderedProduct.value.deliveryStatus == "") {
                 orderedProduct.value.deliveryStatus = userOrdersList[position].deliveryStatus
-                userOrderFirebaseUtil.mDatabaseReference.child(userOrdersList[position].id).child("orders").child(orderedProduct.value.id).child("deliveryStatus").setValue(userOrdersList[position].deliveryStatus)
+                userOrderFirebaseUtil.mDatabaseReference.child(userOrdersList[position].id)
+                    .child("orders").child(orderedProduct.value.id).child("deliveryStatus")
+                    .setValue(userOrdersList[position].deliveryStatus)
             }
 
-            if(orderedProduct.value.orderStatus == "") {
+            if (orderedProduct.value.orderStatus == "") {
                 orderedProduct.value.orderStatus = userOrdersList[position].orderStatus
-                userOrderFirebaseUtil.mDatabaseReference.child(userOrdersList[position].id).child("orders").child(orderedProduct.value.id).child("orderStatus").setValue(userOrdersList[position].orderStatus)
+                userOrderFirebaseUtil.mDatabaseReference.child(userOrdersList[position].id)
+                    .child("orders").child(orderedProduct.value.id).child("orderStatus")
+                    .setValue(userOrdersList[position].orderStatus)
             }
 
             orderText += "Delivery Status = ${orderedProduct.value.deliveryStatus}\n"
