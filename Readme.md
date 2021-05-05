@@ -124,8 +124,17 @@
  </table>
 
 ###  Empty cart flow  
-![emptyCartFlow/emptyCart](images/emptyCartFlow/emptyCart.PNG)
-![emptyCartFlow/emptyCartPopup](images/emptyCartFlow/emptyCartPopup.PNG)
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/emptyCartFlow/emptyCart.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/emptyCartFlow/emptyCartPopup.PNG" width="240"></td>
+   </tr>
+ </table>
   
 ### Profile fields  
 ![workingProfileFlow/profileFields](images/workingProfileFlow/profileFields.PNG)
