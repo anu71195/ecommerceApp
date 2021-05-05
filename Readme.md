@@ -547,35 +547,39 @@
 <table>
    <tr>
         <td>Selected clean on admin orders screen</td>
+        <td>Selected the top product</td>
         <td>Selected one of the orders from any of the previous flows 1</td>
-        <td>Selected one of the orders from any of the previous flows 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/clean.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/ordersFlow/withinOrdersByCustomer.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/ordersFlow/orderSummary1.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/ordersFlow/orderSummary2.PNG" width="240"></td>
    </tr>
  </table>
 
 <table>
    <tr>
+        <td>Selected one of the orders from any of the previous flows 2</td>
         <td>Changed status of individual product by tapping order/deliver status beside the product</td>
         <td>Changed status of entire order by tapping order/deliver status on the top and clicking on synchronize</td>
-        <td>Changed status of entire order by tapping order/deliver status on the topn</td>
+        
    </tr>
    <tr>
+        <td><img style="text-align: center;" src="images/ordersFlow/orderSummary2.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/ordersFlow/changedIndividualStatus.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/ordersFlow/changedOrderStatus1.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/ordersFlow/changedOrderStatus2.PNG" width="240"></td>
+        
    </tr>
  </table>
 
 <table>
    <tr>
+        <td>Changed status of entire order by tapping order/deliver status on the top</td>
         <td>Click on synchronize to reflect on individual product</td>
         <td>Change is reflected in orders list</td>
    </tr>
    <tr>
+        <td><img style="text-align: center;" src="images/ordersFlow/changedOrderStatus2.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/ordersFlow/updatedOrderList.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/ordersFlow/userOrderList.PNG" width="240"></td>
    </tr>
