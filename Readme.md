@@ -127,8 +127,8 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart Screen</td>
+        <td>Cart when no item is added in it</td>
+        <td>Trying to checkout when no item is added</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/emptyCartFlow/emptyCart.PNG" width="240"></td>
