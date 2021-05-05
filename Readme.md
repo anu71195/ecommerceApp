@@ -452,6 +452,7 @@
  </table>
 
 ### Delete product flow  
+
 <table>
    <tr>
         <td>Click on product from home screen</td>
@@ -581,6 +582,7 @@
  </table>
  
 ### Functions flow  
+
 <table>
    <tr>
         <td>Click on product from home screen</td>
@@ -588,43 +590,127 @@
         <td>Confirm Screen</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/orderflow/changedIndividualStatus.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/changedOrderStatus1.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/orderflow/changedOrderStatus2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/functions.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/contactDetails.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/contactUsUser.PNG" width="240"></td>
    </tr>
  </table>
- 
 
-![functionsFlow/functions](images/functionsFlow/functions.PNG)
-![functionsFlow/contactDetails](images/functionsFlow/contactDetails.PNG)
-![functionsFlow/contactUsUser](images/functionsFlow/contactUsUser.PNG)
-![functionsFlow/editContactUs](images/functionsFlow/editContactUs.PNG)
-![functionsFlow/updatedContactUsUser](images/functionsFlow/updatedContactUsUser.PNG)
-![functionsFlow/editPinCode](images/functionsFlow/editPinCode.PNG)
-![functionsFlow/workingPincode](images/functionsFlow/workingPincode.PNG)
-![functionsFlow/pinCodeChanged](images/functionsFlow/pinCodeChanged.PNG)
-![functionsFlow/editPincodeAdd1](images/functionsFlow/editPincodeAdd1.PNG)
-![functionsFlow/editPincodeAdd2](images/functionsFlow/editPincodeAdd2.PNG)
-![functionsFlow/workingPincode2](images/functionsFlow/workingPincode2.PNG)
-![functionsFlow/revertPincode](images/functionsFlow/revertPincode.PNG)
-![functionsFlow/revertPincodePopup](images/functionsFlow/revertPincodePopup.PNG)
-![functionsFlow/removedPincode](images/functionsFlow/removedPincode.PNG)
-![functionsFlow/removePinCodeError](images/functionsFlow/removePinCodeError.PNG)
-![functionsFlow/workingPinCodeUpdated](images/functionsFlow/workingPinCodeUpdated.PNG)
-![functionsFlow/spamSettings1](images/functionsFlow/spamSettings1.PNG)
-![functionsFlow/spamSettingsEdited](images/functionsFlow/spamSettingsEdited.PNG)
-![functionsFlow/cart1](images/functionsFlow/cart1.PNG)
-![functionsFlow/cart2](images/functionsFlow/cart2.PNG)
-![functionsFlow/cart3](images/functionsFlow/cart3.PNG)
-![functionsFlow/confirmOrder1](images/functionsFlow/confirmOrder1.PNG)
-![functionsFlow/confirmOrder2](images/functionsFlow/confirmOrder2.PNG)
-![functionsFlow/confirmOrder3](images/functionsFlow/confirmOrder3.PNG)
-![functionsFlow/spamSettingsUpdated](images/functionsFlow/spamSettingsUpdated.PNG)
-![functionsFlow/cart4](images/functionsFlow/cart4.PNG)
-![functionsFlow/cart5](images/functionsFlow/cart5.PNG)
-![functionsFlow/confirmOrder4](images/functionsFlow/confirmOrder4.PNG)
-![functionsFlow/confirmOrder5](images/functionsFlow/confirmOrder5.PNG)
-  
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/functionsFlow/editContactUs.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/updatedContactUsUser.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/editPinCode.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/functionsFlow/workingPincode.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/pinCodeChanged.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/editPincodeAdd1.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/functionsFlow/editPincodeAdd2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/workingPincode2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/revertPincode.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/functionsFlow/revertPincodePopup.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/removedPincode.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/removePinCodeError.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/functionsFlow/workingPinCodeUpdated.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/spamSettings1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/spamSettingsEdited.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/functionsFlow/cart1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/cart2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/cart3.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/functionsFlow/confirmOrder1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/confirmOrder2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/confirmOrder3.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/functionsFlow/spamSettingsUpdated.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/cart4.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/cart5.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/functionsFlow/confirmOrder4.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/functionsFlow/confirmOrder5.PNG" width="240"></td>
+   </tr>
+ </table>
+   
 ### Developer flow  
 
 <table>
