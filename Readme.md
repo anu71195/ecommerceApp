@@ -452,17 +452,55 @@
  </table>
 
 ### Delete product flow  
-![deleteProductFlow/searchProduct](images/deleteProductFlow/searchProduct.PNG)
-![deleteProductFlow/productMagnified](images/deleteProductFlow/productMagnified.PNG)
-![deleteProductFlow/editClicked](images/deleteProductFlow/editClicked.PNG)
-![deleteProductFlow/getLocksClicked](images/deleteProductFlow/getLocksClicked.PNG)
-![deleteProductFlow/getProductClicked](images/deleteProductFlow/getProductClicked.PNG)
-![deleteProductFlow/deleteProductClicked](images/deleteProductFlow/deleteProductClicked.PNG)
-![deleteProductFlow/clickedNo](images/deleteProductFlow/clickedNo.PNG)
-![deleteProductFlow/clickedYes](images/deleteProductFlow/clickedYes.PNG)
-![deleteProductFlow/deletedAdmin1](images/deleteProductFlow/deletedAdmin1.PNG)
-![deleteProductFlow/deletedAdmin2](images/deleteProductFlow/deletedAdmin2.PNG)
-![deleteProductFlow/deletedUser1](images/deleteProductFlow/deletedUser1.PNG)
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/deleteProductFlow/searchProduct.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/deleteProductFlow/productMagnified.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/deleteProductFlow/editClicked.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/deleteProductFlow/getLocksClicked.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/deleteProductFlow/getProductClicked.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/deleteProductFlow/deleteProductClicked.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+        <td>Confirm Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/deleteProductFlow/clickedNo.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/deleteProductFlow/clickedYes.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/deleteProductFlow/deletedAdmin1.PNG" width="240"></td>
+   </tr>
+ </table>
+
+<table>
+   <tr>
+        <td>Click on product from home screen</td>
+        <td>Cart Screen</td>
+   </tr>
+   <tr>
+        <td><img style="text-align: center;" src="images/deleteProductFlow/deletedAdmin2.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/deleteProductFlow/deletedUser1.PNG" width="240"></td>
+   </tr>
+ </table>
 
 ### Orders flow  
 ![orderflow/orderHome](images/orderflow/orderHome.PNG)
