@@ -2,7 +2,7 @@
 
 ## Table of contents
   
-1. ### Client flows
+1. ### [Client flows](## Client-flows)
    1. #### Client flow without interruptions
    1. #### User order flow 
    1. ####  Empty cart flow
