@@ -26,8 +26,8 @@
  <table>
    <tr>
         <td style="text-align: center;"width=30%;">Login screen</td>
-        <td style="text-align: center;"width=30%;">Home screen</td>
         <td style="text-align: center;"width=30%;">Logout option</td>
+        <td style="text-align: center;"width=30%;">Home screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/normalFlow/loginScreen.PNG" width="240"></td>
@@ -38,9 +38,9 @@
 
  <table>
    <tr>
-        <td style="text-align: center;"width=30%;">Switch account popup on logout</td>
         <td style="text-align: center;"width=30%;">Navigation bar by clicking on stack structure on top left</td>
         <td style="text-align: center;"width=30%;">Search product</td>
+        <td style="text-align: center;"width=30%;">Click on product from home screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/normalFlow/NavigationBar.PNG" width="240"></td>
@@ -51,9 +51,9 @@
 
 <table>
    <tr>
-        <td style="text-align: center;"width=30%;">Click on product from home screen</td>
         <td style="text-align: center;"width=30%;">Cart screen</td>
         <td style="text-align: center;"width=30%;">Confirm screen</td>
+        <td style="text-align: center;"width=30%;">Confirm screen with unavailable product</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/normalFlow/cart.PNG" width="240"></td>
@@ -64,8 +64,8 @@
  
  <table>
     <tr>
-         <td style="text-align: center;"width=30%;">Pay with razorpay screen</td>
-         <td style="text-align: center;"width=30%;">Razorpay API window</td>
+         <td style="text-align: center;"width=30%;">Empty cart checkout</td>
+         <td style="text-align: center;"width=30%;">Pay with Razorpay</td>
          <td style="text-align: center;"width=30%;">Razorpay API window</td>
     </tr>
     <tr>
@@ -77,9 +77,9 @@
 
  <table>
     <tr>
-         <td style="text-align: center;"width=30%;">Pay with razorpay screen</td>
-         <td style="text-align: center;"width=30%;">Razorpay API window</td>
-         <td style="text-align: center;"width=30%;">Razorpay API window</td>
+         <td style="text-align: center;"width=30%;">Orders list</td>
+         <td style="text-align: center;"width=30%;">Order summary</td>
+         <td style="text-align: center;"width=30%;">Order detailed description</td>
     </tr>
     <tr>
          <td><img style="text-align: center;" src="images/userOrdersFlow/myOrders.PNG" width="240"></td>
@@ -90,9 +90,9 @@
   
    <table>
       <tr>
-           <td style="text-align: center;"width=30%;">Pay with razorpay screen</td>
-           <td style="text-align: center;"width=30%;">Razorpay API window</td>
-           <td style="text-align: center;"width=30%;">Razorpay API window</td>
+           <td style="text-align: center;"width=30%;">Incomplete profile</td>
+           <td style="text-align: center;"width=30%;">Trying to checkout with incomplete profile</td>
+           <td style="text-align: center;"width=30%;">complete profile</td>
       </tr>
       <tr>
            <td><img style="text-align: center;" src="images/errorProfileFlow/profileNew.PNG" width="240"></td>
@@ -103,9 +103,9 @@
     
    <table>
        <tr>
-            <td style="text-align: center;"width=30%;">Pay with razorpay screen</td>
-            <td style="text-align: center;"width=30%;">Razorpay API window</td>
-            <td style="text-align: center;"width=30%;">Razorpay API window</td>
+            <td style="text-align: center;"width=30%;">Settings screen</td>
+            <td style="text-align: center;"width=30%;">Showing unavailable products when switched on the options from settings screen</td>
+            <td style="text-align: center;"width=30%;">Contact us screen</td>
        </tr>
        <tr>
             <td><img style="text-align: center;" src="images/settingsFlow/settingsOn.PNG" width="240"></td>
