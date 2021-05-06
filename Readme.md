@@ -27,53 +27,40 @@
    <tr>
         <td style="text-align: center;"width=30%;">Login screen</td>
         <td style="text-align: center;"width=30%;">Logout option</td>
-        <td style="text-align: center;"width=30%;">Home screen</td>
+        <td style="text-align: center;"width=30%;">Navigation bar by clicking on stack structure on top left</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/normalFlow/loginScreen.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/normalFlow/logout.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/normalFlow/home.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/NavigationBar.PNG" width="240"></td>
    </tr>
  </table>
 
  <table>
    <tr>
-        <td style="text-align: center;"width=30%;">Navigation bar by clicking on stack structure on top left</td>
         <td style="text-align: center;"width=30%;">Search product</td>
         <td style="text-align: center;"width=30%;">Click on product from home screen</td>
+         <td style="text-align: center;"width=30%;">Cart screen</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/normalFlow/NavigationBar.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/normalFlow/search.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/normalFlow/productMagnified.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/cart.PNG" width="240"></td>
    </tr>
  </table>
 
 <table>
    <tr>
-        <td style="text-align: center;"width=30%;">Cart screen</td>
         <td style="text-align: center;"width=30%;">Confirm screen</td>
         <td style="text-align: center;"width=30%;">Confirm screen with unavailable product</td>
+        <td style="text-align: center;"width=30%;">Razorpay API window</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/normalFlow/cart.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/normalFlow/cartConfirm.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/settingsFlow/confirmOrder1.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/paymentgateway.PNG" width="240"></td>
    </tr>
  </table>
- 
- <table>
-    <tr>
-         <td style="text-align: center;"width=30%;">Empty cart checkout</td>
-         <td style="text-align: center;"width=30%;">Pay with Razorpay</td>
-         <td style="text-align: center;"width=30%;">Razorpay API window</td>
-    </tr>
-    <tr>
-         <td><img style="text-align: center;" src="images/emptyCartFlow/emptyCartPopup.PNG" width="240"></td>
-         <td><img style="text-align: center;" src="images/normalFlow/payment.PNG" width="240"></td>
-         <td><img style="text-align: center;" src="images/normalFlow/paymentgateway.PNG" width="240"></td>
-    </tr>
-  </table> 
 
  <table>
     <tr>
