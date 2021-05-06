@@ -2,8 +2,8 @@
 
 ## Table of contents
   
-1. [### Client flows](#Client-flows)
-   1. #### [Client flow without interruptions](#client-flow-without-interruptions )
+1. ### [Client flows](#Client-flows-1)
+   1. #### [Client flow without interruptions](#client-flow-without-interruptions-2)
    1. #### [User order flow](#user-order-flow) 
    1. #### [Empty cart flow](#empty-cart-flow)
    1. #### [Profile fields](#profile-fields)
