@@ -2,7 +2,7 @@
 
 ## Table of contents
   
-1. ### [Client flows](#Client-flows)
+1. ### [Client flows](#clientFlows)
    1. #### Client flow without interruptions
    1. #### User order flow 
    1. ####  Empty cart flow
@@ -19,6 +19,7 @@
    1. #### Functions flow
    1. #### Developer flow
 
+<a name="clientFlows"></a>
 ## Client flows  
 
 ### Client flow without interruptions  
