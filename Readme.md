@@ -378,6 +378,7 @@
           <td><img style="text-align: center;" src="images/ordersFlow/orderTypeDropDown.PNG" width="240"></td>
     </tr>
   </table>
+  
  <table>
     <tr>
          <td style="text-align: center;"width=30%;">Sort orders by customer</td>
@@ -390,6 +391,7 @@
          <td><img style="text-align: center;" src="images/ordersFlow/autoLoadFunctionality.PNG" width="240"></td>
     </tr>
   </table>
+  
  <table>
     <tr>
          <td style="text-align: center;"width=30%;">Order description</td>
