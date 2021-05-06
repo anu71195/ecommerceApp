@@ -5,11 +5,11 @@
 1. ### Client flows
    1. #### Client flow without interruptions
    1. #### User order flow 
-   1. ###  Empty cart flow
-   1. ### Profile fields
-   1. ### Profile fields error flow
-   1. ### Client flow for settings
-   1. ### Client flow for contact us screen
+   1. ####  Empty cart flow
+   1. #### Profile fields
+   1. #### Profile fields error flow
+   1. #### Client flow for settings
+   1. #### Client flow for contact us screen
 2. ### Admin flows
 
 ## Client flows  
