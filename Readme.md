@@ -343,9 +343,9 @@
 
 <table>
    <tr>
-        <td style="text-align: center;"width=30%;">Navigation bar on user flow to acess admin flow</td>
         <td style="text-align: center;"width=30%;">Add product screen</td>
         <td style="text-align: center;"width=30%;">Navigation bar on admin flow</td>
+        <td style="text-align: center;"width=30%;">Admin home screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/addProductFlow/addProduct.PNG" width="240"></td>
@@ -356,85 +356,65 @@
  
  <table>
     <tr>
-         <td style="text-align: center;"width=30%;">Navigation bar on user flow to acess admin flow</td>
-         <td style="text-align: center;"width=30%;">Add product screen</td>
-         <td style="text-align: center;"width=30%;">Navigation bar on admin flow</td>
+         <td style="text-align: center;"width=30%;">Screen on click of product from home screen</td>
+         <td style="text-align: center;"width=30%;">Add product screen partially filled</td>
+         <td style="text-align: center;"width=30%;">Upload image screen</td>
     </tr>
     <tr>
-         <td><img style="text-align: center;" src="images/addProductFlow/selectImage.PNG" width="240"></td>
-         <td><img style="text-align: center;" src="images/addProductFlow/partiallyFilledAddProduct.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/editFlow/product.PNG" width="240"></td>
+         <td><img style="text-align: center;" src="images/addProductFlow/partiallyFilledAddProduct.PNG" width="240"></td>
+         <td><img style="text-align: center;" src="images/addProductFlow/selectImage.PNG" width="240"></td>
     </tr>
   </table>
  <table>
     <tr>
-         <td style="text-align: center;"width=30%;">Navigation bar on user flow to acess admin flow</td>
-         <td style="text-align: center;"width=30%;">Add product screen</td>
-         <td style="text-align: center;"width=30%;">Navigation bar on admin flow</td>
+         <td style="text-align: center;"width=30%;">Edit product screen</td>
+         <td style="text-align: center;"width=30%;">Orders screen</td>
+         <td style="text-align: center;"width=30%;">Orders screen drop down</td>
     </tr>
     <tr>
          <td><img style="text-align: center;" src="images/editFlow/getLocks.PNG" width="240"></td>
-         <td><img style="text-align: center;" src="images/editFlow/changedItems.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/ordersFlow/orderHome.PNG" width="240"></td>
+          <td><img style="text-align: center;" src="images/ordersFlow/orderTypeDropDown.PNG" width="240"></td>
     </tr>
   </table>
  <table>
     <tr>
-         <td style="text-align: center;"width=30%;">Navigation bar on user flow to acess admin flow</td>
-         <td style="text-align: center;"width=30%;">Add product screen</td>
-         <td style="text-align: center;"width=30%;">Navigation bar on admin flow</td>
+         <td style="text-align: center;"width=30%;">Sort orders by customer</td>
+         <td style="text-align: center;"width=30%;">Sort orders by time</td>
+         <td style="text-align: center;"width=30%;">sort orders by status filter with auto-load option on</td>
     </tr>
     <tr>
-         <td><img style="text-align: center;" src="images/ordersFlow/orderTypeDropDown.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/ordersFlow/ordersByCustomer.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/ordersFlow/orderByTime.PNG" width="240"></td>
-    </tr>
-  </table>
- <table>
-    <tr>
-         <td style="text-align: center;"width=30%;">Navigation bar on user flow to acess admin flow</td>
-         <td style="text-align: center;"width=30%;">Add product screen</td>
-         <td style="text-align: center;"width=30%;">Navigation bar on admin flow</td>
-    </tr>
-    <tr>
          <td><img style="text-align: center;" src="images/ordersFlow/autoLoadFunctionality.PNG" width="240"></td>
-         <td><img style="text-align: center;" src="images/ordersFlow/orderSummary1.PNG" width="240"></td>
-         <td><img style="text-align: center;" src="images/ordersFlow/changedOrderStatus1.PNG" width="240"></td>
     </tr>
   </table>
  <table>
     <tr>
-         <td style="text-align: center;"width=30%;">Navigation bar on user flow to acess admin flow</td>
-         <td style="text-align: center;"width=30%;">Add product screen</td>
-         <td style="text-align: center;"width=30%;">Navigation bar on admin flow</td>
+         <td style="text-align: center;"width=30%;">Order description</td>
+         <td style="text-align: center;"width=30%;">Functions screen</td>
+         <td style="text-align: center;"width=30%;">Update contact us details screen</td>
     </tr>
-    <tr>
+    <tr> 
+         <td><img style="text-align: center;" src="images/ordersFlow/orderSummary1.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/functionsFlow/functions.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/functionsFlow/contactDetails.PNG" width="240"></td>
-         <td><img style="text-align: center;" src="images/functionsFlow/editPinCode.PNG" width="240"></td>
+         
     </tr>
   </table>
  <table>
     <tr>
-         <td style="text-align: center;"width=30%;">Navigation bar on user flow to acess admin flow</td>
-         <td style="text-align: center;"width=30%;">Add product screen</td>
-         <td style="text-align: center;"width=30%;">Navigation bar on admin flow</td>
+         <td style="text-align: center;"width=30%;">Update pincode screen</td>
+         <td style="text-align: center;"width=30%;">Update spam settings screen</td>
+         <td style="text-align: center;"width=30%;">Spam detected producted on confirm order screen</td>
     </tr>
     <tr>
+         <td><img style="text-align: center;" src="images/functionsFlow/editPinCode.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/functionsFlow/spamSettings1.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/functionsFlow/confirmOrder1.PNG" width="240"></td>
-         <td><img style="text-align: center;" src="images/developerFlow/developerFlow.PNG" width="240"></td>
     </tr>
   </table>
- <table>
-     <tr>
-          <td style="text-align: center;"width=30%;">Navigation bar on user flow to acess admin flow</td>
-     </tr>
-     <tr>
-          <td><img style="text-align: center;" src="images/developerFlow/developerPopupClickedYes.PNG" width="240"></td>
-     </tr>
- </table>
-
 <!--
 ### Add product flow  
 
