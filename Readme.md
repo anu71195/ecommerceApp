@@ -1,4 +1,8 @@
 # Raunak Garment's ecommerce app for shopping.  
+## Client flows
+1. ### Client flow without interruptions
+2. ### User order flow 
+## Admin flows
 
 ## Client flows  
 
