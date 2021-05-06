@@ -1,6 +1,6 @@
 # Ecommerce app for shopping.
 
-## Table of contents
+## [Table of contents of Wiki](https://github.com/anu71195/ecommerceApp/wiki)
   
 1. ### [Client flows](https://github.com/anu71195/ecommerceApp/wiki/Client-Flows)
    1. #### [Client flow without interruptions](https://github.com/anu71195/ecommerceApp/wiki/Client-flow-without-interruptions)
