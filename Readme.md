@@ -4,20 +4,20 @@
   
 1. ### [Client flows](#Client-flows)
    1. #### [Client flow without interruptions](#client-flow-without-interruptions )
-   1. #### [User order flow] 
-   1. ####  Empty cart flow
-   1. #### Profile fields
-   1. #### Profile fields error flow
-   1. #### Client flow for settings
-   1. #### Client flow for contact us screen
-2. ### Admin flows
-   1. #### Admin navigation flow
-   1. #### Add product flow
-   1. #### Edit product flow
-   1. #### Delete product flow
-   1. #### Orders flow
-   1. #### Functions flow
-   1. #### Developer flow
+   1. #### [User order flow](#user-order-flow) 
+   1. #### [Empty cart flow](#empty-cart-flow)
+   1. #### [Profile fields](#profile-fields)
+   1. #### [Profile fields error flow](#profile-fields-error-flow)
+   1. #### [Client flow for settings](#client-flow-for-settings)
+   1. #### [Client flow for contact us screen](#client-flow-for-contact-us-screen)
+2. ### [Admin flows](#admin-flows)
+   1. #### [Admin navigation flow](#admin-navigation-flow)
+   1. #### [Add product flow](#add-product-flow)
+   1. #### [Edit product flow](#edit-product-flow)
+   1. #### [Delete product flow](#delete-product-flow)
+   1. #### [Orders flow](#orders-flow)
+   1. #### [Functions flow](#functions-flow)
+   1. #### [Developer flow](#developer-flow)
 
 ## Client flows  
 
