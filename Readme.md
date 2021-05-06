@@ -1,5 +1,6 @@
 # Ecommerce app for shopping.
-
+## [Client screens](#client-screens-1)
+## [Admin screens](#admin-screens-1)
 ## [Table of contents of Wiki](https://github.com/anu71195/ecommerceApp/wiki)
   
 1. ### [Client flows](https://github.com/anu71195/ecommerceApp/wiki/Client-Flows)
@@ -19,7 +20,7 @@
    1. #### [Functions flow](https://github.com/anu71195/ecommerceApp/wiki/Functions-flow)
    1. #### [Developer flow](https://github.com/anu71195/ecommerceApp/wiki/Developer-flow)
 
-## Client flows  
+## Client screens  
 
 <!-- ### Client flow without interruptions -->  
  
@@ -324,7 +325,7 @@
    </tr>
  </table>
 -->
-## Admin flows  
+## Admin screens  
 
 <!-- ### Admin navigation flow -->  
 
