@@ -6,9 +6,9 @@
  
  <table>
    <tr>
-        <td>Login screen</td>
-        <td>Home screen</td>
-        <td>Logout option</td>
+        <td style="text-align: center;"width=30%;">Login screen</td>
+        <td style="text-align: center;"width=30%;">Home screen</td>
+        <td style="text-align: center;"width=30%;">Logout option</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/normalFlow/loginScreen.PNG" width="240"></td>
@@ -19,9 +19,9 @@
 
  <table>
    <tr>
-        <td>Switch account popup on logout</td>
-        <td>Navigation bar by clicking on stack structure on top left</td>
-        <td>Search product</td>
+        <td style="text-align: center;"width=30%;">Switch account popup on logout</td>
+        <td style="text-align: center;"width=30%;">Navigation bar by clicking on stack structure on top left</td>
+        <td style="text-align: center;"width=30%;">Search product</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/normalFlow/logoutPopup.PNG" width="240"></td>
@@ -32,9 +32,9 @@
 
 <table>
    <tr>
-        <td>Click on product from home screen</td>
-        <td>Cart screen</td>
-        <td>Confirm screen</td>
+        <td style="text-align: center;"width=30%;">Click on product from home screen</td>
+        <td style="text-align: center;"width=30%;">Cart screen</td>
+        <td style="text-align: center;"width=30%;">Confirm screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/normalFlow/productMagnified.PNG" width="240"></td>
@@ -45,8 +45,8 @@
  
  <table>
     <tr>
-         <td>Pay with razorpay screen</td>
-         <td>Razorpay API window</td>
+         <td style="text-align: center;"width=30%;">Pay with razorpay screen</td>
+         <td style="text-align: center;"width=30%;">Razorpay API window</td>
     </tr>
     <tr>
          <td><img style="text-align: center;" src="images/normalFlow/payment.PNG" width="240"></td>
@@ -59,9 +59,9 @@
 
 <table>
    <tr>
-        <td>Home screen</td>
-        <td>Product 1</td>
-        <td>Product 2</td>
+        <td style="text-align: center;"width=30%;">Home screen</td>
+        <td style="text-align: center;"width=30%;">Product 1</td>
+        <td style="text-align: center;"width=30%;">Product 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/userOrdersFlow/home.PNG" width="240"></td>
@@ -73,9 +73,9 @@
 
 <table>
    <tr>
-        <td>Cart 1</td>
-        <td>Cart 2</td>
-        <td>Cart 3</td>
+        <td style="text-align: center;"width=30%;">Cart 1</td>
+        <td style="text-align: center;"width=30%;">Cart 2</td>
+        <td style="text-align: center;"width=30%;">Cart 3</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/userOrdersFlow/cart1.PNG" width="240"></td>
@@ -86,9 +86,9 @@
 
 <table>
    <tr>
-        <td>Confirm order 1</td>
-        <td>Confirm order 2</td>
-        <td>Pay with razorpay screen</td>
+        <td style="text-align: center;"width=30%;">Confirm order 1</td>
+        <td style="text-align: center;"width=30%;">Confirm order 2</td>
+        <td style="text-align: center;"width=30%;">Pay with razorpay screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/userOrdersFlow/confirm1.PNG" width="240"></td>
@@ -99,9 +99,9 @@
 
 <table>
    <tr>
-        <td>Razorpay API window</td>
-        <td>Pay with razorpay screen after successful payment</td>
-        <td>Orders' list screen</td>
+        <td style="text-align: center;"width=30%;">Razorpay API window</td>
+        <td style="text-align: center;"width=30%;">Pay with razorpay screen after successful payment</td>
+        <td style="text-align: center;"width=30%;">Orders' list screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/userOrdersFlow/paymentGateway.PNG" width="240"></td>
@@ -112,9 +112,9 @@
 
 <table>
    <tr>
-        <td>Orders' list screen on click of description of one of the orders</td>
-        <td>Orders' list screen on again click of description of one of the orders</td>
-        <td>Order summary screen after clicking on button with date on previous screen</td>
+        <td style="text-align: center;"width=30%;">Orders' list screen on click of description of one of the orders</td>
+        <td style="text-align: center;"width=30%;">Orders' list screen on again click of description of one of the orders</td>
+        <td style="text-align: center;"width=30%;">Order summary screen after clicking on button with date on previous screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/userOrdersFlow/myOrdersClick1.PNG" width="240"></td>
@@ -127,8 +127,8 @@
 
 <table>
    <tr>
-        <td>Cart when no item is added in it</td>
-        <td>Trying to checkout when no item is added</td>
+        <td style="text-align: center;"width=30%;">Cart when no item is added in it</td>
+        <td style="text-align: center;"width=30%;">Trying to checkout when no item is added</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/emptyCartFlow/emptyCart.PNG" width="240"></td>
@@ -140,8 +140,8 @@
 
 <table>
    <tr>
-        <td>Profile screen to show the fields</td>
-        <td>Profile screen with all fields complete and validated</td>
+        <td style="text-align: center;"width=30%;">Profile screen to show the fields</td>
+        <td style="text-align: center;"width=30%;">Profile screen with all fields complete and validated</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/workingProfileFlow/profileFields.PNG" width="240"></td>
@@ -153,9 +153,9 @@
 
 <table>
    <tr>
-        <td>Profile Screen opened for first time</td>
-        <td>Trying to checkout with profile shown in previous screen</td>
-        <td>Profile screen with updated address</td>
+        <td style="text-align: center;"width=30%;">Profile Screen opened for first time</td>
+        <td style="text-align: center;"width=30%;">Trying to checkout with profile shown in previous screen</td>
+        <td style="text-align: center;"width=30%;">Profile screen with updated address</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/errorProfileFlow/profileNew.PNG" width="240"></td>
@@ -166,9 +166,9 @@
 
 <table>
    <tr>
-        <td>Trying to checkout with profile shown in previous screen i.e. with address updated</td>
-        <td>Profile screen with updated pincode as well</td>
-        <td>Trying to checkout with profile shown in previous screen i.e. with pincode updated as well</td>
+        <td style="text-align: center;"width=30%;">Trying to checkout with profile shown in previous screen i.e. with address updated</td>
+        <td style="text-align: center;"width=30%;">Profile screen with updated pincode as well</td>
+        <td style="text-align: center;"width=30%;">Trying to checkout with profile shown in previous screen i.e. with pincode updated as well</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/errorProfileFlow/profileCheckoutNotAddressError.PNG" width="240"></td>
@@ -181,9 +181,9 @@
 
 <table>
    <tr>
-        <td>Settings screen all options off (default screen)</td>
-        <td>Settings screen all options on</td>
-        <td>Home screen with all options on settings on i.e. it shows items which can't be bought now</td>
+        <td style="text-align: center;"width=30%;">Settings screen all options off (default screen)</td>
+        <td style="text-align: center;"width=30%;">Settings screen all options on</td>
+        <td style="text-align: center;"width=30%;">Home screen with all options on settings on i.e. it shows items which can't be bought now</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/settingsOff.PNG" width="240"></td>
@@ -194,9 +194,9 @@
  
  <table>
     <tr>
-         <td>Home screen with all options on settings on 2</td>
-         <td>Product under Maintenance added to cart</td>
-         <td>Home screen with all options on settings on 3</td>
+         <td style="text-align: center;"width=30%;">Home screen with all options on settings on 2</td>
+         <td style="text-align: center;"width=30%;">Product under Maintenance added to cart</td>
+         <td style="text-align: center;"width=30%;">Home screen with all options on settings on 3</td>
     </tr>
     <tr>
          <td><img style="text-align: center;" src="images/settingsFlow/settingsOnHome1.PNG" width="240"></td>
@@ -207,9 +207,9 @@
 
 <table>
    <tr>
-        <td>Product not available added to cart</td>
-        <td>Home screen with all options on settings on 4</td>
-        <td>Available product added to cart</td>
+        <td style="text-align: center;"width=30%;">Product not available added to cart</td>
+        <td style="text-align: center;"width=30%;">Home screen with all options on settings on 4</td>
+        <td style="text-align: center;"width=30%;">Available product added to cart</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/addNotAvailableProduct.PNG" width="240"></td>
@@ -220,9 +220,9 @@
 
 <table>
    <tr>
-        <td>Cart 1</td>
-        <td>Cart 2</td>
-        <td>Cart 3</td>
+        <td style="text-align: center;"width=30%;">Cart 1</td>
+        <td style="text-align: center;"width=30%;">Cart 2</td>
+        <td style="text-align: center;"width=30%;">Cart 3</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/cart1.PNG" width="240"></td>
@@ -233,9 +233,9 @@
 
 <table>
    <tr>
-        <td>Cart 4</td>
-        <td>Confirm order 1 with underMaintenace product can't be bought</td>
-        <td>Confirm order 2 with non available product can't be bought</td>
+        <td style="text-align: center;"width=30%;">Cart 4</td>
+        <td style="text-align: center;"width=30%;">Confirm order 1 with underMaintenace product can't be bought</td>
+        <td style="text-align: center;"width=30%;">Confirm order 2 with non available product can't be bought</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/cart4.PNG" width="240"></td>
@@ -246,9 +246,9 @@
 
 <table>
    <tr>
-        <td>Confirm order 3</td>
-        <td>Confirm order 4</td>
-        <td>Pay with razorpay screen</td>
+        <td style="text-align: center;"width=30%;">Confirm order 3</td>
+        <td style="text-align: center;"width=30%;">Confirm order 4</td>
+        <td style="text-align: center;"width=30%;">Pay with razorpay screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/confirmOrder3.PNG" width="240"></td>
@@ -259,7 +259,7 @@
 
 <table>
    <tr>
-        <td>Razorpay API window</td>
+        <td style="text-align: center;"width=30%;">Razorpay API window</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/settingsFlow/paymentGateway.PNG" width="240"></td>
@@ -270,7 +270,7 @@
 ### Client flow for contact us screen  
 <table>
    <tr>
-        <td>Contact us screen</td>
+        <td style="text-align: center;"width=30%;">Contact us screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/contactUsFlow/contactUs.PNG" width="240"></td>
@@ -283,9 +283,9 @@
 
 <table>
    <tr>
-        <td>Navigation bar on user flow to acess admin flow</td>
-        <td>Add product screen</td>
-        <td>Navigation bar on admin flow</td>
+        <td style="text-align: center;"width=30%;">Navigation bar on user flow to acess admin flow</td>
+        <td style="text-align: center;"width=30%;">Add product screen</td>
+        <td style="text-align: center;"width=30%;">Navigation bar on admin flow</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/adminNavigationFlow/adminNavigation.PNG" width="240"></td>
@@ -298,9 +298,9 @@
 
 <table>
    <tr>
-        <td>Add product screen</td>
-        <td>Admin home screen 1</td>
-        <td>Admin home screen 2</td>
+        <td style="text-align: center;"width=30%;">Add product screen</td>
+        <td style="text-align: center;"width=30%;">Admin home screen 1</td>
+        <td style="text-align: center;"width=30%;">Admin home screen 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/addProductFlow/addProduct.PNG" width="240"></td>
@@ -324,9 +324,9 @@
 
 <table>
    <tr>
-        <td>Image uploaded to firebase and url is created as shown and image is displayed below</td>
-        <td>Clicking on add product, product is added and screen is reset to empty fields</td>
-        <td>Admin home screen with new added product</td>
+        <td style="text-align: center;"width=30%;">Image uploaded to firebase and url is created as shown and image is displayed below</td>
+        <td style="text-align: center;"width=30%;">Clicking on add product, product is added and screen is reset to empty fields</td>
+        <td style="text-align: center;"width=30%;">Admin home screen with new added product</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/addProductFlow/imageAdded.PNG" width="240"></td>
@@ -337,9 +337,9 @@
 
 <table>
    <tr>
-        <td>Clicking on new added product from admin home screen</td>
-        <td>Searching the new added product in admin home screen</td>
-        <td>Searching the new added product in user home screen</td>
+        <td style="text-align: center;"width=30%;">Clicking on new added product from admin home screen</td>
+        <td style="text-align: center;"width=30%;">Searching the new added product in admin home screen</td>
+        <td style="text-align: center;"width=30%;">Searching the new added product in user home screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/addProductFlow/newProductInAdmin2.PNG" width="240"></td>
@@ -350,7 +350,7 @@
 
 <table>
    <tr>
-        <td>Clicking on new added product from user home screen</td>
+        <td style="text-align: center;"width=30%;">Clicking on new added product from user home screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/addProductFlow/newProductUser2.PNG" width="240"></td>
@@ -361,9 +361,9 @@
 
 <table>
    <tr>
-        <td>Admin home screen</td>
-        <td>Clicking on a product from admin home screen</td>
-        <td>Product edit screen</td>
+        <td style="text-align: center;"width=30%;">Admin home screen</td>
+        <td style="text-align: center;"width=30%;">Clicking on a product from admin home screen</td>
+        <td style="text-align: center;"width=30%;">Product edit screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/home.PNG" width="240"></td>
@@ -375,9 +375,9 @@
 
 <table>
    <tr>
-        <td>Clicked on get locks</td>
-        <td>Clicked on get product</td>
-        <td>Changed product description and name</td>
+        <td style="text-align: center;"width=30%;">Clicked on get locks</td>
+        <td style="text-align: center;"width=30%;">Clicked on get product</td>
+        <td style="text-align: center;"width=30%;">Changed product description and name</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/getLocks.PNG" width="240"></td>
@@ -388,9 +388,9 @@
 
 <table>
    <tr>
-        <td>Change confirmation popup on click of update product</td>
-        <td>Clicking yes saved the description</td>
-        <td>Clicked on release locks</td>
+        <td style="text-align: center;"width=30%;">Change confirmation popup on click of update product</td>
+        <td style="text-align: center;"width=30%;">Clicking yes saved the description</td>
+        <td style="text-align: center;"width=30%;">Clicked on release locks</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/confirmationPopup.PNG" width="240"></td>
@@ -401,9 +401,9 @@
 
 <table>
    <tr>
-        <td>Admin home screen with updated product name</td>
-        <td>Clicking on the updated product from admin home screen</td>
-        <td>searched for updated product in user flow</td>
+        <td style="text-align: center;"width=30%;">Admin home screen with updated product name</td>
+        <td style="text-align: center;"width=30%;">Clicking on the updated product from admin home screen</td>
+        <td style="text-align: center;"width=30%;">searched for updated product in user flow</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/changedProductInAdmin.PNG" width="240"></td>
@@ -414,9 +414,9 @@
 
 <table>
    <tr>
-        <td>Product edit screen with stocks set to 0</td>
-        <td>Searched on admin home screen with updated product with 0 stock as not available</td>
-        <td>Searched on user home screen with updated product with 0 stock as not available</td>
+        <td style="text-align: center;"width=30%;">Product edit screen with stocks set to 0</td>
+        <td style="text-align: center;"width=30%;">Searched on admin home screen with updated product with 0 stock as not available</td>
+        <td style="text-align: center;"width=30%;">Searched on user home screen with updated product with 0 stock as not available</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/editScreen2.PNG" width="240"></td>
@@ -427,9 +427,9 @@
 
 <table>
    <tr>
-        <td>Product edit screen to change image</td>
-        <td>Window displayed on click of upload image button and then selected it</td>
-        <td>New image uploaded and url generated is displayed and image is displayed below 1</td>
+        <td style="text-align: center;"width=30%;">Product edit screen to change image</td>
+        <td style="text-align: center;"width=30%;">Window displayed on click of upload image button and then selected it</td>
+        <td style="text-align: center;"width=30%;">New image uploaded and url generated is displayed and image is displayed below 1</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/editScreen3.PNG" width="240"></td>
@@ -440,9 +440,9 @@
 
 <table>
    <tr>
-        <td>New image uploaded and url generated is displayed and image is displayed below 2</td>
-        <td>Searched on admin home screen with updated product with updated image</td>
-        <td>Searched on user home screen with updated product with with updated image</td>
+        <td style="text-align: center;"width=30%;">New image uploaded and url generated is displayed and image is displayed below 2</td>
+        <td style="text-align: center;"width=30%;">Searched on admin home screen with updated product with updated image</td>
+        <td style="text-align: center;"width=30%;">Searched on user home screen with updated product with with updated image</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/editFlow/editScreen5.PNG" width="240"></td>
@@ -455,9 +455,9 @@
 
 <table>
    <tr>
-        <td>Searched for the product to be deleted</td>
-        <td>Clicked on the product from the previous screen and then clicked edit product button</td>
-        <td>Clicked get locks</td>
+        <td style="text-align: center;"width=30%;">Searched for the product to be deleted</td>
+        <td style="text-align: center;"width=30%;">Clicked on the product from the previous screen and then clicked edit product button</td>
+        <td style="text-align: center;"width=30%;">Clicked get locks</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/deleteProductFlow/searchProduct.PNG" width="240"></td>
@@ -468,9 +468,9 @@
 
 <table>
    <tr>
-        <td>Clicked get product</td>
-        <td>Clicked on delete product</td>
-        <td>Delete confirmation popup is displayed on click of delete product form previous screen</td>
+        <td style="text-align: center;"width=30%;">Clicked get product</td>
+        <td style="text-align: center;"width=30%;">Clicked on delete product</td>
+        <td style="text-align: center;"width=30%;">Delete confirmation popup is displayed on click of delete product form previous screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/deleteProductFlow/getLocksClicked.PNG" width="240"></td>
@@ -481,9 +481,9 @@
 
 <table>
    <tr>
-        <td>Clicked no, nothing happens</td>
-        <td>Clicked yes, product is deleted and journey is resumed to admin home screen</td>
-        <td>Deleted product could not be found in the product list</td>
+        <td style="text-align: center;"width=30%;">Clicked no, nothing happens</td>
+        <td style="text-align: center;"width=30%;">Clicked yes, product is deleted and journey is resumed to admin home screen</td>
+        <td style="text-align: center;"width=30%;">Deleted product could not be found in the product list</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/deleteProductFlow/clickedNo.PNG" width="240"></td>
@@ -494,8 +494,8 @@
 
 <table>
    <tr>
-        <td>Searched for the deleted product but is missing in admin flow</td>
-        <td>Searched for the deleted product but is missing in user flow</td>
+        <td style="text-align: center;"width=30%;">Searched for the deleted product but is missing in admin flow</td>
+        <td style="text-align: center;"width=30%;">Searched for the deleted product but is missing in user flow</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/deleteProductFlow/deletedAdmin2.PNG" width="240"></td>
@@ -507,9 +507,9 @@
 
 <table>
    <tr>
-        <td>Admin orders Screen with nothing selected</td>
-        <td>Drop down to sort the orders list</td>
-        <td>Selected By Customer</td>
+        <td style="text-align: center;"width=30%;">Admin orders Screen with nothing selected</td>
+        <td style="text-align: center;"width=30%;">Drop down to sort the orders list</td>
+        <td style="text-align: center;"width=30%;">Selected By Customer</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/orderHome.PNG" width="240"></td>
@@ -520,9 +520,9 @@
 
 <table>
    <tr>
-        <td>Clicking on one of the customer shows all the orders of that user</td>
-        <td>Selected by time on admin orders screen</td>
-        <td>Selected status filter</td>
+        <td style="text-align: center;"width=30%;">Clicking on one of the customer shows all the orders of that user</td>
+        <td style="text-align: center;"width=30%;">Selected by time on admin orders screen</td>
+        <td style="text-align: center;"width=30%;">Selected status filter</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/withinOrdersByCustomer.PNG" width="240"></td>
@@ -533,9 +533,9 @@
 
 <table>
    <tr>
-        <td>Selected multiple options to sort and clicked filter 1</td>
-        <td>Selected multiple options to sort and clicked filter 2</td>
-        <td>Auto load option selected removes the work of clicking on filter but increases gateway calls</td>
+        <td style="text-align: center;"width=30%;">Selected multiple options to sort and clicked filter 1</td>
+        <td style="text-align: center;"width=30%;">Selected multiple options to sort and clicked filter 2</td>
+        <td style="text-align: center;"width=30%;">Auto load option selected removes the work of clicking on filter but increases gateway calls</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/statusFilterSelection1.PNG" width="240"></td>
@@ -546,9 +546,9 @@
 
 <table>
    <tr>
-        <td>Selected clean on admin orders screen</td>
-        <td>Selected the top product</td>
-        <td>Order Summary 1</td>
+        <td style="text-align: center;"width=30%;">Selected clean on admin orders screen</td>
+        <td style="text-align: center;"width=30%;">Selected the top product</td>
+        <td style="text-align: center;"width=30%;">Order Summary 1</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/clean.PNG" width="240"></td>
@@ -559,9 +559,9 @@
 
 <table>
    <tr>
-        <td>Order Summary 2</td>
-        <td>Changed status of individual product by tapping order/deliver status beside the product</td>
-        <td>Changed status of entire order by tapping order/deliver status on the top and clicking on synchronize</td>
+        <td style="text-align: center;"width=30%;">Order Summary 2</td>
+        <td style="text-align: center;"width=30%;">Changed status of individual product by tapping order/deliver status beside the product</td>
+        <td style="text-align: center;"width=30%;">Changed status of entire order by tapping order/deliver status on the top and clicking on synchronize</td>
         
    </tr>
    <tr>
@@ -574,9 +574,9 @@
 
 <table>
    <tr>
-        <td>Changed status of entire order by tapping order/deliver status on the top</td>
-        <td>Click on synchronize to reflect on individual product</td>
-        <td>Change is reflected in orders list</td>
+        <td style="text-align: center;"width=30%;">Changed status of entire order by tapping order/deliver status on the top</td>
+        <td style="text-align: center;"width=30%;">Click on synchronize to reflect on individual product</td>
+        <td style="text-align: center;"width=30%;">Change is reflected in orders list</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/ordersFlow/changedOrderStatus2.PNG" width="240"></td>
@@ -589,9 +589,9 @@
 
 <table>
    <tr>
-        <td>Functions screen</td>
-        <td>Edit contact us details screen</td>
-        <td>Contact us screen for user</td>
+        <td style="text-align: center;"width=30%;">Functions screen</td>
+        <td style="text-align: center;"width=30%;">Edit contact us details screen</td>
+        <td style="text-align: center;"width=30%;">Contact us screen for user</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/functions.PNG" width="240"></td>
@@ -602,9 +602,9 @@
 
 <table>
    <tr>
-        <td>Changed contact us details and clicked on update contact details</td>
-        <td>Change reflected on contact us screen for user</td>
-        <td>Edit pincode Screen</td>
+        <td style="text-align: center;"width=30%;">Changed contact us details and clicked on update contact details</td>
+        <td style="text-align: center;"width=30%;">Change reflected on contact us screen for user</td>
+        <td style="text-align: center;"width=30%;">Edit pincode Screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/editContactUs.PNG" width="240"></td>
@@ -615,9 +615,9 @@
 
 <table>
    <tr>
-        <td>User profile screen with valid pincode</td>
-        <td>Changed to invalid pincode</td>
-        <td>Inserted that invalid pincode from edit pincode screen</td>
+        <td style="text-align: center;"width=30%;">User profile screen with valid pincode</td>
+        <td style="text-align: center;"width=30%;">Changed to invalid pincode</td>
+        <td style="text-align: center;"width=30%;">Inserted that invalid pincode from edit pincode screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/workingPincode.PNG" width="240"></td>
@@ -628,9 +628,9 @@
 
 <table>
    <tr>
-        <td>New added pincode is displayed in the below list</td>
-        <td>New added pincode is reflected as valid in the user profile</td>
-        <td>Edit pincode screen</td>
+        <td style="text-align: center;"width=30%;">New added pincode is displayed in the below list</td>
+        <td style="text-align: center;"width=30%;">New added pincode is reflected as valid in the user profile</td>
+        <td style="text-align: center;"width=30%;">Edit pincode screen</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/editPincodeAdd2.PNG" width="240"></td>
@@ -641,9 +641,9 @@
 
 <table>
    <tr>
-        <td>Clicked on minus sign in front of the pincode added to delete it and confirmation popup is shown</td>
-        <td>Clicking on yes deleted the pincode</td>
-        <td>Deleted pincode is now regarded as invalid</td>
+        <td style="text-align: center;"width=30%;">Clicked on minus sign in front of the pincode added to delete it and confirmation popup is shown</td>
+        <td style="text-align: center;"width=30%;">Clicking on yes deleted the pincode</td>
+        <td style="text-align: center;"width=30%;">Deleted pincode is now regarded as invalid</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/revertPincodePopup.PNG" width="240"></td>
@@ -654,9 +654,9 @@
 
 <table>
    <tr>
-        <td>Changing to valid pincode makes the profile complete again</td>
-        <td>Spam settings screen</td>
-        <td>Changed lock limit from 20 to 2 tells how many times user can place order of same product in single day</td>
+        <td style="text-align: center;"width=30%;">Changing to valid pincode makes the profile complete again</td>
+        <td style="text-align: center;"width=30%;">Spam settings screen</td>
+        <td style="text-align: center;"width=30%;">Changed lock limit from 20 to 2 tells how many times user can place order of same product in single day</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/workingPinCodeUpdated.PNG" width="240"></td>
@@ -667,9 +667,9 @@
 
 <table>
    <tr>
-        <td>Cart 1</td>
-        <td>Cart 2</td>
-        <td>Cart 3</td>
+        <td style="text-align: center;"width=30%;">Cart 1</td>
+        <td style="text-align: center;"width=30%;">Cart 2</td>
+        <td style="text-align: center;"width=30%;">Cart 3</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/cart1.PNG" width="240"></td>
@@ -680,9 +680,9 @@
 
 <table>
    <tr>
-        <td>Confirm order with product which has been ordered large number of times shown as spam detected</td>
-        <td>Confirm order 1</td>
-        <td>Confirm order 2</td>
+        <td style="text-align: center;"width=30%;">Confirm order with product which has been ordered large number of times shown as spam detected</td>
+        <td style="text-align: center;"width=30%;">Confirm order 1</td>
+        <td style="text-align: center;"width=30%;">Confirm order 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/confirmOrder1.PNG" width="240"></td>
@@ -693,9 +693,9 @@
 
 <table>
    <tr>
-        <td>Changed spam settings back to 20</td>
-        <td>Checkout 1</td>
-        <td>Checkout 2</td>
+        <td style="text-align: center;"width=30%;">Changed spam settings back to 20</td>
+        <td style="text-align: center;"width=30%;">Checkout 1</td>
+        <td style="text-align: center;"width=30%;">Checkout 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/spamSettingsUpdated.PNG" width="240"></td>
@@ -706,8 +706,8 @@
 
 <table>
    <tr>
-        <td>Limit is increased so not products are not shown under spam 1</td>
-        <td>Limit is increased so not products are not shown under spam 2</td>
+        <td style="text-align: center;"width=30%;">Limit is increased so not products are not shown under spam 1</td>
+        <td style="text-align: center;"width=30%;">Limit is increased so not products are not shown under spam 2</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/functionsFlow/confirmOrder4.PNG" width="240"></td>
@@ -719,9 +719,9 @@
 
 <table>
    <tr>
-        <td>Developer screen access confirmation popup</td>
-        <td>Clicking no on popup from previous screen</td>
-        <td>Developer Screen by clicking yes on popup</td>
+        <td style="text-align: center;"width=30%;">Developer screen access confirmation popup</td>
+        <td style="text-align: center;"width=30%;">Clicking no on popup from previous screen</td>
+        <td style="text-align: center;"width=30%;">Developer Screen by clicking yes on popup</td>
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/developerFlow/developerFlow.PNG" width="240"></td>
