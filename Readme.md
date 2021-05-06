@@ -1,4 +1,4 @@
-# Raunak Garment's ecommerce app for shopping.
+# Ecommerce app for shopping.
 
 ## Table of contents
   
