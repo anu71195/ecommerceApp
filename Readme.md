@@ -21,7 +21,7 @@
 
 ## Client flows  
 
-### Client flow without interruptions  
+<!-- ### Client flow without interruptions -->  
  
  <table>
    <tr>
