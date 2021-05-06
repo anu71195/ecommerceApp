@@ -435,6 +435,7 @@
      </tr>
  </table>
 
+<!--
 ### Add product flow  
 
 <table>
@@ -870,4 +871,4 @@
         <td><img style="text-align: center;" src="images/developerFlow/developerPopupClickedYes.PNG" width="240"></td>
    </tr>
  </table>
- 
+ -->
