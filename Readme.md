@@ -2,22 +2,22 @@
 
 ## Table of contents
   
-1. ### [Client flows](#Client-flows-1)
-   1. #### [Client flow without interruptions](#client-flow-without-interruptions-1)
-   1. #### [User order flow](#user-order-flow-1) 
-   1. #### [Empty cart flow](#empty-cart-flow-1)
-   1. #### [Profile fields](#profile-fields-1)
-   1. #### [Profile fields error flow](#profile-fields-error-flow-1)
-   1. #### [Client flow for settings](#client-flow-for-settings-1)
-   1. #### [Client flow for contact us screen](#client-flow-for-contact-us-screen-1)
-2. ### [Admin flows](#admin-flows-1)
-   1. #### [Admin navigation flow](#admin-navigation-flow-1)
-   1. #### [Add product flow](#add-product-flow-1)
-   1. #### [Edit product flow](#edit-product-flow-1)
-   1. #### [Delete product flow](#delete-product-flow-1)
-   1. #### [Orders flow](#orders-flow-1)
-   1. #### [Functions flow](#functions-flow-1)
-   1. #### [Developer flow](#developer-flow-1)
+1. ### [Client flows](https://github.com/anu71195/ecommerceApp/wiki/Client-Flows)
+   1. #### [Client flow without interruptions](https://github.com/anu71195/ecommerceApp/wiki/Client-flow-without-interruptions)
+   1. #### [User order flow](https://github.com/anu71195/ecommerceApp/wiki/User-order-flow) 
+   1. #### [Empty cart flow](https://github.com/anu71195/ecommerceApp/wiki/Empty-cart-flow)
+   1. #### [Profile fields](https://github.com/anu71195/ecommerceApp/wiki/Profile-fields)
+   1. #### [Profile fields error flow](https://github.com/anu71195/ecommerceApp/wiki/Profile-fields-error-flow)
+   1. #### [Client flow for settings](https://github.com/anu71195/ecommerceApp/wiki/Client-flow-for-settings)
+   1. #### [Client flow for contact us screen](https://github.com/anu71195/ecommerceApp/wiki/Client-flow-for-contact-us-screen)
+2. ### [Admin flows](https://github.com/anu71195/ecommerceApp/wiki/Client-flows)
+   1. #### [Admin navigation flow](https://github.com/anu71195/ecommerceApp/wiki/Admin-navigation-flow)
+   1. #### [Add product flow](https://github.com/anu71195/ecommerceApp/wiki/Add-product-flow)
+   1. #### [Edit product flow](https://github.com/anu71195/ecommerceApp/wiki/Edit-product-flow)
+   1. #### [Delete product flow](https://github.com/anu71195/ecommerceApp/wiki/Delete-product-flow)
+   1. #### [Orders flow](https://github.com/anu71195/ecommerceApp/wiki/Orders-flow)
+   1. #### [Functions flow](https://github.com/anu71195/ecommerceApp/wiki/Functions-flow)
+   1. #### [Developer flow](https://github.com/anu71195/ecommerceApp/wiki/Developer-flow)
 
 ## Client flows  
 
