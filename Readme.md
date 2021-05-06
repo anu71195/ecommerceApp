@@ -2,10 +2,10 @@
 
 ## Table of contents
   
-* ### Client flows
+1. ### Client flows
    1. #### Client flow without interruptions
    1. #### User order flow 
-* ### Admin flows
+2. ### Admin flows
 
 ## Client flows  
 
