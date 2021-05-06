@@ -402,7 +402,6 @@
          <td><img style="text-align: center;" src="images/ordersFlow/orderSummary1.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/functionsFlow/functions.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/functionsFlow/contactDetails.PNG" width="240"></td>
-         
     </tr>
   </table>
  <table>
