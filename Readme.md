@@ -3,14 +3,21 @@
 ## Table of contents
   
 1. ### Client flows
-   1. #### Client flow without interruptions
-   1. #### User order flow 
-   1. ####  Empty cart flow
-   1. #### Profile fields
-   1. #### Profile fields error flow
-   1. #### Client flow for settings
-   1. #### Client flow for contact us screen
+  1. #### Client flow without interruptions
+  1. #### User order flow 
+  1. ####  Empty cart flow
+  1. #### Profile fields
+  1. #### Profile fields error flow
+  1. #### Client flow for settings
+  1. #### Client flow for contact us screen
 2. ### Admin flows
+  1. #### Admin navigation flow
+  1. #### Add product flow
+  1. #### Edit product flow
+  1. #### Delete product flow
+  1. #### Orders flow
+  1. #### Functions flow
+  1. #### Developer flow
 
 ## Client flows  
 
