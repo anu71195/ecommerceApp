@@ -31,8 +31,8 @@
    </tr>
    <tr>
         <td><img style="text-align: center;" src="images/normalFlow/loginScreen.PNG" width="240"></td>
-        <td><img style="text-align: center;" src="images/normalFlow/home.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/normalFlow/logout.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/home.PNG" width="240"></td>
    </tr>
  </table>
 
@@ -43,9 +43,9 @@
         <td style="text-align: center;"width=30%;">Search product</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/normalFlow/logoutPopup.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/normalFlow/NavigationBar.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/normalFlow/search.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/normalFlow/productMagnified.PNG" width="240"></td>
    </tr>
  </table>
 
@@ -56,9 +56,9 @@
         <td style="text-align: center;"width=30%;">Confirm screen</td>
    </tr>
    <tr>
-        <td><img style="text-align: center;" src="images/normalFlow/productMagnified.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/normalFlow/cart.PNG" width="240"></td>
         <td><img style="text-align: center;" src="images/normalFlow/cartConfirm.PNG" width="240"></td>
+        <td><img style="text-align: center;" src="images/settingsFlow/confirmOrder1.PNG" width="240"></td>
    </tr>
  </table>
  
@@ -66,14 +66,55 @@
     <tr>
          <td style="text-align: center;"width=30%;">Pay with razorpay screen</td>
          <td style="text-align: center;"width=30%;">Razorpay API window</td>
+         <td style="text-align: center;"width=30%;">Razorpay API window</td>
     </tr>
     <tr>
+         <td><img style="text-align: center;" src="images/emptyCartFlow/emptyCartPopup.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/normalFlow/payment.PNG" width="240"></td>
          <td><img style="text-align: center;" src="images/normalFlow/paymentgateway.PNG" width="240"></td>
     </tr>
   </table> 
 
+ <table>
+    <tr>
+         <td style="text-align: center;"width=30%;">Pay with razorpay screen</td>
+         <td style="text-align: center;"width=30%;">Razorpay API window</td>
+         <td style="text-align: center;"width=30%;">Razorpay API window</td>
+    </tr>
+    <tr>
+         <td><img style="text-align: center;" src="images/userOrdersFlow/myOrders.PNG" width="240"></td>
+         <td><img style="text-align: center;" src="images/userOrdersFlow/myOrdersClick1.PNG" width="240"></td>
+         <td><img style="text-align: center;" src="images/userOrdersFlow/orderSummary.PNG" width="240"></td>
+    </tr>
+  </table> 
+  
+   <table>
+      <tr>
+           <td style="text-align: center;"width=30%;">Pay with razorpay screen</td>
+           <td style="text-align: center;"width=30%;">Razorpay API window</td>
+           <td style="text-align: center;"width=30%;">Razorpay API window</td>
+      </tr>
+      <tr>
+           <td><img style="text-align: center;" src="images/errorProfileFlow/profileNew.PNG" width="240"></td>
+           <td><img style="text-align: center;" src="images/errorProfileFlow/profileCheckoutError.PNG" width="240"></td>
+           <td><img style="text-align: center;" src="images/workingProfileFlow/profileComplete.PNG" width="240"></td>
+      </tr>
+    </table> 
+    
+   <table>
+       <tr>
+            <td style="text-align: center;"width=30%;">Pay with razorpay screen</td>
+            <td style="text-align: center;"width=30%;">Razorpay API window</td>
+            <td style="text-align: center;"width=30%;">Razorpay API window</td>
+       </tr>
+       <tr>
+            <td><img style="text-align: center;" src="images/settingsFlow/settingsOn.PNG" width="240"></td>
+            <td><img style="text-align: center;" src="images/settingsFlow/settingsOnHome1.PNG" width="240"></td>
+            <td><img style="text-align: center;" src="images/contactUsFlow/contactUs.PNG" width="240"></td>
+       </tr>
+    </table>   
 
+<!---
 ### User order flow  
 
 <table>
@@ -295,7 +336,7 @@
         <td><img style="text-align: center;" src="images/contactUsFlow/contactUs.PNG" width="240"></td>
    </tr>
  </table>
-
+-->
 ## Admin flows  
 
 ### Admin navigation flow  
